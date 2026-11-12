@@ -1381,7 +1381,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
 
   <div class="panel ad-block" id="pa-admin">
     <h2>크리에이터 퍼즐 상품 관리 <span class="tag" id="pa-sum"></span></h2>
-    <p class="hub-note">퍼즐로 모을 상품을 관리해요. 상품마다 6조각 퍼즐이 만들어지고, 카드 1장마다 아래 확률로 상품을 고른 뒤 1~6번 조각 중 하나가 나와요. 이미 가진 조각이면 꽝이라 한 상품을 완성하려면 그 상품 조각이 평균 14.7장 필요해요. 저장하면 게임에 바로 반영돼요.</p>
+    <p class="hub-note">퍼즐로 모을 상품을 관리해요. 상품마다 6조각 퍼즐이 만들어지고, 카드 1장마다 아래 확률로 상품을 고른 뒤 1~6번 조각 중 하나가 나와요. 이미 가진 조각이면 중복이라 한 상품을 완성하려면 그 상품 조각이 평균 14.7장 필요해요. 저장하면 게임에 바로 반영돼요.</p>
     <div class="fields pa-fields" id="pa-fields"></div>
     <div class="table-wrap"><table class="ad-table" id="pa-list"></table></div>
     <div class="ed-foot"><button class="btn-line" type="button" id="pa-add">상품 추가</button><div class="pa-calc" id="pa-calc"></div><button class="btn-ghost" type="button" id="pa-fit">목표 RTP로 카드 가격 맞추기</button></div>
@@ -1599,7 +1599,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
         prizes: [P('S', '편의점 1만원권', 'product', 0, 10000, 1, 1), P('A', '편의점 5천원권', 'product', 0, 5000, 6, 4), P('B', '편의점 1천원권', 'product', 0, 1000, 16, 11), P('C', '조각 1개', 'piece', 1, 0, 37, 22)] },
       { id: 'board-creator', zone: 'board', mode: 'board', name: '크리에이터 뽑기판', cost: 1500, demand: 900000, top: '친필 사인 앨범',
         prizes: [P('S', '친필 사인 앨범', 'product', 0, 40000, 1, 1), P('A', '포토카드 세트', 'product', 0, 6000, 5, 3), P('B', '스티커 팩', 'product', 0, 2000, 14, 9), P('C', '조각 3개', 'piece', 3, 0, 20, 13)] },
-      // 크리에이터 퍼즐: 상품마다 6조각 퍼즐. 카드 1장 = w% 확률로 고른 상품의 1~6번 조각 하나 (이미 가진 조각이면 꽝)
+      // 크리에이터 퍼즐: 상품마다 6조각 퍼즐. 카드 1장 = w% 확률로 고른 상품의 1~6번 조각 하나 (이미 가진 조각이면 중복 처리)
       // RTP = Σ(조각 확률 × 원가) ÷ 14.7 ÷ 카드 가격(원).  w는 원가에 반비례(autoW)
       { id: 'puzzle', zone: 'puzzle', mode: 'puzzle', pv: 2, autoW: true, name: '퍼즐 카드', cost: 140, demand: 1000000, top: '명품 한우 선물세트',
         prizes: [
@@ -1764,7 +1764,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
     const COPY = {
       gacha: ['입장료가 높은 머신일수록 좋은 상품이 들어 있어요', '머신마다 캡슐 수가 정해져 있고, 남은 수량을 실시간으로 공개해요.'],
       board: ['칸을 골라 은박을 긁어 보는 뽑기판', '판마다 칸 수가 정해져 있고, 남은 칸과 남은 상품을 실시간으로 공개해요. 어느 칸을 골라도 당첨 확률은 같아요.'],
-      puzzle: ['상품 직소퍼즐 6조각을 모으는 크리에이터 퍼즐', '카드를 뽑을 때마다 상품 퍼즐 조각이 하나 나와요. 6조각을 다 모으면 그 상품을 받아요. 비싼 상품일수록 조각이 드물고, 이미 가진 조각은 꽝이에요.'],
+      puzzle: ['상품 직소퍼즐 6조각을 모으는 크리에이터 퍼즐', '카드를 뽑을 때마다 상품 퍼즐 조각이 하나 나와요. 6조각을 다 모으면 그 상품을 받아요. 비싼 상품일수록 조각이 드물고, 이미 가진 조각은 중복이에요.'],
       farm: ['강냉이를 심고 키워서 팝콘을 수확하는 팝콘 농장', '운이 아니라 시간으로 자라요. 씨앗마다 수확량이 정해져 있고, 오래 키울수록 더 많이 받아요.']
     };
     document.querySelectorAll('[data-gtab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.gtab === state.tab)));
@@ -2278,11 +2278,11 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
 
   // =====================================================================
   // 크리에이터 퍼즐(상품 퍼즐): 관리자가 정한 상품마다 6조각 직소퍼즐이 있다.
-  // 카드 1장 = 상품 1개(확률: 비쌀수록 낮음)의 조각 1개(1~6번 무작위). 이미 가진 조각이면 꽝.
+  // 카드 1장 = 상품 1개(확률: 비쌀수록 낮음)의 조각 1개(1~6번 무작위). 이미 가진 조각이면 중복 처리.
   // 6조각을 모두 모으면 그 상품을 받고 퍼즐은 처음부터. 진행 상황은 이 브라우저에만 저장되는 목업 데이터
   // =====================================================================
   const PZ_PIECES = 6, PZ_COLS = 3;
-  // 중복 조각이 꽝이므로 한 상품을 완성하려면 그 상품 조각이 평균 6 × (1 + 1/2 + … + 1/6) = 14.7장 필요
+  // 중복 조각이 중복 처리이므로 한 상품을 완성하려면 그 상품 조각이 평균 6 × (1 + 1/2 + … + 1/6) = 14.7장 필요
   const PZ_EXP = 14.7;
   const PZ_KEY = 'tooneland-pzprod-v1';
   // 샘플 상품 그림 (사용자 제공, 목업용)
@@ -2376,16 +2376,16 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
     const can1 = !busy && state.balance >= m.cost, can5 = !busy && state.balance >= m.cost * 5;
     return '<section class="pz-panel" aria-labelledby="pz-h">' +
       '<div class="pz-top"><div><h3 id="pz-h">' + m.name + ' <small class="qmeta">1장 ' + K + fmt(m.cost) + '</small></h3>' +
-        '<p>카드 1장 = 상품 퍼즐 조각 1개. 한 상품의 <b>6조각을 모두 모으면 그 상품</b>을 받아요. 비싼 상품일수록 조각이 드물게 나오고, <b>이미 가진 조각이 나오면 꽝</b>이에요.</p></div>' +
+        '<p>카드 1장 = 상품 퍼즐 조각 1개. 한 상품의 <b>6조각을 모두 모으면 그 상품</b>을 받아요. 비싼 상품일수록 조각이 드물게 나오고, <b>이미 가진 조각이 나오면 중복</b>이에요.</p></div>' +
         '<div class="pz-draws"><button class="draw" type="button" data-pz="draw1"' + (can1 ? '' : ' disabled') + '><b>카드 1장 뽑기</b><span class="num">' + K + fmt(m.cost) + '</span></button>' +
         '<button class="draw" type="button" data-pz="draw5"' + (can5 ? '' : ' disabled') + '><b>5장 뽑기</b><span class="num">' + K + fmt(m.cost * 5) + '</span></button></div></div>' +
-      '<details class="pz-odds"><summary>상품별 조각 확률 보기</summary>' + odds + '<p class="pz-odds-note">조각 번호(1~6)는 똑같은 확률로 나와요. 꽝(중복 조각)을 포함해 한 상품을 완성하려면 그 상품 조각이 평균 14.7장 필요해요.</p></details>' +
+      '<details class="pz-odds"><summary>상품별 조각 확률 보기</summary>' + odds + '<p class="pz-odds-note">조각 번호(1~6)는 똑같은 확률로 나와요. 중복 조각을 포함해 한 상품을 완성하려면 그 상품 조각이 평균 14.7장 필요해요.</p></details>' +
       '<div class="pz-grid">' + cards + '</div>' +
-      '<div class="pz-foot"><span>누적 카드 <b class="num">' + fmt(pz.draws || 0) + '장</b> · 꽝 <b class="num">' + fmt(pz.dup || 0) + '장</b></span><span>최고 상품 <b>' + m.top + '</b></span></div>' +
+      '<div class="pz-foot"><span>누적 카드 <b class="num">' + fmt(pz.draws || 0) + '장</b> · 중복 <b class="num">' + fmt(pz.dup || 0) + '장</b></span><span>최고 상품 <b>' + m.top + '</b></span></div>' +
     '</section>';
   }
 
-  // ----- 카드 뽑기 연출: 카드가 뒤집혀 상품과 조각 번호가 나오고, 조각이 퍼즐 자리로 날아간다 (중복이면 꽝) -----
+  // ----- 카드 뽑기 연출: 카드가 뒤집혀 상품과 조각 번호가 나오고, 조각이 퍼즐 자리로 날아간다 (중복이면 중복 처리) -----
   const PZS = { skip: false, next: null };
   $('pz-skip').addEventListener('click', () => { PZS.skip = true; if (PZS.next) { const f = PZS.next; PZS.next = null; f(); } });
   $('pz-next').addEventListener('click', () => { if (PZS.next) { const f = PZS.next; PZS.next = null; f(); } });
@@ -2429,11 +2429,11 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
         fly.remove();
       }
       if (d.dup) {
-        // 꽝: 이미 있던 조각 — 자리가 붉게 흔들리고 꽝 도장
+        // 중복 처리: 이미 있던 조각 — 자리가 붉게 흔들리고 중복 처리 도장
         big.innerHTML = puzzleHTML(p, d.after, 'big', -1, d.piece);
-        big.insertAdjacentHTML('beforeend', '<span class="pz-miss">꽝</span>');
+        big.insertAdjacentHTML('beforeend', '<span class="pz-miss">중복</span>');
         if (!PZS.skip) restart(ov, 'quake');
-        $('pz-hint').textContent = '이미 가진 ' + (d.piece + 1) + '번 조각이에요 · 꽝';
+        $('pz-hint').textContent = '이미 가진 ' + (d.piece + 1) + '번 조각이에요 · 중복';
         await pzWait(1100);
         continue;
       }
@@ -2470,7 +2470,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
     if (!list.at(-1).done) {
       $('pz-skip').hidden = true;
       const miss = list.filter(d => d.dup).length;
-      if (list.length > 1) $('pz-hint').textContent = '카드 ' + list.length + '장 확인 · 새 조각 ' + (list.length - miss) + '개 · 꽝 ' + miss + '장';
+      if (list.length > 1) $('pz-hint').textContent = '카드 ' + list.length + '장 확인 · 새 조각 ' + (list.length - miss) + '개 · 중복 ' + miss + '장';
       $('pz-next').textContent = '확인'; $('pz-next').hidden = false; $('pz-next').focus();
       PZS.skip = false;
       await pzClick();
@@ -2480,7 +2480,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
     parts = []; ctx.clearRect(0, 0, innerWidth, innerHeight);
   }
 
-  // 카드 n장 뽑기: 장마다 공개 확률로 상품을 고르고 1~6번 조각 중 하나. 이미 있으면 꽝, 6조각이면 완성
+  // 카드 n장 뽑기: 장마다 공개 확률로 상품을 고르고 1~6번 조각 중 하나. 이미 있으면 중복 처리, 6조각이면 완성
   async function drawPuzzle(n) {
     const m = puzzleMachine();
     if (busy || !m || !pzItems(m).length || state.balance < m.cost * n) return;
@@ -2510,7 +2510,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
     }
     if (!list.some(d => d.done)) {
       const miss = list.filter(d => d.dup).length;
-      toast('', n === 1 ? (miss ? '꽝 · 이미 가진 조각이에요' : list.at(0).p.name + ' 퍼즐 ' + list.at(0).after.filter(Boolean).length + '/6') : '카드 ' + n + '장 · 새 조각 ' + (n - miss) + '개 · 꽝 ' + miss + '장', true);
+      toast('', n === 1 ? (miss ? '중복 · 이미 가진 조각이에요' : list.at(0).p.name + ' 퍼즐 ' + list.at(0).after.filter(Boolean).length + '/6') : '카드 ' + n + '장 · 새 조각 ' + (n - miss) + '개 · 중복 ' + miss + '장', true);
     }
     saveMe();
     busy = false;
