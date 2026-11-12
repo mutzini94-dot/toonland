@@ -1142,6 +1142,76 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition: none !important; }
 }
+/* ================= 모바일 반응형 (640px 이하) ================= */
+@media (max-width: 640px) {
+  /* 상단 HUD: 1줄 = 로고·강냉이·조각교환소, 2줄 = 충전·관리자 */
+  #app > .hud { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px; min-height: 0; padding-top: 10px; padding-bottom: 10px; }
+  #app > .hud .logo { margin-right: 0; }
+  #app > .hud .logo .brand { display: none; }
+  #app > .hud .logo h1 { font-size: 19px; }
+  #app > .hud .stat { height: 34px; padding: 0 10px; gap: 5px; }
+  #app > .hud #stat-kernel { justify-self: end; }
+  #app > .hud #stat-kernel small { display: none; }
+  #app > .hud .stat small { font-size: 12px; }
+  #app > .hud .stat .val { font-size: 14px; }
+  #app > .hud #charge { grid-column: 1 / 3; height: 34px; font-size: 13px; }
+  #app > .hud > a.btn-line { height: 34px; font-size: 13px; justify-content: center; }
+  .mock-note { font-size: 12px; }
+  .quick { margin-top: 10px; }
+  .hof-btn .qmeta { display: none; }
+  /* 게임 탭·존: 한 줄 가로 스크롤 */
+  .game-tabs { flex-wrap: nowrap; width: 100%; overflow-x: auto; scrollbar-width: none; margin-top: 12px; }
+  .game-tabs::-webkit-scrollbar, .zones::-webkit-scrollbar, .sp-cats::-webkit-scrollbar { display: none; }
+  .game-tabs button { flex: none; height: 38px; padding: 0 12px; gap: 6px; font-size: 14px; }
+  .game-tabs .gt-new { display: none; }
+  .zones-wrap { margin-top: 18px; }
+  .zones-title { font-size: 17px; }
+  .zones-sub { font-size: 12.5px; margin-bottom: 12px; }
+  .zones { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 -16px; padding: 0 16px 2px; }
+  .zone { flex: none; }
+  .layout { margin-top: 16px; gap: 18px; }
+  /* 머신·뽑기판: 2열, 그림 축소 */
+  .floor { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 10px; padding: 16px 10px; border-radius: 14px; }
+  .floor > .machine .art { zoom: .7; }
+  .floor > .machine .info { width: 100%; font-size: 12px; }
+  .floor > .machine .info .stock, .floor > .machine .five, .floor > .machine .top-prize { font-size: 11.5px; }
+  /* 크리에이터 퍼즐·농장은 한 칸 전체 */
+  .floor > .fan-panel, .floor > .pz-panel, .floor > .farm { grid-column: 1 / -1; }
+  /* 조각 교환소 */
+  .sp-cats { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .sp-cats > * { flex: none; }
+  .sp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+}
+@media (max-width: 360px) {
+  #app > .hud .stat small { display: none; }
+}
+
+@media (max-width: 640px) {
+  /* 탭 칩(명예의 전당·관리자 머신 탭): 한 줄 가로 스크롤 */
+  .ad-tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
+  .ad-tabs::-webkit-scrollbar { display: none; }
+  .ad-tabs > * { flex: none; }
+  /* 머신 상세: 별 안내 칸 */
+  .star-rows { gap: 4px; }
+  .star-rows div { padding: 5px 2px; }
+  .star-rows .stars { font-size: 8px; }
+  .star-rows span:last-child { font-size: 10px; white-space: nowrap; }
+  /* 관리자 상단: 1줄 로고·게임 화면, 2줄 저장 상태, 3줄 버튼 */
+  #admin > .hud { gap: 6px 8px; min-height: 0; padding-top: 8px; padding-bottom: 8px; }
+  #admin > .hud .logo { order: 0; }
+  #admin > .hud .logo .brand { display: none; }
+  #admin > .hud .logo h1 { font-size: 18px; }
+  #admin > .hud > a.btn-line { order: 1; }
+  #admin > .hud .sync, #admin > .hud .dirty { order: 2; width: 100%; font-size: 11.5px; }
+  #admin > .hud #ad-reset, #admin > .hud #ad-revert, #admin > .hud #ad-save { order: 3; }
+  #admin > .hud #ad-save { flex: 1; }
+  #admin > .hud .btn-line, #admin > .hud .btn-ghost { height: 32px; padding: 0 10px; font-size: 12px; }
+  /* 관리자 표: 읽을 수 있는 폭을 유지하고 가로 스크롤 */
+  .table-wrap > .ad-table { min-width: 640px; }
+  .table-wrap > #ad-compare { min-width: 920px; }
+  #ad-compare th, #ad-compare td, #rk-table th, #rk-table td, #rk-log th, #rk-log td, #fm-seeds th { white-space: nowrap; }
+}
+
 /* 크리에이터 프로필 사진 (사용자 제공, 목업용) */
 .cr-ava.ph { background-size: cover; background-position: center 22%; font-size: 0; }
 .pz-art.ph { background-size: cover; background-position: center top; justify-content: flex-end; padding-bottom: 7%; }
