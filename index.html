@@ -491,13 +491,18 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .pz.sq { aspect-ratio: 1 / 1; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); background: #F1F3F5; }
 .pz.sq .pz-art { width: 300%; height: 200%; background-color: #FFFFFF; background-size: cover; background-position: center; }
 .pz.sq .pz-art::before { content: none; }
-.pz.sq .pz-p.off .pz-art { filter: saturate(var(--sat, .5)); opacity: 1; }
-.pz.sq .pz-p.off::after { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(255,255,255,var(--veil, .55)); outline: 1.5px dashed rgba(33,37,41,.18); outline-offset: -5px; pointer-events: none; }
+.pz.sq .pz-p.off .pz-art { filter: saturate(var(--sat, .3)) blur(1.2px); opacity: 1; }
+.pz.sq .pz-p.off::after { content: ""; position: absolute; inset: 0; z-index: 1; background: repeating-linear-gradient(135deg, rgba(255,255,255,var(--veil, .74)) 0 7px, rgba(233,236,239,var(--veil, .74)) 7px 14px); outline: 2px dashed rgba(33,37,41,.22); outline-offset: -5px; pointer-events: none; }
 .pz.sq .pz-p.on .pz-art { filter: saturate(1.08) contrast(1.03); }
-.pz.sq .pz-p.on::after { content: ""; position: absolute; inset: 0; z-index: 1; box-shadow: inset 0 0 0 2px rgba(255,198,78,.85), inset 0 0 14px rgba(255,214,102,.45); pointer-events: none; }
+.pz.sq .pz-p.on::after { content: ""; position: absolute; inset: 0; z-index: 1; box-shadow: inset 0 0 0 3px #FFC64E, inset 0 0 0 4px rgba(184,106,0,.35), inset 0 0 18px rgba(255,214,102,.55); pointer-events: none; }
 .pz.sq.full .pz-p.on::after { box-shadow: none; }
 .pz.sq .pz-p.on::before { content: ""; position: absolute; inset: -40% auto -40% -60%; z-index: 1; width: 45%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent); transform: skewX(-18deg); animation: sheen 3.2s ease-in-out infinite; pointer-events: none; }
 .pz.sq .pz-no { z-index: 2; color: rgba(33,37,41,.45); }
+.pz.sq .pz-p.off .pz-no { inset: 0; right: auto; bottom: auto; display: grid; place-items: center; width: 100%; height: 100%; font-size: 20px; font-weight: 900; color: rgba(33,37,41,.32); }
+.pz.sq.big .pz-p.off .pz-no { font-size: 34px; }
+.pz.sq .pz-p.on .pz-no { display: grid; place-items: center; top: 5px; right: 5px; bottom: auto; width: 18px; height: 18px; border-radius: 50%; background: #FFC64E; color: #4C3600; font-size: 11px; box-shadow: 0 1px 3px rgba(0,0,0,.25); }
+.pz.sq.big .pz-p.on .pz-no { width: 24px; height: 24px; font-size: 14px; top: 8px; right: 8px; }
+.pz.sq.full .pz-p.on .pz-no { display: none; }
 .pz.sq.big { width: min(280px, 70vw); }
 .pz-no { position: absolute; right: 4px; bottom: 3px; z-index: 2; font-style: normal; font-size: 10px; font-weight: 800; color: rgba(33,37,41,.35); }
 .pz-p.on .pz-no { display: none; }
@@ -2302,11 +2307,11 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
   })();
   function puzzleHTML(p, pieces, size, fresh, dupAt) {
     const n = pieces.filter(Boolean).length, a = imgAttr(p);
-    const sat = (n === PZ_PIECES ? 1 : .45 + n * .1).toFixed(2), veil = (.58 - n * .05).toFixed(2);
+    const sat = (n === PZ_PIECES ? 1 : .3 + n * .08).toFixed(2), veil = (.76 - n * .04).toFixed(2);
     return '<div class="pz sq ' + size + (n === PZ_PIECES ? ' full' : '') + '" style="--sat:' + sat + ';--veil:' + veil + '" role="img" aria-label="' + p.name + ' 퍼즐 ' + n + '/' + PZ_PIECES + '조각">' +
       pieces.map((on, i) => '<span class="pz-p ' + (on ? 'on' : 'off') + (i === fresh ? ' fresh' : '') + (i === dupAt ? ' dup' : '') + '" data-pi="' + i + '">' +
         '<span class="pz-art' + a.cls + '" style="' + a.style + 'left:' + (-(i % PZ_COLS) * 100) + '%;top:' + (-Math.floor(i / PZ_COLS) * 100) + '%"></span>' +
-        '<i class="pz-no">' + (i + 1) + '</i></span>').join('') +
+        '<i class="pz-no">' + (on ? '✓' : (i + 1)) + '</i></span>').join('') +
       JIG + '</div>';
   }
 
