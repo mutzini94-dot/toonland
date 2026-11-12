@@ -595,7 +595,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .pz-odds { padding: 10px 14px; border-radius: 12px; background: var(--panel); border: 1px solid var(--panel-line); font-size: 13px; }
 .pz-odds summary { cursor: pointer; font-weight: 700; }
 .pz-odds .odds { margin-top: 8px; }
-.pz-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
+.pz-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .pz-slot { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 8px; border-radius: 14px; background: var(--panel); border: 1px solid var(--panel-line); }
 .pz-slot.near { border-color: #FFC64E; box-shadow: 0 0 0 3px rgba(255,198,78,.25); }
 .pz-slot.ping { animation: pz-ping .9s ease; }
@@ -608,7 +608,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .pz-done { position: absolute; top: 4px; right: 4px; padding: 2px 7px; border-radius: 999px; background: #FFC64E; color: #4C3600; font-size: 11px; font-weight: 800; }
 .pz-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--muted); }
 .pz-foot b { color: var(--text); }
-@media (max-width: 900px) { .pz-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .pz-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .pz-draws { max-width: none; } }
 /* 뽑기 연출 */
 .pz-ov { background: radial-gradient(circle at 50% 45%, rgba(70,50,150,.93), rgba(13,15,16,.97) 70%); }
