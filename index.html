@@ -491,13 +491,19 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .pz.sq { aspect-ratio: 1 / 1; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); background: #F1F3F5; }
 .pz.sq .pz-art { width: 300%; height: 200%; background-color: #FFFFFF; background-size: cover; background-position: center; }
 .pz.sq .pz-art::before { content: none; }
-.pz.sq .pz-p.off .pz-art { filter: grayscale(1); opacity: .16; }
+.pz.sq .pz-p.off .pz-art { filter: saturate(var(--sat, .5)); opacity: 1; }
+.pz.sq .pz-p.off::after { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(255,255,255,var(--veil, .55)); outline: 1.5px dashed rgba(33,37,41,.18); outline-offset: -5px; pointer-events: none; }
+.pz.sq .pz-p.on .pz-art { filter: saturate(1.08) contrast(1.03); }
+.pz.sq .pz-p.on::after { content: ""; position: absolute; inset: 0; z-index: 1; box-shadow: inset 0 0 0 2px rgba(255,198,78,.85), inset 0 0 14px rgba(255,214,102,.45); pointer-events: none; }
+.pz.sq.full .pz-p.on::after { box-shadow: none; }
+.pz.sq .pz-p.on::before { content: ""; position: absolute; inset: -40% auto -40% -60%; z-index: 1; width: 45%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent); transform: skewX(-18deg); animation: sheen 3.2s ease-in-out infinite; pointer-events: none; }
+.pz.sq .pz-no { z-index: 2; color: rgba(33,37,41,.45); }
 .pz.sq.big { width: min(280px, 70vw); }
 .pz-no { position: absolute; right: 4px; bottom: 3px; z-index: 2; font-style: normal; font-size: 10px; font-weight: 800; color: rgba(33,37,41,.35); }
 .pz-p.on .pz-no { display: none; }
 .pz.big .pz-no { font-size: 13px; right: 8px; bottom: 6px; }
 .pz-p.dup { animation: pz-dup .6s ease; z-index: 2; }
-.pz-p.dup::after { content: ""; position: absolute; inset: 0; background: rgba(248,73,73,.35); box-shadow: inset 0 0 0 3px #F84949; }
+.pz.sq .pz-p.dup::after, .pz-p.dup::after { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(248,73,73,.35); box-shadow: inset 0 0 0 3px #F84949; outline: none; }
 @keyframes pz-dup { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
 .pz-big { position: relative; }
 .pz-miss { position: absolute; left: 50%; top: 50%; z-index: 4; padding: 6px 22px; border: 5px solid #F84949; border-radius: 14px; color: #F84949; background: rgba(255,255,255,.9); font-size: 44px; font-weight: 900; transform: translate(-50%, -50%) rotate(-12deg); animation: pz-stamp .45s cubic-bezier(.2,1.6,.4,1); pointer-events: none; }
@@ -508,7 +514,14 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .pz-thumb.noimg { background: var(--surface-2); }
 .pz-front b { color: #212529; text-align: center; line-height: 1.3; }
 .pz-art.noimg { background: linear-gradient(135deg, #E9ECEF, #F8F9FA); }
-.pz-sub { display: flex; align-items: center; justify-content: space-between; font-size: 11.5px; color: var(--muted); }
+.pz-sub { display: flex; align-items: center; justify-content: space-between; gap: 6px; font-size: 11.5px; color: var(--muted); }
+.pz-price { display: inline-flex; align-items: center; gap: 5px; min-width: 0; color: var(--text); font-size: 13px; font-weight: 800; white-space: nowrap; }
+.pz-price small { font-size: 11px; font-weight: 600; color: var(--muted); }
+.pz-ribbon { position: absolute; top: 14px; left: -6px; z-index: 3; padding: 3px 10px 3px 12px; border-radius: 0 999px 999px 0; background: linear-gradient(90deg, #E8A400, #FFC64E); color: #4C3600; font-size: 11px; font-weight: 900; box-shadow: 0 2px 6px rgba(184,106,0,.35); }
+.pz-ribbon::before { content: ""; position: absolute; left: 0; bottom: -6px; border-top: 6px solid #9A6500; border-left: 6px solid transparent; }
+.pz-ribbon.s { background: linear-gradient(90deg, #E8453C, #FF7E6B); color: #FFFFFF; box-shadow: 0 2px 8px rgba(232,69,60,.4); }
+.pz-ribbon.s::before { border-top-color: #9E1F18; }
+.pz-slot { overflow: visible; }
 .pz-sub .grade { min-width: 22px; height: 18px; font-size: 11px; padding: 0 4px; }
 .pz-odds-t { width: 100%; margin-top: 8px; border-collapse: collapse; font-size: 12.5px; }
 .pz-odds-t th, .pz-odds-t td { padding: 6px 4px; border-bottom: 1px solid var(--panel-line); text-align: left; }
@@ -608,7 +621,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .pz-done { position: absolute; top: 4px; right: 4px; padding: 2px 7px; border-radius: 999px; background: #FFC64E; color: #4C3600; font-size: 11px; font-weight: 800; }
 .pz-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--muted); }
 .pz-foot b { color: var(--text); }
-@media (max-width: 640px) { .pz-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .pz-draws { max-width: none; } }
+@media (max-width: 640px) { .pz-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .pz-draws { max-width: none; } .pz-sub { flex-wrap: wrap; row-gap: 2px; } .pz-price { font-size: 12.5px; } .pz-price small { display: none; } .pz-ribbon { top: 10px; font-size: 10px; padding: 2px 8px 2px 10px; } }
 /* 뽑기 연출 */
 .pz-ov { background: radial-gradient(circle at 50% 45%, rgba(70,50,150,.93), rgba(13,15,16,.97) 70%); }
 .pz-ov.complete { background: radial-gradient(circle at 50% 45%, rgba(150,90,200,.95), rgba(13,15,16,.97) 72%); }
@@ -2261,6 +2274,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
   const puzzleMachine = () => machines.find(m => m.mode === 'puzzle');
   const pzItems = m => (m || puzzleMachine() || { prizes: [] }).prizes;
   const piecesOf = pid => { if (!Array.isArray(pz.pieces[pid])) pz.pieces[pid] = Array(PZ_PIECES).fill(false); return pz.pieces[pid]; };
+  const priceLabel = p => p.kind === 'kernel' ? '강냉이 ' + fmt(num(p.val)) + '개' : p.kind === 'piece' ? '조각 ' + fmt(num(p.val)) + '개' : fmt(num(p.cost)) + '원 <small>상당</small>';
   const gradeByCost = c => c >= 100000 ? 'S' : c >= 20000 ? 'A' : c >= 5000 ? 'B' : 'C';
   // 상품 그림: 샘플(sample:키) 또는 관리자가 올린 그림(data URL)
   const imgAttr = p => {
@@ -2288,7 +2302,8 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
   })();
   function puzzleHTML(p, pieces, size, fresh, dupAt) {
     const n = pieces.filter(Boolean).length, a = imgAttr(p);
-    return '<div class="pz sq ' + size + (n === PZ_PIECES ? ' full' : '') + '" role="img" aria-label="' + p.name + ' 퍼즐 ' + n + '/' + PZ_PIECES + '조각">' +
+    const sat = (n === PZ_PIECES ? 1 : .45 + n * .1).toFixed(2), veil = (.58 - n * .05).toFixed(2);
+    return '<div class="pz sq ' + size + (n === PZ_PIECES ? ' full' : '') + '" style="--sat:' + sat + ';--veil:' + veil + '" role="img" aria-label="' + p.name + ' 퍼즐 ' + n + '/' + PZ_PIECES + '조각">' +
       pieces.map((on, i) => '<span class="pz-p ' + (on ? 'on' : 'off') + (i === fresh ? ' fresh' : '') + (i === dupAt ? ' dup' : '') + '" data-pi="' + i + '">' +
         '<span class="pz-art' + a.cls + '" style="' + a.style + 'left:' + (-(i % PZ_COLS) * 100) + '%;top:' + (-Math.floor(i / PZ_COLS) * 100) + '%"></span>' +
         '<i class="pz-no">' + (i + 1) + '</i></span>').join('') +
@@ -2305,7 +2320,8 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
       const pc = piecesOf(p.pid), n = pc.filter(Boolean).length, done = pz.done[p.pid] || 0;
       return '<div class="pz-slot' + (n === PZ_PIECES - 1 ? ' near' : '') + '" data-slot="' + p.pid + '">' + puzzleHTML(p, pc, 'mid') +
         '<div class="pz-meta"><b>' + p.name + '</b><span class="num">' + n + ' / ' + PZ_PIECES + '</span></div>' +
-        '<div class="pz-sub"><span class="grade" style="--gc:' + GRADE_COLOR[p.g] + '">' + p.g + '</span><span class="num">' + (+(num(p.w) / tot * 100).toFixed(2)) + '%</span></div>' +
+        '<div class="pz-sub"><span class="pz-price num"><span class="grade" style="--gc:' + GRADE_COLOR[p.g] + '">' + p.g + '</span>' + priceLabel(p) + '</span><span class="num">' + (+(num(p.w) / tot * 100).toFixed(2)) + '%</span></div>' +
+        (p.g === 'S' || p.g === 'A' ? '<span class="pz-ribbon' + (p.g === 'S' ? ' s' : '') + '">' + p.g + '급 상품</span>' : '') +
         (done ? '<span class="pz-done">완성 ' + done + '회</span>' : '') + '</div>';
     }).join('');
     const can1 = !busy && state.balance >= m.cost, can5 = !busy && state.balance >= m.cost * 5;
