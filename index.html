@@ -1,4 +1,5 @@
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>투네랜드 가챠샵</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1396,6 +1397,40 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
   #ad-compare th, #ad-compare td, #rk-table th, #rk-table td, #rk-log th, #rk-log td, #fm-seeds th { white-space: nowrap; }
 }
 
+/* ---------- 반응형 보강: 태블릿 헤더, 작은 폰 줄바꿈, 터치 ---------- */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+img, svg, video { max-width: 100%; }
+@media (max-width: 980px) and (min-width: 641px) {
+  /* 헤더: 관리자 버튼이 혼자 다음 줄로 떨어지지 않게 한 줄로 */
+  #app > .hud { flex-wrap: nowrap; gap: 10px; }
+  #app > .hud .logo .brand { display: none; }
+  #app > .hud .stat { padding: 0 10px; }
+  #app > .hud .stat small { font-size: 13px; }
+  #app > .hud #charge { padding: 0 12px; font-size: 13px; white-space: nowrap; }
+  #app > .hud > a.btn-line { flex: none; white-space: nowrap; }
+}
+@media (max-width: 760px) and (min-width: 641px) {
+  #app > .hud #stat-kernel small, #app > .hud #stat-piece small { display: none; }
+}
+@media (max-width: 640px) {
+  .mock-note { display: block; line-height: 1.5; }
+  .mock-note b { margin-right: 4px; }
+  /* 버튼 글자가 두 줄로 쪼개지지 않게 */
+  .pl-harvest { white-space: nowrap; padding: 5px 12px; font-size: 13px; }
+  .pz-draws .draw { padding: 10px 8px; }
+  .pz-draws .draw b { font-size: 15px; white-space: nowrap; }
+  .rn-card p, .rn-go { white-space: nowrap; }
+  .rn-info { grid-template-columns: minmax(0, 1fr); padding: 14px; }
+  /* 터치 영역 */
+  .game-tabs button, .zone, .btn-line, .btn-ghost { min-height: 34px; }
+}
+@media (max-width: 380px) {
+  .zones-title { font-size: 16px; }
+  .pl-harvest { padding: 4px 10px; font-size: 12px; }
+  .pz-draws .draw b { font-size: 14px; }
+  .rn-card p { font-size: 13px; }
+  .floor { padding: 12px 8px; gap: 18px 8px; }
+}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
