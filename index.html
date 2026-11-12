@@ -2345,7 +2345,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
     const base = '<g filter="url(#' + id + 'f)"><use href="#' + id + 'i"/></g>' +
       '';
     // 모은 조각: 그림 그대로 + 그림자
-    const owned = pieces.map((on, i) => on ? '<g class="pz-pc' + (i === fresh ? ' fresh' : '') + '" filter="url(#' + id + 'h)"><g clip-path="url(#' + id + 'c' + i + ')"><use href="#' + id + 'i"/><path d="' + PZ_PATHS[i] + '" fill="none" stroke="url(#' + id + 'b)" stroke-width="9"/></g></g>' : '').join('');
+    const owned = pieces.map((on, i) => on ? '<g class="pz-pc' + (i === fresh ? ' fresh' : '') + '" filter="url(#' + id + 'h)"><g clip-path="url(#' + id + 'c' + i + ')"><rect width="300" height="300" fill="#F4F7FA"/><use href="#' + id + 'i" style="mix-blend-mode:multiply"/><path d="' + PZ_PATHS[i] + '" fill="none" stroke="url(#' + id + 'b)" stroke-width="9"/></g></g>' : '').join('');
     const edges = PZ_PATHS.map((d, i) => '<path class="pz-edge' + (pieces[i] ? ' on' : '') + '" data-pi="' + i + '" d="' + d + '"/>').join('');
     const marks = '';
     const dup = dupAt != null && dupAt >= 0 ? '<path class="pz-dupmark" d="' + PZ_PATHS[dupAt] + '"/>' : '';
