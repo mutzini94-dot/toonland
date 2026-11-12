@@ -526,7 +526,18 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .pz-ribbon::before { content: ""; position: absolute; left: 0; bottom: -6px; border-top: 6px solid #9A6500; border-left: 6px solid transparent; }
 .pz-ribbon.s { background: linear-gradient(90deg, #E8453C, #FF7E6B); color: #FFFFFF; box-shadow: 0 2px 8px rgba(232,69,60,.4); }
 .pz-ribbon.s::before { border-top-color: #9E1F18; }
-.pz-slot { overflow: visible; }
+.pz-slot { overflow: visible; outline: none; }
+/* 상품 카드 툴팁: 원본 이미지 (마우스 오버 / 모바일은 탭) */
+.pz-tip { position: absolute; left: 50%; top: -10px; z-index: 30; display: flex; flex-direction: column; align-items: center; gap: 4px; width: calc(100% + 16px); max-width: 300px; padding: 10px 10px 12px; border-radius: 16px; background: #FFFFFF; color: #212529; text-align: center; box-shadow: 0 18px 40px rgba(33,37,41,.28), 0 0 0 1px rgba(33,37,41,.06); opacity: 0; visibility: hidden; transform: translate(-50%, 6px) scale(.94); transform-origin: 50% 0; transition: opacity .18s ease, transform .2s cubic-bezier(.2,1.2,.4,1), visibility .18s; pointer-events: none; }
+.pz-tip-img { display: block; width: 100%; aspect-ratio: 1 / 1; border-radius: 12px; background-color: #FFFFFF; background-size: cover; background-position: center; }
+.pz-tip b { margin-top: 4px; font-size: 13.5px; font-weight: 800; line-height: 1.3; text-wrap: balance; }
+.pz-tip .num { font-size: 13px; font-weight: 800; color: #E8453C; }
+.pz-tip .num small { color: var(--muted); font-weight: 600; }
+.pz-tip > small { font-size: 11px; color: var(--muted); }
+.pz-slot:focus-visible .pz-tip, .pz-slot.tip .pz-tip { opacity: 1; visibility: visible; transform: translate(-50%, 0) scale(1); }
+@media (hover: hover) { .pz-slot:hover .pz-tip { opacity: 1; visibility: visible; transform: translate(-50%, 0) scale(1); } .pz-slot { cursor: zoom-in; } }
+.pz-slot:hover, .pz-slot.tip { z-index: 5; }
+@media (prefers-reduced-motion: reduce) { .pz-tip { transition: none; } }
 .pz-sub .grade { min-width: 22px; height: 18px; font-size: 11px; padding: 0 4px; }
 .pz-odds-t { width: 100%; margin-top: 8px; border-collapse: collapse; font-size: 12.5px; }
 .pz-odds-t th, .pz-odds-t td { padding: 6px 4px; border-bottom: 1px solid var(--panel-line); text-align: left; }
@@ -2321,7 +2332,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
   let pzUid = 0;
   function puzzleHTML(p, pieces, size, fresh, dupAt) {
     const n = pieces.filter(Boolean).length, src = imgSrc(p), id = 'pz' + (++pzUid);
-    const sat = (n === PZ_PIECES ? 1 : .1 + n * .03).toFixed(2);
+    const sat = n === PZ_PIECES ? '1' : '0';
     const img = src
       ? '<image href="' + src + '" x="0" y="0" width="300" height="300" preserveAspectRatio="xMidYMid slice"/>'
       : '<rect width="300" height="300" fill="#DEE2E6"/><text x="150" y="168" text-anchor="middle" font-size="64" font-weight="800" fill="#ADB5BD">' + p.name.slice(0, 1) + '</text>';
@@ -2352,7 +2363,11 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
       items.map(p => { const q = num(p.w) / tot; return '<tr><td><span class="grade" style="--gc:' + GRADE_COLOR[p.g] + '">' + p.g + '</span> ' + p.name + '</td><td class="r num">' + fmt(num(p.cost)) + '원</td><td class="r num">' + (+(q * 100).toFixed(2)) + '%</td><td class="r num">' + (q ? '약 ' + fmt(Math.round(PZ_EXP / q)) + '장' : '–') + '</td></tr>'; }).join('') + '</tbody></table>';
     const cards = items.map(p => {
       const pc = piecesOf(p.pid), n = pc.filter(Boolean).length, done = pz.done[p.pid] || 0;
-      return '<div class="pz-slot' + (n === PZ_PIECES - 1 ? ' near' : '') + '" data-slot="' + p.pid + '">' + puzzleHTML(p, pc, 'mid') +
+      const src = imgSrc(p);
+      return '<div class="pz-slot' + (n === PZ_PIECES - 1 ? ' near' : '') + '" data-slot="' + p.pid + '" tabindex="0" aria-label="' + p.name + ', ' + n + '/' + PZ_PIECES + '조각, 눌러서 상품 이미지 보기">' +
+        '<span class="pz-tip" aria-hidden="true">' + (src ? '<span class="pz-tip-img" style="background-image:url(' + src + ')"></span>' : '') +
+        '<b>' + p.name + '</b><span class="num">' + priceLabel(p) + '</span><small>6조각을 모으면 받아요</small></span>' +
+        puzzleHTML(p, pc, 'mid') +
         '<div class="pz-meta"><b>' + p.name + '</b><span class="num">' + n + ' / ' + PZ_PIECES + '</span></div>' +
         '<div class="pz-sub"><span class="pz-price num"><span class="grade" style="--gc:' + GRADE_COLOR[p.g] + '">' + p.g + '</span>' + priceLabel(p) + '</span><span class="num">' + (+(num(p.w) / tot * 100).toFixed(2)) + '%</span></div>' +
         (p.g === 'S' || p.g === 'A' ? '<span class="pz-ribbon' + (p.g === 'S' ? ' s' : '') + '">' + p.g + '급 상품</span>' : '') +
@@ -2779,6 +2794,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
   });
   $('farm-seeds').addEventListener('click', e => { const b = e.target.closest('[data-seed]'); if (b && !b.disabled) plantSeed(b.dataset.seed); });
   $('farm-close').addEventListener('click', closeSeedPicker);
+  document.addEventListener('click', e => { if (!e.target.closest('.pz-slot')) document.querySelectorAll('.pz-slot.tip').forEach(x => x.classList.remove('tip')); });
   $('farm-modal').addEventListener('click', e => { if (e.target === $('farm-modal')) closeSeedPicker(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('farm-modal').hidden) closeSeedPicker(); });
 
@@ -3008,6 +3024,8 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
   $('floor').addEventListener('click', e => {
     const f = e.target.closest('[data-fav]'); if (f) { toggleFav(f.dataset.fav); return; }
     const pk = e.target.closest('[data-pick]'); if (pk && !pk.disabled) { togglePick(pk.dataset.pick); return; }
+    const tipSlot = e.target.closest('.pz-slot');
+    if (tipSlot && !matchMedia('(hover: hover)').matches) { const on = !tipSlot.classList.contains('tip'); document.querySelectorAll('.pz-slot.tip').forEach(x => x.classList.remove('tip')); if (on) tipSlot.classList.add('tip'); return; }
     const a = e.target.closest('[data-pz]');
     if (a) {
       if (a.disabled || busy) return;
