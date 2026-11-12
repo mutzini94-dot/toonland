@@ -486,8 +486,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .fm-table input[type="color"].input { width: 56px; }
 
 
-/* ---------- 크리에이터 퍼즐 ---------- */
-/* ---------- 크리에이터 퍼즐(상품 퍼즐): 정사각형 3열 × 2행 ---------- */
+/* ---------- 직소 퍼즐 ---------- */
+/* ---------- 직소 퍼즐(상품 퍼즐): 정사각형 3열 × 2행 ---------- */
 .pz.sq { aspect-ratio: 1 / 1; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); background: #F1F3F5; }
 .pz.sq .pz-art { width: 300%; height: 200%; background-color: #FFFFFF; background-size: cover; background-position: center; }
 .pz.sq .pz-art::before { content: none; }
@@ -1206,7 +1206,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
   .floor > .machine .art { zoom: .7; }
   .floor > .machine .info { width: 100%; font-size: 12px; }
   .floor > .machine .info .stock, .floor > .machine .five, .floor > .machine .top-prize { font-size: 11.5px; }
-  /* 크리에이터 퍼즐·농장은 한 칸 전체 */
+  /* 직소 퍼즐·농장은 한 칸 전체 */
   .floor > .fan-panel, .floor > .pz-panel, .floor > .farm { grid-column: 1 / -1; }
   /* 조각 교환소 */
   .sp-cats { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
@@ -1268,7 +1268,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
   <div class="game-tabs" role="tablist" aria-label="게임 선택">
     <button type="button" role="tab" data-gtab="gacha" aria-selected="true"><span class="gt-dot"></span>가챠샵</button>
     <button type="button" role="tab" data-gtab="board" aria-selected="false" style="--gtc:var(--t-board)"><span class="gt-dot"></span>뽑기판 <small class="gt-new">긁는 재미</small></button>
-    <button type="button" role="tab" data-gtab="puzzle" aria-selected="false" style="--gtc:var(--t-pack)"><span class="gt-dot"></span>크리에이터 퍼즐 <small class="gt-new pk">모으는 재미</small></button>
+    <button type="button" role="tab" data-gtab="puzzle" aria-selected="false" style="--gtc:var(--t-pack)"><span class="gt-dot"></span>직소 퍼즐 <small class="gt-new pk">모으는 재미</small></button>
     <button type="button" role="tab" data-gtab="farm" aria-selected="false" style="--gtc:#3E9B4F"><span class="gt-dot"></span>팝콘 농장 <small class="gt-new fm">키우는 재미</small><span class="gt-farm" id="farm-count" hidden></span></button>
   </div>
 
@@ -1380,7 +1380,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
   </div>
 
   <div class="panel ad-block" id="pa-admin">
-    <h2>크리에이터 퍼즐 상품 관리 <span class="tag" id="pa-sum"></span></h2>
+    <h2>직소 퍼즐 상품 관리 <span class="tag" id="pa-sum"></span></h2>
     <p class="hub-note">퍼즐로 모을 상품을 관리해요. 상품마다 6조각 퍼즐이 만들어지고, 카드 1장마다 아래 확률로 상품을 고른 뒤 1~6번 조각 중 하나가 나와요. 이미 가진 조각이면 중복이라 한 상품을 완성하려면 그 상품 조각이 평균 14.7장 필요해요. 저장하면 게임에 바로 반영돼요.</p>
     <div class="fields pa-fields" id="pa-fields"></div>
     <div class="table-wrap"><table class="ad-table" id="pa-list"></table></div>
@@ -1549,7 +1549,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
     { id: 'coin', name: '동전존', cost: 100, color: 'var(--t-coin)' },
     { id: 'silver', name: '실버존', cost: 500, color: 'var(--t-silver)' },
     { id: 'board', name: '뽑기판', cost: 600, color: 'var(--t-board)', tab: 'board' },
-    { id: 'puzzle', name: '크리에이터 퍼즐', cost: 300, color: 'var(--t-pack)', tab: 'puzzle' },
+    { id: 'puzzle', name: '직소 퍼즐', cost: 300, color: 'var(--t-pack)', tab: 'puzzle' },
     { id: 'farm', name: '팝콘 농장', cost: 200, color: '#3E9B4F', tab: 'farm' },
     { id: 'gold', name: '골드존', cost: 2000, color: 'var(--t-gold)' },
     { id: 'creator', name: '크리에이터존', cost: 3000, color: 'var(--t-creator)' },
@@ -1599,7 +1599,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
         prizes: [P('S', '편의점 1만원권', 'product', 0, 10000, 1, 1), P('A', '편의점 5천원권', 'product', 0, 5000, 6, 4), P('B', '편의점 1천원권', 'product', 0, 1000, 16, 11), P('C', '조각 1개', 'piece', 1, 0, 37, 22)] },
       { id: 'board-creator', zone: 'board', mode: 'board', name: '크리에이터 뽑기판', cost: 1500, demand: 900000, top: '친필 사인 앨범',
         prizes: [P('S', '친필 사인 앨범', 'product', 0, 40000, 1, 1), P('A', '포토카드 세트', 'product', 0, 6000, 5, 3), P('B', '스티커 팩', 'product', 0, 2000, 14, 9), P('C', '조각 3개', 'piece', 3, 0, 20, 13)] },
-      // 크리에이터 퍼즐: 상품마다 6조각 퍼즐. 카드 1장 = w% 확률로 고른 상품의 1~6번 조각 하나 (이미 가진 조각이면 중복 처리)
+      // 직소 퍼즐: 상품마다 6조각 퍼즐. 카드 1장 = w% 확률로 고른 상품의 1~6번 조각 하나 (이미 가진 조각이면 중복 처리)
       // RTP = Σ(조각 확률 × 원가) ÷ 14.7 ÷ 카드 가격(원).  w는 원가에 반비례(autoW)
       { id: 'puzzle', zone: 'puzzle', mode: 'puzzle', pv: 2, autoW: true, name: '퍼즐 카드', cost: 140, demand: 1000000, top: '명품 한우 선물세트',
         prizes: [
@@ -1656,7 +1656,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
     c.machines = c.machines.map(m => m.mode === 'puzzle' && m.pv !== 2 ? clone(DEFAULT_CONFIG.machines.find(d => d.mode === 'puzzle')) : m);
     c.machines.filter(m => m.mode === 'puzzle').forEach(m => m.prizes.forEach((p, i) => { if (!p.pid) p.pid = 'p' + i + '-' + String(p.name).length; }));
     delete c.farm.seeds; delete c.farm.waterPerDay; delete c.farm.waterCut; delete c.farm.liveBonus;   // 예전 확정형 씨앗 설정은 버린다 (씨앗은 이제 확률형 머신)
-    // 예전 한정 카드팩·빙고 카드팩은 크리에이터 퍼즐로 바뀌었다
+    // 예전 한정 카드팩·빙고 카드팩은 직소 퍼즐로 바뀌었다
     c.machines = c.machines.filter(m => m.mode !== 'pack' && m.mode !== 'bingo');
     // 예전 저장본에 없는 기본 머신(뽑기존 등)은 기본값으로 채운다
     DEFAULT_CONFIG.machines.forEach(d => { if (!c.machines.some(m => m.id === d.id)) c.machines.push(clone(d)); });
@@ -1764,7 +1764,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
     const COPY = {
       gacha: ['입장료가 높은 머신일수록 좋은 상품이 들어 있어요', '머신마다 캡슐 수가 정해져 있고, 남은 수량을 실시간으로 공개해요.'],
       board: ['칸을 골라 은박을 긁어 보는 뽑기판', '판마다 칸 수가 정해져 있고, 남은 칸과 남은 상품을 실시간으로 공개해요. 어느 칸을 골라도 당첨 확률은 같아요.'],
-      puzzle: ['상품 직소퍼즐 6조각을 모으는 크리에이터 퍼즐', '카드를 뽑을 때마다 상품 퍼즐 조각이 하나 나와요. 6조각을 다 모으면 그 상품을 받아요. 비싼 상품일수록 조각이 드물고, 이미 가진 조각은 중복이에요.'],
+      puzzle: ['상품 퍼즐 6조각을 모아 상품을 받는 직소 퍼즐', '카드를 뽑을 때마다 상품 퍼즐 조각이 하나 나와요. 6조각을 다 모으면 그 상품을 받아요. 비싼 상품일수록 조각이 드물고, 이미 가진 조각은 중복이에요.'],
       farm: ['강냉이를 심고 키워서 팝콘을 수확하는 팝콘 농장', '운이 아니라 시간으로 자라요. 씨앗마다 수확량이 정해져 있고, 오래 키울수록 더 많이 받아요.']
     };
     document.querySelectorAll('[data-gtab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.gtab === state.tab)));
@@ -2277,7 +2277,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
   }
 
   // =====================================================================
-  // 크리에이터 퍼즐(상품 퍼즐): 관리자가 정한 상품마다 6조각 직소퍼즐이 있다.
+  // 직소 퍼즐(상품 퍼즐): 관리자가 정한 상품마다 6조각 직소퍼즐이 있다.
   // 카드 1장 = 상품 1개(확률: 비쌀수록 낮음)의 조각 1개(1~6번 무작위). 이미 가진 조각이면 중복 처리.
   // 6조각을 모두 모으면 그 상품을 받고 퍼즐은 처음부터. 진행 상황은 이 브라우저에만 저장되는 목업 데이터
   // =====================================================================
@@ -2506,7 +2506,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
       else state.inventory.push({ id: nextInv++, name: p.name, from: m.name, status: 'kept' });
       recordResult(p, m);
       state.feed.unshift({ g: p.g, item: p.name, who: '나 · 퍼즐 완성' });
-      if (p.g === 'S' || p.g === 'A') toast('방송 오버레이 미리보기', '나님이 투네랜드 크리에이터 퍼즐에서 ' + p.name + ' 퍼즐을 완성!');
+      if (p.g === 'S' || p.g === 'A') toast('방송 오버레이 미리보기', '나님이 투네랜드 직소 퍼즐에서 ' + p.name + ' 퍼즐을 완성!');
     }
     if (!list.some(d => d.done)) {
       const miss = list.filter(d => d.dup).length;
@@ -3202,7 +3202,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
     if (!(draft.settings.kernelValue > 0)) errs.push('강냉이 1개 원가 환산 값을 입력해 주세요.');
     const fm = draft.farm;
     if (!(num(fm.unlockCost) >= 1)) errs.push('팝콘 농장: 밭 늘리기 비용을 입력해 주세요.');
-    draft.machines.filter(m => m.mode === 'puzzle').forEach(m => m.prizes.forEach(p => { if (p.kind === 'product' && !(num(p.cost) > 0)) errs.push('크리에이터 퍼즐: ' + p.name + '의 원가를 입력해 주세요.'); }));
+    draft.machines.filter(m => m.mode === 'puzzle').forEach(m => m.prizes.forEach(p => { if (p.kind === 'product' && !(num(p.cost) > 0)) errs.push('직소 퍼즐: ' + p.name + '의 원가를 입력해 주세요.'); }));
     draft.machines.filter(m => m.mode === 'farm').forEach(m => { if (!(num(m.minutes) >= 1)) errs.push(m.name + ': 성장 시간을 1분 이상으로 정해 주세요.'); });
     draft.shop.forEach(it => {
       const n = '교환소 [' + (String(it.name).trim() || '이름 없음') + ']';
@@ -3333,7 +3333,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
       const e = econ(m, s), st = statusOf(e.rtp, T);
       return '<tr style="--c:' + zoneOf(m.zone).color + '">' +
         '<td><span class="mname"><i></i>' + m.name + '</span></td>' +
-        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '크리에이터 퍼즐' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
+        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
         '<td class="r">' + fmt(num(m.cost)) + '</td>' +
         '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
         '<td class="r">' + won(e.mRev) + '</td>' +
@@ -3470,7 +3470,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
   }
 
   let draftBase = '';
-  // ----- 크리에이터 퍼즐 상품 관리: 상품(그림·이름·원가)과 조각 확률, 카드 가격 -----
+  // ----- 직소 퍼즐 상품 관리: 상품(그림·이름·원가)과 조각 확률, 카드 가격 -----
   const pzDraft = () => draft.machines.find(m => m.mode === 'puzzle');
   function renderPuzzleAdmin() {
     const m = pzDraft(); if (!m) { $('pa-list').innerHTML = ''; return; }
@@ -3561,7 +3561,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
     if (e.target.id === 'pa-fit') {
       const msg = fitMachine(m, draft.settings, target(), 'price');
       renderPuzzleAdmin(); renderStats();
-      toast('', '크리에이터 퍼즐: ' + msg + ' → RTP ' + pct(econ(m, draft.settings).rtp), true);
+      toast('', '직소 퍼즐: ' + msg + ' → RTP ' + pct(econ(m, draft.settings).rtp), true);
       return true;
     }
     return false;
