@@ -661,7 +661,7 @@ button.stat { font: inherit; color: inherit; cursor: pointer; }
 .cn-gauge-label { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 6px; font-size: 12px; color: var(--muted); }
 .cn-gauge-label b { color: var(--text); }
 .cn-gauge { position: relative; height: 26px; border-radius: 999px; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
-  background: linear-gradient(90deg, #C9CDE0 0 40%, #FFD25A 40% 46%, #FF4D8D 46% 54%, #FFD25A 54% 60%, #C9CDE0 60% 100%); }
+  background: linear-gradient(90deg, #C9CDE0 0 42%, #FFD25A 42% 46.8%, #FF4D8D 46.8% 53.2%, #FFD25A 53.2% 58%, #C9CDE0 58% 100%); }
 .cn-gauge::after { content: "퍼펙트"; position: absolute; left: 50%; top: 50%; translate: -50% -50%; font-size: 10px; font-weight: 900; color: #FFFFFF; letter-spacing: -.3px; pointer-events: none; }
 .cn-needle { position: absolute; top: -2px; bottom: -2px; width: 6px; margin-left: -3px; border-radius: 3px; background: #212529; box-shadow: 0 0 0 2px #FFFFFF; will-change: left; }
 .cn-gauge.stop .cn-needle { animation: cn-needle .5s ease-out; }
@@ -756,7 +756,7 @@ button.stat { font: inherit; color: inherit; cursor: pointer; }
 .cn-proj svg { filter: drop-shadow(0 3px 2px rgba(0,0,0,.18)); }
 @media (max-width: 640px) { .cn-obs.tramp { width: 42px; height: 20px; margin-left: -21px; } .cn-obs.goo { width: 58px; height: 16px; margin-left: -29px; bottom: calc(19% - 4px); } .cn-obs.bump { width: 18px; height: 36px; margin-left: -9px; } .cn-proj { width: 32px; height: 32px; } .cn-tick span { font-size: 9px; padding: 1px 4px; } }
 .cn-controls { background: linear-gradient(180deg, #FFFFFF, #F7FAFD); }
-.cn-gauge { height: 28px; background: linear-gradient(90deg, #D5D9E8 0 40%, #FFD25A 40% 46%, #FF4D8D 46% 54%, #FFD25A 54% 60%, #D5D9E8 60% 100%); box-shadow: inset 0 2px 4px rgba(0,0,0,.12), 0 0 0 3px #FFFFFF, 0 0 0 4px var(--panel-line); }
+.cn-gauge { height: 28px; background: linear-gradient(90deg, #D5D9E8 0 42%, #FFD25A 42% 46.8%, #FF4D8D 46.8% 53.2%, #FFD25A 53.2% 58%, #D5D9E8 58% 100%); box-shadow: inset 0 2px 4px rgba(0,0,0,.12), 0 0 0 3px #FFFFFF, 0 0 0 4px var(--panel-line); }
 .cn-needle { width: 8px; margin-left: -4px; border-radius: 4px; background: linear-gradient(180deg, #343A40, #000000); }
 .cn-fire { background: linear-gradient(180deg, #3BC0E6, #1597C0); }
 
@@ -2127,10 +2127,10 @@ img, svg, video { max-width: 100%; }
   <div class="ad-page" data-page="cannon" hidden>
   <div class="panel ad-block" id="cn-admin">
     <h2>팝콘 대포 관리 <span class="tag" id="cn-sum"></span></h2>
-    <p class="hub-note">게이지를 멈춘 위치로 등급(퍼펙트 ±4%, 좋아요 ±10%, 그 밖은 보통)이 정해지고, 등급별 확률표에서 거리 구간을 뽑아요. 배수는 모든 등급이 같고 확률만 달라요. 실력으로 기대값이 바뀌지 않도록 <b>등급마다 RTP를 같게</b> 맞춰야 해요(차이 1%p 이하일 때 저장돼요). 트램펄린·캐러멜·범퍼 장애물은 정해진 거리에 맞춰 놓이는 연출이라 확률·RTP에 영향이 없어요.</p>
+    <p class="hub-note">게이지를 멈춘 위치로 등급(퍼펙트 ±3.2%, 좋아요 ±8%, 그 밖은 보통)이 정해지고, 등급별 확률표에서 거리 구간을 뽑아요. <b>퍼펙트·좋아요는 ×1 이상 보장</b>이라 ×1 미만 구간은 0%여야 해요(그래야 저장돼요). 전체 RTP는 바늘이 무작위로 멈출 때의 등급 비율(퍼펙트 6.4%, 좋아요 9.6%, 보통 84%)로 가중 평균해요. 퍼펙트를 자주 맞히는 손님일수록 RTP가 높아지니, 아래의 <b>퍼펙트만 맞힐 때 최대 RTP</b>도 함께 확인해 주세요. 트램펄린·캐러멜·범퍼 장애물은 정해진 거리에 맞춰 놓이는 연출이라 확률·RTP에 영향이 없어요.</p>
     <div class="fields" id="cn-fields"></div>
     <div class="table-wrap"><table class="ad-table" id="cn-prob-t"></table></div>
-    <div class="ed-foot"><div class="pa-calc" id="cn-calc"></div><button class="btn-ghost" type="button" id="cn-fit">목표 RTP로 등급별 확률 맞추기</button></div>
+    <div class="ed-foot"><div class="pa-calc" id="cn-calc"></div><button class="btn-ghost" type="button" id="cn-fit">목표 RTP로 보통 확률 맞추기</button></div>
   </div>
 
   </div>
@@ -2550,9 +2550,9 @@ img, svg, video { max-width: 100%; }
         cans: [{ id: 'gold', name: '황금 캔', rate: 15, mults: [20, 5, 1, 0.3, 0], probs: [1.8, 6, 13, 20, 59.2] }, { id: 'silver', name: '은빛 캔', rate: 35, mults: [5, 2, 1, 0.5, 0], probs: [5, 12, 20, 32, 31] }, { id: 'tin', name: '보통 캔', rate: 50, mults: [2, 1, 0.7, 0.5, 0], probs: [6, 40, 31, 22.6, 0.4] }],
         prizes: [W('S', '황금 캔 · 강냉이 2,000개', 'kernel', 2000, 0, 0.6), W('S', '황금 캔 · 강냉이 500개', 'kernel', 500, 0, 2), W('S', '은빛 캔 · 강냉이 500개', 'kernel', 500, 0, 1.667), W('A', '은빛 캔 · 강냉이 200개', 'kernel', 200, 0, 4), W('A', '보통 캔 · 강냉이 200개', 'kernel', 200, 0, 2), W('B', '강냉이 100개', 'kernel', 100, 0, 24.333), W('C', '강냉이 30~70개', 'kernel', 50, 0, 35.2), W('C', '빈 캔', 'kernel', 0, 0, 30.2)] },
       // 팝콘 대포: 게이지 등급(퍼펙트·좋아요·보통)별 확률표로 거리 구간 결정. 배수 공통, 등급별 RTP 동일(B 방식)
-      { id: 'cannon', zone: 'cannon', mode: 'cannon', name: '팝콘 대포', cost: 100, demand: 800000, mults: [0.2, 0.5, 1, 2, 4, 10],
-        probs: { perfect: [63.75, 16, 8.25, 5, 4, 3], good: [48.12, 25, 11.88, 9, 4.5, 1.5], normal: [38.75, 30, 16.25, 10, 4, 1] }, top: '800m 이상 ×10 · 강냉이 1,000개',
-        prizes: [W('C', '0~50m ×0.2', 'kernel', 20, 0, 38.75), W('C', '50~100m ×0.5', 'kernel', 50, 0, 30), W('B', '100~200m ×1', 'kernel', 100, 0, 16.25), W('A', '200~400m ×2', 'kernel', 200, 0, 10), W('A', '400~800m ×4', 'kernel', 400, 0, 4), W('S', '800m 이상 ×10', 'kernel', 1000, 0, 1)] },
+      { id: 'cannon', zone: 'cannon', mode: 'cannon', cv: 2, name: '팝콘 대포', cost: 100, demand: 800000, mults: [0.2, 0.5, 1, 2, 4, 10],
+        probs: { perfect: [0, 0, 90.2, 7, 2, 0.8], good: [0, 0, 96, 3.5, 0.5, 0], normal: [45, 30, 10, 10, 4, 1] }, top: '800m 이상 ×10 · 강냉이 1,000개',
+        prizes: [W('C', '0~50m ×0.2', 'kernel', 20, 0, 45), W('C', '50~100m ×0.5', 'kernel', 50, 0, 30), W('B', '100~200m ×1', 'kernel', 100, 0, 10), W('A', '200~400m ×2', 'kernel', 200, 0, 10), W('A', '400~800m ×4', 'kernel', 400, 0, 4), W('S', '800m 이상 ×10', 'kernel', 1000, 0, 1)] },
       // 냥치 런: 문 2개 중 하나 통과(50%), 단계별 누적 점수 = 지급 강냉이. RTP = max(0.5^k × 점수k) ÷ 입장료
       { id: 'runner', zone: 'runner', mode: 'runner', name: '냥치 런', cost: 100, demand: 1000000, ladder: [150, 320, 600, 1150, 2200], top: '문 5개 완주 2,200점',
         prizes: [W('C', '문 1개 통과', 'kernel', 150, 0, 0), W('B', '문 2개 통과', 'kernel', 320, 0, 0), W('B', '문 3개 통과', 'kernel', 600, 0, 0), W('A', '문 4개 통과', 'kernel', 1150, 0, 0), W('S', '문 5개 통과', 'kernel', 2200, 0, 0)] },
@@ -2591,6 +2591,8 @@ img, svg, video { max-width: 100%; }
     delete c.rankBenefit;   // 순위 베네핏은 삭제됨
     // 예전(크리에이터 라인업) 퍼즐 설정은 상품 퍼즐 기본값으로 바꾼다
     // 깡통 사격 v4: 양궁 → 사격장으로 바뀌어 예전 설정은 기본값으로
+    // 팝콘 대포 v2: 퍼펙트·좋아요 ×1 이상 보장으로 바뀌어 예전 확률표는 기본값으로
+    c.machines = c.machines.map(m => m.mode === 'cannon' && m.cv !== 2 ? clone(DEFAULT_CONFIG.machines.find(d => d.mode === 'cannon')) : m);
     c.machines = c.machines.map(m => m.mode === 'archery' && m.av !== 4 ? clone(DEFAULT_CONFIG.machines.find(d => d.mode === 'archery')) : m);
     c.machines = c.machines.map(m => m.mode === 'puzzle' && m.pv !== 2 ? clone(DEFAULT_CONFIG.machines.find(d => d.mode === 'puzzle')) : m);
     c.machines.filter(m => m.mode === 'puzzle').forEach(m => m.prizes.forEach((p, i) => { if (!p.pid) p.pid = 'p' + i + '-' + String(p.name).length; }));
@@ -3729,8 +3731,12 @@ img, svg, video { max-width: 100%; }
   const CN_EDGES = [3, 50, 100, 200, 400, 800, 1500];
   const CN_GRADES = [{ id: 'perfect', name: '퍼펙트', cls: 'g-perfect', tc: 'gp' }, { id: 'good', name: '좋아요', cls: 'g-good', tc: 'gg' }, { id: 'normal', name: '보통', cls: 'g-normal', tc: 'gn' }];
   const CN_DEF_MULTS = [0.2, 0.5, 1, 2, 4, 10];
-  const CN_DEF_PROBS = { perfect: [63.75, 16, 8.25, 5, 4, 3], good: [48.12, 25, 11.88, 9, 4.5, 1.5], normal: [38.75, 30, 16.25, 10, 4, 1] };
-  const CN_PERFECT = 4, CN_GOOD = 10, CN_PERIOD = 1000;   // 게이지: 가운데에서 ±4% 퍼펙트, ±10% 좋아요(노란 영역), 한 번 왕복 1초
+  const CN_DEF_PROBS = { perfect: [0, 0, 90.2, 7, 2, 0.8], good: [0, 0, 96, 3.5, 0.5, 0], normal: [45, 30, 10, 10, 4, 1] };
+  const CN_PERFECT = 3.2, CN_GOOD = 8, CN_PERIOD = 1000;   // 게이지: 가운데에서 ±3.2% 퍼펙트, ±8% 좋아요(노란 영역), 한 번 왕복 1초
+  // 바늘이 고르게 움직이므로 무작위로 멈추면 각 등급이 나올 비율 = 영역 폭. 전체 RTP는 이 비율로 가중 평균
+  const CN_SHARE = { perfect: 2 * CN_PERFECT / 100, good: 2 * (CN_GOOD - CN_PERFECT) / 100, normal: 1 - 2 * CN_GOOD / 100 };
+  const cnRtpAll = m => CN_GRADES.reduce((a, g) => a + CN_SHARE[g.id] * cnRtp(m, g.id), 0);
+  const cnLowBands = m => cnMults(m).map((v, i) => v < 1 ? i : -1).filter(i => i >= 0);   // ×1 미만 구간(퍼펙트·좋아요는 0%여야 함)
   const CN = { flying: false, raf: 0, gRaf: 0, pos: 0, t0: 0, W: 0, H: 0, K: 1, x0: 0, gH: 0, worldW: 0, cam: 0 };
   const cannonMachine = () => machines.find(m => m.mode === 'cannon');
   const cnMults = m => (m && Array.isArray(m.mults) && m.mults.length === 6 ? m.mults : CN_DEF_MULTS).map(v => Math.max(0, Number(v) || 0));
@@ -3762,7 +3768,7 @@ img, svg, video { max-width: 100%; }
           '<div class="cn-msg" id="cn-msg"><div class="card">게이지가 <b style="color:#FF4D8D">퍼펙트</b>에 올 때 발사해 보세요!</div></div>' +
         '</div>' +
         '<div class="cn-controls">' +
-          '<div class="cn-gauge-wrap"><div class="cn-gauge-label"><span>파워 게이지</span><span>퍼펙트 = 대박도 꽝도 많아요 · 보통 = 고르게 받아요</span></div>' +
+          '<div class="cn-gauge-wrap"><div class="cn-gauge-label"><span>파워 게이지</span><span>퍼펙트·좋아요 = <b>×1 이상 보장</b> · 보통 = 꽝도 대박도 있어요</span></div>' +
             '<div class="cn-gauge" id="cn-gauge"><i class="cn-needle" id="cn-needle"></i></div></div>' +
           '<button class="cn-fire" type="button" id="cn-fire" data-cn="fire">발사! <span class="num">' + K + fmt(m.cost) + '</span></button>' +
         '</div>' +
@@ -3770,9 +3776,9 @@ img, svg, video { max-width: 100%; }
       '<aside class="cn-info">' +
         '<h3 id="cn-h">' + m.name + ' <small class="qmeta">1발 ' + K + fmt(m.cost) + '</small></h3>' +
         '<p>파워 게이지를 멈춰 팝콘을 쏘세요. 팝콘이 떨어진 <b>거리 구간의 배수만큼</b> 강냉이를 받아요.</p>' +
-        '<ul><li>게이지를 어디에서 멈췄는지에 따라 <b>퍼펙트·좋아요·보통</b> 확률표가 정해져요.</li><li>퍼펙트는 멀리 날아갈 확률이 크지만 가까이 떨어질 확률도 커요. 보통은 고르게 받아요.</li><li>어느 등급이든 <b>평균적으로 돌려받는 비율(RTP)은 같아요.</b> 손맛만 달라요.</li><li>땅 위의 <b>트램펄린</b>은 더 멀리 튕겨 주고, <b>캐러멜 웅덩이</b>는 그 자리에 붙잡고, <b>범퍼</b>는 뒤로 튕겨내요. 거리는 발사 순간 정해지고, 장애물은 그 결과에 맞춰 나타나는 연출이에요.</li><li>키보드 스페이스로도 발사할 수 있어요.</li></ul>' +
+        '<ul><li>게이지를 어디에서 멈췄는지에 따라 <b>퍼펙트·좋아요·보통</b> 확률표가 정해져요.</li><li>바늘을 <b>퍼펙트(분홍)나 좋아요(노랑)</b>에 멈추면 무조건 100m 넘게 날아가 <b>×1 이상</b>을 받아요.</li><li>보통(회색)에 멈추면 가까이 떨어질 수도, 아주 멀리 날아갈 수도 있어요.</li><li>무작위로 멈췄을 때 기준 전체 평균 환원(RTP)은 ' + pct(cnRtpAll(m)) + '예요.</li><li>땅 위의 <b>트램펄린</b>은 더 멀리 튕겨 주고, <b>캐러멜 웅덩이</b>는 그 자리에 붙잡고, <b>범퍼</b>는 뒤로 튕겨내요. 거리는 발사 순간 정해지고, 장애물은 그 결과에 맞춰 나타나는 연출이에요.</li><li>키보드 스페이스로도 발사할 수 있어요.</li></ul>' +
         '<div class="cn-table-wrap"><table class="cn-table"><thead><tr><th>거리</th><th>배수</th><th>받는 강냉이</th>' + CN_GRADES.map(g => '<th class="' + g.tc + '">' + g.name + '</th>').join('') + '</tr></thead><tbody>' + rows + '</tbody>' +
-        '<tfoot><tr><td colspan="3">평균 환원(RTP)</td>' + CN_GRADES.map(g => '<td class="num ' + g.tc + '">' + pct(cnRtp(m, g.id)) + '</td>').join('') + '</tr></tfoot></table></div>' +
+        '<tfoot><tr><td colspan="3">등급별 평균 환원</td>' + CN_GRADES.map(g => '<td class="num ' + g.tc + '">' + pct(cnRtp(m, g.id)) + '</td>').join('') + '</tr></tfoot></table></div>' +
       '</aside>' +
     '</div></section>';
   }
@@ -4587,8 +4593,8 @@ img, svg, video { max-width: 100%; }
       return { rev, pay: rev * rtp, rtp, mRev, mPay: mRev * rtp, wsum: 100, runs: num(m.cost) ? num(m.demand) / num(m.cost) : 0 };
     }
     if (m.mode === 'cannon') {
-      // 등급마다 RTP가 같아야 하지만, 다르면 가장 높은 등급 기준으로 예산을 잡는다
-      const rev = num(m.cost) * s.kernelValue, rs = CN_GRADES.map(g => cnRtp(m, g.id)), rtp = Math.max(...rs);
+      // 퍼펙트·좋아요는 ×1 이상 보장이라 RTP가 높고, 보통이 낮다. 전체 RTP = 게이지 영역 폭(무작위로 멈출 때 비율)으로 가중 평균
+      const rev = num(m.cost) * s.kernelValue, rs = CN_GRADES.map(g => cnRtp(m, g.id)), rtp = cnRtpAll(m);
       return { rev, pay: rev * rtp, rtp, rs, mRev, mPay: mRev * rtp, wsum: 100, runs: num(m.cost) ? num(m.demand) / num(m.cost) : 0 };
     }
     if (m.mode === 'runner') {
@@ -4644,7 +4650,7 @@ img, svg, video { max-width: 100%; }
       return arFitGrades(m, T) ? '캔별 확률 조정' : '확률만으로 맞출 수 없어요';
     }
     if (m.mode === 'cannon') {
-      return cnFitGrades(m, T) ? '등급별 확률 조정' : '확률만으로 맞출 수 없어요';
+      return cnFitGrades(m, T) ? '보통 확률 조정' : '확률만으로 맞출 수 없어요';
     }
     if (m.mode === 'runner') {
       if (!T || !e.rtp) return '조정할 수 없어요';
@@ -4710,7 +4716,7 @@ img, svg, video { max-width: 100%; }
       if (!(num(m.cost) >= 10)) errs.push('팝콘 대포: 1발 금액은 10 이상이어야 해요.');
       if (!Array.isArray(m.mults) || m.mults.length !== 6 || m.mults.some(v => !(Number(v) >= 0))) errs.push('팝콘 대포: 배수는 0 이상이어야 해요.');
       CN_GRADES.forEach(g => { const P = m.probs && m.probs[g.id]; if (!Array.isArray(P) || P.length !== 6 || P.some(v => !(Number(v) >= 0))) errs.push('팝콘 대포: ' + g.name + ' 확률이 올바르지 않아요.'); else if (Math.abs(P.reduce((a, b) => a + Number(b), 0) - 100) > .05) errs.push('팝콘 대포: ' + g.name + ' 확률 합이 100%가 아니에요.'); });
-      const rs = CN_GRADES.map(g => cnRtp(m, g.id)); if (Math.max(...rs) - Math.min(...rs) > .01) errs.push('팝콘 대포: 등급별 RTP 차이가 1%p를 넘어요. [목표 RTP로 등급별 확률 맞추기]를 눌러 주세요.');
+      ['perfect', 'good'].forEach(gid => { const P = cnProbs(m, gid); if (cnLowBands(m).some(i => P[i] > 0)) errs.push('팝콘 대포: ' + (gid === 'perfect' ? '퍼펙트' : '좋아요') + '는 ×1 이상 보장이라 ×1 미만 구간 확률이 0%여야 해요.'); });
     });
     draft.machines.filter(m => m.mode === 'runner').forEach(m => { const L = rnLadder(m); if (L.length !== RN_DOORS || L.some((v, i) => !(v > 0) || (i && v <= L[i - 1]))) errs.push('냥치 런: 문 단계 점수는 0보다 크고 단계마다 커져야 해요.'); });
     draft.machines.filter(m => m.mode === 'puzzle').forEach(m => m.prizes.forEach(p => { if (p.kind === 'product' && !(num(p.cost) > 0)) errs.push('직소 퍼즐: ' + p.name + '의 원가를 입력해 주세요.'); }));
@@ -5219,7 +5225,7 @@ img, svg, video { max-width: 100%; }
         '<td class="r num" data-cnpay="' + i + '"></td>' +
         CN_GRADES.map(g => '<td><div class="input-unit"><input class="input sm num" type="number" min="0" step="0.01" data-cnp="' + g.id + ':' + i + '" value="' + cnProbs(m, g.id)[i] + '" aria-label="' + g.name + ' ' + cnLabel(i) + ' 확률"><span>%</span></div></td>').join('') + '</tr>').join('') +
       '</tbody><tfoot><tr><td colspan="3">확률 합</td>' + CN_GRADES.map(g => '<td class="r num" data-cnsum="' + g.id + '"></td>').join('') + '</tr>' +
-      '<tr><td colspan="3">등급 RTP</td>' + CN_GRADES.map(g => '<td class="r num" data-cnrtp="' + g.id + '"></td>').join('') + '</tr></tfoot>';
+      '<tr><td colspan="3">등급 RTP (무작위 멈춤 비율)</td>' + CN_GRADES.map(g => '<td class="r num" data-cnrtp="' + g.id + '"></td>').join('') + '</tr></tfoot>';
     renderCannonCalc();
   }
   function renderCannonCalc() {
@@ -5230,12 +5236,12 @@ img, svg, video { max-width: 100%; }
       const sum = cnProbs(m, g.id).reduce((a, b) => a + b, 0), r = cnRtp(m, g.id), st = statusOf(r, T);
       const a = document.querySelector('[data-cnsum="' + g.id + '"]'), b = document.querySelector('[data-cnrtp="' + g.id + '"]');
       if (a) { a.textContent = (+sum.toFixed(2)) + '%'; a.style.color = Math.abs(sum - 100) > .05 ? '#E03131' : ''; }
-      if (b) b.innerHTML = pct(r) + ' <span class="status ' + st.cls + '">' + st.label + '</span>';
+      if (b) b.innerHTML = pct(r) + ' <small class="qmeta">(' + (+(CN_SHARE[g.id] * 100).toFixed(1)) + '%)</small>';
     });
-    const rs = CN_GRADES.map(g => cnRtp(m, g.id)), gap = Math.max(...rs) - Math.min(...rs), st = statusOf(e.rtp, T);
-    $('cn-sum').textContent = 'RTP ' + pct(e.rtp) + (gap > .01 ? ' · 등급 차이 ' + (gap * 100).toFixed(1) + '%p' : ' · 등급 동일');
-    $('cn-calc').innerHTML = '<span>1발 매출 <b>' + won(e.rev) + '</b></span><span>1발 기대 지급(가장 높은 등급) <b>' + won(e.pay) + '</b></span><span>RTP <b>' + pct(e.rtp) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>' +
-      (gap > .01 ? '<span style="color:#E03131">등급별 RTP가 ' + (gap * 100).toFixed(1) + '%p 달라요. 같게 맞춰 주세요.</span>' : '');
+    const st = statusOf(e.rtp, T), maxR = cnRtp(m, 'perfect'), low = ['perfect', 'good'].some(gid => cnLowBands(m).some(i => cnProbs(m, gid)[i] > 0));
+    $('cn-sum').textContent = 'RTP ' + pct(e.rtp) + ' · 퍼펙트만 맞히면 ' + pct(maxR);
+    $('cn-calc').innerHTML = CN_GRADES.map(g => '<span>' + g.name + ' <b>' + (+(CN_SHARE[g.id] * 100).toFixed(1)) + '% × ' + pct(cnRtp(m, g.id)) + '</b></span>').join('<span>+</span>') + '<span>= RTP <b>' + pct(e.rtp) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>' +
+      '<span>퍼펙트만 맞히는 손님 기준 최대 RTP <b>' + pct(maxR) + '</b></span>' + (low ? '<span style="color:#E03131">퍼펙트·좋아요의 ×1 미만 구간 확률을 0%로 맞춰 주세요.</span>' : '');
   }
   function cannonAdminInput(el) {
     const m = cnDraft(); if (!m) return false;
@@ -5259,10 +5265,14 @@ img, svg, video { max-width: 100%; }
     // RTP가 낮으면: 꽝 구간 → 그보다 큰 작은 배수 구간 순으로 ×1 구간에 옮김 (대박 구간은 되도록 손대지 않음)
     const downDonors = mid < 0 ? [] : [mid].concat(pay.map((v, i) => i).filter(i => i !== lo && i !== mid && pay[i] > pay[mid]).sort((a, b) => pay[a] - pay[b]), pay.map((v, i) => i).filter(i => i !== lo && i !== mid && pay[i] <= pay[mid]).sort((a, b) => pay[b] - pay[a]));
     const upDonors = mid < 0 ? [] : pay.map((v, i) => i).filter(i => i !== mid && pay[i] < pay[mid]).sort((a, b) => pay[a] - pay[b]);
-    CN_GRADES.forEach(g => {
+    const lowB = cnLowBands(m), one = M.findIndex(v => v >= 1);
+    ['perfect', 'good'].forEach(gid => { const P = cnProbs(m, gid).slice(); if (one >= 0) lowB.forEach(i => { P[one] += P[i]; P[i] = 0; }); m.probs[gid] = P.map(v => Math.round(v * 100) / 100); });
+    const Tn = (T - CN_SHARE.perfect * cnRtp(m, 'perfect') - CN_SHARE.good * cnRtp(m, 'good')) / CN_SHARE.normal;
+    CN_GRADES.filter(g => g.id === 'normal').forEach(g => {
       const P = cnProbs(m, g.id), sum = P.reduce((a, b) => a + b, 0) || 1;
       const p = P.map(v => v / sum * 100);
       const cur = () => p.reduce((a, v, i) => a + v / 100 * pay[i], 0);
+      T = Tn;
       if (mid >= 0 && c) {
         if (cur() > T) for (const d of downDonors) { const gap = cur() - T; if (gap <= 1e-9) break; const per = (pay[d] - pay[lo]) / 100; if (per <= 0) continue; const mv = Math.min(p[d], gap / per); p[d] -= mv; p[lo] += mv; }
         else for (const d of upDonors) { const gap = T - cur(); if (gap <= 1e-9) break; const per = (pay[mid] - pay[d]) / 100; if (per <= 0) continue; const mv = Math.min(p[d], gap / per); p[d] -= mv; p[mid] += mv; }
@@ -5280,7 +5290,7 @@ img, svg, video { max-width: 100%; }
     const m = cnDraft(); if (!m) return true;
     const ok = cnFitGrades(m, target());
     renderCannonAdmin(); renderArcheryAdmin(); renderStats();
-    toast('', '팝콘 대포: ' + (ok ? '등급별 확률을 목표 RTP ' + pct(target()) + '에 맞췄어요' : '일부 등급은 확률만으로 맞출 수 없어요. 배수를 조정해 주세요'), true);
+    toast('', '팝콘 대포: ' + (ok ? '보통 확률을 조정해 전체 RTP를 ' + pct(target()) + '에 맞췄어요' : '보통 확률만으로 맞출 수 없어요. 퍼펙트·좋아요 확률이나 배수를 조정해 주세요'), true);
     return true;
   }
 
