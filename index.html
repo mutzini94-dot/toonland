@@ -3871,11 +3871,12 @@ img, svg, video { max-width: 100%; }
     const puff = document.createElement('i'); puff.className = 'cn-puff'; puff.style.left = (xs - 12) + 'px'; puff.style.bottom = (CN.gH + CN.my) + 'px'; world.appendChild(puff); setTimeout(() => puff.remove(), 800);
     const arcH = w => Math.max(26, Math.min(CN.H * .6, w * .5));
     const arcT = w => 650 + 1300 * Math.sqrt(Math.max(0, w) / total);
-    // 퍼펙트·좋아요: 무조건 멀리 날아가 끝쪽 범퍼에 부딪힌 뒤, 확률로 정해진 거리까지 되돌아온다
-    const sc = grade.id !== 'normal' ? 'rebound' : cnPickScenario(xs, xf), obs = {};
+    // 퍼펙트·좋아요: 항상 멀리 날아간다. 결과가 ×1 이상이면 그대로 멀리 착지,
+    // ×1 미만(꽝 쪽)으로 뽑혔을 때만 먼 곳의 범퍼에 부딪혀 정해진 거리까지 되돌아온다
+    const skill = grade.id !== 'normal', sc = skill ? (cnMults(m)[band] < 1 ? 'rebound' : 'plain') : cnPickScenario(xs, xf), obs = {};
     let segs;
     if (sc === 'rebound') {
-      const end = cnX(CN_EDGES.at(-1)), far = Math.min(end + 30, Math.max(xf + Math.max(60, span * .25), xs + (end - xs) * .9)), back = far - xf;
+      const end = cnX(CN_EDGES.at(-1)), far = Math.min(end + 30, Math.max(xf + Math.max(60, span * .25), xs + (end - xs) * (.55 + Math.random() * .3))), back = far - xf;
       obs.el = cnObstacle(world, 'bump', far + 14);
       segs = [
         { a: xs, b: far, y0: CN.my, h: arcH(far - xs), dur: arcT(far - xs), ev: 'bump' },
