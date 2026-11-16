@@ -516,6 +516,47 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .gnb-text b { font-size: 13px; white-space: nowrap; }
 }
 
+
+/* ---------- 가챠 뽑기 창: 등급 요약 + 상품 구성 펼쳐 보기 ---------- */
+.sheet-side { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.sheet-side .rule { margin: 0; }
+.grade-sum { padding: 12px; border-radius: 12px; background: var(--surface-2); }
+.gs-label { display: block; margin-bottom: 8px; font-size: 12px; font-weight: 600; color: var(--muted); }
+.gs-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.gs { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 6px; border-radius: 10px; background: var(--panel); box-shadow: inset 0 0 0 1px var(--panel-line); white-space: nowrap; }
+.gs b { font-size: 15px; font-weight: 800; }
+.gs small { font-size: 11.5px; color: var(--muted); }
+.gs.out { opacity: .45; }
+.gs.out b { text-decoration: line-through; }
+.fold-btn { display: flex; align-items: center; justify-content: center; gap: 6px; height: 40px; border: 1px solid var(--panel-line); border-radius: 10px; background: var(--panel); color: var(--text); font: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer; }
+.fold-btn:hover { background: #F4F7FA; }
+.fold-btn i { font-style: normal; transition: transform .2s; }
+.fold-btn[aria-expanded="true"] i { transform: rotate(180deg); }
+.prize-panel { margin-top: 18px; padding: 16px; border-radius: 12px; background: var(--surface-2); animation: rise .2s ease; }
+.prize-panel h3 { margin: 0 0 10px; font-size: 15px; }
+.prize-panel .prizes { background: var(--panel); border-radius: 8px; }
+.prize-panel .prizes th, .prize-panel .prizes td { padding-left: 10px; padding-right: 10px; }
+.prize-panel .prizes th { padding-top: 8px; }
+.prize-panel .star-guide { margin-top: 12px; background: var(--panel); }
+@media (max-width: 680px) {
+  .sheet { padding: 16px; }
+  .sheet-head h2 { font-size: 19px; }
+  .sheet-grid { gap: 12px; margin-top: 10px; }
+  /* 머신 그림을 줄여 뽑기 버튼이 첫 화면에 보이게 */
+  .sheet .stage .machine .art { zoom: .58; }
+  .sheet .stage .machine .info { display: none; }
+  .gs { padding: 7px 4px; gap: 4px; } .gs b { font-size: 14px; } .gs small { font-size: 10.5px; }
+  /* 뽑기 버튼은 창 아래쪽에 고정 */
+  .draw-row { position: sticky; bottom: -16px; z-index: 3; margin: 14px -16px 0; padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); background: var(--panel); box-shadow: 0 -8px 16px rgba(33,37,41,.06); border-top: 1px solid var(--panel-line); }
+  .draw-row .draw { flex: 1 1 0; min-width: 0; }
+  .draw-row .hint { flex-basis: 100%; margin: 0; }
+}
+@media (max-width: 420px) {
+  .gs-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+  .gs { justify-content: flex-start; padding: 6px 10px; }
+  .gs small { margin-left: auto; }
+}
+
 /* ---------- 팝콘 대포 ---------- */
 /* 공용 키프레임 (떠오르는 숫자·배너·번쩍임·흔들림·칩) */
 @keyframes pk-float { 0% { opacity: 0; transform: translateY(8px) scale(.6); } 18% { opacity: 1; transform: translateY(0) scale(1.15); } 70% { opacity: 1; } 100% { opacity: 0; transform: translateY(-34px) scale(1); } }
@@ -1796,10 +1837,10 @@ img, svg, video { max-width: 100%; }
     </div>
     <div class="sheet-grid">
       <div class="stage" id="stage"></div>
-      <div>
+      <div class="sheet-side">
         <p class="rule" id="rule"></p>
-        <table class="prizes"><thead id="prize-head"></thead><tbody id="prize-body"></tbody></table>
-        <div class="star-guide" id="star-guide"></div>
+        <div class="grade-sum" id="grade-sum"></div>
+        <button class="fold-btn" type="button" id="prize-toggle" aria-expanded="false" aria-controls="prize-panel"><span>상품 구성 펼쳐 보기</span><i aria-hidden="true">▾</i></button>
       </div>
     </div>
     <div class="draw-row">
@@ -1808,6 +1849,11 @@ img, svg, video { max-width: 100%; }
       <p class="hint" id="hint"></p>
     </div>
     <div class="results" id="results" aria-live="polite"></div>
+    <div class="prize-panel" id="prize-panel" hidden>
+      <h3>상품 구성</h3>
+      <table class="prizes"><thead id="prize-head"></thead><tbody id="prize-body"></tbody></table>
+      <div class="star-guide" id="star-guide"></div>
+    </div>
   </div>
 </div>
 
@@ -2241,14 +2287,36 @@ img, svg, video { max-width: 100%; }
     renderPrizes();
     renderStarGuide();
     renderDrawButtons();
+    setPrizePanel(false);
     $('modal').hidden = false;
     $('close').focus();
   }
   const stageHTML = m => m.mode === 'board' ? boardStageHTML(m) : machineHTML(m, 'div');
   function closeModal() { if (busy) return; $('modal').hidden = true; current = null; renderFloor(); }
 
+  // 상품 구성 패널 펼치기/접기
+  function setPrizePanel(open) {
+    $('prize-panel').hidden = !open;
+    const b = $('prize-toggle'); b.setAttribute('aria-expanded', String(open));
+    b.firstElementChild.textContent = open ? '상품 구성 접기' : '상품 구성 펼쳐 보기';
+    if (open) requestAnimationFrame(() => $('prize-panel').scrollIntoView({ block: 'nearest', behavior: 'smooth' }));
+  }
+  $('prize-toggle').addEventListener('click', () => setPrizePanel($('prize-panel').hidden));
+  // 오른쪽 요약: 등급별 남은/전체(한정) 또는 등급별 확률 합(확률형)
+  function renderGradeSum(m) {
+    const gs = ['S', 'A', 'B', 'C'].map(g => {
+      const ps = m.prizes.filter(p => p.g === g); if (!ps.length) return '';
+      const val = m.mode === 'prob'
+        ? '<b class="num">' + (+ps.reduce((a, p) => a + num(p.w), 0).toFixed(2)) + '%</b>'
+        : '<b class="num">' + fmt(ps.reduce((a, p) => a + num(p.left), 0)) + '</b><small class="num">/ ' + fmt(ps.reduce((a, p) => a + num(p.total), 0)) + '</small>';
+      const out = m.mode !== 'prob' && !ps.some(p => p.left > 0);
+      return '<div class="gs' + (out ? ' out' : '') + '"><span class="grade" style="--gc:' + GRADE_COLOR[g] + '">' + g + '</span>' + val + '</div>';
+    }).join('');
+    $('grade-sum').innerHTML = '<span class="gs-label">' + (m.mode === 'prob' ? '등급별 확률' : '등급별 남은 수량') + '</span><div class="gs-row">' + gs + '</div>';
+  }
   function renderPrizes() {
     const m = current;
+    renderGradeSum(m);
     if (m.mode === 'prob') {
       $('rule').innerHTML = '상시 운영하는 <b>확률형</b> 머신이에요. 결과는 강냉이로만 받아요. 1회 기대값 <b>' + (m.prizes.reduce((s, p) => s + p.val * p.w, 0) / 100).toFixed(1) + '개</b>';
       $('prize-head').innerHTML = '<tr><th>등급</th><th>상품</th><th class="r">확률</th></tr>';
