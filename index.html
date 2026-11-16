@@ -1640,7 +1640,6 @@ img, svg, video { max-width: 100%; }
   <div class="game-tabs" role="tablist" aria-label="게임 선택">
     <button type="button" role="tab" data-gtab="gacha" aria-selected="true"><span class="gt-dot"></span>가챠샵</button>
     <button type="button" role="tab" data-gtab="puzzle" aria-selected="false" style="--gtc:var(--t-pack)"><span class="gt-dot"></span>직소 퍼즐 <small class="gt-new pk">모으는 재미</small></button>
-    <button type="button" role="tab" data-gtab="farm" aria-selected="false" style="--gtc:#3E9B4F"><span class="gt-dot"></span>팝콘 농장 <small class="gt-new fm">키우는 재미</small><span class="gt-farm" id="farm-count" hidden></span></button>
     <button type="button" role="tab" data-gtab="runner" aria-selected="false" style="--gtc:#FF6FA0"><span class="gt-dot"></span>냥치 런 <small class="gt-new rn">NEW</small></button>
     <button type="button" role="tab" data-gtab="cannon" aria-selected="false" style="--gtc:#19A7CE"><span class="gt-dot"></span>팝콘 대포 <small class="gt-new cn">NEW</small></button>
   </div>
@@ -1687,7 +1686,7 @@ img, svg, video { max-width: 100%; }
   <p class="ad-invalid" id="ad-invalid" hidden></p>
 
   <div class="ad-layout">
-  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신·씨앗</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="farm"><span class="gnb-dot" data-addot="farm"></span><span class="gnb-text"><b>팝콘 농장</b><small>밭·성장 시간</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button></div><div class="gnb-group"><span class="gnb-title">보상</span><button type="button" class="gnb-item" data-adpage="shop"><span class="gnb-dot" data-addot="shop"></span><span class="gnb-text"><b>조각 교환소</b><small>교환 상품·수량</small></span></button></div></nav>
+  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button></div><div class="gnb-group"><span class="gnb-title">보상</span><button type="button" class="gnb-item" data-adpage="shop"><span class="gnb-dot" data-addot="shop"></span><span class="gnb-text"><b>조각 교환소</b><small>교환 상품·수량</small></span></button></div></nav>
   <div class="ad-main">
   <div class="ad-page" data-page="overview">
 
@@ -1752,15 +1751,6 @@ img, svg, video { max-width: 100%; }
     <p class="hub-note">교환소에 나오는 상품의 순서, 가격(조각), 한정 수량과 종료 일시, 상품 그림을 편집해요. 환원율은 조각 가치(조각 1개 = <span id="sh-pv"></span>원) 대비 상품 원가예요. 저장하면 게임의 교환소에 바로 반영돼요.</p>
     <div class="sh-list" id="sh-list"></div>
     <div class="ed-foot"><button class="btn-line" type="button" id="sh-add">교환소 상품 추가</button></div>
-  </div>
-
-  </div>
-  <div class="ad-page" data-page="farm" hidden>
-  <div class="panel ad-block">
-    <h2>팝콘 농장 관리 <span class="tag" id="fm-sum"></span></h2>
-    <p class="hub-note">밭 늘리기 비용과 씨앗별 성장 시간·작물 색을 정해요. 씨앗의 심는 값·보상·확률·월 소진량은 "가챠 머신·씨앗" 메뉴에서 씨앗 탭을 골라 바꾸고, 예산·RTP 계산과 "목표로 맞추기"에도 함께 들어가요.</p>
-    <div class="fields fm-fields" id="fm-fields"></div>
-    <div class="table-wrap"><table class="ad-table fm-table" id="fm-seeds"></table></div>
   </div>
 
   </div>
@@ -1844,16 +1834,6 @@ img, svg, video { max-width: 100%; }
   </div>
 </section>
 
-<div class="modal" id="farm-modal" hidden>
-  <div class="sheet farm-sheet" role="dialog" aria-modal="true" aria-labelledby="farm-title">
-    <div class="sheet-head">
-      <h2 id="farm-title">씨앗 심기</h2>
-      <button class="close" id="farm-close" type="button" aria-label="닫기">×</button>
-    </div>
-    <p class="hub-note" id="farm-note"></p>
-    <div class="seed-opts" id="farm-seeds"></div>
-  </div>
-</div>
 
 <div class="modal" id="buy-modal" hidden>
   <div class="sheet buy-sheet" role="dialog" aria-modal="true" aria-labelledby="buy-title">
@@ -1958,7 +1938,6 @@ img, svg, video { max-width: 100%; }
     { id: 'coin', name: '동전존', cost: 100, color: 'var(--t-coin)' },
     { id: 'silver', name: '실버존', cost: 500, color: 'var(--t-silver)' },
     { id: 'puzzle', name: '직소 퍼즐', cost: 300, color: 'var(--t-pack)', tab: 'puzzle' },
-    { id: 'farm', name: '팝콘 농장', cost: 200, color: '#3E9B4F', tab: 'farm' },
     { id: 'runner', name: '냥치 런', cost: 100, color: '#FF6FA0', tab: 'runner' },
     { id: 'cannon', name: '팝콘 대포', cost: 100, color: '#19A7CE', tab: 'cannon' },
     { id: 'gold', name: '골드존', cost: 2000, color: 'var(--t-gold)' },
@@ -2026,14 +2005,6 @@ img, svg, video { max-width: 100%; }
         prizes: [P('S', '친필 사인 폴라로이드', 'product', 0, 30000, 2, 2), P('A', '아크릴 스탠드', 'product', 0, 8000, 10, 7), P('B', '캐릭터 키링', 'product', 0, 4000, 28, 19), P('C', '조각 3개', 'piece', 3, 0, 40, 26)] },
       { id: 'legend', zone: 'legend', name: '레전드 머신', cost: 10000, demand: 2400000, top: '휴대용 게임기',
         prizes: [P('S', '휴대용 게임기', 'product', 0, 400000, 1, 1), P('S', '무선 이어폰', 'product', 0, 250000, 2, 1), P('A', '문화상품권 5만원', 'product', 0, 50000, 6, 4), P('B', '문화상품권 1만원', 'product', 0, 10000, 21, 9), P('C', '조각 10개', 'piece', 10, 0, 90, 46)] },
-      // 팝콘 농장 씨앗: 심는 값(cost)을 내고 키우면, 수확할 때 공개 확률표에서 보상이 정해진다 (RTP 관리 대상)
-      // minutes = 성장 시간, tint = 작물 색
-      { id: 'seed-salt', zone: 'farm', mode: 'farm', name: '소금 팝콘', cost: 200, minutes: 30, tint: '#F3EBD8', demand: 1000000, top: '편의점 3천원권',
-        prizes: [W('S', '편의점 3천원권', 'product', 0, 3000, 1), W('A', '강냉이 600개', 'kernel', 600, 0, 4), W('B', '조각 3개', 'piece', 3, 0, 15), W('C', '강냉이 100개', 'kernel', 100, 0, 30), W('C', '조각 1개', 'piece', 1, 0, 50)] },
-      { id: 'seed-butter', zone: 'farm', mode: 'farm', name: '버터 팝콘', cost: 500, minutes: 120, tint: '#FFD866', demand: 1000000, top: '치킨 기프티콘',
-        prizes: [W('S', '치킨 기프티콘', 'product', 0, 20000, 0.5), W('A', '아메리카노 기프티콘', 'product', 0, 4500, 4), W('B', '조각 6개', 'piece', 6, 0, 20), W('C', '강냉이 250개', 'kernel', 250, 0, 25), W('C', '조각 3개', 'piece', 3, 0, 50.5)] },
-      { id: 'seed-caramel', zone: 'farm', mode: 'farm', name: '캐러멜 팝콘', cost: 1200, minutes: 360, tint: '#E8A25A', demand: 1200000, top: '게임 코드 5만원권',
-        prizes: [W('S', '게임 코드 5만원권', 'product', 0, 50000, 0.5), W('A', '문화상품권 1만원', 'product', 0, 10000, 5), W('B', '조각 15개', 'piece', 15, 0, 20), W('C', '강냉이 600개', 'kernel', 600, 0, 20), W('C', '조각 8개', 'piece', 8, 0, 54.5)] }
     ],
     // 조각 교환소 상품. worth = 상품 원가(원), limited.endDate가 비어 있으면 이번 주 일요일 자정에 끝나요
     shop: [
@@ -2044,9 +2015,7 @@ img, svg, video { max-width: 100%; }
       { id: 'cvs3000', cat: 'gift', name: '편의점 3천원권', desc: '전국 편의점에서 쓰는 모바일 상품권', cost: 20, kind: 'product', worth: 3000, limited: null, art: { t: 'coupon', big: '3,000', small: '편의점 상품권', tile: '#E5F6EF', tc: '#0E8F63' } },
       { id: 'americano', cat: 'gift', name: '아메리카노 기프티콘', desc: '카페 아메리카노 한 잔', cost: 30, kind: 'product', worth: 4500, limited: null, art: { t: 'coupon', big: 'COFFEE', small: '아메리카노 1잔', tile: '#F3E9DF', tc: '#6B4226' } },
       { id: 'chicken', cat: 'gift', name: '치킨 기프티콘', desc: '후라이드 치킨 한 마리', cost: 140, kind: 'product', worth: 20000, limited: null, art: { t: 'coupon', big: 'CHICKEN', small: '후라이드 1마리', tile: '#FFEBD6', tc: '#C2410C' } }
-    ],
-    // 팝콘 농장 공통 규칙 (씨앗별 보상·확률은 machines의 mode:'farm' 항목)
-    farm: { unlockCost: 2000 }
+    ]
   };
   const CONFIG_KEY = 'tooneland-config-v3';
   const clone = o => JSON.parse(JSON.stringify(o));
@@ -2062,16 +2031,15 @@ img, svg, video { max-width: 100%; }
   function applyConfig(c) {
     // 교환소 설정이 없던 예전 저장본은 기본 교환소 상품으로 채운다
     if (!Array.isArray(c.shop)) c.shop = clone(DEFAULT_CONFIG.shop);
-    if (!c.farm) c.farm = clone(DEFAULT_CONFIG.farm);
     delete c.rankBenefit;   // 순위 베네핏은 삭제됨
     // 예전(크리에이터 라인업) 퍼즐 설정은 상품 퍼즐 기본값으로 바꾼다
     c.machines = c.machines.map(m => m.mode === 'puzzle' && m.pv !== 2 ? clone(DEFAULT_CONFIG.machines.find(d => d.mode === 'puzzle')) : m);
     c.machines.filter(m => m.mode === 'puzzle').forEach(m => m.prizes.forEach((p, i) => { if (!p.pid) p.pid = 'p' + i + '-' + String(p.name).length; }));
-    delete c.farm.seeds; delete c.farm.waterPerDay; delete c.farm.waterCut; delete c.farm.liveBonus;   // 예전 확정형 씨앗 설정은 버린다 (씨앗은 이제 확률형 머신)
     // 예전 한정 카드팩·빙고 카드팩은 직소 퍼즐로 바뀌었다
     c.machines = c.machines.filter(m => m.mode !== 'pack' && m.mode !== 'bingo');
     // 뽑기판·팝콘 핀볼은 삭제된 게임
-    c.machines = c.machines.filter(m => m.mode !== 'board' && m.mode !== 'plinko');
+    c.machines = c.machines.filter(m => m.mode !== 'board' && m.mode !== 'plinko' && m.mode !== 'farm');
+    delete c.farm;   // 팝콘 농장은 삭제된 게임
     // 예전 저장본에 없는 기본 머신(뽑기존 등)은 기본값으로 채운다
     DEFAULT_CONFIG.machines.forEach(d => { if (!c.machines.some(m => m.id === d.id)) c.machines.push(clone(d)); });
     syncPieceValue(c);
@@ -2180,7 +2148,6 @@ img, svg, video { max-width: 100%; }
       puzzle: ['상품 퍼즐 6조각을 모아 상품을 받는 직소 퍼즐', '카드를 뽑을 때마다 상품 퍼즐 조각이 하나 나와요. 6조각을 다 모으면 그 상품을 받아요. 비싼 상품일수록 조각이 드물고, 이미 가진 조각은 중복이에요.'],
       cannon: ['게이지를 멈춰 팝콘을 쏘는 팝콘 대포', '팝콘이 떨어진 거리 구간의 배수만큼 강냉이를 받아요. 게이지 타이밍에 따라 확률표가 달라지지만 평균 환원(RTP)은 같아요.'],
       runner: ['냥치와 달리며 문을 고르는 냥치 런', '문 2개 중 하나만 통과돼요. 3초 안에 골라 문 5개를 통과하면 완주! 첫 문을 통과한 뒤에는 포기하고 점수를 받을 수도 있어요.'],
-      farm: ['강냉이를 심고 키워서 팝콘을 수확하는 팝콘 농장', '운이 아니라 시간으로 자라요. 씨앗마다 수확량이 정해져 있고, 오래 키울수록 더 많이 받아요.']
     };
     document.querySelectorAll('[data-gtab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.gtab === state.tab)));
     $('zones-title').textContent = COPY[state.tab][0];
@@ -2221,7 +2188,6 @@ img, svg, video { max-width: 100%; }
   }
 
   function renderFloor() {
-    if (state.tab === 'farm') { $('floor').innerHTML = farmHTML(); return; }
     if (state.tab === 'puzzle') { $('floor').innerHTML = puzzleFloorHTML(); return; }
     if (state.tab === 'runner') { $('floor').innerHTML = runnerFloorHTML(); return; }
     if (state.tab === 'cannon') { $('floor').innerHTML = cannonFloorHTML(); cnInit(); return; }
@@ -3422,122 +3388,7 @@ img, svg, video { max-width: 100%; }
   });
   addEventListener('resize', () => { if (state.tab === 'cannon' && !CN.flying && cnEl('cn-stage')) cnInit(); });
 
-  // =====================================================================
-  // 팝콘 농장: 씨앗을 심고 시간이 지나면 수확. 수확할 때 공개 확률표에서 보상이 정해진다 (RTP 관리)
-  // 씨앗 = machines의 mode:'farm' 항목. 내 밭 상태는 이 브라우저에만 저장되는 목업 데이터
-  // =====================================================================
-  const FARM_KEY = 'tooneland-farm-v2';
-  const seedList = () => machines.filter(m => m.mode === 'farm');
-  const localDay = () => { const d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); };
-  function loadFarm() {
-    try { const v = JSON.parse(localStorage.getItem(FARM_KEY) || 'null'); if (v && Array.isArray(v.plots)) return v; } catch (e) { /* 새 밭으로 시작 */ }
-    // 처음 오면 하나는 다 자란 상태, 하나는 자라는 중으로 보여준다 (체험용)
-    const s = DEFAULT_CONFIG.machines.filter(m => m.mode === 'farm'), now = Date.now();
-    return {
-      plots: [
-        { seed: clone(s[1]), start: now - 200000, dur: s[1].minutes * 1000 },
-        { seed: clone(s[0]), start: now - 8000, dur: s[0].minutes * 1000 },
-        null, null, null, null
-      ],
-      unlocked: 4, harvested: 0, fast: true
-    };
-  }
-  let farm = loadFarm();
-  const saveFarm = () => { try { localStorage.setItem(FARM_KEY, JSON.stringify(farm)); } catch (e) { /* 보관 불가 */ } if (typeof renderFarmBadge === 'function') renderFarmBadge(); };
-  const fmtMin = m => m >= 60 ? (m % 60 ? Math.floor(m / 60) + '시간 ' + (m % 60) + '분' : (m / 60) + '시간') : m + '분';
-  function fmtLeft(ms) {
-    const s = Math.max(0, Math.ceil(ms / 1000)), h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), ss = s % 60;
-    return h ? h + '시간 ' + m + '분' : m ? m + '분 ' + ss + '초' : ss + '초';
-  }
-  const plotStage = p => { const pr = Math.min(1, (Date.now() - p.start) / p.dur); return pr >= 1 ? 3 : pr < .34 ? 0 : pr < .67 ? 1 : 2; };
-  const tintOf = s => s.tint || '#FFE7A8';
-  // 씨앗 확률표 한 줄 요약 (등급별 최고 보상)
-  function oddsLine(s) {
-    const tot = s.prizes.reduce((a, p) => a + (+p.w || 0), 0) || 1;
-    return ['S', 'A', 'B', 'C'].map(g => {
-      const list = s.prizes.filter(p => p.g === g); if (!list.length) return '';
-      const w = list.reduce((a, p) => a + (+p.w || 0), 0) / tot * 100;
-      return '<span class="odd"><span class="grade" style="--gc:' + GRADE_COLOR[g] + '">' + g + '</span>' + list.at(0).name + (list.length > 1 ? ' 외' : '') + ' <b class="num">' + (+w.toFixed(1)) + '%</b></span>';
-    }).join('');
-  }
-  function cropSVG(stage, color) {
-    const stem = h => '<path d="M46 108 V' + h + '" stroke="#3E9B4F" stroke-width="5" stroke-linecap="round"/>';
-    const leaf = (y, dir) => dir < 0
-      ? '<path d="M46 ' + y + ' C34 ' + (y - 10) + ' 24 ' + (y - 6) + ' 16 ' + (y - 16) + ' C30 ' + (y - 20) + ' 40 ' + (y - 10) + ' 46 ' + (y - 2) + 'Z" fill="#5CC46B"/>'
-      : '<path d="M46 ' + y + ' C58 ' + (y - 10) + ' 68 ' + (y - 6) + ' 76 ' + (y - 16) + ' C62 ' + (y - 20) + ' 52 ' + (y - 10) + ' 46 ' + (y - 2) + 'Z" fill="#4DB35D"/>';
-    const cob = '<ellipse cx="53" cy="44" rx="10" ry="19" fill="' + color + '" stroke="#D9A43A" stroke-width="1.5"/>' +
-      '<path d="M47 32 h12 M46 40 h14 M46 48 h14 M47 56 h12" stroke="rgba(120,80,0,.25)" stroke-width="1.5"/>' +
-      '<path d="M50 64 C40 52 40 36 44 24 C44 40 48 52 56 62Z" fill="#6CCB78"/>';
-    const puffs = [[34, 30, 11], [50, 22, 13], [66, 30, 11], [42, 44, 12], [60, 44, 12], [52, 36, 10], [30, 46, 8], [72, 46, 8]]
-      .map(c => '<circle cx="' + c[0] + '" cy="' + c[1] + '" r="' + c[2] + '" fill="#FFFDF5" stroke="#F0D9A6" stroke-width="1.5"/>').join('') +
-      '<circle cx="46" cy="26" r="3" fill="' + color + '"/><circle cx="60" cy="40" r="2.5" fill="' + color + '"/><circle cx="38" cy="42" r="2.5" fill="' + color + '"/>' +
-      '<path d="M18 16 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z M80 12 l1.5 4 4 1.5 -4 1.5 -1.5 4 -1.5 -4 -4 -1.5 4 -1.5z" fill="#FFE07A"/>';
-    const parts = [
-      stem(80) + leaf(88, -1) + leaf(84, 1),
-      stem(52) + leaf(92, -1) + leaf(80, 1) + leaf(66, -1) + leaf(58, 1),
-      stem(40) + leaf(94, -1) + leaf(82, 1) + leaf(70, -1) + cob,
-      stem(56) + leaf(94, -1) + leaf(82, 1) + leaf(70, -1) + puffs
-    ];
-    return '<svg viewBox="0 0 92 110" aria-hidden="true">' + parts[stage] + '</svg>';
-  }
-  const LOCK_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10V7a5 5 0 0110 0v3h1a1 1 0 011 1v9a1 1 0 01-1 1H6a1 1 0 01-1-1v-9a1 1 0 011-1h1zm2 0h6V7a3 3 0 00-6 0v3z"/></svg>';
-  function plotHTML(p, i) {
-    if (i >= farm.unlocked) {
-      return i === farm.unlocked
-        ? '<button class="plot locked" type="button" data-farm="unlock">' + LOCK_SVG + '<span class="pl-cap">밭 늘리기</span><span class="pl-sub num">' + K + fmt(config.farm.unlockCost) + '</span></button>'
-        : '<div class="plot locked" aria-label="잠긴 밭">' + LOCK_SVG + '<span class="pl-sub">앞의 밭을 먼저 늘려요</span></div>';
-    }
-    if (!p) return '<button class="plot empty" type="button" data-farm="plant" data-i="' + i + '"><span class="plus">+</span><span class="pl-cap">씨앗 심기</span></button>';
-    const st = plotStage(p);
-    if (st === 3) {
-      return '<button class="plot ready" type="button" data-farm="harvest" data-i="' + i + '"><span class="crop">' + cropSVG(3, tintOf(p.seed)) + '</span>' +
-        '<span class="pl-harvest">수확하기</span><span class="pl-yield">' + p.seed.name + ' · 무엇이 나올까요?</span></button>';
-    }
-    const pr = Math.min(1, (Date.now() - p.start) / p.dur);
-    return '<div class="plot growing" data-st="' + st + '"><span class="crop">' + cropSVG(st, tintOf(p.seed)) + '</span>' +
-      '<div class="pl-info"><b>' + p.seed.name + '</b><span class="pl-time" data-left="' + i + '">' + fmtLeft(p.start + p.dur - Date.now()) + ' 남음</span>' +
-      '<div class="bar"><i data-bar="' + i + '" style="width:' + (pr * 100).toFixed(1) + '%"></i></div></div></div>';
-  }
-  function farmHTML() {
-    const seeds = seedList().map(s => '<div class="sg-item sg-wide"><span class="sg-dot" style="--sc:' + tintOf(s) + '"></span><span class="sg-main"><b>' + s.name + '</b>' +
-      K + fmt(s.cost) + ' · ' + fmtMin(s.minutes) + (farm.fast ? ' (체험 ' + s.minutes + '초)' : '') + '<span class="odds">' + oddsLine(s) + '</span></span></div>').join('');
-    return '<div class="farm">' +
-      '<div class="farm-bar">' +
-        '<button class="fb-toggle" type="button" data-farm="fast" aria-pressed="' + farm.fast + '"><span class="sw"></span>체험 모드 <small>시간 60배 빠르게</small></button>' +
-        '<span class="fb-item">누적 수확 <b class="num">' + fmt(farm.harvested) + '회</b></span>' +
-      '</div>' +
-      '<div class="field-wrap"><div class="plots">' + farm.plots.map(plotHTML).join('') + '</div></div>' +
-      '<div class="seed-guide"><h3>씨앗 안내 <small class="qmeta">수확 확률 공개</small></h3><div class="sg-list sg-col">' + seeds + '</div>' +
-        '<p class="hub-note" style="margin:10px 0 0">수확할 때 위 확률표에서 보상이 정해져요. 성장 시간은 보상 확률에 영향을 주지 않아요.</p></div>' +
-    '</div>';
-  }
-  // 1초마다 남은 시간만 갱신하고, 단계가 바뀌면 다시 그린다
-  // 팝콘 농장 탭에 자라는 중·수확 가능 밭 수 표시
-  let farmBadgeSig = '';
-  function renderFarmBadge() {
-    const st = farm.plots.slice(0, farm.unlocked).filter(Boolean).map(plotStage);
-    const grow = st.filter(x => x < 3).length, ready = st.length - grow, sig = grow + '/' + ready;
-    if (sig === farmBadgeSig) return; farmBadgeSig = sig;
-    const el = $('farm-count');
-    el.hidden = !st.length;
-    el.innerHTML = (ready ? '<span class="ready">수확 ' + ready + '</span>' : '') + (grow ? '<span class="grow">성장 ' + grow + '</span>' : '');
-    el.closest('button').setAttribute('aria-label', '팝콘 농장' + (ready ? ', 수확 가능 ' + ready + '곳' : '') + (grow ? ', 자라는 중 ' + grow + '곳' : ''));
-  }
-  let farmSig = '';
-  renderFarmBadge();
-  setInterval(() => {
-    renderFarmBadge();
-    if (state.tab !== 'farm' || $('app').hidden) return;
-    const sig = farm.plots.map(p => p ? plotStage(p) : '-').join('');
-    if (sig !== farmSig) { farmSig = sig; renderFloor(); return; }
-    farm.plots.forEach((p, i) => {
-      if (!p) return;
-      const t = document.querySelector('[data-left="' + i + '"]'), b = document.querySelector('[data-bar="' + i + '"]');
-      if (t) t.textContent = fmtLeft(p.start + p.dur - Date.now()) + ' 남음';
-      if (b) b.style.width = (Math.min(1, (Date.now() - p.start) / p.dur) * 100).toFixed(1) + '%';
-    });
-  }, 1000);
-  // 농장 화면에서는 파티클 캔버스를 화면 위로 잠깐 올려 쓴다
+  // 공용 연출: 파티클 캔버스를 화면 위로 띄우거나 뽑기 창으로 되돌림
   let fxFloatT = 0;
   function floatFx() {
     if (fx.parentElement && fx.parentElement.id === 'reveal' && $('reveal').hidden) { document.body.appendChild(fx); fx.classList.add('fx-float'); sizeFx(); }
@@ -3545,162 +3396,6 @@ img, svg, video { max-width: 100%; }
     fxFloatT = setTimeout(() => { if (!raf && fx.classList.contains('fx-float')) { fx.classList.remove('fx-float'); $('reveal').insertBefore(fx, $('flash')); } }, 4000);
   }
   function dockFx() { clearTimeout(fxFloatT); fx.classList.remove('fx-float'); if (fx.parentElement !== $('reveal')) $('reveal').insertBefore(fx, $('flash')); }
-  let farmPlot = -1;
-  function openSeedPicker(i) {
-    farmPlot = i;
-    $('farm-note').textContent = (i + 1) + '번 밭에 심을 씨앗을 골라요. 보상은 수확할 때 아래 확률표에서 정해져요.';
-    $('farm-seeds').innerHTML = seedList().map(s => '<button class="seed-opt" type="button" data-seed="' + s.id + '"' + (state.balance < s.cost ? ' disabled' : '') + '>' +
-      '<span class="sg-dot" style="--sc:' + tintOf(s) + '"></span><span class="sg-main"><b>' + s.name + '</b>' + K + fmt(s.cost) + ' · ' + fmtMin(s.minutes) + (farm.fast ? ' (체험 ' + s.minutes + '초)' : '') +
-      '<span class="odds">' + oddsLine(s) + '</span>' + (state.balance < s.cost ? '<span style="color:var(--danger)">강냉이가 부족해요</span>' : '') + '</span></button>').join('');
-    $('farm-modal').hidden = false;
-    $('farm-close').focus();
-  }
-  const closeSeedPicker = () => { $('farm-modal').hidden = true; farmPlot = -1; };
-  function plantSeed(id) {
-    const s = seedList().find(x => x.id === id), i = farmPlot;
-    if (!s || i < 0 || farm.plots[i] || state.balance < s.cost) return;
-    state.balance -= s.cost;
-    farm.plots[i] = { seed: clone(s), start: Date.now(), dur: s.minutes * (farm.fast ? 1000 : 60000) };
-    saveFarm(); closeSeedPicker(); renderHUD(true); renderFloor();
-    toast('', (i + 1) + '번 밭에 ' + s.name + '을(를) 심었어요. ' + fmtLeft(farm.plots[i].dur) + ' 뒤에 수확해요' + '.', true);
-  }
-  // ----- 수확 연출: 밭에서 팝콘 통이 날아와 튀겨지며 별이 켜지고, 터지면서 보상 공개 -----
-  function popWord(text, x, y) {
-    const el = document.createElement('span');
-    el.className = 'pop-word'; el.textContent = text;
-    el.style.left = x + 'px'; el.style.top = y + 'px'; el.style.setProperty('--r', (Math.random() * 30 - 15).toFixed(0) + 'deg');
-    $('reveal').appendChild(el);
-    setTimeout(() => el.remove(), 1000);
-  }
-  async function farmReveal(p, seed, origin) {
-    skipped = false;
-    const ov = $('reveal'), bucket = $('rv-bucket'), prize = $('rv-prize'), rays = $('rays'), hint = $('rv-hint'), starsEl = $('rv-stars');
-    dockFx(); sizeFx();
-    $('rv-cap').className = 'rv-cap stack hide';
-    $('rv-machine').className = 'rv-machine'; $('rv-machine').innerHTML = '';
-    prize.className = 'rv-prize stack'; prize.innerHTML = '';
-    rays.className = 'rays stack'; starsEl.className = 'rv-stars'; starsEl.innerHTML = '';
-    $('rv-count').textContent = seed.name + ' 수확';
-    $('rv-skip').hidden = true;
-    const st = p.stars, big = p.g === 'S';
-    bucket.className = 'rv-bucket stack'; bucket.hidden = false;
-    bucket.style.setProperty('--cc', STAR_COLOR[st === 5 ? 4 : st]);
-    rays.style.setProperty('--rc', STAR_COLOR[st]);
-    $('shock').style.setProperty('--rc', GRADE_COLOR[p.g]);
-    ov.hidden = false; restart(ov, 'intro');
-    // 밭 자리에서 가운데로 날아온다
-    const br = bucket.getBoundingClientRect(), bx = br.left + br.width / 2, by = br.top + br.height / 2;
-    if (origin && !reduce) {
-      bucket.animate([
-        { transform: 'translate(' + (origin.left + origin.width / 2 - bx) + 'px,' + (origin.top + origin.height / 2 - by) + 'px) scale(' + (origin.width / br.width * .6) + ') rotate(-25deg)', opacity: .5 },
-        { offset: .7, transform: 'translateY(-30px) scale(1.12) rotate(8deg)', opacity: 1 },
-        { transform: 'none', opacity: 1 }
-      ], { duration: 450 * TENSION, easing: 'cubic-bezier(.2,.9,.3,1)' });
-    }
-    await waitOrTap(450);
-    if (skipped) return finishFarmReveal();
-    // 팝콘이 튀겨지기 시작: 통이 덜컹이고 '팝!' 글자와 팝콘이 튄다, 별이 하나씩 켜진다
-    starsEl.innerHTML = '<i><svg aria-hidden="true"><use href="#star"/></svg></i>'.repeat(5);
-    starsEl.setAttribute('aria-label', st + '성 팝콘');
-    const lights = starsEl.querySelectorAll('i');
-    const light = k => { const el = lights.item(k - 1); el.style.setProperty('--sc', STAR_COLOR[Math.min(st, 4)]); el.classList.add('on'); };
-    bucket.classList.add('shake'); hint.classList.add('on');
-    const words = ['팝!', '팡!', '톡!', '팝팝!', '퐁!'];
-    for (let k = 1; k <= Math.min(st, 4); k++) {
-      light(k);
-      popWord(words[k % words.length], bx + (Math.random() * 160 - 80), by - 70 - Math.random() * 40);
-      burst(['#FFFDF5', '#FFF3D1', '#FFE07A'], 10 + k * 4, 5 + k, bx, by - 60, 'p');
-      if (k >= 3) bucket.classList.add('hard');
-      if (k === 4) rays.classList.add('on');
-      await waitOrTap(k < 3 ? 220 : 380);
-      if (skipped) return finishFarmReveal();
-    }
-    if (st === 5) {
-      await waitOrTap(500);
-      if (skipped) return finishFarmReveal();
-      lights.forEach(el => el.style.setProperty('--sc', STAR_COLOR[5]));
-      light(5); starsEl.classList.add('max');
-      restart($('flash'), 'go'); restart(ov, 'quake');
-      bucket.style.setProperty('--cc', STAR_COLOR[5]);
-      rays.classList.add('on', 'rainbow');
-      popWord('대박 팝!', bx, by - 110);
-      burst(['#FFFDF5', '#FFE07A', '#FFC64E'], 40, 9, bx, by - 60, 'p');
-      await waitOrTap(800);
-      if (skipped) return finishFarmReveal();
-    } else {
-      await waitOrTap(st >= 4 ? 400 : 260);
-      if (skipped) return finishFarmReveal();
-    }
-    // 펑! 통이 터지며 팝콘이 쏟아지고 보상 공개
-    hint.classList.remove('on');
-    bucket.classList.remove('shake', 'hard'); bucket.classList.add('blast');
-    restart($('shock'), 'go');
-    if (p.g !== 'C') restart($('flash'), 'go');
-    if (big) restart(ov, 'quake');
-    burst(['#FFFDF5', '#FFF3D1', '#FFE07A', tintOf(seed)], { S: 160, A: 110, B: 70, C: 40 }[p.g], { S: 15, A: 12, B: 9, C: 7 }[p.g], bx, by, 'p');
-    burst(palette(p.g), { S: 140, A: 80, B: 40, C: 15 }[p.g], { S: 17, A: 13, B: 9, C: 6 }[p.g], bx, by);
-    if (big) { rain(palette('S'), 120); rain(['#FFFDF5', '#FFE07A'], 80, 'p'); }
-    if (p.g === 'S' || p.g === 'A') rays.classList.add('on');
-    const type = p.kind === 'kernel' ? '강냉이 적립' : p.kind === 'piece' ? '조각 적립' : '보관함에 담았어요';
-    prize.style.setProperty('--gc', GRADE_COLOR[p.g]);
-    prize.innerHTML = '<span class="cheer">' + CHEER[p.g] + '</span><span class="grade" style="--gc:' + GRADE_COLOR[p.g] + '">' + GRADE_LABEL[p.g] + '</span><b>' + p.name + '</b><small>' + st + '성 팝콘 · ' + type + '</small>';
-    if (big) prize.classList.add('s');
-    restart(prize, 'show');
-    await waitOrTap(big ? 2000 : p.g === 'A' ? 1500 : 1000);
-    finishFarmReveal();
-  }
-  function finishFarmReveal() {
-    const ov = $('reveal');
-    $('rv-bucket').hidden = true; $('rv-bucket').className = 'rv-bucket stack';
-    $('rv-prize').className = 'rv-prize stack'; $('rv-stars').innerHTML = ''; $('rays').className = 'rays stack';
-    $('rv-hint').classList.remove('on');
-    ov.hidden = true; ov.classList.remove('intro', 'quake');
-    ov.querySelectorAll('.pop-word').forEach(el => el.remove());
-    parts = []; ctx.clearRect(0, 0, innerWidth, innerHeight);
-  }
-  async function harvestPlot(i) {
-    const p = farm.plots[i]; if (busy || !p || plotStage(p) !== 3) return;
-    busy = true;
-    const el = document.querySelectorAll('.plot').item(i), origin = el ? el.getBoundingClientRect() : null;
-    // 수확 순간 공개 확률표에서 보상을 정한다
-    const seed = p.seed, got = Object.assign({}, pick(Object.assign({}, seed, { mode: 'farm' })).at(0));
-    got.stars = rollStars(got.g);
-    farm.plots[i] = null; farm.harvested += 1;
-    saveFarm(); renderFloor();
-    if (!reduce) await farmReveal(got, seed, origin);
-    if (got.kind === 'kernel') state.balance += got.val;
-    else if (got.kind === 'piece') state.pieces += got.val;
-    else state.inventory.push({ id: nextInv++, name: got.name, from: '팝콘 농장 · ' + seed.name, status: 'kept' });
-    recordResult(got, seed);
-    if (got.g === 'S' || got.g === 'A') {
-      state.feed.unshift({ g: got.g, item: got.name, who: '나 · ' + seed.name });
-      if (got.kind === 'product') toast('방송 오버레이 미리보기', '나님이 투네랜드 팝콘 농장에서 ' + got.name + ' 수확!');
-    }
-    toast('', seed.name + ' 수확 · ' + got.stars + '성 · ' + got.name + (got.kind === 'piece' ? ' (조각 적립)' : got.kind === 'kernel' ? ' (강냉이 적립)' : ' (보관함)'), true);
-    saveMe(); renderHUD(true); renderFeed(true); renderInv();
-    busy = false;
-  }
-  function unlockPlot() {
-    const c = config.farm.unlockCost;
-    if (farm.unlocked >= farm.plots.length) return;
-    if (state.balance < c) { toast('', '강냉이가 부족해요. 밭을 늘리려면 강냉이 ' + fmt(c) + '개가 필요해요.', true); return; }
-    state.balance -= c; farm.unlocked += 1;
-    saveFarm(); renderHUD(true); renderFloor();
-    toast('', '밭을 하나 늘렸어요. 이제 ' + farm.unlocked + '칸에 심을 수 있어요.', true);
-  }
-  $('floor').addEventListener('click', e => {
-    const b = e.target.closest('[data-farm]'); if (!b || b.disabled || busy) return;
-    const a = b.dataset.farm, i = Number(b.dataset.i);
-    if (a === 'plant') openSeedPicker(i);
-    else if (a === 'harvest') harvestPlot(i);
-    else if (a === 'unlock') unlockPlot();
-    else if (a === 'fast') { farm[a] = !farm[a]; saveFarm(); renderFloor(); }
-  });
-  $('farm-seeds').addEventListener('click', e => { const b = e.target.closest('[data-seed]'); if (b && !b.disabled) plantSeed(b.dataset.seed); });
-  $('farm-close').addEventListener('click', closeSeedPicker);
-  document.addEventListener('click', e => { if (!e.target.closest('.pz-slot')) document.querySelectorAll('.pz-slot.tip').forEach(x => x.classList.remove('tip')); });
-  $('farm-modal').addEventListener('click', e => { if (e.target === $('farm-modal')) closeSeedPicker(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('farm-modal').hidden) closeSeedPicker(); });
 
   async function draw(n, cells) {
     const m = current, board = m && m.mode === 'board';
@@ -4122,8 +3817,6 @@ img, svg, video { max-width: 100%; }
       if (m.prizes.some(p => !String(p.name).trim())) errs.push(m.name + ': 이름이 비어 있는 상품이 있어요.');
     });
     if (!(draft.settings.kernelValue > 0)) errs.push('강냉이 1개 원가 환산 값을 입력해 주세요.');
-    const fm = draft.farm;
-    if (!(num(fm.unlockCost) >= 1)) errs.push('팝콘 농장: 밭 늘리기 비용을 입력해 주세요.');
     draft.machines.filter(m => m.mode === 'cannon').forEach(m => {
       if (!(num(m.cost) >= 10)) errs.push('팝콘 대포: 1발 금액은 10 이상이어야 해요.');
       if (!Array.isArray(m.mults) || m.mults.length !== 6 || m.mults.some(v => !(Number(v) >= 0))) errs.push('팝콘 대포: 배수는 0 이상이어야 해요.');
@@ -4132,7 +3825,6 @@ img, svg, video { max-width: 100%; }
     });
     draft.machines.filter(m => m.mode === 'runner').forEach(m => { const L = rnLadder(m); if (L.length !== RN_DOORS || L.some((v, i) => !(v > 0) || (i && v <= L[i - 1]))) errs.push('냥치 런: 문 단계 점수는 0보다 크고 단계마다 커져야 해요.'); });
     draft.machines.filter(m => m.mode === 'puzzle').forEach(m => m.prizes.forEach(p => { if (p.kind === 'product' && !(num(p.cost) > 0)) errs.push('직소 퍼즐: ' + p.name + '의 원가를 입력해 주세요.'); }));
-    draft.machines.filter(m => m.mode === 'farm').forEach(m => { if (!(num(m.minutes) >= 1)) errs.push(m.name + ': 성장 시간을 1분 이상으로 정해 주세요.'); });
     draft.shop.forEach(it => {
       const n = '교환소 [' + (String(it.name).trim() || '이름 없음') + ']';
       if (!String(it.name).trim()) errs.push('교환소: 이름이 비어 있는 상품이 있어요.');
@@ -4294,7 +3986,6 @@ img, svg, video { max-width: 100%; }
       field('입장료', 'cost', num(m.cost), '강냉이', 'number') +
       field('월 예상 강냉이 소진', 'demand', num(m.demand), '강냉이', 'number') +
       field('최고 상품 문구', 'top', m.top) +
-      (m.mode === 'farm' ? field('성장 시간', 'minutes', num(m.minutes), '분', 'number') : '') +
       '</div>';
     const head = '<thead><tr><th class="w-grade">등급</th><th>상품명</th><th class="w-kind">유형</th><th class="w-num">가치</th><th class="w-num">' + (m.mode === 'puzzle' ? '조각 확률' : prob ? '확률' : '수량') + '</th><th class="r">당첨 확률</th><th class="r">원가 비중</th><th></th></tr></thead>';
     const rows = m.prizes.map((p, i) => {
@@ -4358,31 +4049,9 @@ img, svg, video { max-width: 100%; }
     if (before !== s.pieceValue) draft.shop.forEach((it, i) => { const cc = document.querySelector('[data-shcalc="' + i + '"]'); if (cc) cc.innerHTML = shCalc(it); });
   }
 
-  // ----- 팝콘 농장 관리: 공통 규칙 + 씨앗별 성장 시간·색 (보상·확률은 머신 편집기에서) -----
-  function renderFarmAdmin() {
-    const f = draft.farm;
-    const ff = (label, key, unit) => '<div class="field"><label for="fm-' + key + '">' + label + '</label><div class="input-unit"><input class="input num" id="fm-' + key + '" type="number" min="0" data-fm="' + key + '" value="' + num(f[key]) + '"><span>' + unit + '</span></div></div>';
-    $('fm-fields').innerHTML = ff('밭 늘리기 비용', 'unlockCost', '강냉이');
-    const seeds = draft.machines.filter(m => m.mode === 'farm');
-    $('fm-seeds').innerHTML = '<thead><tr><th>씨앗</th><th class="r">심는 값(강냉이)</th><th class="w-num">성장 시간</th><th>작물 색</th><th class="r">RTP</th><th></th></tr></thead><tbody>' +
-      seeds.map(s => '<tr><td><span class="mname"><i style="--c:' + (s.tint || '#FFE7A8') + '"></i>' + s.name + '</span></td><td class="r">' + fmt(num(s.cost)) + '</td>' +
-        '<td><div class="input-unit"><input class="input sm num" type="number" min="1" data-seedm="' + s.id + '" data-k="minutes" value="' + num(s.minutes) + '" aria-label="' + s.name + ' 성장 시간"><span>분</span></div></td>' +
-        '<td><input class="input sm" type="color" data-seedm="' + s.id + '" data-k="tint" value="' + (s.tint || '#FFE7A8') + '" aria-label="' + s.name + ' 작물 색"></td>' +
-        '<td class="r num" data-fcalc="' + s.id + '"></td>' +
-        '<td><button class="btn-xs" type="button" data-tab="' + s.id + '" data-jump="1">보상·확률 편집</button></td></tr>').join('') + '</tbody>';
-    renderFarmCalc();
-  }
-  function renderFarmCalc() {
-    const seeds = draft.machines.filter(m => m.mode === 'farm'), s = draft.settings;
-    const rates = seeds.map(m => econ(m, s).rtp);
-    seeds.forEach((m, i) => { const c = document.querySelector('[data-fcalc="' + m.id + '"]'); if (c) c.textContent = pct(rates.at(i)); });
-    $('fm-sum').textContent = '씨앗 ' + seeds.length + '종 · RTP ' + (rates.length ? pct(Math.min(...rates)) + '~' + pct(Math.max(...rates)) : '–');
-  }
-
   function renderStats() {
     renderGnbDots();
     renderPieceValue();
-    renderFarmCalc();
     const t = totalsOf(draft);
     renderKpis(t);
     renderCompare();
@@ -4536,7 +4205,7 @@ img, svg, video { max-width: 100%; }
   }
 
   // ----- 관리자 좌측 메뉴: 기능별로 한 화면씩 -----
-  const AD_PAGES = ['overview', 'machines', 'puzzle', 'farm', 'runner', 'cannon', 'shop'];
+  const AD_PAGES = ['overview', 'machines', 'puzzle', 'runner', 'cannon', 'shop'];
   let adPage = (() => { try { const v = localStorage.getItem('tooneland-ad-page'); return AD_PAGES.includes(v) ? v : 'overview'; } catch (e) { return 'overview'; } })();
   function adGo(page, keepScroll) {
     if (!AD_PAGES.includes(page)) page = 'overview';
@@ -4552,7 +4221,7 @@ img, svg, video { max-width: 100%; }
     const s = draft.settings, T = target(), R = { ok: 1, warn: 2, bad: 3 };
     const worst = list => list.reduce((w, m) => { const c = statusOf(econ(m, s).rtp, T).cls; return (R[c] || 0) > (R[w] || 0) ? c : w; }, '');
     const by = mode => draft.machines.filter(m => mode(m));
-    const map = { overview: worst(draft.machines), machines: worst(by(m => !['puzzle', 'runner', 'cannon'].includes(m.mode))), puzzle: worst(by(m => m.mode === 'puzzle')), farm: worst(by(m => m.mode === 'farm')), runner: worst(by(m => m.mode === 'runner')), cannon: worst(by(m => m.mode === 'cannon')), shop: '' };
+    const map = { overview: worst(draft.machines), machines: worst(by(m => !['puzzle', 'runner', 'cannon'].includes(m.mode))), puzzle: worst(by(m => m.mode === 'puzzle')), runner: worst(by(m => m.mode === 'runner')), cannon: worst(by(m => m.mode === 'cannon')), shop: '' };
     document.querySelectorAll('#ad-gnb [data-addot]').forEach(d => { d.className = 'gnb-dot' + (map[d.dataset.addot] ? ' ' + map[d.dataset.addot] : ''); });
   }
   document.getElementById('ad-gnb').addEventListener('click', e => { const b = e.target.closest('[data-adpage]'); if (b) adGo(b.dataset.adpage); });
@@ -4643,7 +4312,7 @@ img, svg, video { max-width: 100%; }
   function openAdmin() {
     // 편집 중인 내용이 없으면 최신 설정(게임에서 줄어든 남은 수량 포함)으로 다시 시작
     if (!draft || JSON.stringify(draft) === draftBase) { draft = clone(config); draftBase = JSON.stringify(draft); }
-    renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats(); adGo(adPage, true);
+    renderSettings(); renderEditor(); renderShopAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats(); adGo(adPage, true);
   }
 
   // ----- 관리자 이벤트 -----
@@ -4668,11 +4337,6 @@ img, svg, video { max-width: 100%; }
       if (f === 'name') p.name = clean(el.value);
       else if (f === 'total') setTotal(p, Math.round(num(el.value)));
       else p[f] = num(el.value);
-    } else if (el.dataset.fm) {
-      draft.farm[el.dataset.fm] = Math.round(num(el.value));
-    } else if (el.dataset.seedm) {
-      const m = draft.machines.find(x => x.id === el.dataset.seedm); if (!m) return;
-      if (el.dataset.k === 'tint') m.tint = el.value; else m.minutes = Math.round(num(el.value));
     } else if (el.dataset.s) {
       // 선택 상자·체크박스·라디오는 change에서 처리
       if (el.tagName === 'SELECT' || el.type === 'checkbox' || el.type === 'radio') return;
@@ -4755,16 +4419,16 @@ img, svg, video { max-width: 100%; }
         draft.machines.forEach(m => fitMachine(m, s, T, s.method));
       }
       s.targetRtp = Math.round(T * 1000) / 10;
-      renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats();
+      renderSettings(); renderEditor(); renderShopAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats();
       const t = totalsOf(draft);
       toast('', '예산 사용률 ' + pct(t.usage) + ', 목표 RTP ' + s.targetRtp + '%로 모든 머신을 맞췄어요. 저장해야 게임에 반영돼요.', true);
     } else if (id === 'ad-revert') {
-      draft = clone(config); draftBase = JSON.stringify(draft); renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats();
+      draft = clone(config); draftBase = JSON.stringify(draft); renderSettings(); renderEditor(); renderShopAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats();
     } else if (id === 'ad-reset') {
       const btn = $('ad-reset');
       if (Date.now() - resetArmed < 4000) {
         draft = clone(DEFAULT_CONFIG); resetArmed = 0; btn.textContent = '기본값으로';
-        renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats();
+        renderSettings(); renderEditor(); renderShopAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats();
         toast('', '기본값을 불러왔어요. 저장해야 게임에 반영돼요.', true);
       } else {
         resetArmed = Date.now(); btn.textContent = '한 번 더 누르면 초기화';
@@ -4775,7 +4439,7 @@ img, svg, video { max-width: 100%; }
     } else if (id === 'ad-load-remote') {
       if (sync.remote) { draft = clone(config); draftBase = JSON.stringify(draft); }
       $('ad-remote').hidden = true;
-      renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats();
+      renderSettings(); renderEditor(); renderShopAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats();
     }
   });
 
@@ -4820,7 +4484,7 @@ img, svg, video { max-width: 100%; }
     if (!draft || JSON.stringify(draft) === draftBase) {
       draft = clone(config); draftBase = JSON.stringify(draft);
       $('ad-remote').hidden = true;
-      if (!$('admin').hidden) { renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats(); }
+      if (!$('admin').hidden) { renderSettings(); renderEditor(); renderShopAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats(); }
     } else if (!sync.saving) {
       $('ad-remote').hidden = false;
       if (!$('admin').hidden) renderStats();
@@ -4892,7 +4556,7 @@ img, svg, video { max-width: 100%; }
     const admin = location.hash === '#admin', shop = location.hash === '#shop';
     if (CN.flying && location.hash !== '#cannon') { history.replaceState(null, '', '#cannon'); toast('', '팝콘이 착지한 뒤에 이동할 수 있어요.', true); return; }
     if (RN.active && location.hash !== '#runner') { history.replaceState(null, '', '#runner'); toast('', '냥치 런이 끝난 뒤에 이동할 수 있어요.', true); return; }
-    const tab = ({ '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#farm': 'farm', '#runner': 'runner', '#cannon': 'cannon' })[location.hash] || 'gacha';
+    const tab = ({ '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#runner': 'runner', '#cannon': 'cannon' })[location.hash] || 'gacha';
     if (!admin && !shop && tab !== state.tab) {
       if (!$('modal').hidden) { if (busy) return; closeModal(); }
       state.tab = tab; renderZones(); renderFloor();
