@@ -1790,8 +1790,17 @@ img, svg, video { max-width: 100%; }
 .game-nav .game-tabs { margin-top: 0; }
 .gt-home { display: inline-flex; align-items: center; gap: 8px; height: 52px; padding: 0 16px 0 12px; border-radius: 14px; background: var(--surface-2); color: var(--text); font-size: 15px; font-weight: 700; text-decoration: none; }
 .gt-home:hover { background: color-mix(in srgb, var(--primary) 12%, var(--surface-2)); }
-.gt-home i { display: grid; grid-template-columns: repeat(2, 9px); gap: 3px; }
-.gt-home i b { width: 9px; height: 9px; border-radius: 3px; background: var(--c); }
+.gt-home i { display: grid; grid-template-columns: repeat(2, 9px); place-content: center; gap: 3px; width: 32px; height: 32px; border-radius: 9px; background: radial-gradient(70% 70% at 15% 10%, #FF8FB1, transparent 70%), radial-gradient(70% 70% at 95% 20%, #519CFF, transparent 70%), linear-gradient(160deg, #8E7CFF, #2B2F77); box-shadow: 0 2px 6px rgba(0,0,0,.18); }
+.gt-home i b { width: 9px; height: 9px; border-radius: 3px; background: rgba(255,255,255,.92); }
+/* 게임 탭: 라운지 아이콘 */
+.game-tabs button.has-ic { gap: 10px; padding: 0 18px 0 6px; }
+.gt-ic { position: relative; flex: none; width: 32px; height: 32px; }
+.gt-art { position: absolute; inset: 0; overflow: hidden; border-radius: 9px; box-shadow: 0 2px 6px rgba(0,0,0,.18); transition: filter .15s ease, opacity .15s ease, transform .15s ease; }
+.gt-art svg { display: block; width: 100%; height: 100%; }
+.game-tabs button:not([aria-selected="true"]) .gt-art { filter: saturate(.7); opacity: .8; }
+.game-tabs button:hover .gt-art { filter: none; opacity: 1; transform: scale(1.06); }
+.gt-n { position: absolute; top: -5px; right: -6px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 999px; background: #F84949; color: #FFFFFF; font-size: 9.5px; font-style: normal; font-weight: 800; line-height: 16px; text-align: center; box-shadow: 0 0 0 2px var(--surface-2); }
+.game-tabs button[aria-selected="true"] .gt-n { box-shadow: 0 0 0 2px var(--panel); }
 
 .lounge { --lw-text: #FFFFFF; margin-top: 18px; }
 .lg-wall {
@@ -1936,7 +1945,12 @@ img, svg, video { max-width: 100%; }
   .lg-badge { top: -5px; right: calc(50% - min(34px, 50%) - 7px); min-width: 20px; height: 20px; padding: 0 5px; font-size: 10px; line-height: 20px; }
   .game-nav { flex-wrap: nowrap; gap: 6px; }
   .game-nav .game-tabs { flex: 1; min-width: 0; }
-  .gt-home { flex: none; height: 46px; padding: 0 12px 0 10px; gap: 6px; font-size: 14px; }
+  .gt-home { flex: none; height: 46px; padding: 0 12px 0 7px; gap: 6px; font-size: 14px; }
+  .gt-home i { width: 28px; height: 28px; grid-template-columns: repeat(2, 8px); gap: 2.5px; border-radius: 8px; }
+  .gt-home i b { width: 8px; height: 8px; }
+  .game-tabs button.has-ic { gap: 7px; padding: 0 12px 0 5px; }
+  .gt-ic { width: 28px; height: 28px; }
+  .gt-art { border-radius: 8px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .lg-icon { transition: none; }
@@ -5411,6 +5425,12 @@ img, svg, video { max-width: 100%; }
     location.hash = '#' + id;
   });
   buildLounge();
+  // 게임 탭도 라운지 아이콘으로
+  document.querySelectorAll('.game-tabs [data-gtab]').forEach(b => {
+    const g = LG_GAMES.find(x => x.id === b.dataset.gtab); if (!g) return;
+    b.classList.add('has-ic');
+    b.innerHTML = '<span class="gt-ic"><span class="gt-art">' + LG_ART[g.id].replace(/id="(lg\w+)"/g, 'id="$1t"').replace(/url\(#(lg\w+)\)/g, 'url(#$1t)') + '</span>' + (g.badge ? '<i class="gt-n" aria-label="새 게임">N</i>' : '') + '</span>' + g.name;
+  });
 
   function route() {
     const admin = location.hash === '#admin', shop = location.hash === '#shop';
