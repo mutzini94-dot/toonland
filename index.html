@@ -646,6 +646,10 @@ button.stat { font: inherit; color: inherit; cursor: pointer; }
 .cn-grade.g-perfect { background: #FF4D8D; box-shadow: 0 0 0 4px rgba(255,77,141,.25); }
 .cn-grade.g-good { background: #F0A500; }
 .cn-grade.g-normal { background: #7C83A6; }
+.cn-judge { position: absolute; left: 50%; top: 34%; z-index: 7; translate: -50% -50%; font-size: clamp(36px, 8vw, 72px); font-weight: 900; font-style: italic; letter-spacing: -1px; white-space: nowrap; pointer-events: none; color: #FFFFFF; -webkit-text-stroke: 3px var(--jc); paint-order: stroke fill; text-shadow: 0 6px 0 var(--jc), 0 10px 24px rgba(0,0,0,.25); animation: cn-judge 1.2s cubic-bezier(.2,1.4,.4,1) forwards; }
+.cn-judge.perfect { --jc: #E6337A; }
+.cn-judge.good { --jc: #E8A100; }
+@keyframes cn-judge { 0% { transform: scale(.3) rotate(-8deg); opacity: 0; } 18% { transform: scale(1.15) rotate(-4deg); opacity: 1; } 30% { transform: scale(1) rotate(-4deg); } 75% { transform: translateY(-6px) rotate(-4deg); opacity: 1; } 100% { transform: translateY(-30px) rotate(-4deg); opacity: 0; } }
 .cn-float { position: absolute; z-index: 3; translate: -50% -100%; font-size: 20px; font-weight: 900; color: #FFFFFF; text-shadow: 0 2px 0 rgba(0,0,0,.3); white-space: nowrap; pointer-events: none; animation: pk-float 1.3s ease-out forwards; }
 .cn-float.top { font-size: 28px; text-shadow: 0 0 12px #FF8A3D, 0 2px 0 #C2410C; }
 .cn-banner { position: absolute; left: 50%; top: 40%; z-index: 4; translate: -50% -50%; padding: 10px 22px; border-radius: 16px; background: linear-gradient(180deg, #FFE07A, #FF9F43); color: #7A2E00; font-size: 26px; font-weight: 900; white-space: nowrap; box-shadow: 0 6px 0 #C2410C, 0 0 0 6px rgba(255,255,255,.3); pointer-events: none; animation: pk-banner 1.8s cubic-bezier(.2,1.4,.4,1) forwards; }
@@ -3843,7 +3847,14 @@ img, svg, video { max-width: 100%; }
     if (CN.prev != null) CN.pos = CN.prev;
     const nd = cnEl('cn-needle'); if (nd) nd.style.left = CN.pos.toFixed(2) + '%';   // 멈춘 바늘 = 판정 위치
     const grade = cnGradeOf(CN.pos);
-    const gEl = cnEl('cn-grade'); if (gEl) gEl.innerHTML = '<span class="cn-grade ' + grade.cls + '">' + grade.name + (grade.id === 'perfect' ? '!' : '') + '</span>';
+    const gEl = cnEl('cn-grade'); if (gEl) gEl.innerHTML = '<span class="cn-grade ' + grade.cls + '">' + (grade.id === 'good' ? 'GOOD' : grade.name) + (grade.id === 'perfect' ? '!' : '') + '</span>';
+    // 퍼펙트·노란 영역은 화면 가운데에 큰 판정 문구
+    if (grade.id !== 'normal') {
+      const st = cnEl('cn-stage'), jd = document.createElement('div');
+      jd.className = 'cn-judge ' + grade.id; jd.textContent = grade.id === 'perfect' ? '퍼펙트!' : 'GOOD!';
+      if (st) { st.appendChild(jd); setTimeout(() => jd.remove(), 1200); }
+      if (grade.id === 'perfect') SFX.upgrade(); else SFX.star(3);
+    }
     cnEl('cn-msg').hidden = true;
     // 등급 확률표에서 거리 구간을 뽑고, 구간 안의 거리를 하나 고른다
     const P = cnProbs(m, grade.id), sum = P.reduce((a, b) => a + b, 0) || 1;
