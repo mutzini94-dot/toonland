@@ -1783,6 +1783,167 @@ img, svg, video { max-width: 100%; }
   .rn-card p { font-size: 13px; }
   .floor { padding: 12px 8px; gap: 18px 8px; }
 }
+/* ---------- 게임 라운지 (첫 화면: 휴대폰 바탕화면) ---------- */
+.app.in-lounge > .quick, .app.in-lounge > .game-nav, .app.in-lounge > .zones-wrap, .app.in-lounge > .layout { display: none; }
+.app:not(.in-lounge) > .lounge { display: none; }
+.game-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 18px; }
+.game-nav .game-tabs { margin-top: 0; }
+.gt-home { display: inline-flex; align-items: center; gap: 8px; height: 52px; padding: 0 16px 0 12px; border-radius: 14px; background: var(--surface-2); color: var(--text); font-size: 15px; font-weight: 700; text-decoration: none; }
+.gt-home:hover { background: color-mix(in srgb, var(--primary) 12%, var(--surface-2)); }
+.gt-home i { display: grid; grid-template-columns: repeat(2, 9px); gap: 3px; }
+.gt-home i b { width: 9px; height: 9px; border-radius: 3px; background: var(--c); }
+
+.lounge { --lw-text: #FFFFFF; margin-top: 18px; }
+.lg-wall {
+  position: relative; overflow: hidden; isolation: isolate;
+  padding: 18px 26px 22px; border-radius: 32px; color: var(--lw-text);
+  background:
+    radial-gradient(60% 55% at 12% 8%, rgba(255, 143, 177, .85), transparent 70%),
+    radial-gradient(55% 60% at 92% 18%, rgba(81, 156, 255, .9), transparent 70%),
+    radial-gradient(70% 60% at 70% 100%, rgba(142, 124, 255, .95), transparent 70%),
+    radial-gradient(50% 45% at 0% 95%, rgba(255, 198, 78, .75), transparent 70%),
+    linear-gradient(160deg, #5B45E0, #2B2F77 70%, #1B1E4B);
+  box-shadow: 0 24px 60px rgba(43, 47, 119, .28);
+}
+.lg-wall::before { /* 강냉이 무늬 */
+  content: ""; position: absolute; inset: 0; z-index: -1; opacity: .09;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Cpath d='M20 10c2.6 0 4 1.9 4.1 3.4 2.1-.5 4.6 1 4.6 3.6 0 1.9-1.2 3.1-2.5 3.5L24.5 28h-9L13.8 20.5C12.5 20.1 11.3 18.9 11.3 17c0-2.6 2.5-4.1 4.6-3.6.1-1.5 1.5-3.4 4.1-3.4z' fill='%23fff'/%3E%3Ccircle cx='60' cy='56' r='5' fill='%23fff'/%3E%3Ccircle cx='54' cy='18' r='2' fill='%23fff'/%3E%3Ccircle cx='18' cy='60' r='2.5' fill='%23fff'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+}
+.lg-status { display: flex; align-items: center; justify-content: space-between; height: 24px; font-size: 14px; font-weight: 700; letter-spacing: .01em; }
+.lg-status .lg-sys { display: inline-flex; align-items: center; gap: 6px; }
+.lg-status svg { width: 18px; height: 12px; fill: currentColor; }
+.lg-status .lg-batt { position: relative; width: 25px; height: 12px; border: 1.5px solid rgba(255,255,255,.75); border-radius: 4px; }
+.lg-status .lg-batt::before { content: ""; position: absolute; inset: 1.5px; right: 5px; border-radius: 1.5px; background: #FFFFFF; }
+.lg-status .lg-batt::after { content: ""; position: absolute; top: 3px; right: -4px; width: 2px; height: 4px; border-radius: 0 2px 2px 0; background: rgba(255,255,255,.75); }
+.lg-greet { margin: 18px 2px 20px; }
+.lg-greet p { margin: 0; font-size: 14px; font-weight: 600; opacity: .85; }
+.lg-greet h2 { margin: 2px 0 0; font-size: 30px; font-weight: 800; letter-spacing: -.02em; }
+
+.lg-grid {
+  --cols: 6; --gap: 22px;
+  display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); grid-auto-rows: auto; grid-auto-flow: row dense; gap: var(--gap) var(--gap);
+}
+/* 앱 아이콘 */
+.lg-app { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-decoration: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.lg-icon { position: relative; display: block; width: 100%; max-width: 104px; aspect-ratio: 1; border-radius: 24%; overflow: hidden; background: var(--ic, #FFFFFF); box-shadow: 0 10px 22px rgba(10, 12, 40, .32), inset 0 0 0 1px rgba(255,255,255,.18); transition: transform .18s ease, box-shadow .18s ease; }
+.lg-icon svg, .lg-icon img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.lg-icon::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(160deg, rgba(255,255,255,.28), transparent 42%); pointer-events: none; }
+.lg-app:hover .lg-icon { transform: translateY(-4px) scale(1.04); box-shadow: 0 16px 30px rgba(10, 12, 40, .4), inset 0 0 0 1px rgba(255,255,255,.22); }
+.lg-app:active .lg-icon { transform: scale(.93); }
+.lg-app:focus-visible { outline: none; }
+.lg-app:focus-visible .lg-icon { box-shadow: 0 0 0 3px #FFFFFF, 0 0 0 6px rgba(81,156,255,.8); }
+.lg-label { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 700; text-shadow: 0 1px 3px rgba(0,0,0,.35); }
+.lg-label small { display: block; margin-top: 1px; font-size: 11px; font-weight: 600; text-align: center; opacity: .78; }
+.lg-badge { position: absolute; top: -6px; right: calc(50% - min(52px, 50%) - 8px); z-index: 2; min-width: 24px; height: 24px; padding: 0 7px; border-radius: 999px; background: #F84949; color: #FFFFFF; font-size: 11px; font-weight: 800; line-height: 24px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,.25); }
+.lg-app.is-small .lg-icon { max-width: 72px; }
+
+/* 위젯 */
+.lg-widgets { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); gap: 18px; margin-top: 28px; }
+.lg-widget { display: flex; flex-direction: column; min-width: 0; padding: 16px 18px; border: 0; border-radius: 26px; background: rgba(255, 255, 255, .16); color: inherit; font: inherit; text-align: left; -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4); box-shadow: inset 0 0 0 1px rgba(255,255,255,.22), 0 10px 26px rgba(10,12,40,.18); }
+.lg-widget .lg-wh { display: flex; align-items: center; gap: 6px; margin: 0; font-size: 13px; font-weight: 700; opacity: .9; }
+.lg-wallet { cursor: pointer; }
+.lg-wallet:hover { background: rgba(255,255,255,.22); }
+.lg-wallet .lg-bal { display: flex; align-items: center; gap: 6px; margin: 8px 0 0; font-size: 30px; font-weight: 800; letter-spacing: -.02em; }
+.lg-wallet .lg-bal svg { width: 26px; height: 26px; color: #FFC64E; filter: drop-shadow(0 2px 3px rgba(0,0,0,.25)); }
+.lg-wallet .lg-today { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: auto; padding-top: 10px; }
+.lg-wallet .lg-today div { padding: 8px 10px; border-radius: 14px; background: rgba(0, 0, 0, .16); }
+.lg-wallet .lg-today small { display: block; font-size: 11px; font-weight: 600; opacity: .8; }
+.lg-wallet .lg-today b { font-size: 15px; font-weight: 800; }
+.lg-wallet .lg-today .in b { color: #8CF5C3; }
+.lg-wallet .lg-today .out b { color: #FFB3B3; }
+.lg-wallet .lg-pc { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; font-size: 12px; font-weight: 600; opacity: .9; }
+.lg-wallet .lg-pc u { text-decoration: none; padding: 3px 9px; border-radius: 999px; background: rgba(255,255,255,.22); font-weight: 700; }
+
+.lg-feature { position: relative; overflow: hidden; min-height: 200px; padding: 0; cursor: pointer; background: var(--fc, #E8590C); }
+.lg-feature .lg-f-art { position: absolute; top: 0; right: 0; bottom: 0; width: 52%; }
+.lg-feature .lg-f-art svg, .lg-feature .lg-f-art img { width: 100%; height: 100%; display: block; }
+.lg-feature .lg-f-art { -webkit-mask-image: linear-gradient(90deg, transparent, #000 38%); mask-image: linear-gradient(90deg, transparent, #000 38%); }
+.lg-feature .lg-f-body { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; width: 60%; padding: 18px 20px; }
+.lg-feature .lg-wh { opacity: .92; }
+.lg-feature .lg-f-name { display: block; margin: 10px 0 0; font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
+.lg-feature .lg-f-desc { display: block; margin: 6px 0 0; font-size: 13px; line-height: 1.5; font-weight: 500; opacity: .92; }
+.lg-feature .lg-f-go { display: inline-flex; align-items: center; gap: 6px; width: fit-content; margin-top: auto; padding: 9px 16px; border-radius: 999px; background: #FFFFFF; color: #212529; font-size: 14px; font-weight: 800; box-shadow: 0 4px 12px rgba(0,0,0,.18); }
+.lg-feature:hover .lg-f-go { transform: translateX(2px); }
+
+.lg-feed { cursor: pointer; }
+.lg-feed:hover { background: rgba(255,255,255,.22); }
+.lg-feed .lg-wh i { width: 8px; height: 8px; border-radius: 50%; background: #FF6B6B; box-shadow: 0 0 0 0 rgba(255,107,107,.7); animation: lg-live 1.6s ease-out infinite; }
+@keyframes lg-live { 70% { box-shadow: 0 0 0 7px rgba(255,107,107,0); } 100% { box-shadow: 0 0 0 0 rgba(255,107,107,0); } }
+.lg-feed .lg-fl { display: flex; flex-direction: column; gap: 7px; margin: 10px 0 0; padding: 0; list-style: none; }
+.lg-feed .lg-fi { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 8px; font-size: 13px; font-weight: 600; }
+.lg-feed .lg-fi .g { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 7px; background: var(--gc); color: #FFFFFF; font-size: 11px; font-weight: 800; }
+.lg-feed .lg-fi span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lg-feed .lg-fi small { opacity: .72; font-weight: 500; }
+.lg-feed .lg-fi.new { animation: lg-in .5s ease-out; }
+@keyframes lg-in { from { opacity: 0; transform: translateY(-6px); } }
+
+/* 독 */
+.lg-dock { display: flex; justify-content: center; gap: 26px; width: fit-content; max-width: 100%; margin: 26px auto 0; padding: 12px 22px; border-radius: 30px; background: rgba(255,255,255,.18); -webkit-backdrop-filter: blur(20px) saturate(1.4); backdrop-filter: blur(20px) saturate(1.4); box-shadow: inset 0 0 0 1px rgba(255,255,255,.22); }
+.lg-dock .lg-app { width: 72px; }
+.lg-dock .lg-icon { max-width: 60px; }
+.lg-dock .lg-label { font-size: 12px; }
+.lg-hint { margin: 14px 0 0; text-align: center; font-size: 12px; font-weight: 500; opacity: .7; }
+
+/* 앱 실행 연출: 아이콘이 화면으로 커짐 */
+.lg-launch { position: fixed; z-index: 60; border-radius: 24%; overflow: hidden; pointer-events: none; background: var(--ic); transition: left .32s cubic-bezier(.2,.8,.2,1), top .32s cubic-bezier(.2,.8,.2,1), width .32s cubic-bezier(.2,.8,.2,1), height .32s cubic-bezier(.2,.8,.2,1), border-radius .32s ease, opacity .22s ease; }
+.lg-launch svg, .lg-launch img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.lg-launch.out { opacity: 0; }
+/* 게임 화면에 들어올 때 살짝 떠오르기 */
+.app.lg-enter > .game-nav, .app.lg-enter > .zones-wrap, .app.lg-enter > .layout { animation: lg-rise .38s ease-out both; }
+.app.lg-enter > .zones-wrap { animation-delay: .04s; }
+.app.lg-enter > .layout { animation-delay: .08s; }
+@keyframes lg-rise { from { opacity: 0; transform: translateY(14px); } }
+.lounge.lg-back .lg-app, .lounge.lg-back .lg-widget { animation: lg-pop .42s cubic-bezier(.2,.9,.3,1.3) both; }
+@keyframes lg-pop { from { opacity: 0; transform: scale(.82); } }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .lg-wall { box-shadow: 0 0 0 1px rgba(255,255,255,.06); filter: brightness(.86) saturate(1.05); }
+}
+:root[data-theme="dark"] .lg-wall { box-shadow: 0 0 0 1px rgba(255,255,255,.06); filter: brightness(.86) saturate(1.05); }
+
+@media (max-width: 860px) {
+  .lg-grid { --cols: 4; --gap: 18px 16px; }
+  .lg-widgets { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .lg-feature { grid-column: span 2; }
+}
+@media (max-width: 560px) {
+  .lounge { margin: 14px -16px 0; }
+  .lg-wall { padding: 12px 16px 18px; border-radius: 28px; }
+  .lg-greet { margin: 12px 2px 16px; }
+  .lg-greet h2 { font-size: 24px; }
+  .lg-grid { --gap: 16px 12px; }
+  .lg-label { font-size: 12px; }
+  .lg-label small { display: none; }
+  .lg-widget { padding: 13px 14px; border-radius: 22px; }
+  .lg-wallet .lg-bal { font-size: 22px; }
+  .lg-wallet .lg-bal svg { width: 20px; height: 20px; }
+  .lg-wallet .lg-today { grid-template-columns: 1fr; gap: 5px; }
+  .lg-wallet .lg-today div { display: flex; justify-content: space-between; align-items: baseline; padding: 5px 8px; border-radius: 10px; }
+  .lg-wallet .lg-today b { font-size: 13px; }
+  .lg-wallet .lg-pc { display: none; }
+  .lg-feature .lg-f-name { display: block; font-size: 21px; }
+  .lg-feature .lg-f-desc { display: block; font-size: 12px; }
+  .lg-feature .lg-f-body { width: 66%; padding: 14px 15px; }
+  .lg-feature { min-height: 168px; }
+  .lg-widgets { gap: 12px; margin-top: 22px; }
+  .lg-feed .lg-fi small { display: none; }
+  .lg-grid .lg-icon { max-width: 68px; }
+  .lg-badge { top: -5px; right: calc(50% - min(34px, 50%) - 7px); min-width: 20px; height: 20px; padding: 0 5px; font-size: 10px; line-height: 20px; }
+  .lg-dock { gap: 10px; padding: 10px 12px; width: 100%; justify-content: space-around; }
+  .lg-dock .lg-app { width: 64px; }
+  .lg-dock .lg-icon { max-width: 54px; }
+  .game-nav { flex-wrap: nowrap; gap: 6px; }
+  .game-nav .game-tabs { flex: 1; min-width: 0; }
+  .gt-home { flex: none; height: 46px; padding: 0 12px 0 10px; gap: 6px; font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lg-icon, .lg-launch { transition: none; }
+  .lounge.lg-back .lg-app, .lounge.lg-back .lg-widget, .app.lg-enter > * , .lg-feed .lg-wh i { animation: none !important; }
+}
+
+.lg-icon.lg-tap { animation: lg-tap .45s ease; }
+@keyframes lg-tap { 40% { transform: scale(.86); } 70% { transform: scale(1.08); } }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1801,16 +1962,21 @@ img, svg, video { max-width: 100%; }
 
   <p class="mock-note"><b>목업 화면이에요.</b> 상품, 남은 수량, 잔액, 당첨 피드는 모두 예시 데이터예요.</p>
 
+  <section class="lounge" id="lounge" aria-label="게임 라운지"></section>
+
   <nav class="quick" aria-label="내 메뉴">
     <button class="btn-line hof-btn" type="button" data-hub="hall">명예의 전당 <small class="qmeta">머신별 최고 당첨 TOP 10</small></button>
   </nav>
 
+  <div class="game-nav">
+  <a class="gt-home" href="#" aria-label="게임 라운지로 돌아가기"><i aria-hidden="true"><b style="--c:#F03E3E"></b><b style="--c:#8E7CFF"></b><b style="--c:#19A7CE"></b><b style="--c:#F76707"></b></i>라운지</a>
   <div class="game-tabs" role="tablist" aria-label="게임 선택">
     <button type="button" role="tab" data-gtab="gacha" aria-selected="true"><span class="gt-dot"></span>가챠샵</button>
     <button type="button" role="tab" data-gtab="puzzle" aria-selected="false" style="--gtc:var(--t-pack)"><span class="gt-dot"></span>직소 퍼즐 <small class="gt-new pk">모으는 재미</small></button>
     <button type="button" role="tab" data-gtab="runner" aria-selected="false" style="--gtc:#FF6FA0"><span class="gt-dot"></span>냥치 런 <small class="gt-new rn">NEW</small></button>
     <button type="button" role="tab" data-gtab="cannon" aria-selected="false" style="--gtc:#19A7CE"><span class="gt-dot"></span>팝콘 대포 <small class="gt-new cn">NEW</small></button>
     <button type="button" role="tab" data-gtab="archery" aria-selected="false" style="--gtc:#E8590C"><span class="gt-dot"></span>깡통 사격 <small class="gt-new ar">NEW</small></button>
+  </div>
   </div>
 
   <section class="zones-wrap">
@@ -2006,7 +2172,7 @@ img, svg, video { max-width: 100%; }
 
   <div class="sp-bar">
     <div class="sp-cats" id="sp-cats" role="tablist" aria-label="상품 분류"></div>
-    <p class="sp-earn">조각은 C등급 캡슐에서 나와요. <a href="#">머신 보러 가기</a></p>
+    <p class="sp-earn">조각은 C등급 캡슐에서 나와요. <a href="#gacha">머신 보러 가기</a></p>
   </div>
 
   <div class="sp-grid" id="sp-grid"></div>
@@ -2421,9 +2587,10 @@ img, svg, video { max-width: 100%; }
     $('balance').textContent = fmt(state.balance);
     $('pieces').textContent = fmt(state.pieces);
     if (bump) ['stat-kernel', 'stat-piece'].forEach(id => { const el = $(id); el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); });
-    renderShop();
+    renderShop(); renderLounge();
   }
   function renderFeed(fresh) {
+    renderLounge(fresh);
     $('feed').innerHTML = state.feed.slice(0, 6).map((f, i) =>
       '<li class="' + (fresh && i === 0 ? 'new' : '') + '"><span class="grade" style="--gc:' + GRADE_COLOR[f.g] + '">' + GRADE_LABEL[f.g] + '</span><span>' + f.item + '</span><span class="who">' + f.who + '</span></li>').join('');
   }
@@ -5148,30 +5315,157 @@ img, svg, video { max-width: 100%; }
     });
   }
 
+  // =====================================================================
+  // 게임 라운지: 첫 화면. 휴대폰 바탕화면처럼 게임 아이콘(그림)을 눌러 들어간다
+  // =====================================================================
+  const LG_PIECE = 'M0 0h32v11a5 5 0 1 1 0 10v11h-11a5 5 0 1 1 -10 0h-11z';
+  const LG_ART = {
+    gacha: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFA8C5"/><stop offset="1" stop-color="#F03E3E"/></linearGradient><radialGradient id="lgg2" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E3EDFF"/></radialGradient></defs>' +
+      '<rect width="100" height="100" fill="url(#lgg1)"/><circle cx="84" cy="16" r="3" fill="#FFFFFF" opacity=".7"/><circle cx="14" cy="80" r="2.5" fill="#FFFFFF" opacity=".6"/>' +
+      '<rect x="29" y="56" width="42" height="33" rx="7" fill="#C2255C"/><rect x="29" y="56" width="42" height="6" fill="#A61E4D"/>' +
+      '<circle cx="50" cy="38" r="23" fill="url(#lgg2)" stroke="#FFFFFF" stroke-width="2.5"/>' +
+      '<circle cx="41" cy="45" r="7.5" fill="#FFC64E"/><path d="M33.5 45h15" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="57" cy="47" r="7.5" fill="#519CFF"/><path d="M49.5 47h15" stroke="#FFFFFF" stroke-width="1.6"/>' +
+      '<circle cx="47" cy="31" r="7" fill="#19BC85"/><path d="M40 31h14" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="61" cy="33" r="5.5" fill="#8E7CFF"/>' +
+      '<path d="M35 28a17 17 0 0 1 10-9" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+      '<circle cx="50" cy="72" r="7.5" fill="#FFE066" stroke="#FFFFFF" stroke-width="2"/><rect x="48" y="66.5" width="4" height="11" rx="2" fill="#C2255C"/><rect x="37" y="83" width="13" height="3.5" rx="1.7" fill="#5C0F2E" opacity=".55"/></svg>',
+    puzzle: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgp1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B197FC"/><stop offset="1" stop-color="#5B45E0"/></linearGradient></defs>' +
+      '<rect width="100" height="100" fill="url(#lgp1)"/>' +
+      '<path transform="translate(50 18)" d="' + LG_PIECE + '" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="3 3" opacity=".7"/>' +
+      '<path transform="translate(50 50)" d="' + LG_PIECE + '" fill="#19BC85"/><path transform="translate(18 50)" d="' + LG_PIECE + '" fill="#519CFF"/><path transform="translate(18 18)" d="' + LG_PIECE + '" fill="#FFC64E"/>' +
+      '<g transform="translate(60 6) rotate(14)" style="filter:drop-shadow(0 4px 4px rgba(0,0,0,.3))"><path d="' + LG_PIECE + '" fill="#FF8FB1"/><circle cx="16" cy="16" r="5" fill="#FFFFFF" opacity=".55"/></g></svg>',
+    runner: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#36277A"/><stop offset=".62" stop-color="#D6457E"/><stop offset="1" stop-color="#FF9EBF"/></linearGradient><radialGradient id="lgr2" cx=".5" cy=".6" r=".7"><stop offset="0" stop-color="#FFFBE6"/><stop offset="1" stop-color="#FFC64E"/></radialGradient></defs>' +
+      '<rect width="100" height="100" fill="url(#lgr1)"/><circle cx="80" cy="17" r="7" fill="#FFF3BF"/><circle cx="83" cy="15" r="6" fill="#4B2F86"/>' +
+      '<circle cx="16" cy="13" r="1.3" fill="#FFFFFF"/><circle cx="30" cy="24" r="1" fill="#FFFFFF"/><circle cx="62" cy="9" r="1.1" fill="#FFFFFF"/>' +
+      '<path d="M0 72H100V100H0Z" fill="#2B1B4F" opacity=".55"/><path d="M50 72L26 100M50 72L74 100" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="2"/>' +
+      '<circle cx="50" cy="48" r="26" fill="#FFE066" opacity=".25"/><rect x="33" y="24" width="34" height="48" rx="5" fill="#5C3A1E"/><rect x="37.5" y="28.5" width="25" height="43.5" rx="2.5" fill="url(#lgr2)"/>' +
+      '<image href="' + RN_CAT + '" x="29" y="58" width="42" height="38" preserveAspectRatio="xMidYMax meet"/></svg>',
+    cannon: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgc1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1C7ED6"/><stop offset="1" stop-color="#A5E9F5"/></linearGradient></defs>' +
+      '<rect width="100" height="100" fill="url(#lgc1)"/><ellipse cx="22" cy="22" rx="12" ry="5" fill="#FFFFFF" opacity=".55"/><ellipse cx="74" cy="64" rx="10" ry="4" fill="#FFFFFF" opacity=".5"/>' +
+      '<path d="M55 49Q68 12 85 33" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-dasharray="4 5" stroke-linecap="round" opacity=".85"/>' +
+      '<g transform="translate(64 21)"><circle r="3.6" fill="#FFFFFF"/><circle cx="3" cy="-2" r="2.6" fill="#FFFFFF"/><circle cx=".5" cy="2" r="2" fill="#FFE066"/></g>' +
+      '<g transform="translate(84 34)"><circle r="7" fill="#FFFFFF"/><circle cx="6" cy="-4" r="5.5" fill="#FFFFFF"/><circle cx="-5" cy="-5" r="5" fill="#FFFFFF"/><circle cx="1" cy="4" r="4" fill="#FFE066"/></g>' +
+      '<path d="M0 78Q30 70 60 76T100 74V100H0Z" fill="#37B24D"/><path d="M0 87Q40 81 100 87V100H0Z" fill="#2B8A3E"/>' +
+      '<g transform="translate(27 71) rotate(-38)"><rect x="-4" y="-8" width="36" height="16" rx="5" fill="#343A40"/><rect x="28" y="-10" width="7" height="20" rx="2.5" fill="#495057"/><rect x="2" y="-8" width="5" height="16" fill="#E8590C"/><rect x="0" y="-6" width="30" height="3" rx="1.5" fill="#FFFFFF" opacity=".18"/></g>' +
+      '<circle cx="27" cy="76" r="10" fill="#9C6B3C" stroke="#5C3A1E" stroke-width="3"/><circle cx="27" cy="76" r="3" fill="#5C3A1E"/></svg>',
+    archery: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lga1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD43B"/><stop offset=".55" stop-color="#F76707"/><stop offset="1" stop-color="#A61E4D"/></linearGradient></defs>' +
+      '<rect width="100" height="100" fill="url(#lga1)"/><circle cx="46" cy="50" r="20" fill="#FFF3BF" opacity=".5"/>' +
+      '<path d="M0 62h12l4-11h17l3 11H64l3-7h12l3 7H100V100H0Z" fill="#7A3B12" opacity=".55"/>' +
+      '<rect y="70" width="100" height="30" fill="#8B5A2B"/><path d="M0 80H100M0 91H100" stroke="#6B4423" stroke-width="2"/><circle cx="8" cy="85" r="1.3" fill="#5C3A1E"/><circle cx="92" cy="96" r="1.3" fill="#5C3A1E"/>' +
+      '<ellipse cx="29" cy="70" rx="13" ry="3.5" fill="#2B1A0E"/><ellipse cx="72" cy="70" rx="13" ry="3.5" fill="#2B1A0E"/>' +
+      '<rect x="20" y="59" width="18" height="11" fill="#FAB005"/><ellipse cx="29" cy="59" rx="9" ry="2.5" fill="#E9ECEF"/>' +
+      '<rect x="61" y="40" width="22" height="30" rx="2" fill="#E03131"/><rect x="61" y="49" width="22" height="9" fill="#FFFFFF"/><ellipse cx="72" cy="40" rx="11" ry="3" fill="#CED4DA"/><rect x="64" y="42" width="3" height="26" fill="#FFFFFF" opacity=".25"/>' +
+      '<g stroke="#FFFFFF" stroke-width="2.5" fill="none" stroke-linecap="round"><circle cx="72" cy="53" r="13"/><path d="M72 35v9M72 62v9M54 53h9M81 53h9"/></g><circle cx="72" cy="53" r="2.2" fill="#F03E3E"/></svg>',
+    shop: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgu1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#63E6BE"/><stop offset="1" stop-color="#0CA678"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgu1)"/>' +
+      '<rect x="27" y="46" width="46" height="31" rx="4" fill="#FFFFFF"/><rect x="23" y="35" width="54" height="13" rx="3" fill="#FFFFFF"/><rect x="46" y="35" width="8" height="42" fill="#FF8FB1"/><path d="M50 35c-6-12-20-10-16-2 2 3 10 3 16 2zm0 0c6-12 20-10 16-2-2 3-10 3-16 2z" fill="#FF8FB1"/></svg>',
+    ledger: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgu2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#91A7FF"/><stop offset="1" stop-color="#4263EB"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgu2)"/>' +
+      '<path d="M31 21h38v58l-6.3-4-6.3 4-6.4-4-6.3 4-6.4-4-6.3 4z" fill="#FFFFFF"/><path d="M40 35h20M40 45h20M40 55h11" stroke="#4263EB" stroke-width="4" stroke-linecap="round"/><circle cx="60" cy="61" r="7" fill="#FFC64E"/><path d="M57.5 61h5M60 58.5v5" stroke="#4C3600" stroke-width="2" stroke-linecap="round"/></svg>',
+    charge: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgu3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE066"/><stop offset="1" stop-color="#F59F00"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgu3)"/>' +
+      '<path d="M50 22c6.5 0 9.9 4.6 10.2 8.4 5.3-1.2 11.4 2.5 11.4 9 0 4.6-3.1 7.7-6.2 8.7L61 69H39l-4.4-20.9c-3.1-1-6.2-4.1-6.2-8.7 0-6.5 6.1-10.2 11.4-9 .3-3.8 3.7-8.4 10.2-8.4z" fill="#FFFFFF"/><circle cx="68" cy="70" r="12" fill="#E8590C" stroke="#FFFFFF" stroke-width="3"/><path d="M62 70h12M68 64v12" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round"/></svg>',
+    admin: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgu4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#868E96"/><stop offset="1" stop-color="#343A40"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgu4)"/>' +
+      '<g fill="#FFFFFF" transform="translate(50 50)">' + [0, 45, 90, 135, 180, 225, 270, 315].map(a => '<rect x="-5.5" y="-29" width="11" height="14" rx="2.5" transform="rotate(' + a + ')"/>').join('') + '<circle r="20"/></g><circle cx="50" cy="50" r="8" fill="#495057"/></svg>',
+    hall: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgu5" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD43B"/><stop offset="1" stop-color="#E67700"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgu5)"/>' +
+      '<path d="M34 24h32v14a16 16 0 0 1-32 0z" fill="#FFFFFF"/><path d="M34 29h-7a8 8 0 0 0 9 13M66 29h7a8 8 0 0 1-9 13" stroke="#FFFFFF" stroke-width="4" fill="none"/><rect x="46" y="53" width="8" height="11" fill="#FFFFFF"/><rect x="35" y="64" width="30" height="9" rx="2.5" fill="#FFFFFF"/>' +
+      '<path d="M50 29l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.2 2.7 1-5.7-4.1-4 5.7-.8z" fill="#F59F00"/></svg>'
+  };
+  const LG_GAMES = [
+    { id: 'gacha', name: '가챠샵', sub: '캡슐 머신 뽑기', ic: '#F03E3E', fc: '#E64980', desc: '입장료가 높은 머신일수록 좋은 상품! 남은 캡슐 수를 실시간으로 공개해요.' },
+    { id: 'puzzle', name: '직소 퍼즐', sub: '조각 모으기', ic: '#5B45E0', fc: '#6741D9', desc: '카드를 뽑아 상품 퍼즐 6조각을 모으면 그 상품을 받아요.' },
+    { id: 'runner', name: '냥치 런', sub: '문 고르기', ic: '#D6457E', fc: '#C2255C', badge: 'N', desc: '냥치와 달리며 문 2개 중 하나를 골라요. 5개를 통과하면 완주!' },
+    { id: 'cannon', name: '팝콘 대포', sub: '타이밍 발사', ic: '#1C7ED6', fc: '#1971C2', badge: 'N', desc: '게이지를 멈춰 팝콘을 쏘고, 떨어진 거리만큼 강냉이를 받아요.' },
+    { id: 'archery', name: '깡통 사격', sub: '10초 사격', ic: '#F76707', fc: '#D9480F', badge: 'N', desc: '10초 동안 튀어나오는 캔을 맞혀요. 맞힌 캔 안에서 상품이 나와요.' }
+  ];
+  const LG_DOCK = [
+    { id: 'shop', name: '조각교환소', ic: '#0CA678' },
+    { id: 'ledger', name: '강냉이 내역', ic: '#4263EB' },
+    { id: 'charge', name: '충전', ic: '#F59F00' },
+    { id: 'admin', name: '관리자', ic: '#495057' }
+  ];
+  const lgPick = () => { const d = new Date(), day = Math.floor((d - new Date(d.getFullYear(), 0, 0)) / 864e5); return LG_GAMES[day % LG_GAMES.length]; };
+  const lgApp = (a, cls) => '<button class="lg-app' + (cls ? ' ' + cls : '') + '" type="button" data-lg-go="' + a.id + '" style="--ic:' + a.ic + '" aria-label="' + a.name + (a.badge ? ', 새 게임' : '') + '">' +
+    (a.badge ? '<span class="lg-badge" aria-hidden="true">' + a.badge + '</span>' : '') + '<span class="lg-icon">' + LG_ART[a.id] + '</span><span class="lg-label">' + a.name + (a.sub ? '<small>' + a.sub + '</small>' : '') + '</span></button>';
+  function lgClock() {
+    const d = new Date(), c = $('lg-clock'), dt = $('lg-date'); if (!c) return;
+    c.textContent = d.getHours() + ':' + String(d.getMinutes()).padStart(2, '0');
+    dt.textContent = (d.getMonth() + 1) + '월 ' + d.getDate() + '일 ' + '일월화수목금토'[d.getDay()] + '요일';
+  }
+  function buildLounge() {
+    const f = lgPick();
+    $('lounge').innerHTML =
+      '<div class="lg-wall">' +
+        '<div class="lg-status"><span id="lg-clock">9:41</span><span class="lg-sys"><svg viewBox="0 0 18 12" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><span class="lg-batt" aria-hidden="true"></span></span></div>' +
+        '<div class="lg-greet"><p id="lg-date"></p><h2>오늘은 어떤 게임 할까요?</h2></div>' +
+        '<div class="lg-grid" role="group" aria-label="게임">' + LG_GAMES.map(a => lgApp(a)).join('') + lgApp({ id: 'hall', name: '명예의 전당', sub: '최고 당첨 TOP 10', ic: '#E67700' }) + '</div>' +
+        '<div class="lg-widgets">' +
+          '<button class="lg-widget lg-feature" type="button" data-lg-go="' + f.id + '" style="--fc:' + f.fc + '"><span class="lg-f-art">' + LG_ART[f.id].replace('<svg viewBox', '<svg preserveAspectRatio="xMidYMid slice" viewBox').replace(/id="(lg\w+)"/g, 'id="$1f"').replace(/url\(#(lg\w+)\)/g, 'url(#$1f)') + '</span>' +
+            '<span class="lg-f-body"><span class="lg-wh">오늘의 추천 게임</span><span class="lg-f-name">' + f.name + '</span><span class="lg-f-desc">' + f.desc + '</span><span class="lg-f-go">지금 하기 ›</span></span></button>' +
+          '<button class="lg-widget lg-wallet" type="button" data-lg-go="ledger" aria-label="강냉이 지갑, 사용·획득 내역 보기"><span class="lg-wh">내 강냉이</span><span class="lg-bal num">' + K + '<span id="lg-bal">0</span></span><span class="lg-today" id="lg-today"></span><span class="lg-pc"><span id="lg-pc"></span><u>내역 ›</u></span></button>' +
+          '<button class="lg-widget lg-feed" type="button" data-lg-go="hall" aria-label="실시간 당첨, 명예의 전당 보기"><span class="lg-wh"><i aria-hidden="true"></i>실시간 당첨</span><span class="lg-fl" id="lg-feed"></span></button>' +
+        '</div>' +
+        '<nav class="lg-dock" aria-label="바로가기">' + LG_DOCK.map(a => lgApp(a, 'is-small')).join('') + '</nav>' +
+      '</div>';
+    lgClock(); renderLounge();
+  }
+  function renderLounge(fresh) {
+    if (!$('lg-bal')) return;
+    const today = new Date().toDateString(), todays = WALLET.log.filter(x => new Date(x.t).toDateString() === today);
+    const gin = todays.filter(x => x.d > 0).reduce((a, x) => a + x.d, 0), gout = todays.filter(x => x.d < 0).reduce((a, x) => a - x.d, 0);
+    $('lg-bal').textContent = fmt(state.balance);
+    $('lg-today').innerHTML = '<div class="in"><small>오늘 획득</small><b class="num">+' + fmt(gin) + '</b></div><div class="out"><small>오늘 사용</small><b class="num">-' + fmt(gout) + '</b></div>';
+    $('lg-pc').textContent = '조각 ' + fmt(state.pieces) + '개';
+    $('lg-feed').innerHTML = state.feed.slice(0, 3).map((x, i) => '<span class="lg-fi' + (fresh && i === 0 ? ' new' : '') + '"><span class="g" style="--gc:' + GRADE_COLOR[x.g] + '">' + GRADE_LABEL[x.g] + '</span><span>' + x.item + ' <small>' + x.who + '</small></span></span>').join('');
+  }
+  // 아이콘 → 화면 가득 커지는 실행 연출 뒤 이동
+  function lgLaunch(btn, go) {
+    const icon = btn.querySelector('.lg-icon, .lg-f-art'), reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!icon || reduce) { go(); return; }
+    const r = icon.getBoundingClientRect(), el = document.createElement('div');
+    el.className = 'lg-launch'; el.style.setProperty('--ic', btn.style.getPropertyValue('--ic') || btn.style.getPropertyValue('--fc'));
+    el.innerHTML = icon.innerHTML.replace('<svg viewBox', '<svg preserveAspectRatio="xMidYMid slice" viewBox').replace(/id="(lg\w+)"/g, 'id="$1x"').replace(/url\(#(lg\w+)\)/g, 'url(#$1x)');
+    Object.assign(el.style, { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' });
+    document.body.appendChild(el); void el.offsetWidth;
+    Object.assign(el.style, { left: '0px', top: '0px', width: innerWidth + 'px', height: innerHeight + 'px', borderRadius: '0' });
+    setTimeout(() => { go(); el.classList.add('out'); setTimeout(() => el.remove(), 260); }, 300);
+  }
+  $('lounge').addEventListener('click', e => {
+    const b = e.target.closest('[data-lg-go]'); if (!b) return;
+    const id = b.dataset.lgGo;
+    if (id === 'ledger') { openLedger(); return; }
+    if (id === 'hall') { openHub(); return; }
+    if (id === 'charge') { $('charge').click(); restart(b.querySelector('.lg-icon'), 'lg-tap'); return; }
+    lgLaunch(b, () => { location.hash = '#' + id; });
+  });
+  buildLounge(); setInterval(lgClock, 20000);
+
   function route() {
     const admin = location.hash === '#admin', shop = location.hash === '#shop';
+    const lounge = !admin && !shop && ['', '#', '#lounge', '#home'].includes(location.hash);
     if (AR.active && location.hash !== '#archery') { history.replaceState(null, '', '#archery'); toast('', '사격이 끝난 뒤에 이동할 수 있어요.', true); return; }
     if (CN.flying && location.hash !== '#cannon') { history.replaceState(null, '', '#cannon'); toast('', '팝콘이 착지한 뒤에 이동할 수 있어요.', true); return; }
     if (RN.active && location.hash !== '#runner') { history.replaceState(null, '', '#runner'); toast('', '냥치 런이 끝난 뒤에 이동할 수 있어요.', true); return; }
     const tab = ({ '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#runner': 'runner', '#cannon': 'cannon', '#archery': 'archery' })[location.hash] || 'gacha';
-    if (!admin && !shop && tab !== state.tab) {
+    if (!admin && !shop && !lounge && tab !== state.tab) {
       if (!$('modal').hidden) { if (busy) return; closeModal(); }
       state.tab = tab; renderZones(); renderFloor();
     }
-    if ((admin || shop) && !$('modal').hidden) { if (busy) return; closeModal(); }
+    if ((admin || shop || lounge) && !$('modal').hidden) { if (busy) return; closeModal(); }
     if (!$('hub').hidden) closeHub();
     if (!$('buy-modal').hidden) closeBuy();
     $('app').hidden = admin || shop;
+    const appEl = $('app'), wasLounge = appEl.classList.contains('in-lounge');
+    appEl.classList.toggle('in-lounge', lounge);
+    if (lounge && !wasLounge) { renderLounge(); restart($('lounge'), 'lg-back'); }
+    if (!lounge && !admin && !shop && wasLounge) restart(appEl, 'lg-enter');
     $('admin').hidden = !admin;
     $('shop-page').hidden = !shop;
     if (admin) openAdmin();
     if (shop) renderShopPage();
+    if (!lounge && !admin && !shop) { const gsel = document.querySelector('.game-tabs [aria-selected="true"]'), gt = document.querySelector('.game-tabs'); if (gsel && gt.scrollWidth > gt.clientWidth) gt.scrollLeft = gsel.offsetLeft - (gt.clientWidth - gsel.offsetWidth) / 2; }
     window.scrollTo(0, 0);
   }
   window.addEventListener('hashchange', route);
   document.querySelector('.game-tabs').addEventListener('click', e => {
     const b = e.target.closest('[data-gtab]'); if (!b) return;
-    location.hash = b.dataset.gtab === 'gacha' ? '#' : '#' + b.dataset.gtab;
+    location.hash = '#' + b.dataset.gtab;
   });
 
   renderZones(); renderFloor(); renderHUD(); renderFeed(); renderInv();
