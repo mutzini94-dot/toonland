@@ -486,74 +486,43 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .fm-table input[type="color"].input { width: 56px; }
 
 
-/* ---------- 팝콘 핀볼 ---------- */
-.gt-new.pk { background: rgba(255,138,61,.18); color: #D9480F; }
-.pk-panel { grid-column: 1 / -1; }
-.pk-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
-.pk-left { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 520px; min-width: 0; }
-.pk-machine { position: relative; padding: 14px 14px 16px; border-radius: 26px; background: linear-gradient(180deg, #E8453C, #C8302B); box-shadow: inset 0 3px 0 rgba(255,255,255,.25), inset 0 -6px 0 rgba(0,0,0,.18), 0 14px 28px rgba(150,30,30,.25); }
-.pk-machine::before { content: ""; position: absolute; left: 50%; top: -12px; width: 46%; height: 26px; translate: -50% 0; border-radius: 14px 14px 6px 6px; background: linear-gradient(180deg, #FFE07A, #F2B630); box-shadow: inset 0 -3px 0 rgba(0,0,0,.15); }
-.pk-sign { position: absolute; left: 50%; top: -9px; translate: -50% 0; z-index: 1; font-size: 13px; font-weight: 900; letter-spacing: 1px; color: #7A2E00; white-space: nowrap; }
-.pk-board { position: relative; overflow: hidden; border-radius: 18px; background: radial-gradient(120% 70% at 50% 0%, #3A2A6B 0%, #241A48 55%, #1A1336 100%); box-shadow: inset 0 0 0 3px rgba(255,255,255,.08), inset 0 10px 30px rgba(0,0,0,.35); }
-.pk-board::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 20% 15%, rgba(255,224,122,.12), transparent 30%), radial-gradient(circle at 80% 30%, rgba(255,143,177,.12), transparent 30%); pointer-events: none; }
-.pk-svg { display: block; width: 100%; height: auto; }
-.pk-peg { fill: url(#pk-peg-g); }
-.pk-peg-glow { fill: #FFE07A; opacity: 0; transform-box: fill-box; transform-origin: center; }
-.pk-peg-glow.lit { animation: pk-lit .35s ease-out; }
-@keyframes pk-lit { 0% { opacity: .95; transform: scale(1); } 100% { opacity: 0; transform: scale(3); } }
-.pk-slot rect.bg { stroke: rgba(0,0,0,.18); stroke-width: .3; }
-.pk-slot text { font-weight: 900; text-anchor: middle; pointer-events: none; }
-.pk-slot .mul { font-size: 3.1px; fill: #FFFFFF; paint-order: stroke; stroke: rgba(0,0,0,.25); stroke-width: .5px; }
-.pk-slot.hit { animation: pk-slot .45s cubic-bezier(.3,1.6,.5,1); transform-box: fill-box; transform-origin: 50% 0; }
-@keyframes pk-slot { 0% { transform: translateY(0); } 35% { transform: translateY(1.6px) scale(1.06, .9); filter: brightness(1.5); } 100% { transform: none; } }
-.pk-ball { pointer-events: none; }
-.pk-trail { fill: #FFF3C4; opacity: .35; }
-.pk-float { position: absolute; z-index: 3; translate: -50% -100%; font-size: 15px; font-weight: 900; color: #FFFFFF; text-shadow: 0 2px 0 rgba(0,0,0,.3); white-space: nowrap; pointer-events: none; animation: pk-float 1.1s ease-out forwards; }
-.pk-float.lo { color: #C9C4E8; font-size: 13px; }
-.pk-float.mid { color: #FFE07A; }
-.pk-float.hi { color: #FFB13B; font-size: 20px; }
-.pk-float.top { color: #FFFFFF; font-size: 24px; text-shadow: 0 0 10px #FF8A3D, 0 2px 0 #C2410C; }
-@keyframes pk-float { 0% { opacity: 0; transform: translateY(8px) scale(.6); } 18% { opacity: 1; transform: translateY(0) scale(1.15); } 70% { opacity: 1; } 100% { opacity: 0; transform: translateY(-34px) scale(1); } }
-.pk-banner { position: absolute; left: 50%; top: 38%; z-index: 4; translate: -50% -50%; padding: 10px 22px; border-radius: 16px; background: linear-gradient(180deg, #FFE07A, #FF9F43); color: #7A2E00; font-size: 26px; font-weight: 900; white-space: nowrap; box-shadow: 0 6px 0 #C2410C, 0 0 0 6px rgba(255,255,255,.25); pointer-events: none; animation: pk-banner 1.6s cubic-bezier(.2,1.4,.4,1) forwards; }
-.pk-banner small { display: block; font-size: 14px; font-weight: 800; text-align: center; }
-@keyframes pk-banner { 0% { opacity: 0; transform: scale(.3) rotate(-8deg); } 15% { opacity: 1; transform: scale(1.1) rotate(2deg); } 25% { transform: scale(1) rotate(0); } 80% { opacity: 1; } 100% { opacity: 0; transform: scale(1.05) translateY(-20px); } }
-.pk-flash { position: absolute; inset: 0; z-index: 2; border-radius: inherit; background: radial-gradient(circle at 50% 85%, rgba(255,224,122,.85), rgba(255,138,61,.3) 45%, transparent 70%); opacity: 0; pointer-events: none; }
-.pk-flash.on { animation: pk-flash .8s ease-out; }
-@keyframes pk-flash { 0% { opacity: 1; } 100% { opacity: 0; } }
-.pk-machine.shake { animation: pk-shake .45s; }
-@keyframes pk-shake { 0%, 100% { transform: none; } 20% { transform: translate(-4px, 2px) rotate(-.6deg); } 40% { transform: translate(4px, -2px) rotate(.6deg); } 60% { transform: translate(-3px, 1px); } 80% { transform: translate(2px, 0); } }
-.pk-hud { position: absolute; left: 10px; right: 10px; top: 10px; z-index: 2; display: flex; justify-content: space-between; gap: 8px; pointer-events: none; }
-.pk-hud span { padding: 4px 10px; border-radius: 999px; background: rgba(0,0,0,.35); color: #FFFFFF; font-size: 12px; font-weight: 600; }
-.pk-hud b { font-weight: 800; color: #FFE07A; }
-.pk-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.pk-drop { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 12px; border: 0; border-radius: 14px; background: #FF8A3D; color: #FFFFFF; font: inherit; font-size: 17px; font-weight: 900; cursor: pointer; box-shadow: 0 5px 0 #C2410C; }
-.pk-drop.x5 { background: #8B6CFF; box-shadow: 0 5px 0 #5B3FD1; }
-.pk-drop span { font-size: 12px; font-weight: 700; opacity: .92; }
-.pk-drop:active:not(:disabled) { transform: translateY(3px); box-shadow: 0 2px 0 #C2410C; }
-.pk-drop.x5:active:not(:disabled) { box-shadow: 0 2px 0 #5B3FD1; }
-.pk-drop:disabled { background: var(--panel-line); color: var(--muted); box-shadow: none; cursor: not-allowed; }
-.pk-recent { display: flex; align-items: center; gap: 6px; min-height: 28px; overflow: hidden; font-size: 12px; color: var(--muted); }
-.pk-recent i { flex: none; padding: 3px 8px; border-radius: 999px; font-style: normal; font-weight: 800; color: #FFFFFF; animation: pk-chip .3s cubic-bezier(.3,1.6,.5,1); }
-@keyframes pk-chip { from { transform: scale(.4); opacity: 0; } }
-.pk-info { width: 100%; max-width: 560px; padding: 16px 18px; border-radius: 16px; background: var(--panel); border: 1px solid var(--panel-line); }
-.pk-info h3 { margin: 0 0 6px; font-size: 17px; }
-.pk-info p { margin: 0 0 8px; font-size: 13.5px; color: var(--text-2); line-height: 1.55; }
-.pk-info ul { margin: 0 0 12px; padding-left: 18px; font-size: 13px; color: var(--text-2); line-height: 1.6; }
-.pk-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.pk-table th { padding: 6px 4px; text-align: left; font-weight: 600; color: var(--muted); border-bottom: 1px solid var(--panel-line); }
-.pk-table td { padding: 6px 4px; border-bottom: 1px solid var(--panel-line); }
-.pk-table .r { text-align: right; }
-.pk-table .chip { display: inline-block; min-width: 40px; padding: 2px 8px; border-radius: 999px; color: #FFFFFF; font-weight: 800; text-align: center; }
-@media (max-width: 640px) {
-  .pk-machine { padding: 10px 8px 12px; border-radius: 20px; }
-  .pk-drop { font-size: 15px; padding: 10px 6px; }
-  .pk-info { padding: 14px; }
-  .pk-float { font-size: 13px; } .pk-float.hi { font-size: 16px; } .pk-float.top { font-size: 19px; }
-  .pk-banner { font-size: 20px; padding: 8px 16px; }
+
+/* ---------- 관리자 좌측 GNB ---------- */
+.ad-layout { display: grid; grid-template-columns: 228px minmax(0, 1fr); gap: 24px; align-items: start; margin-top: 20px; }
+.ad-gnb { position: sticky; top: 92px; display: flex; flex-direction: column; gap: 14px; padding: 14px 10px; border-radius: 16px; background: var(--panel); border: 1px solid var(--panel-line); }
+.gnb-group { display: flex; flex-direction: column; gap: 2px; }
+.gnb-title { padding: 0 10px 4px; font-size: 11px; font-weight: 700; letter-spacing: .4px; color: var(--muted); }
+.gnb-item { display: flex; align-items: center; gap: 10px; width: 100%; padding: 9px 10px; border: 0; border-radius: 10px; background: transparent; color: var(--text); font: inherit; text-align: left; cursor: pointer; }
+.gnb-item:hover { background: #F4F7FA; }
+.gnb-item[aria-current="page"] { background: var(--primary-tint); }
+.gnb-item[aria-current="page"] b { color: var(--primary); }
+.gnb-text { display: flex; flex-direction: column; min-width: 0; }
+.gnb-text b { font-size: 14px; font-weight: 700; }
+.gnb-text small { font-size: 11.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gnb-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--panel-line); }
+.gnb-dot.ok { background: var(--ok); } .gnb-dot.warn { background: var(--warn); } .gnb-dot.bad { background: var(--bad); }
+.ad-main { min-width: 0; }
+.ad-page > .ad-top:first-child, .ad-page > .ad-block:first-child { margin-top: 0; }
+.ad-page-head { display: none; }
+@media (max-width: 980px) {
+  .ad-layout { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .ad-gnb { position: sticky; top: 0; z-index: 4; flex-direction: row; gap: 6px; padding: 8px; overflow-x: auto; scrollbar-width: none; border-radius: 12px; }
+  .ad-gnb::-webkit-scrollbar { display: none; }
+  .gnb-group { flex-direction: row; gap: 4px; flex: none; }
+  .gnb-group + .gnb-group { padding-left: 6px; border-left: 1px solid var(--panel-line); }
+  .gnb-title { display: none; }
+  .gnb-item { flex: none; width: auto; padding: 7px 12px; border-radius: 999px; }
+  .gnb-text small { display: none; }
+  .gnb-text b { font-size: 13px; white-space: nowrap; }
 }
-.pk-hud b { display: inline-block; } .pk-hud b.bump { animation: bump .45s ease; }
 
 /* ---------- 팝콘 대포 ---------- */
+/* 공용 키프레임 (떠오르는 숫자·배너·번쩍임·흔들림·칩) */
+@keyframes pk-float { 0% { opacity: 0; transform: translateY(8px) scale(.6); } 18% { opacity: 1; transform: translateY(0) scale(1.15); } 70% { opacity: 1; } 100% { opacity: 0; transform: translateY(-34px) scale(1); } }
+@keyframes pk-banner { 0% { opacity: 0; transform: scale(.3) rotate(-8deg); } 15% { opacity: 1; transform: scale(1.1) rotate(2deg); } 25% { transform: scale(1) rotate(0); } 80% { opacity: 1; } 100% { opacity: 0; transform: scale(1.05) translateY(-20px); } }
+@keyframes pk-flash { 0% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes pk-shake { 0%, 100% { transform: none; } 20% { transform: translate(-4px, 2px) rotate(-.6deg); } 40% { transform: translate(4px, -2px) rotate(.6deg); } 60% { transform: translate(-3px, 1px); } 80% { transform: translate(2px, 0); } }
+@keyframes pk-chip { from { transform: scale(.4); opacity: 0; } }
 .gt-new.cn { background: rgba(25,167,206,.18); color: #0B7FA3; }
 .cn-panel { grid-column: 1 / -1; }
 .cn-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
@@ -1670,11 +1639,9 @@ img, svg, video { max-width: 100%; }
 
   <div class="game-tabs" role="tablist" aria-label="게임 선택">
     <button type="button" role="tab" data-gtab="gacha" aria-selected="true"><span class="gt-dot"></span>가챠샵</button>
-    <button type="button" role="tab" data-gtab="board" aria-selected="false" style="--gtc:var(--t-board)"><span class="gt-dot"></span>뽑기판 <small class="gt-new">긁는 재미</small></button>
     <button type="button" role="tab" data-gtab="puzzle" aria-selected="false" style="--gtc:var(--t-pack)"><span class="gt-dot"></span>직소 퍼즐 <small class="gt-new pk">모으는 재미</small></button>
     <button type="button" role="tab" data-gtab="farm" aria-selected="false" style="--gtc:#3E9B4F"><span class="gt-dot"></span>팝콘 농장 <small class="gt-new fm">키우는 재미</small><span class="gt-farm" id="farm-count" hidden></span></button>
     <button type="button" role="tab" data-gtab="runner" aria-selected="false" style="--gtc:#FF6FA0"><span class="gt-dot"></span>냥치 런 <small class="gt-new rn">NEW</small></button>
-    <button type="button" role="tab" data-gtab="plinko" aria-selected="false" style="--gtc:#FF8A3D"><span class="gt-dot"></span>팝콘 핀볼 <small class="gt-new pk">NEW</small></button>
     <button type="button" role="tab" data-gtab="cannon" aria-selected="false" style="--gtc:#19A7CE"><span class="gt-dot"></span>팝콘 대포 <small class="gt-new cn">NEW</small></button>
   </div>
 
@@ -1718,6 +1685,11 @@ img, svg, video { max-width: 100%; }
   <p class="mock-note"><b>관리자 목업이에요.</b> 저장한 설정은 공유 저장소에 보관되고, 이 페이지를 연 모든 사람의 게임 화면에 바로 반영돼요. 편집 권한(편집자·소유자)이 있어야 저장할 수 있어요.</p>
   <p class="ad-remote" id="ad-remote" hidden>다른 관리자가 방금 설정을 저장했어요. 지금 편집 중인 내용은 아직 그대로예요. <button class="btn-xs" id="ad-load-remote" type="button">최신 설정 불러오기</button></p>
   <p class="ad-invalid" id="ad-invalid" hidden></p>
+
+  <div class="ad-layout">
+  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신·씨앗</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="farm"><span class="gnb-dot" data-addot="farm"></span><span class="gnb-text"><b>팝콘 농장</b><small>밭·성장 시간</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button></div><div class="gnb-group"><span class="gnb-title">보상</span><button type="button" class="gnb-item" data-adpage="shop"><span class="gnb-dot" data-addot="shop"></span><span class="gnb-text"><b>조각 교환소</b><small>교환 상품·수량</small></span></button></div></nav>
+  <div class="ad-main">
+  <div class="ad-page" data-page="overview">
 
   <div class="ad-top">
     <div class="panel">
@@ -1765,12 +1737,16 @@ img, svg, video { max-width: 100%; }
     <div class="table-wrap"><table class="ad-table" id="ad-compare"></table></div>
   </div>
 
+  </div>
+  <div class="ad-page" data-page="machines" hidden>
   <div class="panel ad-block">
     <h2>머신 상품·확률 편집</h2>
     <div class="ad-tabs" id="ad-tabs" role="tablist" aria-label="머신 선택"></div>
     <div id="ad-editor"></div>
   </div>
 
+  </div>
+  <div class="ad-page" data-page="shop" hidden>
   <div class="panel ad-block">
     <h2>조각 교환소 관리 <span class="tag" id="sh-sum"></span></h2>
     <p class="hub-note">교환소에 나오는 상품의 순서, 가격(조각), 한정 수량과 종료 일시, 상품 그림을 편집해요. 환원율은 조각 가치(조각 1개 = <span id="sh-pv"></span>원) 대비 상품 원가예요. 저장하면 게임의 교환소에 바로 반영돼요.</p>
@@ -1778,13 +1754,17 @@ img, svg, video { max-width: 100%; }
     <div class="ed-foot"><button class="btn-line" type="button" id="sh-add">교환소 상품 추가</button></div>
   </div>
 
+  </div>
+  <div class="ad-page" data-page="farm" hidden>
   <div class="panel ad-block">
     <h2>팝콘 농장 관리 <span class="tag" id="fm-sum"></span></h2>
-    <p class="hub-note">밭 늘리기 비용과 씨앗별 성장 시간·작물 색을 정해요. 씨앗의 심는 값·보상·확률·월 소진량은 위 "머신 상품·확률 편집"에서 씨앗 탭을 골라 바꾸고, 예산·RTP 계산과 "목표로 맞추기"에도 함께 들어가요.</p>
+    <p class="hub-note">밭 늘리기 비용과 씨앗별 성장 시간·작물 색을 정해요. 씨앗의 심는 값·보상·확률·월 소진량은 "가챠 머신·씨앗" 메뉴에서 씨앗 탭을 골라 바꾸고, 예산·RTP 계산과 "목표로 맞추기"에도 함께 들어가요.</p>
     <div class="fields fm-fields" id="fm-fields"></div>
     <div class="table-wrap"><table class="ad-table fm-table" id="fm-seeds"></table></div>
   </div>
 
+  </div>
+  <div class="ad-page" data-page="cannon" hidden>
   <div class="panel ad-block" id="cn-admin">
     <h2>팝콘 대포 관리 <span class="tag" id="cn-sum"></span></h2>
     <p class="hub-note">게이지를 멈춘 위치로 등급(퍼펙트 ±4%, 좋아요 ±16%, 그 밖은 보통)이 정해지고, 등급별 확률표에서 거리 구간을 뽑아요. 배수는 모든 등급이 같고 확률만 달라요. 실력으로 기대값이 바뀌지 않도록 <b>등급마다 RTP를 같게</b> 맞춰야 해요(차이 1%p 이하일 때 저장돼요). 트램펄린·캐러멜·범퍼 장애물은 정해진 거리에 맞춰 놓이는 연출이라 확률·RTP에 영향이 없어요.</p>
@@ -1793,14 +1773,8 @@ img, svg, video { max-width: 100%; }
     <div class="ed-foot"><div class="pa-calc" id="cn-calc"></div><button class="btn-ghost" type="button" id="cn-fit">목표 RTP로 등급별 확률 맞추기</button></div>
   </div>
 
-  <div class="panel ad-block" id="pk-admin">
-    <h2>팝콘 핀볼 관리 <span class="tag" id="pk-sum"></span></h2>
-    <p class="hub-note">핀 8줄에서 왼쪽·오른쪽이 각각 50%라 아래 9칸의 확률은 정해져 있어요(가운데가 가장 잦고 양 끝이 가장 드묾). 칸 배수는 가운데부터 맨 끝까지 5단계로 정하고 좌우가 같아요. 지급 강냉이 = 1회 금액 × 배수(반올림).</p>
-    <div class="fields" id="pk-fields"></div>
-    <div class="table-wrap"><table class="ad-table" id="pk-mult-t"></table></div>
-    <div class="ed-foot"><div class="pa-calc" id="pk-calc"></div><button class="btn-ghost" type="button" id="pk-fit">목표 RTP로 배수 맞추기</button></div>
   </div>
-
+  <div class="ad-page" data-page="runner" hidden>
   <div class="panel ad-block" id="rn-admin">
     <h2>냥치 런 관리 <span class="tag" id="rn-sum"></span></h2>
     <p class="hub-note">문 2개 중 하나만 통과(각 50%)하는 게임이에요. 문 단계별 누적 점수가 곧 지급 강냉이예요. 손님이 가장 유리한 단계에서 포기한다고 보고 RTP를 계산해서 예산에 넣어요(실제 지급은 이보다 같거나 적어요).</p>
@@ -1809,12 +1783,17 @@ img, svg, video { max-width: 100%; }
     <div class="ed-foot"><div class="pa-calc" id="rn-calc"></div><button class="btn-ghost" type="button" id="rn-fit">목표 RTP로 점수 맞추기</button></div>
   </div>
 
+  </div>
+  <div class="ad-page" data-page="puzzle" hidden>
   <div class="panel ad-block" id="pa-admin">
     <h2>직소 퍼즐 상품 관리 <span class="tag" id="pa-sum"></span></h2>
     <p class="hub-note">퍼즐로 모을 상품을 관리해요. 상품마다 6조각 퍼즐이 만들어지고, 카드 1장마다 아래 확률로 상품을 고른 뒤 1~6번 조각 중 하나가 나와요. 이미 가진 조각이면 중복이라 한 상품을 완성하려면 그 상품 조각이 평균 14.7장 필요해요. 저장하면 게임에 바로 반영돼요.</p>
     <div class="fields pa-fields" id="pa-fields"></div>
     <div class="table-wrap"><table class="ad-table" id="pa-list"></table></div>
     <div class="ed-foot"><button class="btn-line" type="button" id="pa-add">상품 추가</button><div class="pa-calc" id="pa-calc"></div><button class="btn-ghost" type="button" id="pa-fit">목표 RTP로 카드 가격 맞추기</button></div>
+  </div>
+  </div>
+  </div>
   </div>
 </section>
 
@@ -1978,11 +1957,9 @@ img, svg, video { max-width: 100%; }
     { id: 'all', name: '전체' },
     { id: 'coin', name: '동전존', cost: 100, color: 'var(--t-coin)' },
     { id: 'silver', name: '실버존', cost: 500, color: 'var(--t-silver)' },
-    { id: 'board', name: '뽑기판', cost: 600, color: 'var(--t-board)', tab: 'board' },
     { id: 'puzzle', name: '직소 퍼즐', cost: 300, color: 'var(--t-pack)', tab: 'puzzle' },
     { id: 'farm', name: '팝콘 농장', cost: 200, color: '#3E9B4F', tab: 'farm' },
     { id: 'runner', name: '냥치 런', cost: 100, color: '#FF6FA0', tab: 'runner' },
-    { id: 'plinko', name: '팝콘 핀볼', cost: 100, color: '#FF8A3D', tab: 'plinko' },
     { id: 'cannon', name: '팝콘 대포', cost: 100, color: '#19A7CE', tab: 'cannon' },
     { id: 'gold', name: '골드존', cost: 2000, color: 'var(--t-gold)' },
     { id: 'creator', name: '크리에이터존', cost: 3000, color: 'var(--t-creator)' },
@@ -2027,11 +2004,6 @@ img, svg, video { max-width: 100%; }
         prizes: [P('S', '커피 2잔 세트 기프티콘', 'product', 0, 9000, 4, 2), P('A', '아메리카노 기프티콘', 'product', 0, 4500, 16, 9), P('B', '편의점 1천원권', 'product', 0, 1000, 60, 31), P('C', '조각 1개', 'piece', 1, 0, 120, 58)] },
       { id: 'dessert', zone: 'silver', name: '디저트 머신', cost: 500, demand: 1500000, top: '조각케이크',
         prizes: [P('S', '조각케이크 기프티콘', 'product', 0, 6000, 3, 3), P('A', '아이스크림 기프티콘', 'product', 0, 3000, 15, 11), P('B', '도넛 기프티콘', 'product', 0, 2000, 42, 30), P('C', '조각 1개', 'piece', 1, 0, 90, 64)] },
-      // 뽑기존: 한정 풀을 번호 칸으로 펼친 뽑기판. 칸을 고르면 그 순간 남은 상품 중에서 결과가 정해진다
-      { id: 'board-cvs', zone: 'board', mode: 'board', name: '편의점 뽑기판', cost: 600, demand: 900000, top: '편의점 1만원권',
-        prizes: [P('S', '편의점 1만원권', 'product', 0, 10000, 1, 1), P('A', '편의점 5천원권', 'product', 0, 5000, 6, 4), P('B', '편의점 1천원권', 'product', 0, 1000, 16, 11), P('C', '조각 1개', 'piece', 1, 0, 37, 22)] },
-      { id: 'board-creator', zone: 'board', mode: 'board', name: '크리에이터 뽑기판', cost: 1500, demand: 900000, top: '친필 사인 앨범',
-        prizes: [P('S', '친필 사인 앨범', 'product', 0, 40000, 1, 1), P('A', '포토카드 세트', 'product', 0, 6000, 5, 3), P('B', '스티커 팩', 'product', 0, 2000, 14, 9), P('C', '조각 3개', 'piece', 3, 0, 20, 13)] },
       // 직소 퍼즐: 상품마다 6조각 퍼즐. 카드 1장 = w% 확률로 고른 상품의 1~6번 조각 하나 (이미 가진 조각이면 중복 처리)
       // RTP = Σ(조각 확률 × 원가) ÷ 14.7 ÷ 카드 가격(원).  w는 원가에 반비례(autoW)
       { id: 'puzzle', zone: 'puzzle', mode: 'puzzle', pv: 2, autoW: true, name: '퍼즐 카드', cost: 140, demand: 1000000, top: '명품 한우 선물세트',
@@ -2045,9 +2017,6 @@ img, svg, video { max-width: 100%; }
       { id: 'cannon', zone: 'cannon', mode: 'cannon', name: '팝콘 대포', cost: 100, demand: 800000, mults: [0.2, 0.5, 1, 2, 4, 10],
         probs: { perfect: [63.75, 16, 8.25, 5, 4, 3], good: [48.12, 25, 11.88, 9, 4.5, 1.5], normal: [38.75, 30, 16.25, 10, 4, 1] }, top: '800m 이상 ×10 · 강냉이 1,000개',
         prizes: [W('C', '0~50m ×0.2', 'kernel', 20, 0, 38.75), W('C', '50~100m ×0.5', 'kernel', 50, 0, 30), W('B', '100~200m ×1', 'kernel', 100, 0, 16.25), W('A', '200~400m ×2', 'kernel', 200, 0, 10), W('A', '400~800m ×4', 'kernel', 400, 0, 4), W('S', '800m 이상 ×10', 'kernel', 1000, 0, 1)] },
-      // 팝콘 핀볼: 핀 8줄(좌우 50%) → 9칸 이항분포. 칸 배수(가운데→끝) × 1회 금액 = 지급. RTP = Σ 확률 × 지급 ÷ 1회 금액
-      { id: 'plinko', zone: 'plinko', mode: 'plinko', name: '팝콘 핀볼', cost: 100, demand: 800000, mults: [0.3, 0.5, 1.3, 3, 10], top: '맨 끝 칸 ×10 · 강냉이 1,000개',
-        prizes: [W('C', '가운데 칸 ×0.3', 'kernel', 30, 0, 27.344), W('C', '가운데에서 1칸 ×0.5', 'kernel', 50, 0, 43.75), W('B', '가운데에서 2칸 ×1.3', 'kernel', 130, 0, 21.875), W('A', '가운데에서 3칸 ×3', 'kernel', 300, 0, 6.25), W('S', '가운데에서 4칸 ×10', 'kernel', 1000, 0, 0.781)] },
       // 냥치 런: 문 2개 중 하나 통과(50%), 단계별 누적 점수 = 지급 강냉이. RTP = max(0.5^k × 점수k) ÷ 입장료
       { id: 'runner', zone: 'runner', mode: 'runner', name: '냥치 런', cost: 100, demand: 1000000, ladder: [150, 320, 600, 1150, 2200], top: '문 5개 완주 2,200점',
         prizes: [W('C', '문 1개 통과', 'kernel', 150, 0, 0), W('B', '문 2개 통과', 'kernel', 320, 0, 0), W('B', '문 3개 통과', 'kernel', 600, 0, 0), W('A', '문 4개 통과', 'kernel', 1150, 0, 0), W('S', '문 5개 통과', 'kernel', 2200, 0, 0)] },
@@ -2101,6 +2070,8 @@ img, svg, video { max-width: 100%; }
     delete c.farm.seeds; delete c.farm.waterPerDay; delete c.farm.waterCut; delete c.farm.liveBonus;   // 예전 확정형 씨앗 설정은 버린다 (씨앗은 이제 확률형 머신)
     // 예전 한정 카드팩·빙고 카드팩은 직소 퍼즐로 바뀌었다
     c.machines = c.machines.filter(m => m.mode !== 'pack' && m.mode !== 'bingo');
+    // 뽑기판·팝콘 핀볼은 삭제된 게임
+    c.machines = c.machines.filter(m => m.mode !== 'board' && m.mode !== 'plinko');
     // 예전 저장본에 없는 기본 머신(뽑기존 등)은 기본값으로 채운다
     DEFAULT_CONFIG.machines.forEach(d => { if (!c.machines.some(m => m.id === d.id)) c.machines.push(clone(d)); });
     syncPieceValue(c);
@@ -2206,10 +2177,8 @@ img, svg, video { max-width: 100%; }
   function renderZones() {
     const COPY = {
       gacha: ['입장료가 높은 머신일수록 좋은 상품이 들어 있어요', '머신마다 캡슐 수가 정해져 있고, 남은 수량을 실시간으로 공개해요.'],
-      board: ['칸을 골라 은박을 긁어 보는 뽑기판', '판마다 칸 수가 정해져 있고, 남은 칸과 남은 상품을 실시간으로 공개해요. 어느 칸을 골라도 당첨 확률은 같아요.'],
       puzzle: ['상품 퍼즐 6조각을 모아 상품을 받는 직소 퍼즐', '카드를 뽑을 때마다 상품 퍼즐 조각이 하나 나와요. 6조각을 다 모으면 그 상품을 받아요. 비싼 상품일수록 조각이 드물고, 이미 가진 조각은 중복이에요.'],
       cannon: ['게이지를 멈춰 팝콘을 쏘는 팝콘 대포', '팝콘이 떨어진 거리 구간의 배수만큼 강냉이를 받아요. 게이지 타이밍에 따라 확률표가 달라지지만 평균 환원(RTP)은 같아요.'],
-      plinko: ['팝콘을 떨어뜨려 칸 배수만큼 받는 팝콘 핀볼', '팝콘이 핀에 튕기며 내려와 아래 칸에 들어가요. 들어간 칸의 배수만큼 강냉이를 받아요. 양 끝으로 갈수록 배수가 크지만 드물어요.'],
       runner: ['냥치와 달리며 문을 고르는 냥치 런', '문 2개 중 하나만 통과돼요. 3초 안에 골라 문 5개를 통과하면 완주! 첫 문을 통과한 뒤에는 포기하고 점수를 받을 수도 있어요.'],
       farm: ['강냉이를 심고 키워서 팝콘을 수확하는 팝콘 농장', '운이 아니라 시간으로 자라요. 씨앗마다 수확량이 정해져 있고, 오래 키울수록 더 많이 받아요.']
     };
@@ -2255,12 +2224,11 @@ img, svg, video { max-width: 100%; }
     if (state.tab === 'farm') { $('floor').innerHTML = farmHTML(); return; }
     if (state.tab === 'puzzle') { $('floor').innerHTML = puzzleFloorHTML(); return; }
     if (state.tab === 'runner') { $('floor').innerHTML = runnerFloorHTML(); return; }
-    if (state.tab === 'plinko') { $('floor').innerHTML = plinkoFloorHTML(); return; }
     if (state.tab === 'cannon') { $('floor').innerHTML = cannonFloorHTML(); cnInit(); return; }
     const order = id => zones.findIndex(z => z.id === id);
     const list = state.tab !== 'gacha'
       ? machines.filter(m => m.mode === state.tab)
-      : machines.filter(m => !['board', 'puzzle', 'farm', 'runner', 'plinko', 'cannon'].includes(m.mode) && (state.zone === 'all' || m.zone === state.zone)).sort((a, b) => order(a.zone) - order(b.zone));
+      : machines.filter(m => !['board', 'puzzle', 'farm', 'runner', 'cannon'].includes(m.mode) && (state.zone === 'all' || m.zone === state.zone)).sort((a, b) => order(a.zone) - order(b.zone));
     $('floor').innerHTML = list.map(m => m.mode === 'board' ? boardCardHTML(m) : machineHTML(m, 'button')).join('');
   }
   function renderHUD(bump) {
@@ -3174,178 +3142,14 @@ img, svg, video { max-width: 100%; }
   });
 
   // =====================================================================
-  // 팝콘 핀볼: 팝콘을 떨어뜨리면 핀 8줄에 튕기며 내려와 아래 9칸 중 하나에 들어간다.
-  // 핀마다 왼쪽·오른쪽 50%라서 칸 확률은 이항분포(C(8,k)/256). 들어간 칸 배수 × 1회 금액 = 지급 강냉이
-  // 배수는 가운데 → 끝 5단계를 관리자가 정하고 좌우 대칭. RTP = Σ 칸 확률 × 지급 ÷ 1회 금액
-  // =====================================================================
-  const PK_ROWS = 8, PK_GAP = 10.4, PK_Y0 = 14, PK_DY = 8.6, PK_SLOT_Y = 80, PK_H = 92;
-  const PK_DEFAULT = [0.3, 0.5, 1.3, 3, 10];
-  const PK = { inflight: 0, balls: [], raf: 0, recent: [], dropped: 0, won: 0 };
-  const plinkoMachine = () => machines.find(m => m.mode === 'plinko');
-  const pkMults = m => (m && Array.isArray(m.mults) && m.mults.length === 5 ? m.mults : PK_DEFAULT).map(v => Math.max(0, Number(v) || 0));
-  const pkChoose = (n, k) => { let r = 1; for (let i = 1; i <= k; i++) r = r * (n - k + i) / i; return r; };
-  const pkProb = k => pkChoose(PK_ROWS, k) / Math.pow(2, PK_ROWS);                 // 칸 k(0~8)에 들어갈 확률
-  const pkHalfProb = d => d === 0 ? pkProb(PK_ROWS / 2) : pkProb(PK_ROWS / 2 + d) * 2;  // 가운데에서 d칸 떨어진 칸(좌우 합)
-  const pkMulOf = (m, k) => pkMults(m)[Math.abs(k - PK_ROWS / 2)];
-  const pkPay = (m, mul) => Math.round(num(m.cost) * mul);
-  const pkColor = mul => mul >= 5 ? '#FF4D4F' : mul >= 2 ? '#FF8A3D' : mul >= 1 ? '#F0B429' : mul >= .5 ? '#3DBE84' : '#7C83A6';
-  const pkTier = mul => mul >= 5 ? 'top' : mul >= 2 ? 'hi' : mul >= 1 ? 'mid' : 'lo';
-  const pkMulText = v => '×' + (+v.toFixed(2));
-  const pkX = (r, k) => 50 + (k - r / 2) * PK_GAP;   // r번째 줄 직전, 오른쪽으로 k번 튕긴 팝콘의 x
-  const pkRowY = r => PK_Y0 + r * PK_DY;
-
-  function plinkoFloorHTML() {
-    const m = plinkoMachine(); if (!m) return '';
-    const M = pkMults(m);
-    let pegs = '', glows = '';
-    for (let r = 0; r < PK_ROWS; r++) for (let j = 0; j < r + 3; j++) {
-      const x = (50 + (j - (r + 2) / 2) * PK_GAP).toFixed(2), y = pkRowY(r).toFixed(2);
-      pegs += '<circle class="pk-peg" cx="' + x + '" cy="' + y + '" r="1.1"/>';
-      glows += '<circle class="pk-peg-glow" id="pkg-' + r + '-' + j + '" cx="' + x + '" cy="' + y + '" r="1.1"/>';
-    }
-    let slots = '';
-    for (let k = 0; k <= PK_ROWS; k++) {
-      const mul = pkMulOf(m, k), x = 50 + (k - PK_ROWS / 2) * PK_GAP, w = PK_GAP - .9;
-      slots += '<g class="pk-slot" id="pks-' + k + '"><rect class="bg" x="' + (x - w / 2).toFixed(2) + '" y="' + PK_SLOT_Y + '" width="' + w.toFixed(2) + '" height="9" rx="1.6" fill="' + pkColor(mul) + '"/>' +
-        '<rect x="' + (x - w / 2 + .6).toFixed(2) + '" y="' + (PK_SLOT_Y + .6) + '" width="' + (w - 1.2).toFixed(2) + '" height="2.2" rx="1" fill="rgba(255,255,255,.28)"/>' +
-        '<text class="mul" x="' + x.toFixed(2) + '" y="' + (PK_SLOT_Y + 6.1) + '">' + pkMulText(mul) + '</text></g>';
-    }
-    const rows = M.map((v, d) => '<tr><td>' + (d ? '가운데에서 ' + d + '칸' : '가운데') + '</td><td class="r"><span class="chip" style="background:' + pkColor(v) + '">' + pkMulText(v) + '</span></td><td class="r num"><b>' + fmt(pkPay(m, v)) + '개</b></td><td class="r num">' + (+(pkHalfProb(d) * 100).toFixed(2)) + '%</td></tr>').reverse().join('');
-    return '<section class="pk-panel" aria-labelledby="pk-h">' +
-      '<div class="pk-wrap"><div class="pk-left">' +
-        '<div class="pk-machine" id="pk-machine"><span class="pk-sign">POPCORN PINBALL</span>' +
-          '<div class="pk-board" id="pk-board">' +
-            '<svg class="pk-svg" id="pk-svg" viewBox="0 0 100 ' + PK_H + '" role="img" aria-label="팝콘 핀볼 판">' +
-              '<defs><radialGradient id="pk-peg-g" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#FFF6C8"/><stop offset=".55" stop-color="#FFC94A"/><stop offset="1" stop-color="#D98E04"/></radialGradient>' +
-              '<radialGradient id="pk-corn-g" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".7" stop-color="#FFF4D6"/><stop offset="1" stop-color="#F2D59A"/></radialGradient></defs>' +
-              '<path d="M44 0 L56 0 L53 5 L47 5 Z" fill="rgba(255,255,255,.18)"/>' +
-              glows + pegs + slots + '<g id="pk-balls"></g>' +
-            '</svg>' +
-            '<div class="pk-hud"><span>떨어뜨린 팝콘 <b class="num" id="pk-dropped">' + fmt(PK.dropped) + '</b></span><span>받은 강냉이 <b class="num" id="pk-won">' + fmt(PK.won) + '</b></span></div>' +
-            '<div class="pk-flash" id="pk-flash"></div>' +
-          '</div>' +
-        '</div>' +
-        '<div class="pk-controls">' +
-          '<button class="pk-drop" type="button" data-pk="1">팝콘 1개 떨어뜨리기 <span class="num">' + K + fmt(m.cost) + '</span></button>' +
-          '<button class="pk-drop x5" type="button" data-pk="5">5개 연속 <span class="num">' + K + fmt(m.cost * 5) + '</span></button>' +
-        '</div>' +
-        '<div class="pk-recent" id="pk-recent">' + pkRecentHTML() + '</div>' +
-      '</div>' +
-      '<aside class="pk-info">' +
-        '<h3 id="pk-h">' + m.name + ' <small class="qmeta">1개 ' + K + fmt(m.cost) + '</small></h3>' +
-        '<p>팝콘을 떨어뜨리면 핀에 튕기며 내려와 아래 칸 중 하나에 들어가요. <b>들어간 칸의 배수만큼</b> 강냉이를 받아요.</p>' +
-        '<ul><li>핀마다 왼쪽·오른쪽으로 튕길 확률은 반반이에요. 그래서 가운데 칸에 자주 들어가고, 양 끝 칸은 드물어요.</li><li>양 끝으로 갈수록 배수가 커져요. 맨 끝 칸은 <b>' + pkMulText(M[4]) + '</b>!</li><li>여러 개를 연속으로 떨어뜨릴 수 있어요. 키보드 스페이스로도 떨어뜨려요.</li></ul>' +
-        '<table class="pk-table"><thead><tr><th>칸</th><th class="r">배수</th><th class="r">받는 강냉이</th><th class="r">확률</th></tr></thead><tbody>' + rows + '</tbody></table>' +
-      '</aside>' +
-    '</div></section>';
-  }
-  function pkRecentHTML() {
-    return PK.recent.length ? '<span>최근</span>' + PK.recent.map(v => '<i style="background:' + pkColor(v) + '">' + pkMulText(v) + '</i>').join('') : '<span>팝콘을 떨어뜨려 보세요!</span>';
-  }
-  const pkEl = id => document.getElementById(id);
-
-  function pkDrop(count) {
-    const m = plinkoMachine(); if (!m) return;
-    if (state.balance < m.cost * count) { toast('', '강냉이가 부족해요. 체험용 강냉이를 충전해 보세요.', true); return; }
-    for (let i = 0; i < count; i++) setTimeout(() => pkLaunch(m), i * 260);
-  }
-  function pkLaunch(m) {
-    if (state.tab !== 'plinko' || !pkEl('pk-balls')) return;
-    if (state.balance < m.cost) return;
-    state.balance -= m.cost; renderHUD(true);
-    // 줄마다 50%로 왼쪽·오른쪽. 결과(칸)는 떨어뜨리는 순간 정해진다
-    const path = []; let k = 0;
-    for (let r = 0; r < PK_ROWS; r++) { const right = Math.random() < .5; path.push(right); if (right) k++; }
-    const pts = [{ x: 50 + (Math.random() - .5) * 1.2, y: 2 }];
-    let kk = 0;
-    for (let r = 0; r < PK_ROWS; r++) { pts.push({ x: pkX(r, kk), y: pkRowY(r) - 3.1, peg: [r, kk + 1] }); if (path[r]) kk++; }
-    pts.push({ x: 50 + (k - PK_ROWS / 2) * PK_GAP, y: PK_SLOT_Y + 4.2, slot: k });
-    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    g.setAttribute('class', 'pk-ball');
-    g.innerHTML = '<circle class="pk-trail" r="1.6"/><g class="corn"><circle cx="0" cy="0" r="1.6" fill="url(#pk-corn-g)"/><circle cx="-1.2" cy="-.6" r="1.1" fill="url(#pk-corn-g)"/><circle cx="1.1" cy="-.8" r="1.05" fill="url(#pk-corn-g)"/><circle cx=".2" cy="-1.5" r="1" fill="url(#pk-corn-g)"/><circle cx=".3" cy=".9" r=".55" fill="#F2B630"/></g>';
-    pkEl('pk-balls').appendChild(g);
-    PK.inflight++; PK.dropped++;
-    const d = pkEl('pk-dropped'); if (d) d.textContent = fmt(PK.dropped);
-    PK.balls.push({ m, g, pts, seg: 0, t0: performance.now(), rot: Math.random() * 360, spin: (Math.random() < .5 ? -1 : 1) * (4 + Math.random() * 4), slot: k });
-    if (!PK.raf) PK.raf = requestAnimationFrame(pkTick);
-  }
-  function pkTick(now) {
-    PK.balls = PK.balls.filter(b => {
-      if (!b.g.isConnected) { pkLand(b, true); return false; }
-      const first = b.seg === 0, last = b.seg === b.pts.length - 2;
-      const dur = first ? 300 : last ? 230 : 165;
-      let t = (now - b.t0) / dur;
-      while (t >= 1) {
-        const hit = b.pts[b.seg + 1];
-        if (hit.peg) pkPegHit(hit.peg[0], hit.peg[1]);
-        b.seg++; b.t0 += dur; t = (now - b.t0) / dur;
-        if (b.seg >= b.pts.length - 1) { pkLand(b, false); return false; }
-        break;
-      }
-      const a = b.pts[b.seg], c = b.pts[b.seg + 1], f = b.seg === 0;
-      const tt = Math.max(0, Math.min(1, t));
-      const x = a.x + (c.x - a.x) * (1 - (1 - tt) * (1 - tt));
-      const y = f ? a.y + (c.y - a.y) * tt * tt : a.y + (c.y - a.y) * tt * tt - 3.2 * tt * (1 - tt);
-      b.rot += b.spin;
-      b.g.setAttribute('transform', 'translate(' + x.toFixed(2) + ' ' + y.toFixed(2) + ')');
-      b.g.querySelector('.corn').setAttribute('transform', 'rotate(' + b.rot.toFixed(1) + ')');
-      return true;
-    });
-    PK.raf = PK.balls.length ? requestAnimationFrame(pkTick) : 0;
-  }
-  function pkPegHit(r, j) {
-    const el = pkEl('pkg-' + r + '-' + j); if (el) restart(el, 'lit');
-  }
-  // 칸에 들어감: 지급하고 배수에 맞춰 연출 (화면을 떠났으면 지급만)
-  function pkLand(b, silent) {
-    const m = b.m, mul = pkMulOf(m, b.slot), got = pkPay(m, mul), tier = pkTier(mul);
-    PK.inflight = Math.max(0, PK.inflight - 1);
-    state.balance += got; PK.won += got;
-    PK.recent.unshift(mul); PK.recent = PK.recent.slice(0, 10);
-    const p = { g: mul >= 5 ? 'S' : mul >= 2 ? 'A' : mul >= 1 ? 'B' : 'C', name: '팝콘 핀볼 ' + pkMulText(mul) + ' · ' + fmt(got) + '개', kind: 'kernel', val: got };
-    recordResult(p, m);
-    if (mul >= 3) { state.feed.unshift({ g: p.g, item: '강냉이 ' + fmt(got) + '개', who: '나 · 팝콘 핀볼 ' + pkMulText(mul) }); renderFeed(true); }
-    saveMe(); renderHUD(true);
-    if (silent || !b.g.isConnected) return;
-    b.g.remove();
-    const w = pkEl('pk-won'); if (w) { w.textContent = fmt(PK.won); restart(w, 'bump'); }
-    const rc = pkEl('pk-recent'); if (rc) rc.innerHTML = pkRecentHTML();
-    const slot = pkEl('pks-' + b.slot); if (slot) restart(slot, 'hit');
-    const board = pkEl('pk-board'); if (!board) return;
-    const x = 50 + (b.slot - PK_ROWS / 2) * PK_GAP;
-    const fl = document.createElement('div');
-    fl.className = 'pk-float ' + tier; fl.style.left = Math.max(12, Math.min(88, x)) + '%'; fl.style.top = (PK_SLOT_Y / PK_H * 100) + '%';
-    fl.textContent = '+' + fmt(got);
-    board.appendChild(fl); setTimeout(() => fl.remove(), 1200);
-    const rect = slot ? slot.getBoundingClientRect() : board.getBoundingClientRect(), cx = rect.left + rect.width / 2, cy = rect.top;
-    if (tier === 'mid') { floatFx(); burst(['#FFE07A', '#FFFFFF', '#F0B429'], 18, 5, cx, cy); }
-    if (tier === 'hi') { floatFx(); burst(['#FF8A3D', '#FFE07A', '#FFFFFF'], 40, 8, cx, cy); restart(pkEl('pk-flash'), 'on'); }
-    if (tier === 'top') {
-      floatFx(); burst(['#FF4D4F', '#FFE07A', '#FFFFFF', '#FF8FB1'], 90, 12, cx, cy); burst(['#FFFFFF', '#FFF4D6'], 30, 9, cx, cy, 'p');
-      rain(['#FFC64E', '#FF8FB1', '#7CD992', '#519CFF', '#FFFFFF'], 120);
-      restart(pkEl('pk-flash'), 'on'); restart(pkEl('pk-machine'), 'shake');
-      const bn = document.createElement('div'); bn.className = 'pk-banner'; bn.innerHTML = '대박! ' + pkMulText(mul) + '<small>강냉이 ' + fmt(got) + '개</small>';
-      board.appendChild(bn); setTimeout(() => bn.remove(), 1700);
-      toast('', '팝콘 핀볼 ' + pkMulText(mul) + ' 대박! 강냉이 ' + fmt(got) + '개 적립', true);
-    }
-  }
-  $('floor').addEventListener('click', e => {
-    const b = e.target.closest('[data-pk]'); if (!b || b.disabled) return;
-    pkDrop(Number(b.dataset.pk) || 1);
-  });
-  document.addEventListener('keydown', e => {
-    if (state.tab !== 'plinko' || e.key !== ' ' || e.repeat) return;
-    if (e.target.closest && e.target.closest('input, textarea, select, button, [contenteditable]')) return;
-    if (!$('app') || $('app').hidden) return;
-    e.preventDefault(); pkDrop(1);
-  });
-
-  // =====================================================================
   // 팝콘 대포: 파워 게이지를 멈춰 팝콘을 쏘고, 떨어진 거리 구간의 배수만큼 강냉이를 받는다.
   // 게이지 타이밍 → 등급(퍼펙트·좋아요·보통) → 등급별 확률표에서 거리 구간을 뽑는다(B 방식).
   // 등급마다 확률표는 다르지만 RTP는 같게 맞춘다: 퍼펙트는 대박도 꽝도 많고, 보통은 고르게 받는다.
   // 날아가고 튕기는 모습은 이미 정해진 거리에 맞춰 보여주는 연출
   // =====================================================================
+  const pkColor = mul => mul >= 5 ? '#FF4D4F' : mul >= 2 ? '#FF8A3D' : mul >= 1 ? '#F0B429' : mul >= .5 ? '#3DBE84' : '#7C83A6';
+  const pkTier = mul => mul >= 5 ? 'top' : mul >= 2 ? 'hi' : mul >= 1 ? 'mid' : 'lo';
+  const pkMulText = v => '×' + (+v.toFixed(2));
   const CN_EDGES = [3, 50, 100, 200, 400, 800, 1500];
   const CN_GRADES = [{ id: 'perfect', name: '퍼펙트', cls: 'g-perfect', tc: 'gp' }, { id: 'good', name: '좋아요', cls: 'g-good', tc: 'gg' }, { id: 'normal', name: '보통', cls: 'g-normal', tc: 'gn' }];
   const CN_DEF_MULTS = [0.2, 0.5, 1, 2, 4, 10];
@@ -4214,11 +4018,6 @@ img, svg, video { max-width: 100%; }
       const rev = num(m.cost) * s.kernelValue, rs = CN_GRADES.map(g => cnRtp(m, g.id)), rtp = Math.max(...rs);
       return { rev, pay: rev * rtp, rtp, rs, mRev, mPay: mRev * rtp, wsum: 100, runs: num(m.cost) ? num(m.demand) / num(m.cost) : 0 };
     }
-    if (m.mode === 'plinko') {
-      const rev = num(m.cost) * s.kernelValue, evs = pkMults(m).map((v, d) => pkHalfProb(d) * pkPay(m, v) * s.kernelValue);
-      const pay = evs.reduce((a, b) => a + b, 0), rtp = rev ? pay / rev : 0;
-      return { rev, pay, rtp, evs, mRev, mPay: mRev * rtp, wsum: 100, runs: num(m.cost) ? num(m.demand) / num(m.cost) : 0 };
-    }
     if (m.mode === 'runner') {
       const rev = num(m.cost) * s.kernelValue, evs = rnLadder(m).map((v, i) => Math.pow(.5, i + 1) * v * s.kernelValue);
       const pay = evs.length ? Math.max(...evs) : 0, rtp = rev ? pay / rev : 0;
@@ -4271,11 +4070,6 @@ img, svg, video { max-width: 100%; }
     if (m.mode === 'cannon') {
       return cnFitGrades(m, T) ? '등급별 확률 조정' : '확률만으로 맞출 수 없어요';
     }
-    if (m.mode === 'plinko') {
-      if (!T || !e.rtp) return '조정할 수 없어요';
-      const f = T / e.rtp; m.mults = pkMults(m).map(v => Math.round(v * f * 100) / 100); pkSyncPrizes(m);
-      return '칸 배수 ×' + f.toFixed(2);
-    }
     if (m.mode === 'runner') {
       if (!T || !e.rtp) return '조정할 수 없어요';
       const f = T / e.rtp; m.ladder = rnLadder(m).map(v => Math.max(10, Math.round(v * f / 10) * 10)); rnSyncPrizes(m);
@@ -4324,7 +4118,7 @@ img, svg, video { max-width: 100%; }
       const e = econ(m, draft.settings);
       if (!num(m.cost)) errs.push(m.name + ': 입장료를 입력해 주세요.');
       if (isProb(m) && Math.abs(e.wsum - 100) > 0.01) errs.push(m.name + ': 확률 합계가 ' + fmt(+e.wsum.toFixed(2)) + '%예요. 100%로 맞춰 주세요.');
-      if (!isProb(m) && !e.N) errs.push(m.name + ': 캡슐 수량이 0개예요.');
+      if (!isProb(m) && !['runner', 'cannon'].includes(m.mode) && !e.N) errs.push(m.name + ': 캡슐 수량이 0개예요.');   // 냥치 런·팝콘 대포는 캡슐이 없는 게임
       if (m.prizes.some(p => !String(p.name).trim())) errs.push(m.name + ': 이름이 비어 있는 상품이 있어요.');
     });
     if (!(draft.settings.kernelValue > 0)) errs.push('강냉이 1개 원가 환산 값을 입력해 주세요.');
@@ -4336,7 +4130,6 @@ img, svg, video { max-width: 100%; }
       CN_GRADES.forEach(g => { const P = m.probs && m.probs[g.id]; if (!Array.isArray(P) || P.length !== 6 || P.some(v => !(Number(v) >= 0))) errs.push('팝콘 대포: ' + g.name + ' 확률이 올바르지 않아요.'); else if (Math.abs(P.reduce((a, b) => a + Number(b), 0) - 100) > .05) errs.push('팝콘 대포: ' + g.name + ' 확률 합이 100%가 아니에요.'); });
       const rs = CN_GRADES.map(g => cnRtp(m, g.id)); if (Math.max(...rs) - Math.min(...rs) > .01) errs.push('팝콘 대포: 등급별 RTP 차이가 1%p를 넘어요. [목표 RTP로 등급별 확률 맞추기]를 눌러 주세요.');
     });
-    draft.machines.filter(m => m.mode === 'plinko').forEach(m => { if (!(num(m.cost) >= 10)) errs.push('팝콘 핀볼: 1회 금액은 10 이상이어야 해요.'); const M = pkMults(m); if (!Array.isArray(m.mults) || m.mults.length !== 5 || m.mults.some(v => !(Number(v) >= 0))) errs.push('팝콘 핀볼: 칸 배수는 0 이상이어야 해요.'); else if (!M.some(v => v > 0)) errs.push('팝콘 핀볼: 배수가 모두 0이에요.'); });
     draft.machines.filter(m => m.mode === 'runner').forEach(m => { const L = rnLadder(m); if (L.length !== RN_DOORS || L.some((v, i) => !(v > 0) || (i && v <= L[i - 1]))) errs.push('냥치 런: 문 단계 점수는 0보다 크고 단계마다 커져야 해요.'); });
     draft.machines.filter(m => m.mode === 'puzzle').forEach(m => m.prizes.forEach(p => { if (p.kind === 'product' && !(num(p.cost) > 0)) errs.push('직소 퍼즐: ' + p.name + '의 원가를 입력해 주세요.'); }));
     draft.machines.filter(m => m.mode === 'farm').forEach(m => { if (!(num(m.minutes) >= 1)) errs.push(m.name + ': 성장 시간을 1분 이상으로 정해 주세요.'); });
@@ -4469,9 +4262,9 @@ img, svg, video { max-width: 100%; }
       const e = econ(m, s), st = statusOf(e.rtp, T);
       return '<tr style="--c:' + zoneOf(m.zone).color + '">' +
         '<td><span class="mname"><i></i>' + m.name + '</span></td>' +
-        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'plinko' ? '팝콘 핀볼' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
+        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
         '<td class="r">' + fmt(num(m.cost)) + '</td>' +
-        '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'cannon' ? '약 ' + fmt(Math.round(e.runs)) + '발' : m.mode === 'plinko' ? '약 ' + fmt(Math.round(e.runs)) + '개' : m.mode === 'runner' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
+        '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'cannon' ? '약 ' + fmt(Math.round(e.runs)) + '발' : m.mode === 'runner' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
         '<td class="r">' + won(e.mRev) + '</td>' +
         '<td class="r">' + won(e.mPay) + '</td>' +
         '<td><div class="rtpcell"><div class="rtpbar"><i style="width:' + Math.min(100, e.rtp / 1.5 * 100).toFixed(1) + '%;--st:var(--' + st.cls + ')"></i><b style="left:' + Math.min(100, T / 1.5 * 100).toFixed(1) + '%"></b></div><span>' + pct(e.rtp) + '</span></div></td>' +
@@ -4483,7 +4276,7 @@ img, svg, video { max-width: 100%; }
 
   function renderTabs() {
     const s = draft.settings;
-    $('ad-tabs').innerHTML = draft.machines.filter(m => !['runner', 'plinko', 'cannon'].includes(m.mode)).map(m =>
+    $('ad-tabs').innerHTML = draft.machines.filter(m => !['runner', 'cannon'].includes(m.mode)).map(m =>
       '<button class="ad-tab" type="button" role="tab" data-tab="' + m.id + '" aria-selected="' + (m.id === sel) + '" style="--c:' + zoneOf(m.zone).color + '"><i></i>' + m.name + ' <small>' + pct(econ(m, s).rtp) + '</small></button>').join('');
   }
 
@@ -4587,6 +4380,7 @@ img, svg, video { max-width: 100%; }
   }
 
   function renderStats() {
+    renderGnbDots();
     renderPieceValue();
     renderFarmCalc();
     const t = totalsOf(draft);
@@ -4652,7 +4446,7 @@ img, svg, video { max-width: 100%; }
         c2.drawImage(img, (S - w) / 2, (S - h) / 2, w, h);
         const m = pzDraft(); if (!m || !m.prizes[i]) return;
         m.prizes[i].img = cv.toDataURL('image/jpeg', 0.72);
-        renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats();
+        renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats();
       };
       img.src = fr.result;
     };
@@ -4666,7 +4460,7 @@ img, svg, video { max-width: 100%; }
     }
     if (el.id === 'pa-auto') {
       m.autoW = el.checked; if (m.autoW) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats(); return true;
     }
     if (el.dataset.pi != null && el.dataset.k) {
       const p = m.prizes[Number(el.dataset.pi)], k = el.dataset.k;
@@ -4686,17 +4480,17 @@ img, svg, video { max-width: 100%; }
     if (e.target.id === 'pa-add') {
       m.prizes.push({ g: 'C', name: '새 상품', kind: 'product', val: 0, cost: 3000, w: 0, img: '', pid: 'p' + Date.now().toString(36) });
       if (m.autoW !== false) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats(); return true;
     }
     const del = e.target.closest('[data-padel]');
     if (del) {
       m.prizes.splice(Number(del.dataset.padel), 1);
       if (m.autoW !== false) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats(); return true;
     }
     if (e.target.id === 'pa-fit') {
       const msg = fitMachine(m, draft.settings, target(), 'price');
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats();
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats();
       toast('', '직소 퍼즐: ' + msg + ' → RTP ' + pct(econ(m, draft.settings).rtp), true);
       return true;
     }
@@ -4736,55 +4530,32 @@ img, svg, video { max-width: 100%; }
     if (e.target.id !== 'rn-fit') return false;
     const m = rnDraft(); if (!m) return true;
     const msg = fitMachine(m, draft.settings, target(), 'reward');
-    renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats();
+    renderRunnerAdmin(); renderCannonAdmin(); renderStats();
     toast('', '냥치 런: ' + msg + ' → RTP ' + pct(econ(m, draft.settings).rtp), true);
     return true;
   }
 
-  // ----- 팝콘 핀볼 관리: 1회 금액, 칸 배수(가운데 → 끝, 좌우 대칭). RTP = Σ 칸 확률 × 지급 ÷ 1회 금액 -----
-  const pkDraft = () => draft.machines.find(m => m.mode === 'plinko');
-  function pkSyncPrizes(m) {
-    const M = pkMults(m);
-    m.prizes = M.map((v, d) => ({ g: v >= 5 ? 'S' : v >= 2 ? 'A' : v >= 1 ? 'B' : 'C', name: (d ? '가운데에서 ' + d + '칸' : '가운데 칸') + ' ' + pkMulText(v), kind: 'kernel', val: pkPay(m, v), cost: 0, w: +(pkHalfProb(d) * 100).toFixed(3) }));
-    m.top = '맨 끝 칸 ' + pkMulText(M[4]) + ' · 강냉이 ' + fmt(pkPay(m, M[4])) + '개';
+  // ----- 관리자 좌측 메뉴: 기능별로 한 화면씩 -----
+  const AD_PAGES = ['overview', 'machines', 'puzzle', 'farm', 'runner', 'cannon', 'shop'];
+  let adPage = (() => { try { const v = localStorage.getItem('tooneland-ad-page'); return AD_PAGES.includes(v) ? v : 'overview'; } catch (e) { return 'overview'; } })();
+  function adGo(page, keepScroll) {
+    if (!AD_PAGES.includes(page)) page = 'overview';
+    adPage = page;
+    document.querySelectorAll('#admin .ad-page').forEach(p => { p.hidden = p.dataset.page !== page; });
+    document.querySelectorAll('#ad-gnb [data-adpage]').forEach(b => { if (b.dataset.adpage === page) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
+    const cur = document.querySelector('#ad-gnb [aria-current="page"]'); if (cur && cur.scrollIntoView && matchMedia('(max-width: 980px)').matches) cur.scrollIntoView({ block: 'nearest', inline: 'center' });
+    try { localStorage.setItem('tooneland-ad-page', page); } catch (e) {}
+    if (!keepScroll) { const top = $('admin').getBoundingClientRect().top + scrollY; if (scrollY > top) scrollTo({ top, behavior: 'auto' }); }
   }
-  function renderPlinkoAdmin() {
-    const m = pkDraft(); if (!m) return;
-    $('pk-fields').innerHTML =
-      '<div class="field"><label for="pk-cost">1회 금액</label><div class="input-unit"><input class="input num" id="pk-cost" type="number" min="10" step="10" data-pkf="cost" value="' + num(m.cost) + '"><span>강냉이</span></div></div>' +
-      '<div class="field"><label for="pk-demand">월 예상 강냉이 소진</label><div class="input-unit"><input class="input num" id="pk-demand" type="number" min="0" data-pkf="demand" value="' + num(m.demand) + '"><span>강냉이</span></div></div>';
-    $('pk-mult-t').innerHTML = '<thead><tr><th>칸</th><th class="r">확률(좌우 합)</th><th class="w-num">배수</th><th class="r">지급 강냉이</th><th class="r">기대 환원</th></tr></thead><tbody>' +
-      pkMults(m).map((v, d) => '<tr><td>' + (d ? '가운데에서 ' + d + '칸' + (d === 4 ? ' (맨 끝)' : '') : '가운데') + '</td><td class="r num">' + (+(pkHalfProb(d) * 100).toFixed(2)) + '%</td>' +
-        '<td><div class="input-unit"><span>×</span><input class="input sm num" type="number" min="0" step="0.1" data-pkm="' + d + '" value="' + v + '" aria-label="' + (d ? '가운데에서 ' + d + '칸' : '가운데') + ' 배수"></div></td>' +
-        '<td class="r num" data-pkpay="' + d + '"></td><td class="r num" data-pkev="' + d + '"></td></tr>').join('') + '</tbody>';
-    renderPlinkoCalc();
+  function renderGnbDots() {
+    if (!draft) return;
+    const s = draft.settings, T = target(), R = { ok: 1, warn: 2, bad: 3 };
+    const worst = list => list.reduce((w, m) => { const c = statusOf(econ(m, s).rtp, T).cls; return (R[c] || 0) > (R[w] || 0) ? c : w; }, '');
+    const by = mode => draft.machines.filter(m => mode(m));
+    const map = { overview: worst(draft.machines), machines: worst(by(m => !['puzzle', 'runner', 'cannon'].includes(m.mode))), puzzle: worst(by(m => m.mode === 'puzzle')), farm: worst(by(m => m.mode === 'farm')), runner: worst(by(m => m.mode === 'runner')), cannon: worst(by(m => m.mode === 'cannon')), shop: '' };
+    document.querySelectorAll('#ad-gnb [data-addot]').forEach(d => { d.className = 'gnb-dot' + (map[d.dataset.addot] ? ' ' + map[d.dataset.addot] : ''); });
   }
-  function renderPlinkoCalc() {
-    const m = pkDraft(); if (!m) return;
-    const s = draft.settings, e = econ(m, s), st = statusOf(e.rtp, target());
-    pkMults(m).forEach((v, d) => {
-      const a = document.querySelector('[data-pkpay="' + d + '"]'), b = document.querySelector('[data-pkev="' + d + '"]');
-      if (a) a.textContent = fmt(pkPay(m, v)) + '개';
-      if (b) b.textContent = pct(e.rev ? e.evs[d] / e.rev : 0);
-    });
-    $('pk-sum').textContent = '맨 끝 ' + pkMulText(pkMults(m)[4]) + ' · RTP ' + pct(e.rtp);
-    $('pk-calc').innerHTML = '<span>1회 매출 <b>' + won(e.rev) + '</b></span><span>1회 기대 지급 <b>' + won(e.pay) + '</b></span><span>RTP <b>' + pct(e.rtp) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>';
-  }
-  function plinkoAdminInput(el) {
-    const m = pkDraft(); if (!m) return false;
-    if (el.dataset.pkf) { m[el.dataset.pkf] = Math.round(num(el.value)); pkSyncPrizes(m); renderPlinkoCalc(); renderStats(); return true; }
-    if (el.dataset.pkm != null) { m.mults = pkMults(m); m.mults[Number(el.dataset.pkm)] = Math.max(0, Number(el.value) || 0); pkSyncPrizes(m); renderPlinkoCalc(); renderStats(); return true; }
-    return false;
-  }
-  function plinkoAdminClick(e) {
-    if (e.target.id !== 'pk-fit') return false;
-    const m = pkDraft(); if (!m) return true;
-    const msg = fitMachine(m, draft.settings, target(), 'reward');
-    renderPlinkoAdmin(); renderCannonAdmin(); renderStats();
-    toast('', '팝콘 핀볼: ' + msg + ' → RTP ' + pct(econ(m, draft.settings).rtp), true);
-    return true;
-  }
-
+  document.getElementById('ad-gnb').addEventListener('click', e => { const b = e.target.closest('[data-adpage]'); if (b) adGo(b.dataset.adpage); });
   // ----- 팝콘 대포 관리: 거리 구간 배수(공통) + 게이지 등급별 확률표. 등급마다 RTP를 같게 맞춘다(B 방식) -----
   const cnDraft = () => draft.machines.find(m => m.mode === 'cannon');
   function cnSyncPrizes(m) {
@@ -4872,7 +4643,7 @@ img, svg, video { max-width: 100%; }
   function openAdmin() {
     // 편집 중인 내용이 없으면 최신 설정(게임에서 줄어든 남은 수량 포함)으로 다시 시작
     if (!draft || JSON.stringify(draft) === draftBase) { draft = clone(config); draftBase = JSON.stringify(draft); }
-    renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats();
+    renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats(); adGo(adPage, true);
   }
 
   // ----- 관리자 이벤트 -----
@@ -4881,7 +4652,6 @@ img, svg, video { max-width: 100%; }
   adminEl.addEventListener('input', e => {
     if (puzzleAdminInput(e.target)) return;
     if (runnerAdminInput(e.target)) return;
-    if (plinkoAdminInput(e.target)) return;
     if (cannonAdminInput(e.target)) return;
     const el = e.target, s = draft.settings;
     if (el.id === 'ad-budget') s.budget = num(el.value);
@@ -4935,10 +4705,9 @@ img, svg, video { max-width: 100%; }
   adminEl.addEventListener('click', e => {
     if (puzzleAdminClick(e)) return;
     if (runnerAdminClick(e)) return;
-    if (plinkoAdminClick(e)) return;
     if (cannonAdminClick(e)) return;
     const tab = e.target.closest('[data-tab]');
-    if (tab) { sel = tab.dataset.tab; renderEditor(); renderStats(); if (tab.dataset.jump) $('ad-editor').scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' }); return; }
+    if (tab) { sel = tab.dataset.tab; renderEditor(); renderStats(); if (tab.dataset.jump) { adGo('machines', true); $('ad-editor').scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' }); } return; }
     const fit = e.target.closest('[data-fit]');
     if (fit) {
       const m = draft.machines.find(x => x.id === fit.dataset.fit);
@@ -4986,16 +4755,16 @@ img, svg, video { max-width: 100%; }
         draft.machines.forEach(m => fitMachine(m, s, T, s.method));
       }
       s.targetRtp = Math.round(T * 1000) / 10;
-      renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats();
+      renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats();
       const t = totalsOf(draft);
       toast('', '예산 사용률 ' + pct(t.usage) + ', 목표 RTP ' + s.targetRtp + '%로 모든 머신을 맞췄어요. 저장해야 게임에 반영돼요.', true);
     } else if (id === 'ad-revert') {
-      draft = clone(config); draftBase = JSON.stringify(draft); renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats();
+      draft = clone(config); draftBase = JSON.stringify(draft); renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats();
     } else if (id === 'ad-reset') {
       const btn = $('ad-reset');
       if (Date.now() - resetArmed < 4000) {
         draft = clone(DEFAULT_CONFIG); resetArmed = 0; btn.textContent = '기본값으로';
-        renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats();
+        renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats();
         toast('', '기본값을 불러왔어요. 저장해야 게임에 반영돼요.', true);
       } else {
         resetArmed = Date.now(); btn.textContent = '한 번 더 누르면 초기화';
@@ -5006,7 +4775,7 @@ img, svg, video { max-width: 100%; }
     } else if (id === 'ad-load-remote') {
       if (sync.remote) { draft = clone(config); draftBase = JSON.stringify(draft); }
       $('ad-remote').hidden = true;
-      renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats();
+      renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats();
     }
   });
 
@@ -5051,7 +4820,7 @@ img, svg, video { max-width: 100%; }
     if (!draft || JSON.stringify(draft) === draftBase) {
       draft = clone(config); draftBase = JSON.stringify(draft);
       $('ad-remote').hidden = true;
-      if (!$('admin').hidden) { renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats(); }
+      if (!$('admin').hidden) { renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderStats(); }
     } else if (!sync.saving) {
       $('ad-remote').hidden = false;
       if (!$('admin').hidden) renderStats();
@@ -5122,9 +4891,8 @@ img, svg, video { max-width: 100%; }
   function route() {
     const admin = location.hash === '#admin', shop = location.hash === '#shop';
     if (CN.flying && location.hash !== '#cannon') { history.replaceState(null, '', '#cannon'); toast('', '팝콘이 착지한 뒤에 이동할 수 있어요.', true); return; }
-    if (PK.inflight > 0 && location.hash !== '#plinko') { history.replaceState(null, '', '#plinko'); toast('', '떨어지는 팝콘이 다 들어간 뒤에 이동할 수 있어요.', true); return; }
     if (RN.active && location.hash !== '#runner') { history.replaceState(null, '', '#runner'); toast('', '냥치 런이 끝난 뒤에 이동할 수 있어요.', true); return; }
-    const tab = ({ '#board': 'board', '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#farm': 'farm', '#runner': 'runner', '#plinko': 'plinko', '#cannon': 'cannon' })[location.hash] || 'gacha';
+    const tab = ({ '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#farm': 'farm', '#runner': 'runner', '#cannon': 'cannon' })[location.hash] || 'gacha';
     if (!admin && !shop && tab !== state.tab) {
       if (!$('modal').hidden) { if (busy) return; closeModal(); }
       state.tab = tab; renderZones(); renderFloor();
