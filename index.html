@@ -3732,7 +3732,7 @@ img, svg, video { max-width: 100%; }
   const CN_GRADES = [{ id: 'perfect', name: '퍼펙트', cls: 'g-perfect', tc: 'gp' }, { id: 'good', name: '좋아요', cls: 'g-good', tc: 'gg' }, { id: 'normal', name: '보통', cls: 'g-normal', tc: 'gn' }];
   const CN_DEF_MULTS = [0.2, 0.5, 1, 2, 4, 10];
   const CN_DEF_PROBS = { perfect: [0, 0, 90.2, 7, 2, 0.8], good: [0, 0, 96, 3.5, 0.5, 0], normal: [45, 30, 10, 10, 4, 1] };
-  const CN_PERFECT = 3.2, CN_GOOD = 8, CN_PERIOD = 1000;   // 게이지: 가운데에서 ±3.2% 퍼펙트, ±8% 좋아요(노란 영역), 한 번 왕복 1초
+  const CN_PERFECT = 3.2, CN_GOOD = 8, CN_PERIOD = 2000;   // 게이지: 가운데에서 ±3.2% 퍼펙트, ±8% 좋아요(노란 영역), 한 번 왕복 2초
   // 바늘이 고르게 움직이므로 무작위로 멈추면 각 등급이 나올 비율 = 영역 폭. 전체 RTP는 이 비율로 가중 평균
   const CN_SHARE = { perfect: 2 * CN_PERFECT / 100, good: 2 * (CN_GOOD - CN_PERFECT) / 100, normal: 1 - 2 * CN_GOOD / 100 };
   const cnRtpAll = m => CN_GRADES.reduce((a, g) => a + CN_SHARE[g.id] * cnRtp(m, g.id), 0);
@@ -3822,6 +3822,7 @@ img, svg, video { max-width: 100%; }
       const nd = cnEl('cn-needle');
       if (!nd) { CN.gRaf = 0; return; }
       if (!CN.flying) {
+        CN.prev = CN.pos;   // 화면에 보이는 바늘은 한 프레임 늦게 눈에 들어오므로, 판정은 직전 프레임 위치로 한다
         const ph = ((now - CN.t0) % CN_PERIOD) / CN_PERIOD;
         CN.pos = ph < .5 ? ph * 200 : (1 - ph) * 200;
         nd.style.left = CN.pos.toFixed(2) + '%';
@@ -3839,6 +3840,8 @@ img, svg, video { max-width: 100%; }
     CN.flying = true;
     const fire = cnEl('cn-fire'); if (fire) fire.disabled = true;
     const gauge = cnEl('cn-gauge'); if (gauge) restart(gauge, 'stop');
+    if (CN.prev != null) CN.pos = CN.prev;
+    const nd = cnEl('cn-needle'); if (nd) nd.style.left = CN.pos.toFixed(2) + '%';   // 멈춘 바늘 = 판정 위치
     const grade = cnGradeOf(CN.pos);
     const gEl = cnEl('cn-grade'); if (gEl) gEl.innerHTML = '<span class="cn-grade ' + grade.cls + '">' + grade.name + (grade.id === 'perfect' ? '!' : '') + '</span>';
     cnEl('cn-msg').hidden = true;
