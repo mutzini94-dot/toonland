@@ -557,6 +557,33 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .gs small { margin-left: auto; }
 }
 
+/* ---------- 강냉이 내역 창 ---------- */
+button.stat { font: inherit; color: inherit; cursor: pointer; }
+.ledger-sheet { --c: var(--t-coin); max-width: 520px; display: flex; flex-direction: column; }
+.lg-sum { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 8px; margin-top: 14px; }
+.lg-sum div { padding: 10px 12px; border-radius: 12px; background: var(--surface-2); }
+.lg-sum small { display: block; font-size: 12px; color: var(--muted); font-weight: 600; }
+.lg-sum b { display: flex; align-items: center; gap: 4px; margin-top: 2px; font-size: 18px; font-weight: 800; }
+.lg-sum .in b { color: #0E8F63; } .lg-sum .out b { color: #D93636; }
+.lg-tabs { display: flex; gap: 6px; margin-top: 14px; }
+.lg-tabs button { padding: 6px 14px; border: 1px solid var(--panel-line); border-radius: 999px; background: var(--panel); color: var(--text-2); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.lg-tabs button[aria-selected="true"] { background: var(--ink, #212529); border-color: var(--ink, #212529); color: #FFFFFF; }
+.lg-list { margin-top: 10px; max-height: min(52vh, 460px); overflow: auto; border-top: 1px solid var(--panel-line); }
+.lg-day { position: sticky; top: 0; z-index: 1; padding: 8px 2px 6px; background: var(--panel); font-size: 12px; font-weight: 700; color: var(--muted); }
+.lg-row { display: flex; align-items: center; gap: 10px; padding: 10px 2px; border-bottom: 1px solid var(--panel-line); }
+.lg-ic { flex: none; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; font-weight: 900; font-size: 15px; }
+.lg-row.in .lg-ic { background: rgba(25,188,133,.14); color: #0E8F63; }
+.lg-row.out .lg-ic { background: rgba(248,73,73,.12); color: #D93636; }
+.lg-row.zero .lg-ic { background: var(--surface-2); color: var(--muted); }
+.lg-main { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.lg-main b { font-size: 14px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lg-main small { font-size: 12px; color: var(--muted); }
+.lg-amt { flex: none; font-size: 15px; font-weight: 800; }
+.lg-row.in .lg-amt { color: #0E8F63; } .lg-row.out .lg-amt { color: #D93636; } .lg-row.zero .lg-amt { color: var(--muted); }
+.lg-empty { margin: 24px 0; text-align: center; color: var(--muted); font-size: 13px; }
+.lg-note { margin: 10px 0 0; font-size: 11.5px; color: var(--muted); }
+@media (max-width: 640px) { .lg-sum { grid-template-columns: 1fr 1fr; } .lg-sum div:first-child { grid-column: 1 / -1; } .lg-list { max-height: 50vh; } }
+
 /* ---------- 팝콘 대포 ---------- */
 /* 공용 키프레임 (떠오르는 숫자·배너·번쩍임·흔들림·칩) */
 @keyframes pk-float { 0% { opacity: 0; transform: translateY(8px) scale(.6); } 18% { opacity: 1; transform: translateY(0) scale(1.15); } 70% { opacity: 1; } 100% { opacity: 0; transform: translateY(-34px) scale(1); } }
@@ -1766,7 +1793,7 @@ img, svg, video { max-width: 100%; }
 <div class="app" id="app">
   <header class="hud">
     <div class="logo"><span class="brand">투네이션</span><h1>투네<em>랜드</em></h1></div>
-    <div class="stat" id="stat-kernel" title="보유 강냉이"><svg class="kernel"><use href="#k"/></svg><small>강냉이</small><span class="val num" id="balance">0</span></div>
+    <button class="stat stat-link" type="button" id="stat-kernel" title="강냉이 사용·획득 내역 보기" aria-label="보유 강냉이, 사용·획득 내역 보기"><svg class="kernel"><use href="#k"/></svg><small>강냉이</small><span class="val num" id="balance">0</span><span class="go" aria-hidden="true">›</span></button>
     <a class="stat stat-link" id="stat-piece" href="#shop" title="조각 교환소로 이동" aria-label="보유 조각, 조각 교환소로 이동"><i class="piece-dot"></i><small>조각교환소</small><span class="val num" id="pieces">0</span><span class="go" aria-hidden="true">›</span></a>
     <button class="btn-ghost" id="charge" type="button">체험용 강냉이 +5,000</button>
     <a class="btn-line" href="#admin">관리자</a>
@@ -1990,6 +2017,16 @@ img, svg, video { max-width: 100%; }
   </div>
 </section>
 
+
+<div class="modal" id="ledger-modal" hidden>
+  <div class="sheet ledger-sheet" role="dialog" aria-modal="true" aria-labelledby="ledger-title">
+    <div class="sheet-head"><h2 id="ledger-title">강냉이 내역</h2><button class="close" id="ledger-close" type="button" aria-label="닫기">×</button></div>
+    <div class="lg-sum" id="lg-sum"></div>
+    <div class="lg-tabs" role="tablist" aria-label="내역 종류"><button type="button" role="tab" data-lg="all" aria-selected="true">전체</button><button type="button" role="tab" data-lg="in" aria-selected="false">획득</button><button type="button" role="tab" data-lg="out" aria-selected="false">사용</button></div>
+    <div class="lg-list" id="lg-list"></div>
+    <p class="lg-note">목업 내역이에요. 이 브라우저에만 저장되고, 최근 300건까지 보여요.</p>
+  </div>
+</div>
 
 <div class="modal" id="buy-modal" hidden>
   <div class="sheet buy-sheet" role="dialog" aria-modal="true" aria-labelledby="buy-title">
@@ -2224,8 +2261,26 @@ img, svg, video { max-width: 100%; }
   applyConfig(loadConfig());
   const zoneCost = id => { const list = machines.filter(m => m.zone === id).map(m => m.cost); return list.length ? Math.min(...list) : 0; };
 
+  // ----- 강냉이 지갑: 잔액이 바뀌면 사유와 함께 내역에 남긴다(이 브라우저에만 저장, 최근 300건) -----
+  const WALLET_KEY = 'tooneland-wallet-v1';
+  const WALLET = (() => { try { const w = JSON.parse(localStorage.getItem(WALLET_KEY)); if (w && typeof w.bal === 'number' && Array.isArray(w.log)) return w; } catch (e) { /* 저장소 없음 */ } return { bal: 12340, log: [{ t: Date.now(), d: 0, after: 12340, why: '시작 잔액 (목업)' }] }; })();
+  let ledgerWhy = '', walletT = 0;
+  const GAME_WHY = { puzzle: ['직소 퍼즐 카드 뽑기', '직소 퍼즐 보상'], runner: ['냥치 런 입장', '냥치 런 점수 받기'], cannon: ['팝콘 대포 발사', '팝콘 대포 착지 보상'], archery: ['깡통 사격 입장(탄 구매)', '깡통 사격 명중 상품'] };
+  function ledgerReason(d) {
+    if (ledgerWhy) return ledgerWhy;
+    const sp = document.getElementById('shop-page'); if (sp && !sp.hidden) return d < 0 ? '조각 교환소' : '조각 교환소 교환';
+    if (typeof current !== 'undefined' && current) return current.name + (d < 0 ? ' 뽑기' : ' 당첨');
+    const g = GAME_WHY[state.tab]; return g ? g[d < 0 ? 0 : 1] : (d < 0 ? '강냉이 사용' : '강냉이 획득');
+  }
+  function ledgerAdd(d) {
+    WALLET.log.unshift({ t: Date.now(), d, after: WALLET.bal, why: ledgerReason(d) });
+    if (WALLET.log.length > 300) WALLET.log.length = 300;
+    clearTimeout(walletT); walletT = setTimeout(() => { try { localStorage.setItem(WALLET_KEY, JSON.stringify(WALLET)); } catch (e) { /* 보관 불가 */ } }, 250);
+    const lm = document.getElementById('ledger-modal'); if (lm && !lm.hidden) renderLedger();
+  }
   const state = {
-    balance: 12340,
+    get balance() { return WALLET.bal; },
+    set balance(v) { const d = Math.round(v - WALLET.bal); WALLET.bal = Math.round(v); if (d) ledgerAdd(d); },
     pieces: 24,
     zone: 'all',
     tab: 'gacha',   // 'gacha' 가챠샵 | 'board' 뽑기판
@@ -4074,8 +4129,33 @@ img, svg, video { max-width: 100%; }
     c.setAttribute('aria-pressed', String(boardSel.has(i)));
     renderDrawButtons();
   });
+  // ----- 강냉이 내역 창 -----
+  let ledgerFilter = 'all';
+  const lgDay = t => { const d = new Date(t), now = new Date(), y = new Date(now); y.setDate(now.getDate() - 1); const same = (a, b) => a.toDateString() === b.toDateString(); return same(d, now) ? '오늘' : same(d, y) ? '어제' : (d.getMonth() + 1) + '월 ' + d.getDate() + '일'; };
+  const lgTime = t => { const d = new Date(t); return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0') + ':' + String(d.getSeconds()).padStart(2, '0'); };
+  function renderLedger() {
+    const today = new Date().toDateString(), todays = WALLET.log.filter(x => new Date(x.t).toDateString() === today);
+    const gin = todays.filter(x => x.d > 0).reduce((a, x) => a + x.d, 0), gout = todays.filter(x => x.d < 0).reduce((a, x) => a - x.d, 0);
+    $('lg-sum').innerHTML = '<div><small>보유 강냉이</small><b class="num">' + K + fmt(state.balance) + '</b></div><div class="in"><small>오늘 획득</small><b class="num">+' + fmt(gin) + '</b></div><div class="out"><small>오늘 사용</small><b class="num">-' + fmt(gout) + '</b></div>';
+    document.querySelectorAll('[data-lg]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.lg === ledgerFilter)));
+    const rows = WALLET.log.filter(x => x.d !== 0 || ledgerFilter === 'all').filter(x => ledgerFilter === 'all' || (ledgerFilter === 'in' ? x.d > 0 : x.d < 0));
+    if (!rows.length) { $('lg-list').innerHTML = '<p class="lg-empty">' + (ledgerFilter === 'in' ? '획득한' : ledgerFilter === 'out' ? '사용한' : '') + ' 내역이 아직 없어요.</p>'; return; }
+    let last = '', h = '';
+    rows.forEach(x => {
+      const day = lgDay(x.t); if (day !== last) { h += '<div class="lg-day">' + day + '</div>'; last = day; }
+      const cls = x.d > 0 ? 'in' : x.d < 0 ? 'out' : 'zero';
+      h += '<div class="lg-row ' + cls + '"><span class="lg-ic">' + (x.d > 0 ? '+' : x.d < 0 ? '−' : '•') + '</span><span class="lg-main"><b>' + x.why + '</b><small class="num">' + lgTime(x.t) + ' · 잔액 ' + fmt(x.after) + '</small></span><span class="lg-amt num">' + (x.d > 0 ? '+' : x.d < 0 ? '-' : '') + fmt(Math.abs(x.d)) + '</span></div>';
+    });
+    $('lg-list').innerHTML = h;
+  }
+  function openLedger() { ledgerFilter = 'all'; renderLedger(); $('ledger-modal').hidden = false; $('ledger-close').focus(); }
+  const closeLedger = () => { $('ledger-modal').hidden = true; $('stat-kernel').focus(); };
+  $('stat-kernel').addEventListener('click', openLedger);
+  $('ledger-close').addEventListener('click', closeLedger);
+  $('ledger-modal').addEventListener('click', e => { if (e.target === $('ledger-modal')) closeLedger(); const b = e.target.closest('[data-lg]'); if (b) { ledgerFilter = b.dataset.lg; renderLedger(); } });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('ledger-modal').hidden) closeLedger(); });
   $('charge').addEventListener('click', () => {
-    state.balance += 5000; renderHUD(true); if (current) renderDrawButtons();
+    ledgerWhy = '체험용 강냉이 충전'; state.balance += 5000; ledgerWhy = ''; renderHUD(true); if (current) renderDrawButtons();
     toast('', '체험용 강냉이 5,000개를 넣었어요. 실제 서비스에서는 캐시 충전 보너스로 쌓여요.', true);
   });
   $('shop').addEventListener('click', e => {
