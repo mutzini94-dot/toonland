@@ -1879,12 +1879,16 @@ img, svg, video { max-width: 100%; }
 @keyframes lg-in { from { opacity: 0; transform: translateY(-6px); } }
 
 /* 독 */
-.lg-dock { display: flex; justify-content: center; gap: 26px; width: fit-content; max-width: 100%; margin: 4px auto 28px; padding: 12px 22px; border-radius: 30px; background: rgba(255,255,255,.18); -webkit-backdrop-filter: blur(20px) saturate(1.4); backdrop-filter: blur(20px) saturate(1.4); box-shadow: inset 0 0 0 1px rgba(255,255,255,.22); }
-.lg-dock .lg-app { width: 72px; }
-.lg-dock .lg-icon { max-width: 60px; }
-.lg-dock .lg-label { font-size: 12px; }
 .lg-hint { margin: 14px 0 0; text-align: center; font-size: 12px; font-weight: 500; opacity: .7; }
 
+.lg-menu { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin: 0 0 24px; }
+.lg-mbtn { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 15px 0 7px; border: 0; border-radius: 999px; background: rgba(255,255,255,.16); color: #FFFFFF; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4); box-shadow: inset 0 0 0 1px rgba(255,255,255,.24); transition: background .15s ease, transform .15s ease; }
+.lg-mbtn:hover { background: rgba(255,255,255,.26); }
+.lg-mbtn:active { transform: scale(.96); }
+.lg-mbtn:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 2px; }
+.lg-mic { position: relative; flex: none; width: 28px; height: 28px; border-radius: 9px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,.2); }
+.lg-mic svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.lg-mbtn .num { padding: 1px 7px; border-radius: 999px; background: rgba(0,0,0,.18); font-size: 12px; }
 /* 게임 화면에 들어올 때 살짝 떠오르기 */
 .app.lg-enter > .game-nav, .app.lg-enter > .zones-wrap, .app.lg-enter > .layout { animation: lg-rise .38s ease-out both; }
 .app.lg-enter > .zones-wrap { animation-delay: .04s; }
@@ -1925,10 +1929,11 @@ img, svg, video { max-width: 100%; }
   .lg-widgets { gap: 12px; margin-top: 22px; }
   .lg-feed .lg-fi small { display: none; }
   .lg-grid .lg-icon { max-width: 68px; }
+  .lg-menu { flex-wrap: nowrap; gap: 6px; margin-bottom: 18px; }
+  .lg-mbtn { flex: none; height: 34px; padding: 0 12px; font-size: 12.5px; }
+  .lg-mic { display: none; }
+  .lg-mbtn .num { display: none; }
   .lg-badge { top: -5px; right: calc(50% - min(34px, 50%) - 7px); min-width: 20px; height: 20px; padding: 0 5px; font-size: 10px; line-height: 20px; }
-  .lg-dock { margin: 2px 0 20px; gap: 10px; padding: 10px 12px; width: 100%; justify-content: space-around; }
-  .lg-dock .lg-app { width: 64px; }
-  .lg-dock .lg-icon { max-width: 54px; }
   .game-nav { flex-wrap: nowrap; gap: 6px; }
   .game-nav .game-tabs { flex: 1; min-width: 0; }
   .gt-home { flex: none; height: 46px; padding: 0 12px 0 10px; gap: 6px; font-size: 14px; }
@@ -1938,7 +1943,7 @@ img, svg, video { max-width: 100%; }
   .lounge.lg-back .lg-app, .lounge.lg-back .lg-widget, .app.lg-enter > * , .lg-feed .lg-wh i { animation: none !important; }
 }
 
-.lg-icon.lg-tap { animation: lg-tap .45s ease; }
+.lg-icon.lg-tap, .lg-mic.lg-tap { animation: lg-tap .45s ease; }
 @keyframes lg-tap { 40% { transform: scale(.86); } 70% { transform: scale(1.08); } }
 </style>
 
@@ -5383,7 +5388,7 @@ img, svg, video { max-width: 100%; }
     const f = lgPick();
     $('lounge').innerHTML =
       '<div class="lg-wall">' +
-        '<nav class="lg-dock" aria-label="바로가기">' + LG_DOCK.map(a => lgApp(a, 'is-small')).join('') + '</nav>' +
+        '<nav class="lg-menu" aria-label="바로가기">' + LG_DOCK.map(a => '<button class="lg-mbtn" type="button" data-lg-go="' + a.id + '"><span class="lg-mic">' + LG_ART[a.id] + '</span>' + a.name + (a.id === 'shop' ? ' <span class="num" id="lg-mpc">0</span>' : '') + '</button>').join('') + '</nav>' +
         '<div class="lg-grid" role="group" aria-label="게임">' + LG_GAMES.map(a => lgApp(a)).join('') + lgApp({ id: 'hall', name: '명예의 전당', sub: '최고 당첨 TOP 10', ic: '#E67700' }) + '</div>' +
         '<div class="lg-widgets">' +
           '<button class="lg-widget lg-feature" type="button" data-lg-go="' + f.id + '" style="--fc:' + f.fc + '"><span class="lg-f-art">' + LG_ART[f.id].replace('<svg viewBox', '<svg preserveAspectRatio="xMidYMid slice" viewBox').replace(/id="(lg\w+)"/g, 'id="$1f"').replace(/url\(#(lg\w+)\)/g, 'url(#$1f)') + '</span>' +
@@ -5401,6 +5406,7 @@ img, svg, video { max-width: 100%; }
     $('lg-bal').textContent = fmt(state.balance);
     $('lg-today').innerHTML = '<div class="in"><small>오늘 획득</small><b class="num">+' + fmt(gin) + '</b></div><div class="out"><small>오늘 사용</small><b class="num">-' + fmt(gout) + '</b></div>';
     $('lg-pc').textContent = '조각 ' + fmt(state.pieces) + '개';
+    $('lg-mpc').textContent = fmt(state.pieces);
     $('lg-feed').innerHTML = state.feed.slice(0, 3).map((x, i) => '<span class="lg-fi' + (fresh && i === 0 ? ' new' : '') + '"><span class="g" style="--gc:' + GRADE_COLOR[x.g] + '">' + GRADE_LABEL[x.g] + '</span><span>' + x.item + ' <small>' + x.who + '</small></span></span>').join('');
   }
   $('lounge').addEventListener('click', e => {
@@ -5408,7 +5414,7 @@ img, svg, video { max-width: 100%; }
     const id = b.dataset.lgGo;
     if (id === 'ledger') { openLedger(); return; }
     if (id === 'hall') { openHub(); return; }
-    if (id === 'charge') { $('charge').click(); restart(b.querySelector('.lg-icon'), 'lg-tap'); return; }
+    if (id === 'charge') { $('charge').click(); restart(b.querySelector('.lg-icon, .lg-mic'), 'lg-tap'); return; }
     location.hash = '#' + id;
   });
   buildLounge();
