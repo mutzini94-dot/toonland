@@ -96,6 +96,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .logo .brand { font-size: 13px; font-weight: 600; color: var(--muted); padding-right: 10px; border-right: 1px solid var(--panel-line); }
 .logo h1 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.5px; color: var(--text); }
 .logo h1 em { font-style: normal; color: var(--primary); }
+.logo-home { color: inherit; text-decoration: none; border-radius: 6px; }
+.logo-home:hover { opacity: .8; }
+.logo-home:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
 .stat { display: flex; align-items: center; gap: 6px; height: 40px; padding: 0 14px; border-radius: 8px; background: var(--panel); border: 1px solid var(--panel-line); }
 .stat small { color: var(--text-2); font-size: 14px; font-weight: 500; }
 .stat .val { font-size: 15px; font-weight: 600; }
@@ -1968,7 +1971,7 @@ img, svg, video { max-width: 100%; }
 
 <div class="app" id="app">
   <header class="hud">
-    <div class="logo"><span class="brand">투네이션</span><h1>투네<em>랜드</em></h1></div>
+    <div class="logo"><span class="brand">투네이션</span><h1><a class="logo-home" href="#" title="게임 라운지로" aria-label="투네랜드, 게임 라운지로">투네<em>랜드</em></a></h1></div>
     <button class="stat stat-link" type="button" id="stat-kernel" title="강냉이 사용·획득 내역 보기" aria-label="보유 강냉이, 사용·획득 내역 보기"><svg class="kernel"><use href="#k"/></svg><small>강냉이</small><span class="val num" id="balance">0</span><span class="go" aria-hidden="true">›</span></button>
     <a class="stat stat-link" id="stat-piece" href="#shop" title="조각 교환소로 이동" aria-label="보유 조각, 조각 교환소로 이동"><i class="piece-dot"></i><small>조각교환소</small><span class="val num" id="pieces">0</span><span class="go" aria-hidden="true">›</span></a>
     <button class="btn-ghost" id="charge" type="button">체험용 강냉이 +5,000</button>
