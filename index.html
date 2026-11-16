@@ -1821,7 +1821,7 @@ img, svg, video { max-width: 100%; }
 .lg-greet h2 { margin: 2px 0 0; font-size: 30px; font-weight: 800; letter-spacing: -.02em; }
 
 .lg-grid {
-  --cols: 6; --gap: 22px;
+  --cols: 5; --gap: 22px;
   display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); grid-auto-rows: auto; grid-auto-flow: row dense; gap: var(--gap) var(--gap);
 }
 /* 앱 아이콘 */
@@ -1929,8 +1929,9 @@ img, svg, video { max-width: 100%; }
   .lg-widgets { gap: 12px; margin-top: 22px; }
   .lg-feed .lg-fi small { display: none; }
   .lg-grid .lg-icon { max-width: 68px; }
-  .lg-menu { flex-wrap: nowrap; gap: 6px; margin-bottom: 18px; }
-  .lg-mbtn { flex: none; height: 34px; padding: 0 12px; font-size: 12.5px; }
+  .lg-menu { flex-wrap: nowrap; gap: 4px; margin-bottom: 18px; }
+  .lg-mbtn { flex: none; height: 34px; padding: 0 10px; font-size: 12.5px; }
+  .lg-mlong { display: none; }
   .lg-mic { display: none; }
   .lg-mbtn .num { display: none; }
   .lg-badge { top: -5px; right: calc(50% - min(34px, 50%) - 7px); min-width: 20px; height: 20px; padding: 0 5px; font-size: 10px; line-height: 20px; }
@@ -5376,8 +5377,9 @@ img, svg, video { max-width: 100%; }
     { id: 'archery', name: '깡통 사격', sub: '10초 사격', ic: '#F76707', fc: '#D9480F', badge: 'N', desc: '10초 동안 튀어나오는 캔을 맞혀요. 맞힌 캔 안에서 상품이 나와요.' }
   ];
   const LG_DOCK = [
+    { id: 'hall', name: '명예의 전당', ic: '#E67700' },
     { id: 'shop', name: '조각교환소', ic: '#0CA678' },
-    { id: 'ledger', name: '강냉이 내역', ic: '#4263EB' },
+    { id: 'ledger', name: '<span><span class="lg-mlong">강냉이 </span>내역</span>', ic: '#4263EB' },
     { id: 'charge', name: '충전', ic: '#F59F00' },
     { id: 'admin', name: '관리자', ic: '#495057' }
   ];
@@ -5389,7 +5391,7 @@ img, svg, video { max-width: 100%; }
     $('lounge').innerHTML =
       '<div class="lg-wall">' +
         '<nav class="lg-menu" aria-label="바로가기">' + LG_DOCK.map(a => '<button class="lg-mbtn" type="button" data-lg-go="' + a.id + '"><span class="lg-mic">' + LG_ART[a.id] + '</span>' + a.name + (a.id === 'shop' ? ' <span class="num" id="lg-mpc">0</span>' : '') + '</button>').join('') + '</nav>' +
-        '<div class="lg-grid" role="group" aria-label="게임">' + LG_GAMES.map(a => lgApp(a)).join('') + lgApp({ id: 'hall', name: '명예의 전당', sub: '최고 당첨 TOP 10', ic: '#E67700' }) + '</div>' +
+        '<div class="lg-grid" role="group" aria-label="게임">' + LG_GAMES.map(a => lgApp(a)).join('') + '</div>' +
         '<div class="lg-widgets">' +
           '<button class="lg-widget lg-feature" type="button" data-lg-go="' + f.id + '" style="--fc:' + f.fc + '"><span class="lg-f-art">' + LG_ART[f.id].replace('<svg viewBox', '<svg preserveAspectRatio="xMidYMid slice" viewBox').replace(/id="(lg\w+)"/g, 'id="$1f"').replace(/url\(#(lg\w+)\)/g, 'url(#$1f)') + '</span>' +
             '<span class="lg-f-body"><span class="lg-wh">오늘의 추천 게임</span><span class="lg-f-name">' + f.name + '</span><span class="lg-f-desc">' + f.desc + '</span><span class="lg-f-go">지금 하기 ›</span></span></button>' +
