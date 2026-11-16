@@ -1931,7 +1931,6 @@ img, svg, video { max-width: 100%; }
   .lg-grid .lg-icon { max-width: 68px; }
   .lg-menu { flex-wrap: nowrap; gap: 4px; margin-bottom: 18px; }
   .lg-mbtn { flex: none; height: 34px; padding: 0 10px; font-size: 12.5px; }
-  .lg-mlong { display: none; }
   .lg-mic { display: none; }
   .lg-mbtn .num { display: none; }
   .lg-badge { top: -5px; right: calc(50% - min(34px, 50%) - 7px); min-width: 20px; height: 20px; padding: 0 5px; font-size: 10px; line-height: 20px; }
@@ -5378,9 +5377,6 @@ img, svg, video { max-width: 100%; }
   ];
   const LG_DOCK = [
     { id: 'hall', name: '명예의 전당', ic: '#E67700' },
-    { id: 'shop', name: '조각교환소', ic: '#0CA678' },
-    { id: 'ledger', name: '<span><span class="lg-mlong">강냉이 </span>내역</span>', ic: '#4263EB' },
-    { id: 'charge', name: '충전', ic: '#F59F00' },
     { id: 'admin', name: '관리자', ic: '#495057' }
   ];
   const lgPick = () => { const d = new Date(), day = Math.floor((d - new Date(d.getFullYear(), 0, 0)) / 864e5); return LG_GAMES[day % LG_GAMES.length]; };
@@ -5390,7 +5386,7 @@ img, svg, video { max-width: 100%; }
     const f = lgPick();
     $('lounge').innerHTML =
       '<div class="lg-wall">' +
-        '<nav class="lg-menu" aria-label="바로가기">' + LG_DOCK.map(a => '<button class="lg-mbtn" type="button" data-lg-go="' + a.id + '"><span class="lg-mic">' + LG_ART[a.id] + '</span>' + a.name + (a.id === 'shop' ? ' <span class="num" id="lg-mpc">0</span>' : '') + '</button>').join('') + '</nav>' +
+        '<nav class="lg-menu" aria-label="바로가기">' + LG_DOCK.map(a => '<button class="lg-mbtn" type="button" data-lg-go="' + a.id + '"><span class="lg-mic">' + LG_ART[a.id] + '</span>' + a.name + '</button>').join('') + '</nav>' +
         '<div class="lg-grid" role="group" aria-label="게임">' + LG_GAMES.map(a => lgApp(a)).join('') + '</div>' +
         '<div class="lg-widgets">' +
           '<button class="lg-widget lg-feature" type="button" data-lg-go="' + f.id + '" style="--fc:' + f.fc + '"><span class="lg-f-art">' + LG_ART[f.id].replace('<svg viewBox', '<svg preserveAspectRatio="xMidYMid slice" viewBox').replace(/id="(lg\w+)"/g, 'id="$1f"').replace(/url\(#(lg\w+)\)/g, 'url(#$1f)') + '</span>' +
@@ -5408,7 +5404,6 @@ img, svg, video { max-width: 100%; }
     $('lg-bal').textContent = fmt(state.balance);
     $('lg-today').innerHTML = '<div class="in"><small>오늘 획득</small><b class="num">+' + fmt(gin) + '</b></div><div class="out"><small>오늘 사용</small><b class="num">-' + fmt(gout) + '</b></div>';
     $('lg-pc').textContent = '조각 ' + fmt(state.pieces) + '개';
-    $('lg-mpc').textContent = fmt(state.pieces);
     $('lg-feed').innerHTML = state.feed.slice(0, 3).map((x, i) => '<span class="lg-fi' + (fresh && i === 0 ? ' new' : '') + '"><span class="g" style="--gc:' + GRADE_COLOR[x.g] + '">' + GRADE_LABEL[x.g] + '</span><span>' + x.item + ' <small>' + x.who + '</small></span></span>').join('');
   }
   $('lounge').addEventListener('click', e => {
