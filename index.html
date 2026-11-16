@@ -385,7 +385,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .gt-farm .grow { background: rgba(62,155,79,.12); color: #2F7A3D; }
 .gt-farm .ready { background: #FFC64E; color: #4C3600; animation: gt-ready 1.4s ease-in-out infinite; }
 @keyframes gt-ready { 50% { transform: scale(1.1); box-shadow: 0 0 0 4px rgba(255,198,78,.3); } }
-@media (prefers-reduced-motion: reduce) { .gt-farm .ready { animation: none; } }
 .gt-new { padding: 1px 7px; border-radius: 999px; background: color-mix(in srgb, var(--t-board) 25%, transparent); color: #C2185B; font-size: 11px; font-weight: 700; }
 
 /* 뽑기판 결과: 스크래치 카드 */
@@ -597,7 +596,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @keyframes rn-pop { 40% { transform: scale(1.12); } 100% { transform: none; } }
 .rn-stage.shake2 { animation: rn-quake2 .7s linear; }
 @keyframes rn-quake2 { 10%, 50%, 90% { transform: translate(-12px, 6px) rotate(-.6deg); } 30%, 70% { transform: translate(12px, -6px) rotate(.6deg); } }
-@media (prefers-reduced-motion: reduce) { .rn-rays, .rn-speed, .rn-glow, .rn-shock, .rn-dizzy span, .rn-door.slam, .rn-door.open, .rn-stage.shake2 { animation: none !important; } .rn-rays, .rn-speed, .rn-glow, .rn-shock { display: none; } }
 @keyframes rn-flash { from { opacity: 1; } to { opacity: 0; } }
 .rn-hud { position: absolute; left: 10px; right: 10px; top: 10px; z-index: 6; display: flex; justify-content: space-between; gap: 8px; }
 .rn-hud span { padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.85); font-size: 13px; color: var(--text-2); box-shadow: 0 2px 6px rgba(33,37,41,.12); }
@@ -638,7 +636,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .rn-plus { position: fixed; z-index: 45; transform: translate(-50%, 0); font-size: 26px; font-weight: 900; color: #FFC64E; -webkit-text-stroke: 2px #B86A00; paint-order: stroke fill; pointer-events: none; animation: rn-plus 1.2s ease forwards; }
 @keyframes rn-plus { to { transform: translate(-50%, -70px); opacity: 0; } }
 @media (max-width: 640px) { .rn-stage { aspect-ratio: 3 / 4; } }
-@media (prefers-reduced-motion: reduce) { .rn-lines, .rn-side, .rn-cat, .rn-card { animation: none !important; } .rn-card { transform: none; opacity: 1; } }
 
 /* ---------- 직소 퍼즐 ---------- */
 /* ---------- 직소 퍼즐(상품 퍼즐): 정사각형 3열 × 2행 ---------- */
@@ -691,7 +688,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .pz-slot:focus-visible .pz-tip, .pz-slot.tip .pz-tip { opacity: 1; visibility: visible; transform: translate(-50%, 0) scale(1); }
 @media (hover: hover) { .pz-slot:hover .pz-tip { opacity: 1; visibility: visible; transform: translate(-50%, 0) scale(1); } .pz-slot { cursor: zoom-in; } }
 .pz-slot:hover, .pz-slot.tip { z-index: 5; }
-@media (prefers-reduced-motion: reduce) { .pz-tip { transition: none; } }
 .pz-sub .grade { min-width: 22px; height: 18px; font-size: 11px; padding: 0 4px; }
 .pz-odds-t { width: 100%; margin-top: 8px; border-collapse: collapse; font-size: 12.5px; }
 .pz-odds-t th, .pz-odds-t td { padding: 6px 4px; border-bottom: 1px solid var(--panel-line); text-align: left; }
@@ -712,7 +708,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   #pa-list th, #pa-list td { white-space: nowrap; }
   .pz-miss { font-size: 34px; }
 }
-@media (prefers-reduced-motion: reduce) { .pz-p.dup, .pz-miss { animation: none; } }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .cr-ava { display: inline-grid; place-items: center; flex: none; width: 34px; height: 34px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--cr) 55%, #FFFFFF), var(--cr) 70%); color: #FFFFFF; font-size: 15px; font-weight: 800; box-shadow: 0 0 0 2px #FFFFFF, 0 1px 3px rgba(0,0,0,.2); }
 .cr-ava.sm { width: 22px; height: 22px; font-size: 11px; box-shadow: 0 0 0 1.5px #FFFFFF; }
@@ -778,7 +773,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .pz-pc.fresh { transform-box: fill-box; transform-origin: center; animation: pz-snap .5s cubic-bezier(.2,1.6,.4,1); }
 .pz-dupmark { fill: rgba(248,73,73,.42); stroke: #F84949; stroke-width: 3; transform-box: fill-box; transform-origin: center; animation: pz-dup .6s ease; }
 .pz.sq.complete { box-shadow: none; filter: drop-shadow(0 0 18px rgba(255,214,102,.95)); }
-@media (prefers-reduced-motion: reduce) { .pz-pc.fresh, .pz-dupmark { animation: none; } }
 /* 게임 화면 */
 .pz-panel { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 14px; }
 .pz-top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 14px; padding: 16px 18px; border-radius: 14px; background: var(--panel); border: 1px solid var(--panel-line); }
@@ -827,7 +821,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .pz-big.wait { visibility: hidden; }
 .pz-big.enter { animation: pz-enter .5s cubic-bezier(.2,1.3,.4,1); }
 @keyframes pz-enter { from { opacity: 0; transform: translateX(-60px) scale(.7) rotate(-6deg); } }
-@media (prefers-reduced-motion: reduce) { .pz-big.enter { animation: none; } }
 .pz-banner { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; opacity: 0; transform: scale(.3); pointer-events: none; }
 .pz-banner.show { animation: pb-in .7s cubic-bezier(.2,1.5,.4,1) forwards; }
 @keyframes pb-in { to { transform: none; opacity: 1; } }
@@ -838,7 +831,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .pb-cheer { display: inline-flex; align-items: center; gap: 6px; max-width: 240px; padding: 6px 12px 6px 6px; border-radius: 14px; background: rgba(0,0,0,.45); font-size: 13px; line-height: 1.4; text-align: left; color: #FFFFFF; }
 .pb-cheer b { color: #FFC64E; white-space: nowrap; }
 @media (max-width: 560px) { .pz-stage { gap: 16px; } .pz-left { width: 180px; min-height: 240px; } .pz-card { width: 140px; } .pz.big { --pz-l: 72px; --pz-n: 12px; } }
-@media (prefers-reduced-motion: reduce) { .pz-p.fresh, .pz.complete, .pb-big, .pz-slot.ping { animation: none !important; } }
 @media (max-width: 480px) { .board.big { gap: 4px; padding: 8px; } .board.big .cell { font-size: 10px; border-radius: 5px; } }
 @media (max-width: 680px) { .sheet-grid { grid-template-columns: minmax(0, 1fr); } }
 .stage { display: flex; flex-direction: column; align-items: center; }
@@ -970,7 +962,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @keyframes bk-pop-out { to { transform: translateY(-160px) scale(2.2); opacity: 0; } }
 .pop-word { position: absolute; z-index: 6; transform: translate(-50%, -50%) rotate(var(--r)); font-size: 30px; font-weight: 900; color: #FFE07A; -webkit-text-stroke: 2px #B86A00; paint-order: stroke fill; text-shadow: 0 3px 0 rgba(0,0,0,.35); pointer-events: none; animation: popword .9s cubic-bezier(.2,1.6,.4,1) forwards; }
 @keyframes popword { 0% { opacity: 0; transform: translate(-50%, -50%) rotate(var(--r)) scale(.2); } 25% { opacity: 1; transform: translate(-50%, -50%) rotate(var(--r)) scale(1.25); } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -110%) rotate(var(--r)) scale(1); } }
-@media (prefers-reduced-motion: reduce) { .rv-bucket, .rv-bucket .bk-pop, .pop-word { animation: none !important; } }
 /* 뽑기 시작: 모달의 머신이 화면 가운데로 커지고, 배출구에서 공이 굴러 나온다 */
 .reveal.intro { animation: rv-in .35s ease-out; }
 @keyframes rv-in { from { opacity: 0; } }
@@ -1324,9 +1315,6 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); widt
 .toast.plain { border-color: var(--panel-line); }
 .toast.plain .msg { font-family: var(--font-body); font-size: 13.5px; }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition: none !important; }
-}
 /* ================= 모바일 반응형 (640px 이하) ================= */
 @media (max-width: 640px) {
   /* 상단 HUD: 1줄 = 로고·강냉이·조각교환소, 2줄 = 충전·관리자 */
@@ -1718,7 +1706,7 @@ img, svg, video { max-width: 100%; }
 
 <script>
 (function () {
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduce = false; // 휴대폰 '동작 줄이기' 설정과 상관없이 연출을 모두 보여줘요
   // 당첨 연출 길이 배율 (2 = 기본 연출의 2배 길이로 긴장감 강화)
   const TENSION = 2;
   const wait = ms => new Promise(r => setTimeout(r, reduce ? 0 : ms * TENSION));
