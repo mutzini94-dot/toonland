@@ -723,75 +723,75 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .cn-needle { width: 8px; margin-left: -4px; border-radius: 4px; background: linear-gradient(180deg, #343A40, #000000); }
 .cn-fire { background: linear-gradient(180deg, #3BC0E6, #1597C0); }
 
-/* ---------- 깡통 양궁 ---------- */
-.gt-new.ar { background: rgba(255,107,107,.16); color: #E03131; }
+/* ---------- 깡통 사격 (서부 사격장) ---------- */
+.gt-new.ar { background: rgba(232,89,12,.16); color: #D9480F; }
 .ar-panel { grid-column: 1 / -1; }
 .ar-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
 .ar-left { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 760px; min-width: 0; }
-.ar-stage { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 20px; background: linear-gradient(180deg, #7FB8F5 0%, #A9D2FA 38%, #D6EBFB 62%, #FFEBDD 80%); box-shadow: inset 0 0 0 1px rgba(0,0,0,.05), 0 10px 26px rgba(40,80,140,.14); user-select: none; -webkit-user-select: none; cursor: crosshair; touch-action: manipulation; }
-.ar-stage .cn-mtn { bottom: 40%; height: 24%; background-size: 60% 100%; }
-.ar-stage .cn-hills { left: 0; right: 0; bottom: 30%; height: 18%; background-size: 40% 100%; }
-.ar-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 31%; background: linear-gradient(180deg, #6CC77C 0, #57B568 30%, #4A9F5B 100%); }
-.ar-ground::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, rgba(255,255,255,.06) 0 40px, transparent 40px 80px); }
-.ar-sun { position: absolute; right: 9%; top: 9%; width: 56px; height: 56px; border-radius: 50%; background: radial-gradient(circle, #FFFDF0 0 30%, #FFE9A3 52%, rgba(255,226,140,0) 72%); box-shadow: 0 0 50px 20px rgba(255,236,180,.4); }
-/* 깡통이 지나가는 나무 선반 */
-.ar-shelf { position: absolute; left: -2%; right: -2%; z-index: 1; height: 5.5%; border-radius: 4px; background: linear-gradient(180deg, #D9A066 0, #B97A3F 60%, #8A5427 100%); box-shadow: 0 6px 0 rgba(90,50,20,.35), 0 10px 16px rgba(0,0,0,.18); pointer-events: none; }
-.ar-shelf::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 120px, rgba(90,50,20,.25) 120px 123px); border-radius: inherit; }
-.ar-post { position: absolute; z-index: 0; width: 2.4%; background: linear-gradient(90deg, #8A5427, #B97A3F, #8A5427); border-radius: 3px; pointer-events: none; }
-.ar-can { position: absolute; left: 0; top: 0; z-index: 2; pointer-events: none; will-change: transform; transform-origin: 50% 100%; }
-.ar-can svg { display: block; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 4px 3px rgba(0,0,0,.22)); }
-.ar-can.down { visibility: hidden; }
-.ar-flycan { position: absolute; z-index: 4; pointer-events: none; animation: ar-knock .7s cubic-bezier(.3,.6,.5,1) forwards; }
-.ar-flycan svg { display: block; width: 100%; height: 100%; overflow: visible; }
-@keyframes ar-knock { 0% { transform: translate(0, 0) rotate(0); opacity: 1; } 100% { transform: translate(var(--kx), -160%) rotate(var(--kr)); opacity: 0; } }
-.ar-item { position: absolute; z-index: 6; display: flex; flex-direction: column; align-items: center; gap: 2px; translate: -50% -50%; pointer-events: none; animation: ar-item 1.4s cubic-bezier(.2,1.4,.4,1) forwards; }
-.ar-item .ball { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #FFFFFF, var(--ic) 70%); box-shadow: 0 0 0 3px #FFFFFF, 0 6px 14px rgba(0,0,0,.2); font-size: 13px; font-weight: 900; color: #3A2A1A; }
-.ar-item .ball.empty { background: radial-gradient(circle at 35% 30%, #FFFFFF, #CED4DA 70%); color: #868E96; }
-.ar-item b { padding: 2px 9px; border-radius: 999px; background: rgba(0,0,0,.55); color: #FFFFFF; font-size: 13px; font-weight: 900; white-space: nowrap; }
+.gs-stage { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 18px; background: linear-gradient(180deg, #FFC078 0%, #FFD8A8 35%, #FFE8CC 62%, #F3D9A4 100%); box-shadow: inset 0 0 0 3px #5C3A1A, 0 10px 26px rgba(90,50,20,.25); user-select: none; -webkit-user-select: none; cursor: none; touch-action: manipulation; }
+.gs-sun { position: absolute; right: 10%; top: 6%; width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle, #FFF9DB 0 30%, #FFE066 55%, rgba(255,212,59,0) 72%); }
+.gs-mesa { position: absolute; left: 0; right: 0; bottom: 38%; height: 26%; pointer-events: none; }
+.gs-mesa svg { display: block; width: 100%; height: 100%; }
+.gs-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 34%; background: linear-gradient(180deg, #E9C27A 0, #DDB06A 40%, #CF9E57 100%); }
+.gs-ground::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 20% 30%, rgba(255,255,255,.18), transparent 40%), radial-gradient(ellipse at 75% 60%, rgba(120,70,20,.12), transparent 45%); }
+/* 사격장 건물: 나무판 벽 + 아치형 구멍 6개 */
+.gs-house { position: absolute; left: 10%; right: 10%; top: 9%; bottom: 25%; border-radius: 6px 6px 0 0; background:
+  repeating-linear-gradient(180deg, #B07A45 0 22px, #9C6A3A 22px 24px),
+  #B07A45; box-shadow: inset 0 0 0 4px #7A4E26, 0 8px 18px rgba(80,40,10,.3); pointer-events: none; }
+.gs-house::before { content: ""; position: absolute; left: -3%; right: -3%; top: -6%; height: 9%; border-radius: 4px; background: linear-gradient(180deg, #8A5427, #6E4520); box-shadow: 0 3px 0 rgba(0,0,0,.2); }
+.gs-sign { position: absolute; left: 50%; top: 2%; z-index: 1; translate: -50% 0; padding: 4px 16px; border-radius: 6px; background: linear-gradient(180deg, #F3D9A4, #E0BC7C); color: #5C3A1A; font-size: 15px; font-weight: 900; letter-spacing: 2px; white-space: nowrap; box-shadow: inset 0 0 0 2px #7A4E26, 0 3px 0 rgba(0,0,0,.25); pointer-events: none; }
+.gs-hole { position: absolute; z-index: 1; overflow: hidden; border-radius: 40% 40% 4px 4px / 30% 30% 4px 4px; background: linear-gradient(180deg, #14213D 0%, #23395D 60%, #2F4B76 100%); box-shadow: inset 0 0 0 5px #6E4520, inset 0 8px 14px rgba(0,0,0,.45), 0 3px 0 rgba(255,255,255,.15); pointer-events: none; }
+.gs-hole::after { content: ""; position: absolute; left: -4%; right: -4%; bottom: 0; height: 12%; background: linear-gradient(180deg, #8A5427, #6E4520); box-shadow: 0 -2px 0 rgba(255,255,255,.2); z-index: 2; }
+.gs-can { position: absolute; left: 50%; bottom: 8%; z-index: 1; translate: -50% 110%; transition: translate .18s cubic-bezier(.3,1.5,.5,1); }
+.gs-can svg { display: block; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 3px 3px rgba(0,0,0,.35)); }
+.gs-can.up { translate: -50% 0; }
+.gs-can.hit { visibility: hidden; }
+.gs-fly { position: absolute; z-index: 5; pointer-events: none; animation: gs-fly .75s cubic-bezier(.25,.6,.45,1) forwards; }
+.gs-fly svg { display: block; width: 100%; height: 100%; overflow: visible; }
+@keyframes gs-fly { 0% { transform: translate(0, 0) rotate(0); opacity: 1; } 40% { transform: translate(calc(var(--kx) * .4), -90%) rotate(calc(var(--kr) * .4)); } 100% { transform: translate(var(--kx), -40%) rotate(var(--kr)); opacity: 0; } }
+.gs-lid { position: absolute; z-index: 5; width: 26px; height: 8px; border-radius: 50%; background: linear-gradient(180deg, #F1F3F5, #ADB5BD); pointer-events: none; animation: gs-lid .7s ease-out forwards; }
+@keyframes gs-lid { to { transform: translate(var(--lx), -120px) rotate(540deg); opacity: 0; } }
+.gs-hole-mark { position: absolute; z-index: 2; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: radial-gradient(circle, #1A1A1A 0 35%, #4A3420 45%, rgba(74,52,32,.4) 60%, transparent 70%); pointer-events: none; animation: gs-mark .25s ease-out; }
+@keyframes gs-mark { from { transform: scale(2); opacity: 0; } }
+.gs-flash { position: absolute; z-index: 6; width: 70px; height: 70px; margin: -35px 0 0 -35px; border-radius: 50%; background: radial-gradient(circle, #FFFFFF 0 15%, #FFE066 35%, rgba(255,146,43,.5) 55%, transparent 70%); pointer-events: none; animation: gs-flash .18s ease-out forwards; }
+@keyframes gs-flash { from { transform: scale(.4); opacity: 1; } to { transform: scale(1.2); opacity: 0; } }
+.gs-cactus { position: absolute; bottom: 9%; z-index: 3; pointer-events: none; }
+.gs-cactus svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.gs-cross { position: absolute; left: 0; top: 0; z-index: 7; width: 64px; height: 64px; margin: -32px 0 0 -32px; pointer-events: none; will-change: transform; }
+.gs-cross svg { display: block; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 2px 2px rgba(0,0,0,.35)); }
+.gs-cross.kick { animation: gs-kick .14s ease-out; }
+@keyframes gs-kick { 40% { transform: translateY(-6px) scale(1.08); } }
+.gs-bar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 6; height: 15%; display: flex; align-items: center; gap: 4%; padding: 0 4% 0 5%; background: linear-gradient(180deg, #A0683A 0, #7A4E26 55%, #5C3A1A 100%); border-top: 3px solid #3E2610; box-shadow: inset 0 3px 0 rgba(255,255,255,.18); pointer-events: none; }
+.gs-meter { display: flex; align-items: center; gap: 8px; color: #FFE8CC; font-size: clamp(11px, 2.2vw, 16px); font-weight: 900; letter-spacing: 1px; text-shadow: 0 2px 0 rgba(0,0,0,.4); white-space: nowrap; }
+.gs-meter b { min-width: 3.4em; padding: 2px 10px; border-radius: 6px; background: #2B1A0A; color: #FFD43B; font-size: clamp(13px, 2.6vw, 20px); text-align: right; box-shadow: inset 0 2px 4px rgba(0,0,0,.6); font-variant-numeric: tabular-nums; }
+.gs-meter.hot b { color: #FF6B6B; animation: gs-hot .5s ease-in-out infinite alternate; }
+@keyframes gs-hot { to { transform: scale(1.06); } }
+.gs-cyl { position: absolute; right: 2%; bottom: 3%; z-index: 7; width: 15%; max-width: 110px; aspect-ratio: 1; pointer-events: none; transition: transform .2s ease-out; }
+.gs-cyl svg { display: block; width: 100%; height: 100%; filter: drop-shadow(0 4px 4px rgba(0,0,0,.4)); }
+.gs-cyl .b.used { fill: #3A3A3A; }
+.gs-item { position: absolute; z-index: 8; display: flex; flex-direction: column; align-items: center; gap: 2px; translate: -50% -50%; pointer-events: none; animation: ar-item 1.3s cubic-bezier(.2,1.4,.4,1) forwards; }
+.gs-item .ball { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #FFFFFF, var(--ic) 70%); box-shadow: 0 0 0 3px #FFFFFF, 0 6px 14px rgba(0,0,0,.25); font-size: 13px; font-weight: 900; color: #3A2A1A; }
+.gs-item .ball.empty { background: radial-gradient(circle at 35% 30%, #FFFFFF, #CED4DA 70%); color: #868E96; }
+.gs-item b { padding: 2px 9px; border-radius: 999px; background: rgba(43,26,10,.8); color: #FFE8CC; font-size: 13px; font-weight: 900; white-space: nowrap; }
 @keyframes ar-item { 0% { transform: scale(.2) translateY(20px); opacity: 0; } 18% { transform: scale(1.15) translateY(-10px); opacity: 1; } 32% { transform: scale(1) translateY(-14px); } 80% { opacity: 1; } 100% { transform: translateY(-40px); opacity: 0; } }
-.ar-cross { position: absolute; left: 0; top: 0; z-index: 5; width: 40px; height: 40px; margin: -20px 0 0 -20px; pointer-events: none; will-change: transform; }
-.ar-cross::before { content: ""; position: absolute; inset: 4px; border-radius: 50%; border: 2.5px solid rgba(255,255,255,.95); box-shadow: 0 0 0 1.5px rgba(224,49,49,.85), inset 0 0 0 1.5px rgba(224,49,49,.85); }
-.ar-cross::after { content: ""; position: absolute; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: #E03131; box-shadow: 0 0 0 2px #FFFFFF; }
-.ar-cross[hidden] { display: none; }
-.ar-bow { position: absolute; left: 16%; bottom: -3%; z-index: 4; width: 24%; max-width: 200px; translate: -50% 0; rotate: -14deg; pointer-events: none; }
-.ar-bow svg { display: block; width: 100%; height: auto; overflow: visible; filter: drop-shadow(0 4px 4px rgba(0,0,0,.2)); }
-.ar-bow .nock-arrow { opacity: 0; transition: opacity .2s; }
-.ar-bow.loaded .nock-arrow { opacity: 1; }
-.ar-bow.shot { animation: ar-bow .35s ease-out; }
-@keyframes ar-bow { 0% { transform: translateY(0); } 20% { transform: translateY(8px) scale(1.02); } 100% { transform: none; } }
-.ar-arrow { position: absolute; left: 0; top: 0; z-index: 5; width: 40px; height: 40px; margin: -20px 0 0 -20px; pointer-events: none; will-change: transform; }
-.ar-arrow svg, .ar-stuck svg { display: block; width: 100%; height: 100%; overflow: visible; }
-.ar-stuck { position: absolute; z-index: 1; width: 22px; height: 22px; margin: -11px 0 0 -11px; pointer-events: none; opacity: .85; animation: ar-stick .3s cubic-bezier(.3,1.8,.5,1); }
-@keyframes ar-stick { 0% { transform: scale(1.6); } 40% { transform: scale(.85) rotate(-6deg); } 100% { transform: none; } }
-.ar-float { position: absolute; z-index: 6; translate: -50% -100%; font-size: 18px; font-weight: 900; color: #FFFFFF; text-shadow: 0 2px 0 rgba(0,0,0,.35); white-space: nowrap; pointer-events: none; animation: pk-float 1.1s ease-out forwards; }
-.ar-float.miss { color: #F1F3F5; font-size: 17px; }
-.ar-banner { position: absolute; left: 50%; top: 20%; z-index: 7; translate: -50% -50%; padding: 10px 22px; border-radius: 16px; background: linear-gradient(180deg, #FFE07A, #FF9F43); color: #7A2E00; font-size: 26px; font-weight: 900; white-space: nowrap; box-shadow: 0 6px 0 #C2410C, 0 0 0 6px rgba(255,255,255,.3); pointer-events: none; animation: pk-banner 1.7s cubic-bezier(.2,1.4,.4,1) forwards; }
-.ar-banner small { display: block; font-size: 14px; font-weight: 800; text-align: center; }
-.ar-flash { position: absolute; inset: 0; z-index: 2; background: radial-gradient(circle at 50% 50%, rgba(255,240,180,.9), rgba(255,180,80,.25) 40%, transparent 70%); opacity: 0; pointer-events: none; }
-.ar-flash.on { animation: pk-flash .8s ease-out; }
-.ar-stage.shake { animation: pk-shake .45s; }
-.ar-hud { position: absolute; left: 12px; right: 12px; top: 10px; z-index: 6; display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; pointer-events: none; }
-.ar-hud-l { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
-.ar-quiver { display: flex; gap: 4px; padding: 5px 10px; border-radius: 999px; background: rgba(0,0,0,.35); }
-.ar-quiver i { width: 8px; height: 22px; border-radius: 2px; background: linear-gradient(180deg, #FF6B6B 0 30%, #F1F3F5 30% 100%); }
-.ar-quiver i.used { opacity: .25; }
-.ar-total { padding: 4px 12px; border-radius: 12px; background: rgba(0,0,0,.35); color: #FFFFFF; font-size: 13px; font-weight: 700; }
-.ar-total b { color: #FFE07A; font-size: 16px; font-weight: 900; }
-.ar-wind { padding: 5px 10px; border-radius: 999px; background: rgba(255,255,255,.8); color: #343A40; font-size: 12px; font-weight: 800; white-space: nowrap; }
-.ar-wind span { display: inline-block; }
-.ar-msg { position: absolute; inset: 0; z-index: 8; display: flex; align-items: center; justify-content: center; padding: 16px; pointer-events: none; }
-.ar-msg[hidden] { display: none; }
-.ar-msg .card { min-width: 220px; padding: 14px 20px; border-radius: 16px; background: rgba(255,255,255,.94); color: var(--text); text-align: center; box-shadow: 0 10px 26px rgba(0,0,0,.15); }
-.ar-msg .card b.t { display: block; font-size: 18px; font-weight: 900; margin-bottom: 4px; }
-.ar-msg .card p { margin: 0; font-size: 13.5px; color: var(--text-2); }
-.ar-msg .card .shots { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-.ar-msg .card .shots span { padding: 2px 8px; border-radius: 999px; color: #FFFFFF; font-size: 12px; font-weight: 800; }
-.ar-controls { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 16px; background: linear-gradient(180deg, #FFFFFF, #F7FAFD); border: 1px solid var(--panel-line); }
+.gs-banner { position: absolute; left: 50%; top: 30%; z-index: 9; translate: -50% -50%; padding: 10px 22px; border-radius: 10px; background: linear-gradient(180deg, #FFE066, #F59F00); color: #5C3A1A; font-size: 26px; font-weight: 900; white-space: nowrap; box-shadow: inset 0 0 0 3px #7A4E26, 0 6px 0 #7A4E26; pointer-events: none; animation: pk-banner 1.7s cubic-bezier(.2,1.4,.4,1) forwards; }
+.gs-banner small { display: block; font-size: 14px; font-weight: 800; text-align: center; }
+.gs-shake { animation: pk-shake .3s; }
+.gs-msg { position: absolute; inset: 0 0 15% 0; z-index: 9; display: flex; align-items: center; justify-content: center; padding: 16px; pointer-events: none; }
+.gs-msg[hidden] { display: none; }
+.gs-msg .card { min-width: 240px; padding: 14px 20px; border-radius: 12px; background: #FFF4E6; color: #3E2610; text-align: center; box-shadow: inset 0 0 0 3px #7A4E26, 0 10px 24px rgba(0,0,0,.25); }
+.gs-msg .card b.t { display: block; font-size: 20px; font-weight: 900; letter-spacing: 1px; margin-bottom: 4px; }
+.gs-msg .card p { margin: 0; font-size: 13.5px; color: #6E4520; }
+.gs-msg .card .shots { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.gs-msg .card .shots span { padding: 2px 8px; border-radius: 999px; color: #FFFFFF; font-size: 12px; font-weight: 800; }
+.gs-count { position: absolute; inset: 0 0 15% 0; z-index: 9; display: grid; place-items: center; color: #FFFFFF; font-size: 64px; font-weight: 900; text-shadow: 0 4px 0 #7A4E26, 0 0 18px rgba(0,0,0,.3); pointer-events: none; animation: gs-count .6s ease-out forwards; }
+@keyframes gs-count { 0% { transform: scale(1.8); opacity: 0; } 30% { transform: scale(1); opacity: 1; } 100% { opacity: 0; } }
+.ar-controls { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 16px; background: linear-gradient(180deg, #FFFFFF, #FFF8F0); border: 1px solid var(--panel-line); }
 .ar-tip { font-size: 13px; color: var(--text-2); line-height: 1.5; }
 .ar-tip b { color: var(--text); }
-.ar-btn { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 150px; padding: 12px 18px; border: 0; border-radius: 14px; background: linear-gradient(180deg, #FF8787, #F03E3E); color: #FFFFFF; font: inherit; font-size: 18px; font-weight: 900; cursor: pointer; box-shadow: 0 5px 0 #C92A2A; }
+.ar-btn { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 150px; padding: 12px 18px; border: 0; border-radius: 14px; background: linear-gradient(180deg, #FF922B, #E8590C); color: #FFFFFF; font: inherit; font-size: 18px; font-weight: 900; cursor: pointer; box-shadow: 0 5px 0 #A33A05; }
 .ar-btn span { font-size: 12px; font-weight: 700; opacity: .92; }
-.ar-btn:active:not(:disabled) { transform: translateY(3px); box-shadow: 0 2px 0 #C92A2A; }
+.ar-btn:active:not(:disabled) { transform: translateY(3px); box-shadow: 0 2px 0 #A33A05; }
 .ar-btn:disabled { background: var(--panel-line); color: var(--muted); box-shadow: none; cursor: not-allowed; }
 .ar-info { width: 100%; max-width: 760px; padding: 16px 18px; border-radius: 16px; background: var(--panel); border: 1px solid var(--panel-line); }
 .ar-info h3 { margin: 0 0 6px; font-size: 17px; }
@@ -807,14 +807,17 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .ar-cantab td.r { text-align: right; white-space: nowrap; }
 .ar-cantab tfoot td { border: 0; padding-top: 6px; font-weight: 700; color: var(--text); }
 @media (max-width: 640px) {
-  .ar-stage { aspect-ratio: 4 / 3.4; border-radius: 16px; }
+  .gs-stage { aspect-ratio: 4 / 3.6; border-radius: 14px; }
+  .gs-house { left: 4%; right: 4%; }
+  .gs-sign { font-size: 12px; letter-spacing: 1px; }
+  .gs-cyl { width: 19%; }
+  .gs-cross { width: 52px; height: 52px; margin: -26px 0 0 -26px; }
   .ar-controls { grid-template-columns: minmax(0, 1fr); }
   .ar-btn { width: 100%; }
-  .ar-bow { width: 34%; left: 18%; }
-  .ar-banner { font-size: 20px; padding: 8px 16px; }
+  .gs-banner { font-size: 20px; padding: 8px 16px; }
   .ar-info { padding: 14px; }
   .ar-cans { grid-template-columns: minmax(0, 1fr); }
-  .ar-item .ball { width: 38px; height: 38px; font-size: 11px; }
+  .gs-item .ball { width: 38px; height: 38px; font-size: 11px; }
 }
 
 /* ---------- 냥치 런 ---------- */
@@ -1777,7 +1780,7 @@ img, svg, video { max-width: 100%; }
     <button type="button" role="tab" data-gtab="puzzle" aria-selected="false" style="--gtc:var(--t-pack)"><span class="gt-dot"></span>직소 퍼즐 <small class="gt-new pk">모으는 재미</small></button>
     <button type="button" role="tab" data-gtab="runner" aria-selected="false" style="--gtc:#FF6FA0"><span class="gt-dot"></span>냥치 런 <small class="gt-new rn">NEW</small></button>
     <button type="button" role="tab" data-gtab="cannon" aria-selected="false" style="--gtc:#19A7CE"><span class="gt-dot"></span>팝콘 대포 <small class="gt-new cn">NEW</small></button>
-    <button type="button" role="tab" data-gtab="archery" aria-selected="false" style="--gtc:#F03E3E"><span class="gt-dot"></span>깡통 양궁 <small class="gt-new ar">NEW</small></button>
+    <button type="button" role="tab" data-gtab="archery" aria-selected="false" style="--gtc:#E8590C"><span class="gt-dot"></span>깡통 사격 <small class="gt-new ar">NEW</small></button>
   </div>
 
   <section class="zones-wrap">
@@ -1822,7 +1825,7 @@ img, svg, video { max-width: 100%; }
   <p class="ad-invalid" id="ad-invalid" hidden></p>
 
   <div class="ad-layout">
-  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="archery"><span class="gnb-dot" data-addot="archery"></span><span class="gnb-text"><b>깡통 양궁</b><small>깡통별 보상표</small></span></button></div><div class="gnb-group"><span class="gnb-title">보상</span><button type="button" class="gnb-item" data-adpage="shop"><span class="gnb-dot" data-addot="shop"></span><span class="gnb-text"><b>조각 교환소</b><small>교환 상품·수량</small></span></button></div></nav>
+  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="archery"><span class="gnb-dot" data-addot="archery"></span><span class="gnb-text"><b>깡통 사격</b><small>캔별 상품 보상표</small></span></button></div><div class="gnb-group"><span class="gnb-title">보상</span><button type="button" class="gnb-item" data-adpage="shop"><span class="gnb-dot" data-addot="shop"></span><span class="gnb-text"><b>조각 교환소</b><small>교환 상품·수량</small></span></button></div></nav>
   <div class="ad-main">
   <div class="ad-page" data-page="overview">
 
@@ -1892,11 +1895,11 @@ img, svg, video { max-width: 100%; }
   </div>
   <div class="ad-page" data-page="archery" hidden>
   <div class="panel ad-block" id="ar-admin">
-    <h2>깡통 양궁 관리 <span class="tag" id="ar-sum"></span></h2>
-    <p class="hub-note">선반 위 깡통 3개(황금·빨강·파랑)가 지나가고, 맞힌 깡통의 보상표에서 아이템(강냉이)이 나와요. 못 맞히면 꽝이에요. 명중은 손님 실력이라 <b>RTP = 맞혔을 때 기대 환원 × 예산 기준 명중률</b>로 계산해요. 명중률 100%로 두면 모두 맞혀도 예산을 넘지 않아요(실제 RTP는 명중률만큼 낮아요). 손님이 쉬운 깡통만 노려도 같도록 <b>깡통별 기대 환원은 같게</b> 맞춰야 해요(차이 1%p 이하일 때 저장돼요).</p>
+    <h2>깡통 사격 관리 <span class="tag" id="ar-sum"></span></h2>
+    <p class="hub-note">사격장 구멍 6개에서 캔이 2초마다 2개씩(10초 동안 10개) 나오고, 손님은 탄 수만큼 쏠 수 있어요. 맞힌 캔의 보상표에서 상품(강냉이)이 추첨되고, 못 맞히면 꽝이에요. 바람·탄 퍼짐은 없어요. 명중은 손님 실력이라 <b>RTP = 맞혔을 때 기대 환원 × 예산 기준 명중 수 ÷ 탄 수</b>로 계산해요. 명중 수를 탄 수와 같게 두면 모두 맞혀도 예산을 넘지 않아요. 손님이 어떤 캔을 골라 쏴도 같도록 <b>캔별 기대 환원은 같게</b> 맞춰야 해요(차이 1%p 이하일 때 저장돼요). 등장 비율은 RTP에 영향이 없어요.</p>
     <div class="fields" id="ar-fields"></div>
     <div class="table-wrap"><table class="ad-table" id="ar-prob-t"></table></div>
-    <div class="ed-foot"><div class="pa-calc" id="ar-calc"></div><button class="btn-ghost" type="button" id="ar-fit">목표 RTP로 깡통별 확률 맞추기</button></div>
+    <div class="ed-foot"><div class="pa-calc" id="ar-calc"></div><button class="btn-ghost" type="button" id="ar-fit">목표 RTP로 캔별 확률 맞추기</button></div>
   </div>
   </div>
   <div class="ad-page" data-page="cannon" hidden>
@@ -2090,7 +2093,7 @@ img, svg, video { max-width: 100%; }
     { id: 'puzzle', name: '직소 퍼즐', cost: 300, color: 'var(--t-pack)', tab: 'puzzle' },
     { id: 'runner', name: '냥치 런', cost: 100, color: '#FF6FA0', tab: 'runner' },
     { id: 'cannon', name: '팝콘 대포', cost: 100, color: '#19A7CE', tab: 'cannon' },
-    { id: 'archery', name: '깡통 양궁', cost: 100, color: '#F03E3E', tab: 'archery' },
+    { id: 'archery', name: '깡통 사격', cost: 100, color: '#E8590C', tab: 'archery' },
     { id: 'gold', name: '골드존', cost: 2000, color: 'var(--t-gold)' },
     { id: 'creator', name: '크리에이터존', cost: 3000, color: 'var(--t-creator)' },
     { id: 'legend', name: '레전드존', cost: 10000, color: 'var(--t-legend)' }
@@ -2143,10 +2146,10 @@ img, svg, video { max-width: 100%; }
           PZ('sbset', '스타벅스 케이크 & 음료 2잔 세트', 22000, 1.56), PZ('chicken', '순살 치킨 + 콜라 세트', 22000, 1.56), PZ('akg', 'AKG K72 헤드폰', 69000, 0.5),
           PZ('hanwoo', '명품 한우 선물세트', 150000, 0.24)
         ] },
-      // 깡통 양궁: 1세트 3발. 지나가는 깡통 3종을 맞히면 그 깡통 보상표에서 아이템, 못 맞히면 꽝. RTP = 맞혔을 때 기대 환원 × 예산 기준 명중률
-      { id: 'archery', zone: 'archery', mode: 'archery', av: 3, name: '깡통 양궁', cost: 100, arrows: 3, hitRate: 100, demand: 800000, top: '강냉이 2,000개 (×20)',
-        cans: [{ id: 'gold', name: '황금 깡통', mults: [20, 5, 1, 0.3, 0], probs: [1.8, 6, 13, 20, 59.2] }, { id: 'red', name: '빨강 깡통', mults: [5, 2, 1, 0.5, 0], probs: [5, 12, 20, 32, 31] }, { id: 'blue', name: '파랑 깡통', mults: [2, 1, 0.7, 0.5, 0], probs: [6, 40, 31, 22.6, 0.4] }],
-        prizes: [W('S', '황금 깡통 · 강냉이 2,000개', 'kernel', 2000, 0, 0.6), W('S', '황금 깡통 · 강냉이 500개', 'kernel', 500, 0, 2), W('S', '빨강 깡통 · 강냉이 500개', 'kernel', 500, 0, 1.667), W('A', '빨강 깡통 · 강냉이 200개', 'kernel', 200, 0, 4), W('A', '파랑 깡통 · 강냉이 200개', 'kernel', 200, 0, 2), W('B', '강냉이 100개', 'kernel', 100, 0, 24.333), W('C', '강냉이 30~70개', 'kernel', 50, 0, 35.2), W('C', '빈 깡통', 'kernel', 0, 0, 30.2)] },
+      // 깡통 사격: 구멍 6개에서 캔 2개씩 2초, 10초 동안. 리볼버 6발. 맞힌 캔 보상표에서 상품, 못 맞히면 꽝. RTP = 맞혔을 때 기대 환원 × 명중 수 ÷ 탄 수
+      { id: 'archery', zone: 'archery', mode: 'archery', av: 4, name: '깡통 사격', cost: 100, bullets: 6, hits: 6, demand: 800000, top: '강냉이 2,000개 (×20)',
+        cans: [{ id: 'gold', name: '황금 캔', rate: 15, mults: [20, 5, 1, 0.3, 0], probs: [1.8, 6, 13, 20, 59.2] }, { id: 'silver', name: '은빛 캔', rate: 35, mults: [5, 2, 1, 0.5, 0], probs: [5, 12, 20, 32, 31] }, { id: 'tin', name: '보통 캔', rate: 50, mults: [2, 1, 0.7, 0.5, 0], probs: [6, 40, 31, 22.6, 0.4] }],
+        prizes: [W('S', '황금 캔 · 강냉이 2,000개', 'kernel', 2000, 0, 0.6), W('S', '황금 캔 · 강냉이 500개', 'kernel', 500, 0, 2), W('S', '은빛 캔 · 강냉이 500개', 'kernel', 500, 0, 1.667), W('A', '은빛 캔 · 강냉이 200개', 'kernel', 200, 0, 4), W('A', '보통 캔 · 강냉이 200개', 'kernel', 200, 0, 2), W('B', '강냉이 100개', 'kernel', 100, 0, 24.333), W('C', '강냉이 30~70개', 'kernel', 50, 0, 35.2), W('C', '빈 캔', 'kernel', 0, 0, 30.2)] },
       // 팝콘 대포: 게이지 등급(퍼펙트·좋아요·보통)별 확률표로 거리 구간 결정. 배수 공통, 등급별 RTP 동일(B 방식)
       { id: 'cannon', zone: 'cannon', mode: 'cannon', name: '팝콘 대포', cost: 100, demand: 800000, mults: [0.2, 0.5, 1, 2, 4, 10],
         probs: { perfect: [63.75, 16, 8.25, 5, 4, 3], good: [48.12, 25, 11.88, 9, 4.5, 1.5], normal: [38.75, 30, 16.25, 10, 4, 1] }, top: '800m 이상 ×10 · 강냉이 1,000개',
@@ -2188,8 +2191,8 @@ img, svg, video { max-width: 100%; }
     if (!Array.isArray(c.shop)) c.shop = clone(DEFAULT_CONFIG.shop);
     delete c.rankBenefit;   // 순위 베네핏은 삭제됨
     // 예전(크리에이터 라인업) 퍼즐 설정은 상품 퍼즐 기본값으로 바꾼다
-    // 깡통 양궁 v3: 과녁 → 깡통 3종으로 바뀌어 예전 양궁 설정은 기본값으로
-    c.machines = c.machines.map(m => m.mode === 'archery' && m.av !== 3 ? clone(DEFAULT_CONFIG.machines.find(d => d.mode === 'archery')) : m);
+    // 깡통 사격 v4: 양궁 → 사격장으로 바뀌어 예전 설정은 기본값으로
+    c.machines = c.machines.map(m => m.mode === 'archery' && m.av !== 4 ? clone(DEFAULT_CONFIG.machines.find(d => d.mode === 'archery')) : m);
     c.machines = c.machines.map(m => m.mode === 'puzzle' && m.pv !== 2 ? clone(DEFAULT_CONFIG.machines.find(d => d.mode === 'puzzle')) : m);
     c.machines.filter(m => m.mode === 'puzzle').forEach(m => m.prizes.forEach((p, i) => { if (!p.pid) p.pid = 'p' + i + '-' + String(p.name).length; }));
     // 예전 한정 카드팩·빙고 카드팩은 직소 퍼즐로 바뀌었다
@@ -2303,7 +2306,7 @@ img, svg, video { max-width: 100%; }
     const COPY = {
       gacha: ['입장료가 높은 머신일수록 좋은 상품이 들어 있어요', '머신마다 캡슐 수가 정해져 있고, 남은 수량을 실시간으로 공개해요.'],
       puzzle: ['상품 퍼즐 6조각을 모아 상품을 받는 직소 퍼즐', '카드를 뽑을 때마다 상품 퍼즐 조각이 하나 나와요. 6조각을 다 모으면 그 상품을 받아요. 비싼 상품일수록 조각이 드물고, 이미 가진 조각은 중복이에요.'],
-      archery: ['지나가는 깡통을 맞혀 아이템을 받는 깡통 양궁', '1세트 3발. 깡통을 맞히면 그 깡통에서 아이템이 나오고, 못 맞히면 꽝이에요. 화살은 누른 곳으로 날아가요.'],
+      archery: ['10초 안에 캔을 맞혀 상품을 받는 깡통 사격', '구멍 6개에서 캔이 2개씩 2초 동안 나와요. 리볼버 6발로 캔을 맞히면 캔 안에서 상품이 추첨되고, 못 맞히면 꽝이에요.'],
       cannon: ['게이지를 멈춰 팝콘을 쏘는 팝콘 대포', '팝콘이 떨어진 거리 구간의 배수만큼 강냉이를 받아요. 게이지 타이밍에 따라 확률표가 달라지지만 평균 환원(RTP)은 같아요.'],
       runner: ['냥치와 달리며 문을 고르는 냥치 런', '문 2개 중 하나만 통과돼요. 3초 안에 골라 문 5개를 통과하면 완주! 첫 문을 통과한 뒤에는 포기하고 점수를 받을 수도 있어요.'],
     };
@@ -3570,216 +3573,208 @@ img, svg, video { max-width: 100%; }
   addEventListener('resize', () => { if (state.tab === 'cannon' && !CN.flying && cnEl('cn-stage')) cnInit(); });
 
   // =====================================================================
-  // 깡통 양궁: 1세트 = 화살 3발(입장료 = 1발 금액 × 발 수). 선반 위 깡통 3개가 왼쪽에서 오른쪽으로 지나가고,
-  // 조준점(마우스·탭 위치)으로 쏜다. 화살은 조준한 곳에 꽂힌다(바람은 아주 미세한 연출).
-  // 깡통을 맞히면 그 깡통의 보상표에서 아이템이 나오고, 못 맞히면 꽝.
-  // 명중은 실력이라 RTP = 깡통 기대 환원(맞혔을 때) × 명중률. 예산은 관리자의 '예산 기준 명중률'(기본 100%)로 잡는다
+  // 깡통 사격: 서부 사격장 건물의 구멍 6개에서 캔이 2개씩 2초 동안 나왔다 들어간다(10초 동안 5번).
+  // 리볼버 탄 6발로 캔을 맞히면 그 캔에서 상품(강냉이)이 추첨되고, 못 맞히면 꽝. 바람·탄 퍼짐 없이 조준한 곳에 바로 맞는다.
+  // 명중은 실력이라 RTP = 캔 기대 환원(맞혔을 때) × (예산 기준 명중 수 ÷ 탄 수). 기본은 6발 모두 맞혀도 목표 RTP
   // =====================================================================
   const AR_DEF_CANS = [
-    { id: 'gold', name: '황금 깡통', kind: '대박형', color: '#F5B800', band: '#FFE066', size: .8, mults: [20, 5, 1, 0.3, 0], probs: [1.8, 6, 13, 20, 59.2] },
-    { id: 'red', name: '빨강 깡통', kind: '도전형', color: '#F03E3E', band: '#FFC9C9', size: 1, mults: [5, 2, 1, 0.5, 0], probs: [5, 12, 20, 32, 31] },
-    { id: 'blue', name: '파랑 깡통', kind: '안정형', color: '#1C7ED6', band: '#A5D8FF', size: 1, mults: [2, 1, 0.7, 0.5, 0], probs: [6, 40, 31, 22.6, 0.4] }
+    { id: 'gold', name: '황금 캔', kind: '대박형', color: '#F5B800', band: '#FFE066', mark: '★', rate: 15, mults: [20, 5, 1, 0.3, 0], probs: [1.8, 6, 13, 20, 59.2] },
+    { id: 'silver', name: '은빛 캔', kind: '도전형', color: '#ADB5BD', band: '#4DABF7', mark: 'S', rate: 35, mults: [5, 2, 1, 0.5, 0], probs: [5, 12, 20, 32, 31] },
+    { id: 'tin', name: '보통 캔', kind: '안정형', color: '#CED4DA', band: '#51CF66', mark: 'T', rate: 50, mults: [2, 1, 0.7, 0.5, 0], probs: [6, 40, 31, 22.6, 0.4] }
   ];
-  const AR = { active: false, flying: false, left: 0, shots: [], total: 0, raf: 0, last: 0, t: 0, aimX: 0, aimY: 0, wind: 0, W: 0, H: 0, shelfY: 0, cw: 0, v: 0, cans: [] };
+  const GS_TIME = 10, GS_WAVE = 2, GS_UP = 1.8;   // 10초, 2초마다 2개씩, 1.8초 동안 보임(오르내림 포함 약 2초)
+  const GS_HOLES = [[25, 17], [50, 17], [75, 17], [25, 45], [50, 45], [75, 45]];   // 구멍 중심 x%, 위쪽 y%
+  const AR = { active: false, flying: false, left: 0, shots: [], total: 0, raf: 0, last: 0, t: 0, aimX: 0, aimY: 0, holes: [], wave: -1, ending: false };
   const archeryMachine = () => machines.find(m => m.mode === 'archery');
   const arCans = m => AR_DEF_CANS.map((d, i) => {
     const c = m && Array.isArray(m.cans) && m.cans[i] ? m.cans[i] : {};
     const fix = (a, def) => (Array.isArray(a) && a.length === 5 ? a : def).map(v => Math.max(0, Number(v) || 0));
-    return Object.assign({}, d, { name: c.name || d.name, mults: fix(c.mults, d.mults), probs: fix(c.probs, d.probs) });
+    return Object.assign({}, d, { name: c.name || d.name, rate: c.rate != null ? Math.max(0, Number(c.rate) || 0) : d.rate, mults: fix(c.mults, d.mults), probs: fix(c.probs, d.probs) });
   });
-  const arArrows = m => Math.max(1, Math.min(10, Math.round(num(m && m.arrows) || 3)));
-  const arHitRate = m => Math.max(1, Math.min(100, num(m && m.hitRate) || 100)) / 100;
+  const arBullets = m => Math.max(1, Math.min(12, Math.round(num(m && m.bullets) || 6)));
+  const arArrows = arBullets;
+  const arHits = m => Math.max(1, Math.min(arBullets(m), Math.round(num(m && m.hits) || arBullets(m))));
+  const arHitRate = m => arHits(m) / arBullets(m);
   const arPay = (m, mul) => Math.round(num(m.cost) * mul);
   const arCanEv = (m, c) => { const k = num(m.cost); if (!k) return 0; const sum = c.probs.reduce((a, b) => a + b, 0) || 1; return c.probs.reduce((a, p, i) => a + p / sum * arPay(m, c.mults[i]), 0) / k; };
   const arRtp = m => Math.max(...arCans(m).map(c => arCanEv(m, c))) * arHitRate(m);
   const arEl = id => document.getElementById(id);
-  const arCanSVG = c => '<svg viewBox="0 0 60 80" aria-hidden="true"><defs><linearGradient id="ac-' + c.id + '" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="' + c.color + '"/><stop offset=".35" stop-color="#FFFFFF" stop-opacity=".55"/><stop offset=".55" stop-color="' + c.color + '"/><stop offset="1" stop-color="' + c.color + '"/></linearGradient></defs>' +
-    '<rect x="4" y="8" width="52" height="66" rx="5" fill="url(#ac-' + c.id + ')"/>' +
-    '<rect x="4" y="30" width="52" height="22" fill="' + c.band + '" opacity=".95"/>' +
-    (c.id === 'gold' ? '<path d="M30 33l2.6 5.4 5.9.8-4.3 4.1 1 5.8L30 46.3l-5.2 2.8 1-5.8-4.3-4.1 5.9-.8z" fill="#F08C00"/>' : c.id === 'red' ? '<text x="30" y="46" text-anchor="middle" font-size="13" font-weight="900" fill="#C92A2A">!</text>' : '<circle cx="30" cy="41" r="6" fill="#1971C2"/>') +
-    '<ellipse cx="30" cy="8" rx="26" ry="5" fill="#E9ECEF" stroke="#ADB5BD" stroke-width="1.5"/><ellipse cx="30" cy="8" rx="18" ry="3" fill="#CED4DA"/>' +
-    '<ellipse cx="30" cy="74" rx="26" ry="5" fill="' + c.color + '" opacity=".8"/></svg>';
-  const AR_ARROW = '<svg viewBox="-20 -20 40 40" aria-hidden="true"><g transform="rotate(45)"><path d="M0 -16 L5 -6 L0 -3 L-5 -6 Z" fill="#FF6B6B"/><path d="M0 16 L5 6 L0 3 L-5 6 Z" fill="#FF6B6B"/><path d="M-16 0 L-6 5 L-3 0 L-6 -5 Z" fill="#F1F3F5"/><path d="M16 0 L6 5 L3 0 L6 -5 Z" fill="#F1F3F5"/></g><circle r="4.5" fill="#8A5A2B" stroke="#5C3A1A" stroke-width="1.5"/><circle r="1.6" fill="#FFE07A"/></svg>';
-  const AR_BOW = '<svg viewBox="0 0 200 120" aria-hidden="true"><defs><linearGradient id="arbw" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8A5A2B"/><stop offset=".5" stop-color="#C98A4B"/><stop offset="1" stop-color="#8A5A2B"/></linearGradient></defs>' +
-    '<path d="M10 110 Q100 -30 190 110" fill="none" stroke="url(#arbw)" stroke-width="10" stroke-linecap="round"/>' +
-    '<path d="M86 34 Q100 26 114 34" fill="none" stroke="#343A40" stroke-width="9" stroke-linecap="round"/>' +
-    '<path d="M12 108 L100 118 L188 108" fill="none" stroke="#F1F3F5" stroke-width="2.5"/>' +
-    '<g class="nock-arrow"><path d="M100 118 L100 20" stroke="#8A5A2B" stroke-width="4"/><path d="M100 10 L94 24 L106 24 Z" fill="#ADB5BD"/><path d="M100 118 L92 104 L100 108 L108 104 Z" fill="#FF6B6B"/></g></svg>';
-  const arMulLabel = (m, v) => v ? K + fmt(arPay(m, v)) : '빈 깡통';
+  const gsCanSVG = c => '<svg viewBox="0 0 60 80" aria-hidden="true"><defs><linearGradient id="gc-' + c.id + '" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="' + c.color + '"/><stop offset=".3" stop-color="#FFFFFF" stop-opacity=".75"/><stop offset=".55" stop-color="' + c.color + '"/><stop offset="1" stop-color="' + c.color + '" stop-opacity=".85"/></linearGradient></defs>' +
+    '<rect x="5" y="8" width="50" height="66" rx="4" fill="url(#gc-' + c.id + ')" stroke="rgba(0,0,0,.25)" stroke-width="1"/>' +
+    '<g stroke="rgba(0,0,0,.18)" stroke-width="1.2"><path d="M5 16 H55 M5 66 H55"/></g>' +
+    '<circle cx="30" cy="41" r="13" fill="' + c.band + '" stroke="#FFFFFF" stroke-width="2.5"/>' +
+    '<text x="30" y="46.5" text-anchor="middle" font-size="15" font-weight="900" fill="#FFFFFF">' + c.mark + '</text>' +
+    '<ellipse cx="30" cy="8" rx="25" ry="5" fill="#F1F3F5" stroke="#868E96" stroke-width="1.5"/><ellipse cx="30" cy="8" rx="17" ry="2.8" fill="#DEE2E6"/></svg>';
+  const GS_CROSS = '<svg viewBox="-32 -32 64 64" aria-hidden="true"><rect x="-6" y="-31" width="12" height="9" rx="3" fill="#212529"/><circle r="22" fill="none" stroke="#212529" stroke-width="7"/><circle r="22" fill="none" stroke="#495057" stroke-width="2"/><circle r="17" fill="rgba(255,255,255,.12)"/><path d="M0 -11 V11 M-11 0 H11" stroke="#E03131" stroke-width="3" stroke-linecap="round"/></svg>';
+  const gsCylSVG = n => '<svg viewBox="-50 -50 100 100" aria-hidden="true"><circle r="46" fill="#495057" stroke="#212529" stroke-width="4"/><circle r="40" fill="#343A40"/>' +
+    Array.from({ length: n }, (_, i) => { const a = i / n * Math.PI * 2 - Math.PI / 2, x = Math.cos(a) * 26, y = Math.sin(a) * 26; return '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="11" fill="#212529"/><circle class="b" data-b="' + i + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="8.5" fill="#FAB005" stroke="#E67700" stroke-width="2"/>'; }).join('') +
+    '<circle r="7" fill="#868E96" stroke="#212529" stroke-width="2"/></svg>';
+  const GS_CACTUS = '<svg viewBox="0 0 60 100" aria-hidden="true"><g fill="#4CAF50" stroke="#2F7D32" stroke-width="2.5"><rect x="22" y="8" width="16" height="92" rx="8"/><path d="M22 52 H12 a6 6 0 0 1 -6 -6 V28 a5 5 0 0 1 10 0 V42 H22 Z"/><path d="M38 44 H48 V22 a5 5 0 0 1 10 0 V38 a6 6 0 0 1 -6 6 Z"/></g><g stroke="#C5E1A5" stroke-width="1.4" stroke-linecap="round"><path d="M27 20v6M33 34v6M27 52v6M33 70v6M10 34v4M52 28v4"/></g></svg>';
+  const GS_MESA = '<svg viewBox="0 0 400 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 100 V70 L30 62 L40 40 L90 38 L100 60 L150 66 L170 50 L230 48 L245 66 L300 70 L315 46 L365 44 L380 64 L400 68 V100 Z" fill="#E8A06A" opacity=".75"/><path d="M0 100 V82 L60 76 L120 80 L200 74 L280 80 L340 76 L400 80 V100 Z" fill="#D98B52" opacity=".8"/></svg>';
 
   function archeryFloorHTML() {
     const m = archeryMachine(); if (!m) return '';
-    const n = arArrows(m), cans = arCans(m);
+    const n = arBullets(m), cans = arCans(m), rs = cans.reduce((a, c) => a + c.rate, 0) || 1;
     const tabs = cans.map(c => {
       const sum = c.probs.reduce((a, b) => a + b, 0) || 1;
-      return '<div class="ar-cantab" style="--cc:' + c.color + '"><h4><i></i>' + c.name + '<small>' + c.kind + '</small></h4><table><tbody>' +
-        c.mults.map((v, i) => '<tr><td>' + (v ? '강냉이 ' + fmt(arPay(m, v)) + '개 <small class="qmeta">' + pkMulText(v) + '</small>' : '빈 깡통') + '</td><td class="r num">' + (+(c.probs[i] / sum * 100).toFixed(2)) + '%</td></tr>').join('') +
+      return '<div class="ar-cantab" style="--cc:' + c.band + '"><h4><i></i>' + c.name + '<small>' + c.kind + ' · 등장 ' + Math.round(c.rate / rs * 100) + '%</small></h4><table><tbody>' +
+        c.mults.map((v, i) => '<tr><td>' + (v ? '강냉이 ' + fmt(arPay(m, v)) + '개 <small class="qmeta">' + pkMulText(v) + '</small>' : '빈 캔') + '</td><td class="r num">' + (+(c.probs[i] / sum * 100).toFixed(2)) + '%</td></tr>').join('') +
         '</tbody><tfoot><tr><td>맞혔을 때 기대 환원</td><td class="r num">' + pct(arCanEv(m, c)) + '</td></tr></tfoot></table></div>';
     }).join('');
     return '<section class="ar-panel" aria-labelledby="ar-h">' +
       '<div class="ar-wrap"><div class="ar-left">' +
-        '<div class="ar-stage" id="ar-stage" data-ar="shoot">' +
-          '<div class="ar-sun"></div><div class="cn-mtn"></div><div class="cn-hills"></div><div class="ar-ground"></div>' +
-          '<div id="ar-posts"></div><div class="ar-shelf" id="ar-shelf"></div>' +
-          '<div id="ar-canlayer">' + cans.map((c, i) => '<div class="ar-can" id="ar-can-' + i + '">' + arCanSVG(c) + '</div>').join('') + '</div>' +
-          '<div id="ar-marks"></div>' +
-          '<div class="ar-cross" id="ar-cross" hidden></div>' +
-          '<div class="ar-bow" id="ar-bow">' + AR_BOW + '</div>' +
-          '<div class="ar-hud"><div class="ar-hud-l"><span class="ar-quiver" id="ar-quiver">' + '<i></i>'.repeat(n) + '</span><span class="ar-total">이번 세트 <b class="num" id="ar-total">0</b></span></div><span class="ar-wind" id="ar-wind">바람 <span>→</span> 0.0m/s</span></div>' +
-          '<div class="ar-flash" id="ar-flash"></div>' +
-          '<div class="ar-msg" id="ar-msg"><div class="card"><b class="t">깡통 양궁</b><p>1세트 ' + n + '발 · 지나가는 깡통을 맞혀 아이템을 받으세요!</p></div></div>' +
+        '<div class="gs-stage" id="gs-stage" data-ar="shoot">' +
+          '<div class="gs-sun"></div><div class="gs-mesa">' + GS_MESA + '</div><div class="gs-ground"></div>' +
+          '<div class="gs-house"></div><div class="gs-sign">TOONLAND SHOOTING</div>' +
+          GS_HOLES.map(([x, y], i) => '<div class="gs-hole" id="gs-hole-' + i + '" style="left:' + (x - 8) + '%;top:' + y + '%;width:16%;height:23%"><div class="gs-can" id="gs-can-' + i + '"></div></div>').join('') +
+          '<div id="gs-marks"></div>' +
+          '<div class="gs-cactus" style="left:-2%;width:13%;height:34%">' + GS_CACTUS + '</div><div class="gs-cactus" style="right:-3%;width:15%;height:40%;transform:scaleX(-1)">' + GS_CACTUS + '</div>' +
+          '<div class="gs-bar"><span class="gs-meter" id="gs-time">TIME <b class="num">' + GS_TIME.toFixed(1) + '</b></span><span class="gs-meter">SCORE <b class="num" id="gs-score">0</b></span></div>' +
+          '<div class="gs-cyl" id="gs-cyl">' + gsCylSVG(n) + '</div>' +
+          '<div class="gs-cross" id="gs-cross">' + GS_CROSS + '</div>' +
+          '<div class="gs-msg" id="gs-msg"><div class="card"><b class="t">깡통 사격</b><p>10초 동안 나타나는 캔을 맞히세요! 탄은 ' + n + '발이에요.</p></div></div>' +
         '</div>' +
         '<div class="ar-controls">' +
-          '<div class="ar-tip" id="ar-tip">깡통이 <b>왼쪽에서 오른쪽</b>으로 지나가요. 원하는 곳을 <b>누르면</b> 그 자리로 화살이 날아가요. 화살이 날아가는 동안 깡통도 움직이니 조금 앞을 노리세요. 못 맞히면 꽝이에요.</div>' +
-          '<button class="ar-btn" type="button" id="ar-btn" data-ar="main">1세트 시작 <span class="num">' + n + '발 · ' + K + fmt(num(m.cost) * n) + '</span></button>' +
+          '<div class="ar-tip">구멍 6개에서 캔이 <b>2개씩 2초 동안</b> 나왔다 들어가요. 캔을 <b>클릭(탭)</b>해서 쏘세요. 바람 없이 누른 곳에 바로 맞아요. 못 맞히면 꽝이에요.</div>' +
+          '<button class="ar-btn" type="button" id="ar-btn" data-ar="main">게임 시작 <span class="num">' + n + '발 · ' + K + fmt(num(m.cost) * n) + '</span></button>' +
         '</div>' +
       '</div>' +
       '<aside class="ar-info">' +
-        '<h3 id="ar-h">' + m.name + ' <small class="qmeta">1세트 ' + n + '발 ' + K + fmt(num(m.cost) * n) + '</small></h3>' +
-        '<p>지나가는 깡통을 화살로 맞히면 <b>그 깡통에서 아이템</b>이 나와요(1발 ' + fmt(num(m.cost)) + ' 기준). 깡통을 못 맞히면 <b>꽝</b>이에요.</p>' +
-        '<ul><li>화살은 누른 곳에 그대로 꽂혀요. 바람은 아주 조금만 영향을 줘요.</li><li>깡통마다 나오는 아이템 확률이 달라요. 황금 깡통은 작아서 맞히기 어렵지만 대박 아이템이 있어요.</li><li>어느 깡통이든 <b>맞혔을 때의 기대 환원은 같아요.</b> 아이템은 깡통을 맞히는 순간 아래 확률표로 정해져요.</li><li>키보드 스페이스로도 조준점 위치로 쏠 수 있어요.</li></ul>' +
+        '<h3 id="ar-h">' + m.name + ' <small class="qmeta">1판 ' + n + '발 ' + K + fmt(num(m.cost) * n) + '</small></h3>' +
+        '<p>10초 동안 구멍에서 나오는 캔을 리볼버로 맞히면 <b>그 캔 안에서 상품</b>이 추첨돼요(1발 ' + fmt(num(m.cost)) + ' 기준). 못 맞히면 <b>꽝</b>이에요.</p>' +
+        '<ul><li>캔은 2초마다 2개씩, 모두 10개가 나와요. 탄은 ' + n + '발이라 어느 캔을 쏠지 골라야 해요.</li><li>바람이나 탄 퍼짐은 없어요. 누른 곳에 바로 맞아요.</li><li>캔 종류마다 상품 확률이 달라요. 어느 캔이든 <b>맞혔을 때의 기대 환원은 같아요.</b> 상품은 캔을 맞히는 순간 아래 확률표로 정해져요.</li><li>키보드 스페이스로도 조준점 위치로 쏠 수 있어요.</li></ul>' +
         '<div class="ar-cans">' + tabs + '</div>' +
       '</aside>' +
     '</div></section>';
   }
 
-  // 무대 크기에 맞춰 선반·깡통 크기를 정하고 움직임 시작
   function arInit() {
-    const st = arEl('ar-stage'); if (!st) return;
-    AR.W = st.clientWidth; AR.H = st.clientHeight;
-    AR.shelfY = AR.H * .56; AR.cw = Math.max(34, Math.min(AR.W * .075, 64)); AR.v = AR.W * .16;
-    const sh = arEl('ar-shelf'); sh.style.top = AR.shelfY + 'px';
-    arEl('ar-posts').innerHTML = [.12, .5, .88].map(p => '<i class="ar-post" style="left:' + (p * 100) + '%;top:' + (AR.shelfY + 6) + 'px;height:' + (AR.H - AR.shelfY) + 'px"></i>').join('');
-    const cans = arCans(archeryMachine());
-    AR.cans = cans.map((c, i) => ({ c, w: AR.cw * c.size, h: AR.cw * c.size * 1.33, down: AR.cans[i] ? AR.cans[i].down : false, prev: 0 }));
-    AR.cans.forEach((k, i) => { const el = arEl('ar-can-' + i); el.style.width = k.w + 'px'; el.style.height = k.h + 'px'; });
-    if (!AR.aimX) { AR.aimX = AR.W * .5; AR.aimY = AR.shelfY - AR.cw * .6; }
+    const st = arEl('gs-stage'); if (!st) return;
+    if (!AR.aimX) { AR.aimX = st.clientWidth * .5; AR.aimY = st.clientHeight * .45; }
+    if (!AR.active) AR.holes = GS_HOLES.map(() => ({ c: null, up: false, hit: false, until: 0 }));
     arSyncUI();
     if (!AR.raf) { AR.last = performance.now(); AR.raf = requestAnimationFrame(arTick); }
   }
-  // 깡통 위치: 같은 속도로 줄지어 지나가고, 오른쪽 끝을 넘으면 왼쪽에서 다시 들어온다(쓰러진 깡통은 이때 다시 선다)
-  function arCanX(i) { const L = AR.W + AR.cw * 2.4, S = L / 3; return ((AR.t * AR.v + i * S) % L) - AR.cw * 1.2; }
+  function gsPickCan(cans) {
+    const rs = cans.reduce((a, c) => a + c.rate, 0) || 1; let r = Math.random() * rs;
+    for (const c of cans) { r -= c.rate; if (r < 0) return c; } return cans[cans.length - 1];
+  }
+  function gsSetCan(i, on) {
+    const h = AR.holes[i], el = arEl('gs-can-' + i); if (!el) return;
+    if (on) { el.innerHTML = gsCanSVG(h.c); el.style.width = '46%'; el.style.height = '68%'; el.classList.remove('hit'); requestAnimationFrame(() => el.classList.add('up')); }
+    else el.classList.remove('up');
+  }
   function arTick(now) {
-    const layer = arEl('ar-canlayer');
-    if (!layer) { AR.raf = 0; return; }
-    AR.t += Math.min(.05, (now - AR.last) / 1000); AR.last = now;
-    AR.cans.forEach((k, i) => {
-      const x = arCanX(i); if (x < k.prev) k.down = false; k.prev = x; k.x = x;
-      const el = arEl('ar-can-' + i);
-      el.classList.toggle('down', k.down);
-      el.style.transform = 'translate(' + (x - k.w / 2).toFixed(1) + 'px,' + (AR.shelfY - k.h + 2).toFixed(1) + 'px)';
-    });
-    const cr = arEl('ar-cross'); if (cr) cr.style.transform = 'translate(' + AR.aimX.toFixed(1) + 'px,' + AR.aimY.toFixed(1) + 'px)';
+    const st = arEl('gs-stage');
+    if (!st) { AR.raf = 0; return; }
+    const dt = Math.min(.05, (now - AR.last) / 1000); AR.last = now;
+    if (AR.active && !AR.ending) {
+      AR.t += dt;
+      // 2초마다 빈 구멍 2개를 골라 캔을 올린다
+      const w = Math.floor(AR.t / GS_WAVE);
+      if (w !== AR.wave && w < GS_TIME / GS_WAVE) {
+        AR.wave = w;
+        const cans = arCans(archeryMachine()), free = AR.holes.map((h, i) => i).sort(() => Math.random() - .5).slice(0, 2);
+        free.forEach(i => { AR.holes[i] = { c: gsPickCan(cans), up: true, hit: false, until: AR.t + GS_UP }; gsSetCan(i, true); });
+      }
+      AR.holes.forEach((h, i) => { if (h.up && AR.t >= h.until) { h.up = false; gsSetCan(i, false); } });
+      const left = Math.max(0, GS_TIME - AR.t), tm = arEl('gs-time');
+      if (tm) { tm.querySelector('b').textContent = left.toFixed(1); tm.classList.toggle('hot', left < 3); }
+      if (left <= 0 || AR.left <= 0) gsEnd(left <= 0 ? 0 : 700);
+    }
+    const cr = arEl('gs-cross'); if (cr) cr.style.transform = 'translate(' + AR.aimX.toFixed(1) + 'px,' + AR.aimY.toFixed(1) + 'px)';
     AR.raf = requestAnimationFrame(arTick);
   }
   function arSyncUI() {
     const m = archeryMachine(), b = arEl('ar-btn'); if (!m || !b) return;
-    const n = arArrows(m);
-    b.disabled = AR.flying;
-    b.innerHTML = AR.active ? '쏘기! <span class="num">남은 화살 ' + AR.left + '발</span>' : '1세트 시작 <span class="num">' + n + '발 · ' + K + fmt(num(m.cost) * n) + '</span>';
-    arEl('ar-cross').hidden = !AR.active;
-    arEl('ar-bow').classList.toggle('loaded', AR.active && !AR.flying);
-    const q = arEl('ar-quiver'); if (q) [...q.children].forEach((x, i) => x.classList.toggle('used', AR.active ? i >= AR.left : false));
-    const tt = arEl('ar-total'); if (tt) tt.textContent = fmt(AR.total);
-  }
-  function arNewWind() {
-    AR.wind = Math.round((Math.random() * 2.4 - 1.2) * 10) / 10;   // 아주 약한 옆바람(연출)
-    const w = arEl('ar-wind'); if (w) w.innerHTML = '바람 <span style="transform:rotate(' + (AR.wind < 0 ? 180 : 0) + 'deg)">→</span> ' + Math.abs(AR.wind).toFixed(1) + 'm/s';
+    const n = arBullets(m);
+    b.disabled = AR.active;
+    b.innerHTML = AR.active ? '사격 중 <span class="num">남은 탄 ' + AR.left + '발</span>' : '게임 시작 <span class="num">' + n + '발 · ' + K + fmt(num(m.cost) * n) + '</span>';
+    const sc = arEl('gs-score'); if (sc) sc.textContent = fmt(AR.total);
+    const cyl = arEl('gs-cyl'); if (cyl) cyl.querySelectorAll('.b').forEach(c => c.classList.toggle('used', AR.active && Number(c.dataset.b) >= AR.left));
   }
   function arStart() {
     const m = archeryMachine(); if (!m || AR.active || busy) return;
-    const n = arArrows(m), cost = num(m.cost) * n;
+    const n = arBullets(m), cost = num(m.cost) * n;
     if (state.balance < cost) { toast('', '강냉이가 부족해요. 체험용 강냉이를 충전해 보세요.', true); return; }
     state.balance -= cost; renderHUD(true);
-    Object.assign(AR, { active: true, left: n, shots: [], total: 0 });
-    const mk = arEl('ar-marks'); if (mk) mk.innerHTML = '';
-    arEl('ar-msg').hidden = true;
-    arNewWind(); arSyncUI();
+    Object.assign(AR, { active: true, ending: false, left: n, shots: [], total: 0, t: -0.7, wave: -1 });
+    AR.holes = GS_HOLES.map(() => ({ c: null, up: false, hit: false, until: 0 }));
+    GS_HOLES.forEach((_, i) => gsSetCan(i, false));
+    arEl('gs-marks').innerHTML = ''; arEl('gs-msg').hidden = true;
+    const cyl = arEl('gs-cyl'); if (cyl) cyl.style.transform = '';
+    const st = arEl('gs-stage'), cd = document.createElement('div'); cd.className = 'gs-count'; cd.textContent = 'READY'; st.appendChild(cd);
+    setTimeout(() => { cd.textContent = 'GO!'; restart(cd, 'gs-count'); }, 350); setTimeout(() => cd.remove(), 1000);
+    arSyncUI();
   }
   function arAimAt(clientX, clientY) {
-    const st = arEl('ar-stage'); if (!st) return;
+    const st = arEl('gs-stage'); if (!st) return;
     const r = st.getBoundingClientRect();
-    AR.aimX = Math.max(8, Math.min(AR.W - 8, (clientX - r.left) * AR.W / r.width));
-    AR.aimY = Math.max(8, Math.min(AR.H * .9, (clientY - r.top) * AR.H / r.height));
+    AR.aimX = Math.max(4, Math.min(st.clientWidth - 4, (clientX - r.left) * st.clientWidth / r.width));
+    AR.aimY = Math.max(4, Math.min(st.clientHeight - 4, (clientY - r.top) * st.clientHeight / r.height));
   }
+  // 발사: 탄 1발 소모, 조준점 위치로 즉시 판정(바람·퍼짐 없음)
   function arShoot() {
-    const m = archeryMachine(); if (!m || !AR.active || AR.flying || AR.left <= 0) return;
-    AR.flying = true; AR.left -= 1; arSyncUI();
-    const bow = arEl('ar-bow'); if (bow) restart(bow, 'shot');
-    // 화살은 조준점으로 간다. 바람은 1m/s당 무대 폭의 0.4%만 민다(최대 약 0.5%)
-    const tx = AR.aimX + AR.wind * AR.W * .004, ty = AR.aimY;
-    arFly(m, tx, ty);
-  }
-  function arFly(m, tx, ty) {
-    const st = arEl('ar-stage'); if (!st) return;
-    const a = document.createElement('div'); a.className = 'ar-arrow'; a.innerHTML = AR_ARROW; st.appendChild(a);
-    const sx = AR.W * .17, sy = AR.H * .95, dur = 360, t0 = performance.now();
-    const step = now => {
-      if (!a.isConnected) { arResolve(m, tx, ty, true); return; }
-      const t = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - t, 2);
-      const x = sx + (tx - sx) * e, y = sy + (ty - sy) * e - Math.sin(Math.PI * t) * AR.H * .05;
-      a.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) scale(' + (1.6 - 1.05 * e).toFixed(3) + ') rotate(' + (t * 160).toFixed(0) + 'deg)';
-      if (t < 1) requestAnimationFrame(step); else { a.remove(); arResolve(m, tx, ty, false); }
-    };
-    requestAnimationFrame(step);
-  }
-  // 도착한 순간 깡통 위치로 명중 판정. 맞히면 그 깡통 보상표에서 아이템을 뽑는다
-  function arResolve(m, x, y, silent) {
+    const m = archeryMachine(); if (!m || !AR.active || AR.ending || AR.left <= 0 || AR.t < 0) return;
+    AR.left -= 1;
+    const st = arEl('gs-stage'), r = st.getBoundingClientRect(), sx = r.left + AR.aimX * r.width / st.clientWidth, sy = r.top + AR.aimY * r.height / st.clientHeight;
+    const fl = document.createElement('div'); fl.className = 'gs-flash'; fl.style.left = AR.aimX + 'px'; fl.style.top = AR.aimY + 'px'; st.appendChild(fl); setTimeout(() => fl.remove(), 200);
+    restart(arEl('gs-cross'), 'kick');
+    const cyl = arEl('gs-cyl'); if (cyl) cyl.style.transform = 'rotate(' + ((arBullets(m) - AR.left) * 360 / arBullets(m)) + 'deg)';
     let hit = -1;
-    AR.cans.forEach((k, i) => { if (hit < 0 && !k.down && Math.abs(x - k.x) <= k.w / 2 + 3 && y >= AR.shelfY - k.h - 3 && y <= AR.shelfY + 3) hit = i; });
-    let mul = 0, got = 0, c = null;
-    if (hit >= 0) {
-      c = AR.cans[hit].c; AR.cans[hit].down = true;
-      const sum = c.probs.reduce((a, b) => a + b, 0) || 1; let r = Math.random() * sum, j = 0;
-      for (; j < c.probs.length - 1; j++) { r -= c.probs[j]; if (r < 0) break; }
-      mul = c.mults[j]; got = arPay(m, mul);
-      state.balance += got; AR.total += got;
-      if (got) recordResult({ g: mul >= 5 ? 'S' : mul >= 2 ? 'A' : mul >= 1 ? 'B' : 'C', name: '깡통 양궁 ' + c.name + ' · ' + fmt(got) + '개', kind: 'kernel', val: got }, m);
-      if (mul >= 5) { state.feed.unshift({ g: mul >= 10 ? 'S' : 'A', item: '강냉이 ' + fmt(got) + '개', who: '나 · 깡통 양궁 ' + c.name }); renderFeed(true); }
-      saveMe(); renderHUD(true);
-    }
-    AR.shots.push({ c, mul });
-    const done = () => { AR.flying = false; if (AR.left <= 0) arFinish(); else { arNewWind(); arSyncUI(); } };
-    if (silent || !arEl('ar-stage')) { done(); return; }
-    const st = arEl('ar-stage');
+    AR.holes.forEach((h, i) => { if (hit >= 0 || !h.up || h.hit) return; const b = arEl('gs-can-' + i).getBoundingClientRect(); if (sx >= b.left - 4 && sx <= b.right + 4 && sy >= b.top - 4 && sy <= b.bottom + 2) hit = i; });
     if (hit < 0) {
-      const s = document.createElement('div'); s.className = 'ar-stuck'; s.style.left = x + 'px'; s.style.top = y + 'px'; s.innerHTML = AR_ARROW; arEl('ar-marks').appendChild(s);
-      const fl = document.createElement('div'); fl.className = 'ar-float miss'; fl.style.left = Math.max(30, Math.min(AR.W - 30, x)) + 'px'; fl.style.top = (y - 12) + 'px'; fl.textContent = '꽝'; st.appendChild(fl); setTimeout(() => fl.remove(), 1150);
-      setTimeout(done, 500); return;
+      const mk = document.createElement('i'); mk.className = 'gs-hole-mark'; mk.style.left = AR.aimX + 'px'; mk.style.top = AR.aimY + 'px'; arEl('gs-marks').appendChild(mk);
+      AR.shots.push({ c: null, mul: 0 }); arSyncUI(); return;
     }
-    // 깡통이 날아가고 그 자리에서 아이템이 튀어나온다
-    const k = AR.cans[hit], fly = document.createElement('div'); fly.className = 'ar-flycan';
-    Object.assign(fly.style, { left: (k.x - k.w / 2) + 'px', top: (AR.shelfY - k.h + 2) + 'px', width: k.w + 'px', height: k.h + 'px' });
-    fly.style.setProperty('--kx', (40 + Math.random() * 40) + 'px'); fly.style.setProperty('--kr', (200 + Math.random() * 200) + 'deg');
-    fly.innerHTML = arCanSVG(c); st.appendChild(fly); setTimeout(() => fly.remove(), 750);
-    const it = document.createElement('div'); it.className = 'ar-item'; it.style.left = k.x + 'px'; it.style.top = (AR.shelfY - k.h * 1.4) + 'px'; it.style.setProperty('--ic', c.band);
-    it.innerHTML = got ? '<span class="ball">' + pkMulText(mul) + '</span><b>' + K + fmt(got) + '</b>' : '<span class="ball empty">0</span><b>빈 깡통</b>';
-    st.appendChild(it); setTimeout(() => it.remove(), 1450);
-    const rc = st.getBoundingClientRect(), cx = rc.left + k.x * rc.width / AR.W, cy = rc.top + (AR.shelfY - k.h) * rc.height / AR.H;
-    const tier = got ? pkTier(mul) : 'lo';
-    if (tier === 'mid') { floatFx(); burst([c.band, '#FFFFFF', c.color], 20, 6, cx, cy); }
-    if (tier === 'hi') { floatFx(); burst([c.color, '#FFE07A', '#FFFFFF'], 46, 9, cx, cy); restart(arEl('ar-flash'), 'on'); }
+    const h = AR.holes[hit], c = h.c; h.hit = true; h.up = false;
+    const sum = c.probs.reduce((a, b) => a + b, 0) || 1; let rr = Math.random() * sum, j = 0;
+    for (; j < c.probs.length - 1; j++) { rr -= c.probs[j]; if (rr < 0) break; }
+    const mul = c.mults[j], got = arPay(m, mul);
+    state.balance += got; AR.total += got; AR.shots.push({ c, mul });
+    if (got) recordResult({ g: mul >= 5 ? 'S' : mul >= 2 ? 'A' : mul >= 1 ? 'B' : 'C', name: '깡통 사격 ' + c.name + ' · ' + fmt(got) + '개', kind: 'kernel', val: got }, m);
+    if (mul >= 5) { state.feed.unshift({ g: mul >= 10 ? 'S' : 'A', item: '강냉이 ' + fmt(got) + '개', who: '나 · 깡통 사격 ' + c.name }); renderFeed(true); }
+    saveMe(); renderHUD(true); arSyncUI();
+    // 캔이 튕겨 날아가고 뚜껑이 튀며, 그 자리에서 상품이 나온다
+    const can = arEl('gs-can-' + hit), cb = can.getBoundingClientRect(), k = st.clientWidth / r.width;
+    const x0 = (cb.left - r.left) * k, y0 = (cb.top - r.top) * k, w = cb.width * k, hh = cb.height * k;
+    can.classList.add('hit'); can.classList.remove('up');
+    const fly = document.createElement('div'); fly.className = 'gs-fly'; Object.assign(fly.style, { left: x0 + 'px', top: y0 + 'px', width: w + 'px', height: hh + 'px' });
+    const dir = Math.random() < .5 ? -1 : 1; fly.style.setProperty('--kx', (dir * (50 + Math.random() * 50)) + 'px'); fly.style.setProperty('--kr', (dir * (300 + Math.random() * 240)) + 'deg');
+    fly.innerHTML = gsCanSVG(c); st.appendChild(fly); setTimeout(() => fly.remove(), 800);
+    const lid = document.createElement('i'); lid.className = 'gs-lid'; lid.style.left = (x0 + w / 2 - 13) + 'px'; lid.style.top = y0 + 'px'; lid.style.setProperty('--lx', (-dir * 40) + 'px'); st.appendChild(lid); setTimeout(() => lid.remove(), 750);
+    const it = document.createElement('div'); it.className = 'gs-item'; it.style.left = (x0 + w / 2) + 'px'; it.style.top = (y0 + hh * .2) + 'px'; it.style.setProperty('--ic', c.band);
+    it.innerHTML = got ? '<span class="ball">' + pkMulText(mul) + '</span><b>' + K + fmt(got) + '</b>' : '<span class="ball empty">0</span><b>빈 캔</b>';
+    st.appendChild(it); setTimeout(() => it.remove(), 1350);
+    const cx = cb.left + cb.width / 2, cy = cb.top + cb.height / 3, tier = got ? pkTier(mul) : 'lo';
+    floatFx();
+    if (tier === 'lo') burst(['#DEE2E6', '#ADB5BD', '#FFE066'], 14, 5, cx, cy);
+    if (tier === 'mid') burst([c.band, '#FFFFFF', '#FFE066'], 24, 6, cx, cy);
+    if (tier === 'hi') { burst([c.band, '#FFE07A', '#FFFFFF'], 46, 9, cx, cy); restart(st, 'gs-shake'); }
     if (tier === 'top') {
-      floatFx(); burst(['#FF4D4F', '#FFE07A', '#FFFFFF', '#FF8FB1'], 100, 12, cx, cy); burst(['#FFFFFF', '#FFF4D6'], 30, 9, cx, cy, 'p');
-      rain(['#FFC64E', '#FF8FB1', '#7CD992', '#519CFF', '#FFFFFF'], 130);
-      restart(arEl('ar-flash'), 'on'); restart(st, 'shake');
-      const bn = document.createElement('div'); bn.className = 'ar-banner'; bn.innerHTML = '대박! ' + pkMulText(mul) + '<small>' + c.name + ' · 강냉이 ' + fmt(got) + '개</small>';
+      burst(['#FF4D4F', '#FFE07A', '#FFFFFF', '#FF8FB1'], 100, 12, cx, cy); burst(['#FFFFFF', '#FFF4D6'], 30, 9, cx, cy, 'p');
+      rain(['#FFC64E', '#FF8FB1', '#7CD992', '#519CFF', '#FFFFFF'], 130); restart(st, 'gs-shake');
+      const bn = document.createElement('div'); bn.className = 'gs-banner'; bn.innerHTML = 'JACKPOT! ' + pkMulText(mul) + '<small>' + c.name + ' · 강냉이 ' + fmt(got) + '개</small>';
       st.appendChild(bn); setTimeout(() => bn.remove(), 1800);
     }
-    if (!got) { floatFx(); burst(['#ADB5BD', '#DEE2E6'], 12, 4, cx, cy); }
-    setTimeout(done, tier === 'top' ? 1300 : 700);
   }
-  function arFinish() {
-    AR.active = false; arSyncUI();
-    const chips = AR.shots.map(s => s.c ? '<span style="background:' + s.c.color + '">' + s.c.name.replace(' 깡통', '') + ' ' + (s.mul ? pkMulText(s.mul) : '빈') + '</span>' : '<span style="background:#868E96">꽝</span>').join('');
-    const msg = arEl('ar-msg');
-    if (msg) { msg.hidden = false; msg.innerHTML = '<div class="card"><b class="t">세트 종료</b><p>이번 세트 강냉이 <b class="num">' + fmt(AR.total) + '개</b>를 받았어요</p><div class="shots">' + chips + '</div></div>'; }
-    toast('', '깡통 양궁 · ' + AR.shots.filter(s => s.c).length + '개 명중 · 강냉이 ' + fmt(AR.total) + '개', true);
+  function gsEnd(delay) {
+    if (AR.ending) return; AR.ending = true;
+    setTimeout(() => {
+      AR.holes.forEach((h, i) => { h.up = false; gsSetCan(i, false); });
+      AR.active = false; arSyncUI();
+      const tm = arEl('gs-time'); if (tm) { tm.classList.remove('hot'); tm.querySelector('b').textContent = '0.0'; }
+      const hits = AR.shots.filter(s => s.c).length;
+      const chips = AR.shots.map(s => s.c ? '<span style="background:' + s.c.band + '">' + s.c.name.replace(' 캔', '') + ' ' + (s.mul ? pkMulText(s.mul) : '빈') + '</span>' : '<span style="background:#868E96">꽝</span>').join('');
+      const msg = arEl('gs-msg');
+      if (msg) { msg.hidden = false; msg.innerHTML = '<div class="card"><b class="t">' + (AR.t >= GS_TIME ? 'TIME UP!' : '탄을 다 썼어요') + '</b><p>' + hits + '개 명중 · 강냉이 <b class="num">' + fmt(AR.total) + '개</b>를 받았어요</p><div class="shots">' + (chips || '<span style="background:#868E96">발사 안 함</span>') + '</div></div>'; }
+      toast('', '깡통 사격 · ' + hits + '개 명중 · 강냉이 ' + fmt(AR.total) + '개', true);
+    }, delay);
   }
-  $('floor').addEventListener('pointermove', e => { if (state.tab === 'archery' && e.target.closest('#ar-stage')) arAimAt(e.clientX, e.clientY); });
+  $('floor').addEventListener('pointermove', e => { if (state.tab === 'archery' && e.target.closest('#gs-stage')) arAimAt(e.clientX, e.clientY); });
   $('floor').addEventListener('click', e => {
     const b = e.target.closest('[data-ar]'); if (!b || b.disabled) return;
-    if (b.dataset.ar === 'main') { if (AR.active) arShoot(); else arStart(); }
+    if (b.dataset.ar === 'main') { if (!AR.active) arStart(); }
     else if (b.dataset.ar === 'shoot' && AR.active) { arAimAt(e.clientX, e.clientY); arShoot(); }
   });
   document.addEventListener('keydown', e => {
@@ -3788,7 +3783,6 @@ img, svg, video { max-width: 100%; }
     if (!$('app') || $('app').hidden) return;
     e.preventDefault(); if (AR.active) arShoot(); else arStart();
   });
-  addEventListener('resize', () => { if (state.tab === 'archery' && !AR.flying && arEl('ar-stage')) arInit(); });
 
   // 공용 연출: 파티클 캔버스를 화면 위로 띄우거나 뽑기 창으로 되돌림
   let fxFloatT = 0;
@@ -4169,7 +4163,7 @@ img, svg, video { max-width: 100%; }
       return '입장료 ' + fmt(m.cost) + '개';
     };
     if (m.mode === 'archery') {
-      return arFitGrades(m, T) ? '깡통별 확률 조정' : '확률만으로 맞출 수 없어요';
+      return arFitGrades(m, T) ? '캔별 확률 조정' : '확률만으로 맞출 수 없어요';
     }
     if (m.mode === 'cannon') {
       return cnFitGrades(m, T) ? '등급별 확률 조정' : '확률만으로 맞출 수 없어요';
@@ -4227,11 +4221,12 @@ img, svg, video { max-width: 100%; }
     });
     if (!(draft.settings.kernelValue > 0)) errs.push('강냉이 1개 원가 환산 값을 입력해 주세요.');
     draft.machines.filter(m => m.mode === 'archery').forEach(m => {
-      if (!(num(m.cost) >= 10)) errs.push('깡통 양궁: 1발 금액은 10 이상이어야 해요.');
-      if (!(num(m.arrows) >= 1 && num(m.arrows) <= 10)) errs.push('깡통 양궁: 1세트 화살 수는 1~10발이어야 해요.');
-      if (!(num(m.hitRate) >= 1 && num(m.hitRate) <= 100)) errs.push('깡통 양궁: 예산 기준 명중률은 1~100%여야 해요.');
-      arCans(m).forEach(c => { if (Math.abs(c.probs.reduce((a, b) => a + b, 0) - 100) > .05) errs.push('깡통 양궁: ' + c.name + ' 확률 합이 100%가 아니에요.'); });
-      const evs = arCans(m).map(c => arCanEv(m, c)); if (Math.max(...evs) - Math.min(...evs) > .01) errs.push('깡통 양궁: 깡통별 기대 환원 차이가 1%p를 넘어요. [목표 RTP로 깡통별 확률 맞추기]를 눌러 주세요.');
+      if (!(num(m.cost) >= 10)) errs.push('깡통 사격: 1발 금액은 10 이상이어야 해요.');
+      if (!(num(m.bullets) >= 1 && num(m.bullets) <= 12)) errs.push('깡통 사격: 1판 탄 수는 1~12발이어야 해요.');
+      if (!(num(m.hits) >= 1 && num(m.hits) <= num(m.bullets))) errs.push('깡통 사격: 예산 기준 명중 수는 1발 이상, 탄 수 이하여야 해요.');
+      if (!(arCans(m).reduce((a, c) => a + c.rate, 0) > 0)) errs.push('깡통 사격: 캔 등장 비율 합이 0이에요.');
+      arCans(m).forEach(c => { if (Math.abs(c.probs.reduce((a, b) => a + b, 0) - 100) > .05) errs.push('깡통 사격: ' + c.name + ' 확률 합이 100%가 아니에요.'); });
+      const evs = arCans(m).map(c => arCanEv(m, c)); if (Math.max(...evs) - Math.min(...evs) > .01) errs.push('깡통 사격: 캔별 기대 환원 차이가 1%p를 넘어요. [목표 RTP로 캔별 확률 맞추기]를 눌러 주세요.');
     });
     draft.machines.filter(m => m.mode === 'cannon').forEach(m => {
       if (!(num(m.cost) >= 10)) errs.push('팝콘 대포: 1발 금액은 10 이상이어야 해요.');
@@ -4370,7 +4365,7 @@ img, svg, video { max-width: 100%; }
       const e = econ(m, s), st = statusOf(e.rtp, T);
       return '<tr style="--c:' + zoneOf(m.zone).color + '">' +
         '<td><span class="mname"><i></i>' + m.name + '</span></td>' +
-        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'archery' ? '깡통 양궁' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
+        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'archery' ? '깡통 사격' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
         '<td class="r">' + fmt(num(m.cost)) + '</td>' +
         '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'cannon' || m.mode === 'archery' ? '약 ' + fmt(Math.round(e.runs)) + '발' : m.mode === 'runner' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
         '<td class="r">' + won(e.mRev) + '</td>' +
@@ -4641,24 +4636,26 @@ img, svg, video { max-width: 100%; }
     document.querySelectorAll('#ad-gnb [data-addot]').forEach(d => { d.className = 'gnb-dot' + (map[d.dataset.addot] ? ' ' + map[d.dataset.addot] : ''); });
   }
   document.getElementById('ad-gnb').addEventListener('click', e => { const b = e.target.closest('[data-adpage]'); if (b) adGo(b.dataset.adpage); });
-  // ----- 깡통 양궁 관리: 1발 금액·세트 화살 수·예산 기준 명중률 + 깡통 3종의 아이템 보상표 -----
-  // RTP = (깡통을 맞혔을 때 기대 환원 중 가장 큰 값) × 예산 기준 명중률. 깡통끼리 기대 환원은 같게(손님이 쉬운 깡통만 노려도 같게)
+  // ----- 깡통 사격 관리: 1발 금액·탄 수·예산 기준 명중 수 + 캔 3종의 등장 비율·상품 보상표 -----
+  // RTP = (캔을 맞혔을 때 기대 환원 중 가장 큰 값) × 예산 기준 명중 수 ÷ 탄 수. 캔끼리 기대 환원은 같게(손님이 어떤 캔을 골라 쏴도 같게)
   const arDraft = () => draft.machines.find(m => m.mode === 'archery');
+  const arPlain = m => arCans(m).map(c => ({ id: c.id, name: c.name, rate: c.rate, mults: c.mults.slice(), probs: c.probs.slice() }));
   function arSyncPrizes(m) {
     const cans = arCans(m);
-    m.cans = cans.map(c => ({ id: c.id, name: c.name, mults: c.mults.slice(), probs: c.probs.slice() }));
-    m.prizes = cans.flatMap(c => c.mults.map((v, i) => ({ g: v >= 5 ? 'S' : v >= 2 ? 'A' : v >= 1 ? 'B' : 'C', name: c.name + ' · ' + (v ? '강냉이 ' + fmt(arPay(m, v)) + '개' : '빈 깡통'), kind: 'kernel', val: arPay(m, v), cost: 0, w: +(c.probs[i] / 3).toFixed(3) })));
+    m.cans = arPlain(m);
+    m.prizes = cans.flatMap(c => c.mults.map((v, i) => ({ g: v >= 5 ? 'S' : v >= 2 ? 'A' : v >= 1 ? 'B' : 'C', name: c.name + ' · ' + (v ? '강냉이 ' + fmt(arPay(m, v)) + '개' : '빈 캔'), kind: 'kernel', val: arPay(m, v), cost: 0, w: +(c.probs[i] / 3).toFixed(3) })));
     const top = Math.max(...cans.flatMap(c => c.mults));
     m.top = '강냉이 ' + fmt(arPay(m, top)) + '개 (' + pkMulText(top) + ')';
   }
   function renderArcheryAdmin() {
     const m = arDraft(); if (!m) return;
     const fld = (id, label, key, unit, min, step, val) => '<div class="field"><label for="' + id + '">' + label + '</label><div class="input-unit"><input class="input num" id="' + id + '" type="number" min="' + min + '" step="' + step + '" data-arf="' + key + '" value="' + val + '"><span>' + unit + '</span></div></div>';
-    $('ar-fields').innerHTML = fld('ar-cost', '1발 금액', 'cost', '강냉이', 10, 10, num(m.cost)) + fld('ar-arrows', '1세트 화살 수', 'arrows', '발', 1, 1, arArrows(m)) +
-      fld('ar-hit', '예산 기준 명중률', 'hitRate', '%', 1, 1, Math.round(arHitRate(m) * 100)) + fld('ar-demand', '월 예상 강냉이 소진', 'demand', '강냉이', 0, 1, num(m.demand));
+    $('ar-fields').innerHTML = fld('ar-cost', '1발 금액', 'cost', '강냉이', 10, 10, num(m.cost)) + fld('ar-bullets', '1판 탄 수', 'bullets', '발', 1, 1, arBullets(m)) +
+      fld('ar-hits', '예산 기준 명중 수', 'hits', '발', 1, 1, arHits(m)) + fld('ar-demand', '월 예상 강냉이 소진', 'demand', '강냉이', 0, 1, num(m.demand));
     const cans = arCans(m);
-    $('ar-prob-t').innerHTML = '<thead><tr><th>깡통</th><th>보상 단계</th><th class="w-num">배수</th><th class="r">지급</th><th class="w-num">확률</th></tr></thead><tbody>' +
-      cans.map((c, ci) => c.mults.map((v, i) => '<tr>' + (i === 0 ? '<td rowspan="6"><b>' + c.name + '</b><br><small class="qmeta">' + c.kind + ' · 크기 ' + Math.round(c.size * 100) + '%</small></td>' : '') +
+    $('ar-prob-t').innerHTML = '<thead><tr><th>캔</th><th>보상 단계</th><th class="w-num">배수</th><th class="r">지급</th><th class="w-num">확률</th></tr></thead><tbody>' +
+      cans.map((c, ci) => c.mults.map((v, i) => '<tr>' + (i === 0 ? '<td rowspan="6"><b>' + c.name + '</b><br><small class="qmeta">' + c.kind + '</small>' +
+          '<div class="input-unit" style="margin-top:6px"><span>등장</span><input class="input sm num" type="number" min="0" step="1" data-arr="' + ci + '" value="' + c.rate + '" aria-label="' + c.name + ' 등장 비율"><span>%</span></div></td>' : '') +
         '<td>' + (i + 1) + '단계</td>' +
         '<td><div class="input-unit"><span>×</span><input class="input sm num" type="number" min="0" step="0.1" data-arm="' + ci + ':' + i + '" value="' + v + '" aria-label="' + c.name + ' ' + (i + 1) + '단계 배수"></div></td>' +
         '<td class="r num" data-arpay="' + ci + ':' + i + '"></td>' +
@@ -4670,29 +4667,30 @@ img, svg, video { max-width: 100%; }
     const m = arDraft(); if (!m) return;
     const s = draft.settings, e = econ(m, s), T = target(), cans = arCans(m);
     cans.forEach((c, ci) => {
-      c.mults.forEach((v, i) => { const el = document.querySelector('[data-arpay="' + ci + ':' + i + '"]'); if (el) el.textContent = v ? fmt(arPay(m, v)) + '개' : '빈 깡통'; });
+      c.mults.forEach((v, i) => { const el = document.querySelector('[data-arpay="' + ci + ':' + i + '"]'); if (el) el.textContent = v ? fmt(arPay(m, v)) + '개' : '빈 캔'; });
       const sum = c.probs.reduce((a, b) => a + b, 0), a = document.querySelector('[data-arsum="' + ci + '"]'), b = document.querySelector('[data-arev="' + ci + '"]');
       if (a) { a.textContent = (+sum.toFixed(2)) + '%'; a.style.color = Math.abs(sum - 100) > .05 ? '#E03131' : ''; }
       if (b) b.textContent = pct(arCanEv(m, c));
     });
     const evs = cans.map(c => arCanEv(m, c)), gap = Math.max(...evs) - Math.min(...evs), st = statusOf(e.rtp, T);
-    $('ar-sum').textContent = 'RTP ' + pct(e.rtp) + ' (명중률 ' + Math.round(arHitRate(m) * 100) + '% 기준)';
-    $('ar-calc').innerHTML = '<span>맞혔을 때 기대 환원 <b>' + pct(Math.max(...evs)) + '</b></span><span>× 예산 기준 명중률 <b>' + Math.round(arHitRate(m) * 100) + '%</b></span><span>= RTP <b>' + pct(e.rtp) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>' +
-      (gap > .01 ? '<span style="color:#E03131">깡통별 기대 환원이 ' + (gap * 100).toFixed(1) + '%p 달라요. 같게 맞춰 주세요.</span>' : '');
+    $('ar-sum').textContent = 'RTP ' + pct(e.rtp) + ' (' + arBullets(m) + '발 중 ' + arHits(m) + '발 명중 기준)';
+    $('ar-calc').innerHTML = '<span>맞혔을 때 기대 환원 <b>' + pct(Math.max(...evs)) + '</b></span><span>× 예산 기준 명중 <b>' + arHits(m) + ' / ' + arBullets(m) + '발</b></span><span>= RTP <b>' + pct(e.rtp) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>' +
+      (gap > .01 ? '<span style="color:#E03131">캔별 기대 환원이 ' + (gap * 100).toFixed(1) + '%p 달라요. 같게 맞춰 주세요.</span>' : '');
   }
   function archeryAdminInput(el) {
     const m = arDraft(); if (!m) return false;
     const touch = () => { arSyncPrizes(m); renderArcheryCalc(); renderStats(); return true; };
     if (el.dataset.arf) { m[el.dataset.arf] = Math.round(num(el.value)); return touch(); }
+    if (el.dataset.arr != null) { m.cans = arPlain(m); m.cans[Number(el.dataset.arr)].rate = Math.max(0, Number(el.value) || 0); return touch(); }
     if (el.dataset.arm || el.dataset.arp) {
       const [ci, i] = (el.dataset.arm || el.dataset.arp).split(':').map(Number);
-      m.cans = arCans(m).map(c => ({ id: c.id, name: c.name, mults: c.mults.slice(), probs: c.probs.slice() }));
+      m.cans = arPlain(m);
       m.cans[ci][el.dataset.arm ? 'mults' : 'probs'][i] = Math.max(0, Number(el.value) || 0);
       return touch();
     }
     return false;
   }
-  // 깡통마다 '빈 깡통(가장 낮은 단계)'과 '×1에 가장 가까운 단계' 사이로 확률을 옮겨, 맞혔을 때 기대 환원 = 목표 RTP ÷ 명중률이 되게 한다
+  // 캔마다 '빈 캔(가장 낮은 단계)'과 '×1에 가장 가까운 단계' 사이로 확률을 옮겨, 맞혔을 때 기대 환원 = 목표 RTP ÷ (명중 수 ÷ 탄 수)가 되게 한다
   function arFitGrades(m, T) {
     const goal = T / arHitRate(m), k = num(m.cost); let ok = true;
     const cans = arCans(m).map(c => {
@@ -4710,7 +4708,7 @@ img, svg, video { max-width: 100%; }
       if (!k || mid < 0 || Math.abs(cur() - goal) > .0005) ok = false;
       const r = p.map(v => Math.round(v * 100) / 100), big = r.indexOf(Math.max(...r));
       r[big] = Math.round((100 - r.reduce((a, v, i) => i === big ? a : a + v, 0)) * 100) / 100;
-      return { id: c.id, name: c.name, mults: c.mults.slice(), probs: r };
+      return { id: c.id, name: c.name, rate: c.rate, mults: c.mults.slice(), probs: r };
     });
     m.cans = cans; arSyncPrizes(m);
     return ok;
@@ -4720,7 +4718,7 @@ img, svg, video { max-width: 100%; }
     const m = arDraft(); if (!m) return true;
     const ok = arFitGrades(m, target());
     renderArcheryAdmin(); renderStats();
-    toast('', '깡통 양궁: ' + (ok ? '깡통별 확률을 목표 RTP ' + pct(target()) + '(명중률 ' + Math.round(arHitRate(m) * 100) + '% 기준)에 맞췄어요' : '일부 깡통은 확률만으로 맞출 수 없어요. 배수를 조정해 주세요'), true);
+    toast('', '깡통 사격: ' + (ok ? '캔별 확률을 목표 RTP ' + pct(target()) + '(' + arBullets(m) + '발 중 ' + arHits(m) + '발 명중 기준)에 맞췄어요' : '일부 캔은 확률만으로 맞출 수 없어요. 배수를 조정해 주세요'), true);
     return true;
   }
 
@@ -5055,7 +5053,7 @@ img, svg, video { max-width: 100%; }
 
   function route() {
     const admin = location.hash === '#admin', shop = location.hash === '#shop';
-    if (AR.active && location.hash !== '#archery') { history.replaceState(null, '', '#archery'); toast('', '양궁 세트가 끝난 뒤에 이동할 수 있어요.', true); return; }
+    if (AR.active && location.hash !== '#archery') { history.replaceState(null, '', '#archery'); toast('', '사격이 끝난 뒤에 이동할 수 있어요.', true); return; }
     if (CN.flying && location.hash !== '#cannon') { history.replaceState(null, '', '#cannon'); toast('', '팝콘이 착지한 뒤에 이동할 수 있어요.', true); return; }
     if (RN.active && location.hash !== '#runner') { history.replaceState(null, '', '#runner'); toast('', '냥치 런이 끝난 뒤에 이동할 수 있어요.', true); return; }
     const tab = ({ '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#runner': 'runner', '#cannon': 'cannon', '#archery': 'archery' })[location.hash] || 'gacha';
