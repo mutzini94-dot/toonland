@@ -646,6 +646,29 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .cn-info { padding: 14px; }
 }
 
+
+/* 팝콘 대포 장애물: 트램펄린(더 멀리), 캐러멜 웅덩이(그 자리에 멈춤), 범퍼(뒤로 튕김) */
+.cn-obs { position: absolute; bottom: 19%; z-index: 1; pointer-events: none; transform-origin: 50% 100%; animation: cn-obs-in .35s cubic-bezier(.3,1.6,.5,1) backwards; }
+@keyframes cn-obs-in { from { transform: scale(0); opacity: 0; } }
+.cn-obs.tramp { width: 46px; height: 22px; margin-left: -23px; }
+.cn-obs.tramp::before { content: ""; position: absolute; left: 4px; right: 4px; bottom: 0; height: 14px; background: linear-gradient(90deg, #5C6380 0 4px, transparent 4px calc(100% - 4px), #5C6380 calc(100% - 4px)); }
+.cn-obs.tramp::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 9px; border-radius: 50%; background: linear-gradient(180deg, #4DABF7, #1C7ED6); box-shadow: inset 0 2px 0 rgba(255,255,255,.45), 0 0 0 2px #FFFFFF; }
+.cn-obs.tramp.hit { animation: cn-tramp .45s cubic-bezier(.3,1.8,.5,1); }
+@keyframes cn-tramp { 0% { transform: none; } 30% { transform: scale(1.15, .6); } 70% { transform: scale(.95, 1.2); } 100% { transform: none; } }
+.cn-obs.goo { width: 70px; height: 14px; margin-left: -35px; bottom: calc(19% - 5px); border-radius: 50%; background: radial-gradient(ellipse at 45% 40%, #E8A453 0 25%, #B86B1F 60%, #8A4A12 100%); box-shadow: 0 0 0 2px rgba(255,255,255,.35); }
+.cn-obs.goo::after { content: ""; position: absolute; left: 22%; top: 18%; width: 24%; height: 28%; border-radius: 50%; background: rgba(255,255,255,.45); }
+.cn-obs.goo.hit { animation: cn-goo .6s ease-out; }
+@keyframes cn-goo { 0% { transform: none; } 25% { transform: scale(1.35, 1.4); } 100% { transform: scale(1.1, 1); } }
+.cn-obs.bump { width: 20px; height: 44px; margin-left: -10px; border-radius: 10px 10px 4px 4px; background: repeating-linear-gradient(180deg, #FF5A5F 0 8px, #FFFFFF 8px 14px); box-shadow: inset -3px 0 0 rgba(0,0,0,.12), 0 2px 0 rgba(0,0,0,.15); }
+.cn-obs.bump::after { content: ""; position: absolute; left: -4px; right: -4px; top: -6px; height: 10px; border-radius: 50%; background: #FFD43B; box-shadow: inset 0 -2px 0 #E0A800; }
+.cn-obs.bump.hit { animation: cn-bump .5s ease-out; }
+@keyframes cn-bump { 0% { transform: none; } 20% { transform: rotate(14deg) scaleY(.9); } 45% { transform: rotate(-9deg); } 70% { transform: rotate(4deg); } 100% { transform: none; } }
+.cn-pop { position: absolute; z-index: 3; translate: -50% 0; padding: 2px 9px; border-radius: 999px; color: #FFFFFF; font-size: 13px; font-weight: 900; white-space: nowrap; pointer-events: none; animation: cn-pop 1s ease-out forwards; }
+.cn-pop.tramp { background: #1C7ED6; } .cn-pop.goo { background: #A35C14; } .cn-pop.bump { background: #E03131; }
+@keyframes cn-pop { 0% { opacity: 0; transform: translateY(6px) scale(.5); } 20% { opacity: 1; transform: translateY(0) scale(1.15); } 75% { opacity: 1; } 100% { opacity: 0; transform: translateY(-22px); } }
+.cn-drop { position: absolute; width: 7px; height: 7px; border-radius: 50%; background: #B86B1F; pointer-events: none; animation: cn-drop .6s ease-out forwards; }
+@keyframes cn-drop { to { transform: translate(var(--dx), var(--dy)) scale(.4); opacity: 0; } }
+
 /* ---------- 냥치 런 ---------- */
 .gt-new.rn { background: rgba(255,111,160,.18); color: #D6336C; }
 .rn-panel { grid-column: 1 / -1; }
@@ -1720,7 +1743,7 @@ img, svg, video { max-width: 100%; }
 
   <div class="panel ad-block" id="cn-admin">
     <h2>팝콘 대포 관리 <span class="tag" id="cn-sum"></span></h2>
-    <p class="hub-note">게이지를 멈춘 위치로 등급(퍼펙트 ±4%, 좋아요 ±16%, 그 밖은 보통)이 정해지고, 등급별 확률표에서 거리 구간을 뽑아요. 배수는 모든 등급이 같고 확률만 달라요. 실력으로 기대값이 바뀌지 않도록 <b>등급마다 RTP를 같게</b> 맞춰야 해요(차이 1%p 이하일 때 저장돼요).</p>
+    <p class="hub-note">게이지를 멈춘 위치로 등급(퍼펙트 ±4%, 좋아요 ±16%, 그 밖은 보통)이 정해지고, 등급별 확률표에서 거리 구간을 뽑아요. 배수는 모든 등급이 같고 확률만 달라요. 실력으로 기대값이 바뀌지 않도록 <b>등급마다 RTP를 같게</b> 맞춰야 해요(차이 1%p 이하일 때 저장돼요). 트램펄린·캐러멜·범퍼 장애물은 정해진 거리에 맞춰 놓이는 연출이라 확률·RTP에 영향이 없어요.</p>
     <div class="fields" id="cn-fields"></div>
     <div class="table-wrap"><table class="ad-table" id="cn-prob-t"></table></div>
     <div class="ed-foot"><div class="pa-calc" id="cn-calc"></div><button class="btn-ghost" type="button" id="cn-fit">목표 RTP로 등급별 확률 맞추기</button></div>
@@ -3321,7 +3344,7 @@ img, svg, video { max-width: 100%; }
       '<aside class="cn-info">' +
         '<h3 id="cn-h">' + m.name + ' <small class="qmeta">1발 ' + K + fmt(m.cost) + '</small></h3>' +
         '<p>파워 게이지를 멈춰 팝콘을 쏘세요. 팝콘이 떨어진 <b>거리 구간의 배수만큼</b> 강냉이를 받아요.</p>' +
-        '<ul><li>게이지를 어디에서 멈췄는지에 따라 <b>퍼펙트·좋아요·보통</b> 확률표가 정해져요.</li><li>퍼펙트는 멀리 날아갈 확률이 크지만 가까이 떨어질 확률도 커요. 보통은 고르게 받아요.</li><li>어느 등급이든 <b>평균적으로 돌려받는 비율(RTP)은 같아요.</b> 손맛만 달라요.</li><li>키보드 스페이스로도 발사할 수 있어요.</li></ul>' +
+        '<ul><li>게이지를 어디에서 멈췄는지에 따라 <b>퍼펙트·좋아요·보통</b> 확률표가 정해져요.</li><li>퍼펙트는 멀리 날아갈 확률이 크지만 가까이 떨어질 확률도 커요. 보통은 고르게 받아요.</li><li>어느 등급이든 <b>평균적으로 돌려받는 비율(RTP)은 같아요.</b> 손맛만 달라요.</li><li>땅 위의 <b>트램펄린</b>은 더 멀리 튕겨 주고, <b>캐러멜 웅덩이</b>는 그 자리에 붙잡고, <b>범퍼</b>는 뒤로 튕겨내요. 거리는 발사 순간 정해지고, 장애물은 그 결과에 맞춰 나타나는 연출이에요.</li><li>키보드 스페이스로도 발사할 수 있어요.</li></ul>' +
         '<div class="cn-table-wrap"><table class="cn-table"><thead><tr><th>거리</th><th>배수</th><th>받는 강냉이</th>' + CN_GRADES.map(g => '<th class="' + g.tc + '">' + g.name + '</th>').join('') + '</tr></thead><tbody>' + rows + '</tbody>' +
         '<tfoot><tr><td colspan="3">평균 환원(RTP)</td>' + CN_GRADES.map(g => '<td class="num ' + g.tc + '">' + pct(cnRtp(m, g.id)) + '</td>').join('') + '</tr></tfoot></table></div>' +
       '</aside>' +
@@ -3391,41 +3414,108 @@ img, svg, video { max-width: 100%; }
     cnFly(m, grade, band, dist);
   }
   // 정해진 거리에 착지하도록 궤적을 거꾸로 맞춘다: 큰 포물선 → 튕김 2번 → 미끄러짐
+  // 장애물 연출: 결과 거리는 이미 정해져 있고, 그 거리에 닿는 시나리오(그냥 / 트램펄린 / 캐러멜 / 범퍼)를 골라 장애물을 놓는다
+  function cnObstacle(world, type, x) {
+    const o = document.createElement('i'); o.className = 'cn-obs ' + type; o.style.left = x.toFixed(1) + 'px'; world.appendChild(o); return o;
+  }
+  function cnPopText(world, type, x, text) {
+    const p = document.createElement('span'); p.className = 'cn-pop ' + type; p.style.left = x + 'px'; p.style.bottom = (CN.gH + 52) + 'px'; p.textContent = text;
+    world.appendChild(p); setTimeout(() => p.remove(), 1000);
+  }
+  function cnPickScenario(xs, xf) {
+    const span = xf - xs, end = cnX(CN_EDGES.at(-1));
+    const opts = [['plain', 40]];
+    if (span > CN.W * .5) opts.push(['tramp', 28]);
+    opts.push(['goo', 18]);
+    if (span > CN.W * .3 && xf + span * .3 < end) opts.push(['bump', 16]);
+    let r = Math.random() * opts.reduce((a, o) => a + o[1], 0);
+    for (const o of opts) { r -= o[1]; if (r < 0) return o[0]; }
+    return 'plain';
+  }
   function cnFly(m, grade, band, dist) {
     const world = cnEl('cn-world'), proj = cnEl('cn-proj'), can = cnEl('cn-cannon'); if (!world || !proj) return;
-    world.querySelectorAll('.cn-flag, .cn-float, .cn-trail, .cn-dust').forEach(e => e.remove());
+    world.querySelectorAll('.cn-flag, .cn-float, .cn-trail, .cn-dust, .cn-obs, .cn-pop, .cn-drop').forEach(e => e.remove());
     if (can) restart(can, 'fire');
     const xs = CN.x0 + 26, xf = Math.max(xs + 20, cnX(dist)), span = xf - xs, total = cnX(CN_EDGES.at(-1)) - xs;
     const puff = document.createElement('i'); puff.className = 'cn-puff'; puff.style.left = (xs + 4) + 'px'; puff.style.bottom = (CN.gH + 34) + 'px'; world.appendChild(puff); setTimeout(() => puff.remove(), 800);
-    const h1 = Math.max(30, Math.min(CN.H * .6, span * .5)), d1 = 650 + 1300 * Math.sqrt(span / total);
-    const segs = [
-      { a: xs, b: xs + span * .64, y0: 34, h: h1, dur: d1 },
-      { a: xs + span * .64, b: xs + span * .87, y0: 0, h: h1 * .28, dur: d1 * .42 },
-      { a: xs + span * .87, b: xs + span * .965, y0: 0, h: h1 * .08, dur: d1 * .26 },
-      { a: xs + span * .965, b: xf, y0: 0, h: 0, dur: 380, slide: true }
-    ];
+    const arcH = w => Math.max(26, Math.min(CN.H * .6, w * .5));
+    const arcT = w => 650 + 1300 * Math.sqrt(Math.max(0, w) / total);
+    const sc = cnPickScenario(xs, xf), obs = {};
+    let segs;
+    if (sc === 'tramp') {
+      // 트램펄린에 떨어져 다시 높이 튀어 올라 목표 거리까지
+      const x1 = xs + span * (.32 + Math.random() * .12), w2 = xf - x1, h1 = arcH((x1 - xs) * .8), d1 = arcT(x1 - xs) * .85;
+      obs.el = cnObstacle(world, 'tramp', x1);
+      segs = [
+        { a: xs, b: x1, y0: 34, h: h1, dur: d1, ev: 'tramp' },
+        { a: x1, b: x1 + w2 * .86, y0: 0, h: Math.max(h1 * 1.25, arcH(w2 * 1.1)), dur: arcT(w2) * 1.05 },
+        { a: x1 + w2 * .86, b: x1 + w2 * .97, y0: 0, h: arcH(w2) * .1, dur: 260 },
+        { a: x1 + w2 * .97, b: xf, y0: 0, h: 0, dur: 320, slide: true }
+      ];
+    } else if (sc === 'goo') {
+      // 높이 날아가다 캐러멜 웅덩이에 빠져 그 자리에서 멈춤
+      obs.el = cnObstacle(world, 'goo', xf);
+      segs = [{ a: xs, b: xf, y0: 34, h: arcH(span * 1.15), dur: arcT(span) * 1.1, ev: 'goo' }];
+    } else if (sc === 'bump') {
+      // 목표보다 조금 더 날아가 범퍼에 부딪히고 뒤로 튕겨 목표 거리에 멈춤
+      const back = Math.min(span * .28, CN.W * .35), x1 = xf + back;
+      obs.el = cnObstacle(world, 'bump', x1 + 14);
+      segs = [
+        { a: xs, b: x1, y0: 34, h: arcH(x1 - xs), dur: arcT(x1 - xs), ev: 'bump' },
+        { a: x1, b: xf + back * .12, y0: 0, h: Math.max(18, back * .45), dur: 520, spin: -1 },
+        { a: xf + back * .12, b: xf, y0: 0, h: 0, dur: 300, slide: true, spin: -1 }
+      ];
+    } else {
+      const h1 = arcH(span), d1 = arcT(span);
+      segs = [
+        { a: xs, b: xs + span * .64, y0: 34, h: h1, dur: d1 },
+        { a: xs + span * .64, b: xs + span * .87, y0: 0, h: h1 * .28, dur: d1 * .42 },
+        { a: xs + span * .87, b: xs + span * .965, y0: 0, h: h1 * .08, dur: d1 * .26 },
+        { a: xs + span * .965, b: xf, y0: 0, h: 0, dur: 380, slide: true }
+      ];
+    }
+    // 장애물 몇 개를 길가에 더 놓는다(공중으로 지나치는 곳만 — 착지 지점과 겹치지 않게)
+    const lands = segs.map(g => g.b).concat([xs]);
+    const types = ['tramp', 'goo', 'bump'];
+    for (let k = 0, tries = 0; k < 3 && tries < 30; tries++) {
+      const x = xs + CN.W * .5 + Math.random() * (cnX(CN_EDGES.at(-1)) - xs - CN.W * .5);
+      if (lands.some(l => Math.abs(l - x) < 80) || (obs.el && Math.abs(parseFloat(obs.el.style.left) - x) < 80)) continue;
+      cnObstacle(world, types[Math.floor(Math.random() * 3)], x); k++;
+    }
     proj.hidden = false;
     let si = 0, t0 = performance.now(), rot = 0, lastTrail = 0;
     const distEl = cnEl('cn-dist');
     const step = now => {
       if (!proj.isConnected) { cnLand(m, grade, band, dist, true); return; }
-      const s = segs[si]; let t = (now - t0) / s.dur;
+      const g = segs[si]; let t = (now - t0) / g.dur;
       if (t >= 1) {
-        if (!s.slide) cnDust(s.b);
+        if (g.ev === 'tramp') { restart(obs.el, 'hit'); cnPopText(world, 'tramp', g.b, '부스트!'); burst(['#4DABF7', '#FFFFFF', '#FFE07A'], 18, 6, ...cnScreen(proj)); }
+        else if (g.ev === 'goo') { restart(obs.el, 'hit'); cnPopText(world, 'goo', g.b, '끈적!'); cnSplash(world, g.b); }
+        else if (g.ev === 'bump') { restart(obs.el, 'hit'); cnPopText(world, 'bump', g.b, '쾅!'); restart(cnEl('cn-stage'), 'shake'); burst(['#FF5A5F', '#FFFFFF', '#FFD43B'], 16, 6, ...cnScreen(proj)); }
+        else if (!g.slide) cnDust(g.b);
         si++; t0 = now;
         if (si >= segs.length) { cnPlace(proj, xf, 0, rot); if (distEl) distEl.textContent = fmt(Math.round(dist)); cnLand(m, grade, band, dist, false); return; }
         CN.raf = requestAnimationFrame(step); return;
       }
-      const x = s.slide ? s.a + (s.b - s.a) * (1 - Math.pow(1 - t, 3)) : s.a + (s.b - s.a) * t;
-      const y = s.slide ? 0 : s.y0 * (1 - t) + 4 * s.h * t * (1 - t);
-      rot += s.slide ? 4 * (1 - t) : 9;
+      const x = g.slide ? g.a + (g.b - g.a) * (1 - Math.pow(1 - t, 3)) : g.a + (g.b - g.a) * t;
+      const y = g.slide ? 0 : g.y0 * (1 - t) + 4 * g.h * t * (1 - t);
+      rot += (g.spin || 1) * (g.slide ? 4 * (1 - t) : 9);
       cnPlace(proj, x, y, rot);
       cnCamera(x - CN.W * .4);
       if (distEl) distEl.textContent = fmt(Math.round(cnD(x)));
-      if (!s.slide && now - lastTrail > 55) { lastTrail = now; const tr = document.createElement('i'); tr.className = 'cn-trail'; tr.style.left = x + 'px'; tr.style.bottom = (CN.gH + y) + 'px'; world.appendChild(tr); setTimeout(() => tr.remove(), 700); }
+      if (!g.slide && now - lastTrail > 55) { lastTrail = now; const tr = document.createElement('i'); tr.className = 'cn-trail'; tr.style.left = x + 'px'; tr.style.bottom = (CN.gH + y) + 'px'; world.appendChild(tr); setTimeout(() => tr.remove(), 700); }
       CN.raf = requestAnimationFrame(step);
     };
     CN.raf = requestAnimationFrame(step);
+  }
+  function cnScreen(el) { const r = el.getBoundingClientRect(); floatFx(); return [r.left + r.width / 2, r.top + r.height / 2]; }
+  function cnSplash(world, x) {
+    for (let i = 0; i < 10; i++) {
+      const d = document.createElement('i'); d.className = 'cn-drop'; d.style.left = x + 'px'; d.style.bottom = CN.gH + 'px';
+      const a = Math.PI * (.15 + .7 * Math.random()), v = 20 + Math.random() * 30;
+      d.style.setProperty('--dx', (Math.cos(a) * v * (Math.random() < .5 ? -1 : 1)).toFixed(0) + 'px'); d.style.setProperty('--dy', (-Math.sin(a) * v).toFixed(0) + 'px');
+      world.appendChild(d); setTimeout(() => d.remove(), 650);
+    }
   }
   function cnPlace(el, x, y, rot) { el.style.transform = 'translate(' + (x - 20).toFixed(1) + 'px,' + (-(CN.gH + y + 34)).toFixed(1) + 'px) rotate(' + rot.toFixed(0) + 'deg)'; }
   function cnDust(x) { const w = cnEl('cn-world'); if (!w) return; const d = document.createElement('i'); d.className = 'cn-dust'; d.style.left = x + 'px'; d.style.bottom = CN.gH + 'px'; w.appendChild(d); setTimeout(() => d.remove(), 700); }
