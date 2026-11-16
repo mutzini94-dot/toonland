@@ -1885,10 +1885,6 @@ img, svg, video { max-width: 100%; }
 .lg-dock .lg-label { font-size: 12px; }
 .lg-hint { margin: 14px 0 0; text-align: center; font-size: 12px; font-weight: 500; opacity: .7; }
 
-/* 앱 실행 연출: 아이콘이 화면으로 커짐 */
-.lg-launch { position: fixed; z-index: 60; border-radius: 24%; overflow: hidden; pointer-events: none; background: var(--ic); transition: left .32s cubic-bezier(.2,.8,.2,1), top .32s cubic-bezier(.2,.8,.2,1), width .32s cubic-bezier(.2,.8,.2,1), height .32s cubic-bezier(.2,.8,.2,1), border-radius .32s ease, opacity .22s ease; }
-.lg-launch svg, .lg-launch img { position: absolute; inset: 0; width: 100%; height: 100%; }
-.lg-launch.out { opacity: 0; }
 /* 게임 화면에 들어올 때 살짝 떠오르기 */
 .app.lg-enter > .game-nav, .app.lg-enter > .zones-wrap, .app.lg-enter > .layout { animation: lg-rise .38s ease-out both; }
 .app.lg-enter > .zones-wrap { animation-delay: .04s; }
@@ -1938,7 +1934,7 @@ img, svg, video { max-width: 100%; }
   .gt-home { flex: none; height: 46px; padding: 0 12px 0 10px; gap: 6px; font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .lg-icon, .lg-launch { transition: none; }
+  .lg-icon { transition: none; }
   .lounge.lg-back .lg-app, .lounge.lg-back .lg-widget, .app.lg-enter > * , .lg-feed .lg-wh i { animation: none !important; }
 }
 
@@ -5414,25 +5410,13 @@ img, svg, video { max-width: 100%; }
     $('lg-pc').textContent = '조각 ' + fmt(state.pieces) + '개';
     $('lg-feed').innerHTML = state.feed.slice(0, 3).map((x, i) => '<span class="lg-fi' + (fresh && i === 0 ? ' new' : '') + '"><span class="g" style="--gc:' + GRADE_COLOR[x.g] + '">' + GRADE_LABEL[x.g] + '</span><span>' + x.item + ' <small>' + x.who + '</small></span></span>').join('');
   }
-  // 아이콘 → 화면 가득 커지는 실행 연출 뒤 이동
-  function lgLaunch(btn, go) {
-    const icon = btn.querySelector('.lg-icon, .lg-f-art'), reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!icon || reduce) { go(); return; }
-    const r = icon.getBoundingClientRect(), el = document.createElement('div');
-    el.className = 'lg-launch'; el.style.setProperty('--ic', btn.style.getPropertyValue('--ic') || btn.style.getPropertyValue('--fc'));
-    el.innerHTML = icon.innerHTML.replace('<svg viewBox', '<svg preserveAspectRatio="xMidYMid slice" viewBox').replace(/id="(lg\w+)"/g, 'id="$1x"').replace(/url\(#(lg\w+)\)/g, 'url(#$1x)');
-    Object.assign(el.style, { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' });
-    document.body.appendChild(el); void el.offsetWidth;
-    Object.assign(el.style, { left: '0px', top: '0px', width: innerWidth + 'px', height: innerHeight + 'px', borderRadius: '0' });
-    setTimeout(() => { go(); el.classList.add('out'); setTimeout(() => el.remove(), 260); }, 300);
-  }
   $('lounge').addEventListener('click', e => {
     const b = e.target.closest('[data-lg-go]'); if (!b) return;
     const id = b.dataset.lgGo;
     if (id === 'ledger') { openLedger(); return; }
     if (id === 'hall') { openHub(); return; }
     if (id === 'charge') { $('charge').click(); restart(b.querySelector('.lg-icon'), 'lg-tap'); return; }
-    lgLaunch(b, () => { location.hash = '#' + id; });
+    location.hash = '#' + id;
   });
   buildLounge(); setInterval(lgClock, 20000);
 
