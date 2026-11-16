@@ -777,6 +777,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .ar-total b { color: #FFE07A; font-size: 16px; font-weight: 900; }
 .ar-wind { padding: 5px 10px; border-radius: 999px; background: rgba(255,255,255,.8); color: #343A40; font-size: 12px; font-weight: 800; white-space: nowrap; }
 .ar-wind span { display: inline-block; transition: transform .3s; }
+.ar-wind.gust { background: #FFE3E3; color: #C92A2A; animation: ar-gust .5s ease-out; }
+@keyframes ar-gust { 0% { transform: scale(1); } 30% { transform: scale(1.18); } 100% { transform: none; } }
 .ar-grade { position: absolute; left: 50%; top: 10px; z-index: 6; translate: -50% 0; pointer-events: none; }
 .ar-msg { position: absolute; inset: 0; z-index: 8; display: flex; align-items: center; justify-content: center; padding: 16px; pointer-events: none; }
 .ar-msg[hidden] { display: none; }
@@ -1882,7 +1884,7 @@ img, svg, video { max-width: 100%; }
   <div class="ad-page" data-page="archery" hidden>
   <div class="panel ad-block" id="ar-admin">
     <h2>팝콘 양궁 관리 <span class="tag" id="ar-sum"></span></h2>
-    <p class="hub-note">1세트에 화살 여러 발을 쏘고, 화살마다 맞은 링의 배수 × 1발 금액을 지급해요. 쏘는 순간 조준점이 가운데에서 얼마나 떨어졌는지로 등급(퍼펙트 ±12%, 좋아요 ±36%, 그 밖은 보통)이 정해지고, 등급별 확률표에서 링을 뽑아요. 실력으로 기대값이 바뀌지 않도록 <b>등급마다 RTP를 같게</b> 맞춰야 해요(차이 1%p 이하일 때 저장돼요). 바람과 화살 궤적은 정해진 링에 맞춘 연출이에요.</p>
+    <p class="hub-note">1세트에 화살 여러 발을 쏘고, 화살마다 맞은 링의 배수 × 1발 금액을 지급해요. 쏘는 순간 조준점이 가운데에서 얼마나 떨어졌는지로 등급(퍼펙트 ±12%, 좋아요 ±36%, 그 밖은 보통)이 정해지고, 등급별 확률표에서 링을 뽑아요. 실력으로 기대값이 바뀌지 않도록 <b>등급마다 RTP를 같게</b> 맞춰야 해요(차이 1%p 이하일 때 저장돼요). 바람과 화살 궤적은 정해진 링에 맞춘 연출이에요. 화살을 걸 때 결과용 난수를 먼저 뽑아 빗나갈 화살엔 센 바람을 보여주고, 화살은 표시된 바람 방향으로만 밀려요. 빗나감 확률은 등급마다 같게 두는 것을 권장해요.</p>
     <div class="fields" id="ar-fields"></div>
     <div class="table-wrap"><table class="ad-table" id="ar-prob-t"></table></div>
     <div class="ed-foot"><div class="pa-calc" id="ar-calc"></div><button class="btn-ghost" type="button" id="ar-fit">목표 RTP로 등급별 확률 맞추기</button></div>
@@ -2133,9 +2135,9 @@ img, svg, video { max-width: 100%; }
           PZ('hanwoo', '명품 한우 선물세트', 150000, 0.24)
         ] },
       // 팝콘 양궁: 1세트 3발. 조준 등급(퍼펙트·좋아요·보통)별 확률표로 링 결정, 화살마다 링 배수 × 1발 금액. 등급별 RTP 동일(B 방식)
-      { id: 'archery', zone: 'archery', mode: 'archery', name: '팝콘 양궁', cost: 100, arrows: 3, demand: 800000, mults: [10, 3, 1.5, 0.8, 0.4, 0],
-        probs: { perfect: [2.5, 6, 10, 18.75, 30, 32.75], good: [1.5, 6, 13, 24.13, 33, 22.37], normal: [1, 5, 15, 29.37, 35, 14.63] }, top: 'X ×10 · 강냉이 1,000개',
-        prizes: [W('S', 'X ×10', 'kernel', 1000, 0, 1), W('A', '9점 ×3', 'kernel', 300, 0, 5), W('B', '8점 ×1.5', 'kernel', 150, 0, 15), W('C', '7점 ×0.8', 'kernel', 80, 0, 29.37), W('C', '6점 ×0.4', 'kernel', 40, 0, 35), W('C', '빗나감 ×0', 'kernel', 0, 0, 14.63)] },
+      { id: 'archery', zone: 'archery', mode: 'archery', av: 2, name: '팝콘 양궁', cost: 100, arrows: 3, demand: 800000, mults: [10, 3, 1.5, 0.8, 0.4, 0],
+        probs: { perfect: [2.5, 6, 6, 9, 64.5, 12], good: [1.5, 6, 10, 22, 48.5, 12], normal: [1, 5, 14, 29.5, 38.5, 12] }, top: 'X ×10 · 강냉이 1,000개',
+        prizes: [W('S', 'X ×10', 'kernel', 1000, 0, 1), W('A', '9점 ×3', 'kernel', 300, 0, 5), W('B', '8점 ×1.5', 'kernel', 150, 0, 14), W('C', '7점 ×0.8', 'kernel', 80, 0, 29.5), W('C', '6점 ×0.4', 'kernel', 40, 0, 38.5), W('C', '빗나감 ×0', 'kernel', 0, 0, 12)] },
       // 팝콘 대포: 게이지 등급(퍼펙트·좋아요·보통)별 확률표로 거리 구간 결정. 배수 공통, 등급별 RTP 동일(B 방식)
       { id: 'cannon', zone: 'cannon', mode: 'cannon', name: '팝콘 대포', cost: 100, demand: 800000, mults: [0.2, 0.5, 1, 2, 4, 10],
         probs: { perfect: [63.75, 16, 8.25, 5, 4, 3], good: [48.12, 25, 11.88, 9, 4.5, 1.5], normal: [38.75, 30, 16.25, 10, 4, 1] }, top: '800m 이상 ×10 · 강냉이 1,000개',
@@ -2177,6 +2179,8 @@ img, svg, video { max-width: 100%; }
     if (!Array.isArray(c.shop)) c.shop = clone(DEFAULT_CONFIG.shop);
     delete c.rankBenefit;   // 순위 베네핏은 삭제됨
     // 예전(크리에이터 라인업) 퍼즐 설정은 상품 퍼즐 기본값으로 바꾼다
+    // 팝콘 양궁 v2: 빗나감 확률을 모든 등급에서 같게 바꾼 확률표로
+    c.machines.forEach(m => { if (m.mode === 'archery' && m.av !== 2) { m.av = 2; m.probs = clone(DEFAULT_CONFIG.machines.find(d => d.mode === 'archery').probs); } });
     c.machines = c.machines.map(m => m.mode === 'puzzle' && m.pv !== 2 ? clone(DEFAULT_CONFIG.machines.find(d => d.mode === 'puzzle')) : m);
     c.machines.filter(m => m.mode === 'puzzle').forEach(m => m.prizes.forEach((p, i) => { if (!p.pid) p.pid = 'p' + i + '-' + String(p.name).length; }));
     // 예전 한정 카드팩·빙고 카드팩은 직소 퍼즐로 바뀌었다
@@ -3565,9 +3569,9 @@ img, svg, video { max-width: 100%; }
   const AR_RINGS = ['X', '9점', '8점', '7점', '6점', '빗나감'];
   const AR_R = [[0, .1], [.1, .3], [.3, .5], [.5, .7], [.7, .98], [1.1, 1.5]];   // 링별 과녁 중심 거리(과녁 반지름 비율)
   const AR_DEF_MULTS = [10, 3, 1.5, 0.8, 0.4, 0];
-  const AR_DEF_PROBS = { perfect: [2.5, 6, 10, 18.75, 30, 32.75], good: [1.5, 6, 13, 24.13, 33, 22.37], normal: [1, 5, 15, 29.37, 35, 14.63] };
+  const AR_DEF_PROBS = { perfect: [2.5, 6, 6, 9, 64.5, 12], good: [1.5, 6, 10, 22, 48.5, 12], normal: [1, 5, 14, 29.5, 38.5, 12] };
   const AR_PERFECT = .12, AR_GOOD = .36;   // 놓는 순간 조준점의 중심 거리(과녁 반지름 비율) 기준
-  const AR = { active: false, flying: false, left: 0, shots: [], total: 0, raf: 0, t0: 0, aim: { x: 0, y: 0, d: 1, a: 0 }, wind: 0, W: 0, H: 0, cx: 0, cy: 0, R: 1 };
+  const AR = { active: false, flying: false, left: 0, shots: [], total: 0, raf: 0, t0: 0, aim: { x: 0, y: 0, d: 1, a: 0 }, wind: 0, windA: 0, u: 0, W: 0, H: 0, cx: 0, cy: 0, R: 1 };
   const archeryMachine = () => machines.find(m => m.mode === 'archery');
   const arMults = m => (m && Array.isArray(m.mults) && m.mults.length === 6 ? m.mults : AR_DEF_MULTS).map(v => Math.max(0, Number(v) || 0));
   const arProbs = (m, g) => (m && m.probs && Array.isArray(m.probs[g]) && m.probs[g].length === 6 ? m.probs[g] : AR_DEF_PROBS[g]).map(v => Math.max(0, Number(v) || 0));
@@ -3609,14 +3613,14 @@ img, svg, video { max-width: 100%; }
           '<div class="ar-msg" id="ar-msg"><div class="card"><b class="t">팝콘 양궁</b><p>1세트 ' + n + '발 · 조준점이 <b style="color:#FF4D8D">가운데</b>에 올 때 쏘세요!</p></div></div>' +
         '</div>' +
         '<div class="ar-controls">' +
-          '<div class="ar-tip" id="ar-tip">조준점은 계속 흔들려요. <b>가운데 가까이</b>에서 쏘면 퍼펙트 — X(×' + (+M[0].toFixed(2)) + ') 확률이 커지지만 빗나갈 확률도 커져요.</div>' +
+          '<div class="ar-tip" id="ar-tip">조준점은 계속 흔들려요. <b>가운데 가까이</b>에서 쏘면 퍼펙트 — X(×' + (+M[0].toFixed(2)) + ')·9점 확률이 커져요. 화살은 <b>바람 방향</b>으로 밀려요.</div>' +
           '<button class="ar-btn" type="button" id="ar-btn" data-ar="main">1세트 시작 <span class="num">' + n + '발 · ' + K + fmt(num(m.cost) * n) + '</span></button>' +
         '</div>' +
       '</div>' +
       '<aside class="ar-info">' +
         '<h3 id="ar-h">' + m.name + ' <small class="qmeta">1세트 ' + n + '발 ' + K + fmt(num(m.cost) * n) + '</small></h3>' +
         '<p>흔들리는 조준점을 보고 활을 쏘세요. 화살이 맞은 <b>링의 배수만큼</b> 강냉이를 받아요(1발 ' + fmt(num(m.cost)) + ' 기준).</p>' +
-        '<ul><li>쏘는 순간 조준점이 가운데에 가까울수록 <b>퍼펙트</b>, 그다음 <b>좋아요</b>, 나머지는 <b>보통</b>이에요.</li><li>퍼펙트는 X에 맞을 확률이 크지만 빗나갈 확률도 커요. 보통은 고르게 맞아요.</li><li>어느 등급이든 <b>평균적으로 돌려받는 비율(RTP)은 같아요.</b> 맞는 링은 쏘는 순간 확률표로 정해지고, 바람과 화살의 궤적은 그 결과를 보여주는 연출이에요.</li><li>과녁을 눌러도, 키보드 스페이스로도 쏠 수 있어요.</li></ul>' +
+        '<ul><li>쏘는 순간 조준점이 가운데에 가까울수록 <b>퍼펙트</b>, 그다음 <b>좋아요</b>, 나머지는 <b>보통</b>이에요.</li><li>퍼펙트는 X에 맞을 확률이 크지만 빗나갈 확률도 커요. 보통은 고르게 맞아요.</li><li>어느 등급이든 <b>평균적으로 돌려받는 비율(RTP)은 같아요.</b> 맞는 링은 확률표로 정해지고, 바람과 화살의 궤적은 그 결과를 보여주는 연출이에요. 화살은 <b>쏘기 전에 보이는 바람 방향</b>으로만 밀려요.</li><li>빗나갈 확률은 어느 등급이든 같아요. 잘 쏘면 X·9점 기회만 커져요.</li><li>과녁을 눌러도, 키보드 스페이스로도 쏠 수 있어요.</li></ul>' +
         '<div class="cn-table-wrap"><table class="cn-table"><thead><tr><th>링</th><th>배수</th><th>받는 강냉이</th>' + CN_GRADES.map(g => '<th class="' + g.tc + '">' + g.name + '</th>').join('') + '</tr></thead><tbody>' + rows + '</tbody>' +
         '<tfoot><tr><td colspan="3">평균 환원(RTP)</td>' + CN_GRADES.map(g => '<td class="num ' + g.tc + '">' + pct(arRtp(m, g.id)) + '</td>').join('') + '</tr></tfoot></table></div>' +
       '</aside>' +
@@ -3656,9 +3660,31 @@ img, svg, video { max-width: 100%; }
     const q = arEl('ar-quiver'); if (q) [...q.children].forEach((x, i) => x.classList.toggle('used', AR.active ? i >= AR.left : false));
     const tt = arEl('ar-total'); if (tt) tt.textContent = fmt(AR.total);
   }
+  // 화살을 걸 때: 결과용 난수 u를 먼저 뽑는다(빗나감이 먼저 오는 순서로 링을 고르므로, 어느 등급이든 빗나갈 화살은 이때 정해진다).
+  // 빗나갈 화살은 센 바람, 나머지는 약~중간 바람. 바람 방향·세기는 쏘기 전에 보여주고, 화살은 그 방향으로만 밀린다
   function arNewWind() {
-    AR.wind = Math.round((Math.random() * 8 - 4) * 10) / 10;
-    const w = arEl('ar-wind'); if (w) w.innerHTML = '바람 <span style="transform:rotate(' + (AR.wind < 0 ? 180 : 0) + 'deg)">→</span> ' + Math.abs(AR.wind).toFixed(1) + 'm/s';
+    const m = archeryMachine();
+    AR.u = Math.random();
+    const missMin = m ? Math.min(...CN_GRADES.map(g => { const P = arProbs(m, g.id), t = P.reduce((a, b) => a + b, 0) || 1; return P[5] / t; })) : 0;
+    const strong = AR.u < missMin;
+    AR.wind = Math.round((strong ? 3.6 + Math.random() * 1.4 : 0.5 + Math.random() * 2.5) * 10) / 10;
+    AR.windA = Math.random() * Math.PI * 2;
+    const w = arEl('ar-wind'); if (w) w.classList.remove('gust'); if (w) w.innerHTML = '바람 <span style="transform:rotate(' + (AR.windA * 180 / Math.PI).toFixed(0) + 'deg)">→</span> ' + AR.wind.toFixed(1) + 'm/s';
+  }
+  // 정해진 링 안에서 '조준점 + 바람에 밀린 만큼'에 가장 가까운 착지점을 고른다 (방향은 바람과 최대한 같게)
+  function arLanding(ring, aim) {
+    const [r0, r1] = AR_R[ring], k = .28, drift = AR.wind * k;   // 1m/s = 과녁 반지름의 28%
+    const wx = Math.cos(AR.windA), wy = Math.sin(AR.windA);
+    let best = null, bs = Infinity;
+    for (let ai = 0; ai < 72; ai++) for (let ri = 0; ri < 5; ri++) {
+      const a = ai / 72 * Math.PI * 2, r = r0 + (r1 - r0) * (ri + .5) / 5;
+      const lx = Math.cos(a) * r, ly = Math.sin(a) * r, dx = lx - aim.x, dy = ly - aim.y, dl = Math.hypot(dx, dy);
+      const cos = dl < 1e-6 ? 1 : (dx * wx + dy * wy) / dl;
+      const ang = Math.acos(Math.max(-1, Math.min(1, cos))) * 180 / Math.PI;
+      const sc = (dl < .04 ? 0 : ang) + Math.abs(dl - drift) * 60 + Math.max(0, dl - drift * 1.25 - .1) * 200;
+      if (sc < bs) { bs = sc; best = { x: lx, y: ly, ang: dl < .04 ? 0 : ang, dl, dx, dy, drift }; }
+    }
+    return best;
   }
   function arStart() {
     const m = archeryMachine(); if (!m || AR.active || busy) return;
@@ -3676,13 +3702,17 @@ img, svg, video { max-width: 100%; }
     AR.flying = true; AR.left -= 1;
     const aim = Object.assign({}, AR.aim), grade = arGradeOf(aim.d);
     arEl('ar-grade').innerHTML = '<span class="cn-grade ' + grade.cls + '">' + grade.name + (grade.id === 'perfect' ? '!' : '') + '</span>';
-    // 등급 확률표에서 링을 뽑고, 조준 방향을 살려 그 링 안의 착지점을 고른다
+    // 화살을 걸 때 뽑아 둔 u로 등급 확률표에서 링을 고른다(빗나감 → 6점 → … → X 순서). 각 링의 확률은 표 그대로
     const P = arProbs(m, grade.id), sum = P.reduce((a, b) => a + b, 0) || 1;
-    let r = Math.random() * sum, ring = 0;
-    for (; ring < 5; ring++) { r -= P[ring]; if (r < 0) break; }
-    const [r0, r1] = AR_R[ring], rad = r0 + Math.random() * (r1 - r0);
-    const ang = aim.a + (Math.random() - .5) * (ring >= 5 ? 1.2 : .9);
-    let tx = AR.cx + Math.cos(ang) * rad * AR.R, ty = AR.cy + Math.sin(ang) * rad * AR.R;
+    let acc = 0, ring = 0;
+    for (const i of [5, 4, 3, 2, 1, 0]) { acc += P[i] / sum; if (AR.u < acc) { ring = i; break; } }
+    const L = arLanding(ring, aim);
+    // 표시된 바람으로 설명이 안 되는 화살(방향 45° 넘게 어긋나거나 훨씬 멀리 밀림)은 쏘는 순간 '돌풍'으로 바람 표시를 실제 방향·세기로 바꾼다
+    if (L.ang > 45 || L.dl > L.drift * 1.5 + .1) {
+      AR.windA = Math.atan2(L.dy, L.dx); AR.wind = Math.round(Math.max(.5, Math.min(6, L.dl / .28)) * 10) / 10;
+      const w = arEl('ar-wind'); if (w) { w.innerHTML = '돌풍 <span style="transform:rotate(' + (AR.windA * 180 / Math.PI).toFixed(0) + 'deg)">→</span> ' + AR.wind.toFixed(1) + 'm/s'; restart(w, 'gust'); }
+    }
+    let tx = AR.cx + L.x * AR.R, ty = AR.cy + L.y * AR.R;
     tx = Math.max(16, Math.min(AR.W - 16, tx)); ty = Math.max(16, Math.min(AR.H * .72, ty));
     arSyncUI();
     const bow = arEl('ar-bow'); if (bow) restart(bow, 'shot');
