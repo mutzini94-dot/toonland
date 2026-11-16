@@ -553,6 +553,99 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 }
 .pk-hud b { display: inline-block; } .pk-hud b.bump { animation: bump .45s ease; }
 
+/* ---------- 팝콘 대포 ---------- */
+.gt-new.cn { background: rgba(25,167,206,.18); color: #0B7FA3; }
+.cn-panel { grid-column: 1 / -1; }
+.cn-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
+.cn-left { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 760px; min-width: 0; }
+.cn-stage { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 20px; background: linear-gradient(180deg, #7CC8F2 0%, #B8E2F8 55%, #E4F4FC 100%); box-shadow: inset 0 0 0 1px rgba(0,0,0,.06); user-select: none; -webkit-user-select: none; }
+.cn-sun { position: absolute; right: 9%; top: 10%; width: 54px; height: 54px; border-radius: 50%; background: radial-gradient(circle, #FFFBE6 0 35%, #FFE48A 62%, rgba(255,214,102,0) 72%); }
+.cn-par { position: absolute; left: 0; top: 0; bottom: 0; width: 400%; will-change: transform; pointer-events: none; }
+.cn-cloud { position: absolute; height: 16px; border-radius: 999px; background: rgba(255,255,255,.9); }
+.cn-cloud::before, .cn-cloud::after { content: ""; position: absolute; bottom: 4px; border-radius: 50%; background: inherit; }
+.cn-cloud::before { left: 18%; width: 34%; height: 180%; } .cn-cloud::after { left: 48%; width: 26%; height: 140%; }
+.cn-hills { position: absolute; left: 0; right: 0; bottom: 21%; height: 26%; background:
+  radial-gradient(14% 100% at 6% 100%, #8FD3A4 98%, transparent 100%) 0 100% / 25% 100% repeat-x,
+  radial-gradient(10% 80% at 16% 100%, #7CC892 98%, transparent 100%) 0 100% / 20% 100% repeat-x; opacity: .9; }
+.cn-world { position: absolute; left: 0; top: 0; bottom: 0; will-change: transform; }
+.cn-ground { position: absolute; left: -400px; right: -400px; bottom: 0; height: 21%; background: linear-gradient(180deg, #6FC27F 0 10%, #5AAE6B 10% 18%, #E9C98D 18%, #DDB678 100%); }
+.cn-band { position: absolute; bottom: 4%; height: 9%; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 12px; font-weight: 900; text-shadow: 0 1px 0 rgba(0,0,0,.25); box-shadow: inset 0 2px 0 rgba(255,255,255,.3); }
+.cn-band.hit { animation: cn-band .9s ease-out 2; }
+@keyframes cn-band { 0%, 100% { filter: none; transform: none; } 40% { filter: brightness(1.5); transform: translateY(-3px) scaleY(1.15); } }
+.cn-tick { position: absolute; bottom: 14.5%; width: 2px; height: 5%; margin-left: -1px; background: rgba(90,60,20,.35); }
+.cn-tick span { position: absolute; left: 50%; bottom: 120%; translate: -50% 0; font-size: 10px; font-weight: 700; color: rgba(70,50,20,.7); white-space: nowrap; }
+.cn-cannon { position: absolute; bottom: 19%; width: 78px; height: 70px; margin-left: -30px; }
+.cn-cannon .barrel { position: absolute; left: 22px; bottom: 26px; width: 66px; height: 28px; border-radius: 8px 14px 14px 8px; background: linear-gradient(180deg, #FF7A6E, #D93B33 60%, #B02A24); transform-origin: 12px 50%; transform: rotate(-38deg); box-shadow: inset 0 3px 0 rgba(255,255,255,.3); }
+.cn-cannon .barrel::before { content: ""; position: absolute; left: 6px; right: 14px; top: 0; bottom: 0; background: repeating-linear-gradient(90deg, transparent 0 9px, rgba(255,255,255,.85) 9px 13px); border-radius: inherit; }
+.cn-cannon .barrel::after { content: ""; position: absolute; right: -4px; top: -3px; bottom: -3px; width: 12px; border-radius: 4px; background: #FFE07A; box-shadow: inset 0 -2px 0 #D99A12; }
+.cn-cannon .wheel { position: absolute; left: 14px; bottom: 6px; width: 34px; height: 34px; border-radius: 50%; background: radial-gradient(circle, #FFE07A 0 22%, #8A5A2B 24% 34%, #A86E35 36% 70%, #6E4520 72%); box-shadow: 0 3px 0 rgba(0,0,0,.15); }
+.cn-cannon.fire .barrel { animation: cn-recoil .45s ease-out; }
+@keyframes cn-recoil { 0% { translate: 0 0; } 15% { translate: -9px 6px; } 100% { translate: 0 0; } }
+.cn-puff { position: absolute; width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle, #FFFFFF, rgba(255,255,255,.7) 60%, rgba(255,255,255,0) 70%); pointer-events: none; animation: cn-puff .8s ease-out forwards; }
+@keyframes cn-puff { 0% { transform: scale(.4); opacity: 1; } 100% { transform: scale(3); opacity: 0; } }
+.cn-proj { position: absolute; left: 0; top: 100%; width: 40px; height: 40px; z-index: 2; will-change: transform; pointer-events: none; }
+.cn-proj svg { display: block; width: 100%; height: 100%; }
+.cn-trail { position: absolute; width: 8px; height: 8px; margin: 0 0 8px -4px; border-radius: 50%; background: #FFF4D6; box-shadow: 0 0 0 2px rgba(242,182,48,.4); pointer-events: none; animation: cn-trail .7s ease-out forwards; }
+@keyframes cn-trail { to { transform: scale(.2); opacity: 0; } }
+.cn-dust { position: absolute; width: 60px; height: 22px; margin: 0 0 -4px -30px; border-radius: 50%; background: radial-gradient(ellipse, rgba(214,180,120,.95), rgba(214,180,120,0) 70%); pointer-events: none; animation: cn-dust .7s ease-out forwards; }
+@keyframes cn-dust { 0% { transform: scale(.3); opacity: 1; } 100% { transform: scale(2.2, 1.4); opacity: 0; } }
+.cn-flag { position: absolute; bottom: 19%; z-index: 1; width: 2px; height: 46px; margin-left: -1px; background: #6E4520; pointer-events: none; animation: cn-flag .5s cubic-bezier(.3,1.6,.5,1); transform-origin: 50% 100%; }
+.cn-flag span { position: absolute; left: 2px; top: 0; padding: 3px 8px; border-radius: 0 6px 6px 0; background: #FF4D6D; color: #FFFFFF; font-size: 12px; font-weight: 900; white-space: nowrap; }
+@keyframes cn-flag { from { transform: scaleY(0); } }
+.cn-hud { position: absolute; left: 12px; right: 12px; top: 10px; z-index: 3; display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; pointer-events: none; }
+.cn-dist { padding: 4px 12px; border-radius: 12px; background: rgba(0,0,0,.35); color: #FFFFFF; font-size: 22px; font-weight: 900; line-height: 1.2; }
+.cn-dist small { font-size: 12px; font-weight: 700; margin-left: 2px; }
+.cn-grade { padding: 5px 12px; border-radius: 999px; color: #FFFFFF; font-size: 14px; font-weight: 900; animation: pk-chip .35s cubic-bezier(.3,1.6,.5,1); }
+.cn-grade.g-perfect { background: #FF4D8D; box-shadow: 0 0 0 4px rgba(255,77,141,.25); }
+.cn-grade.g-good { background: #F0A500; }
+.cn-grade.g-normal { background: #7C83A6; }
+.cn-float { position: absolute; z-index: 3; translate: -50% -100%; font-size: 20px; font-weight: 900; color: #FFFFFF; text-shadow: 0 2px 0 rgba(0,0,0,.3); white-space: nowrap; pointer-events: none; animation: pk-float 1.3s ease-out forwards; }
+.cn-float.top { font-size: 28px; text-shadow: 0 0 12px #FF8A3D, 0 2px 0 #C2410C; }
+.cn-banner { position: absolute; left: 50%; top: 40%; z-index: 4; translate: -50% -50%; padding: 10px 22px; border-radius: 16px; background: linear-gradient(180deg, #FFE07A, #FF9F43); color: #7A2E00; font-size: 26px; font-weight: 900; white-space: nowrap; box-shadow: 0 6px 0 #C2410C, 0 0 0 6px rgba(255,255,255,.3); pointer-events: none; animation: pk-banner 1.8s cubic-bezier(.2,1.4,.4,1) forwards; }
+.cn-banner small { display: block; font-size: 14px; font-weight: 800; text-align: center; }
+.cn-flash { position: absolute; inset: 0; z-index: 2; background: radial-gradient(circle at 50% 70%, rgba(255,240,180,.9), rgba(255,180,80,.25) 50%, transparent 75%); opacity: 0; pointer-events: none; }
+.cn-flash.on { animation: pk-flash .8s ease-out; }
+.cn-stage.shake { animation: pk-shake .45s; }
+.cn-msg { position: absolute; inset: 0; z-index: 3; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+.cn-msg[hidden] { display: none; }
+.cn-msg .card { padding: 10px 18px; border-radius: 14px; background: rgba(255,255,255,.88); color: var(--text); font-size: 14px; font-weight: 700; text-align: center; box-shadow: 0 6px 18px rgba(0,0,0,.12); }
+.cn-controls { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 16px; background: var(--panel); border: 1px solid var(--panel-line); }
+.cn-gauge-wrap { min-width: 0; }
+.cn-gauge-label { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 6px; font-size: 12px; color: var(--muted); }
+.cn-gauge-label b { color: var(--text); }
+.cn-gauge { position: relative; height: 26px; border-radius: 999px; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
+  background: linear-gradient(90deg, #C9CDE0 0 34%, #FFD25A 34% 46%, #FF4D8D 46% 54%, #FFD25A 54% 66%, #C9CDE0 66% 100%); }
+.cn-gauge::after { content: "퍼펙트"; position: absolute; left: 50%; top: 50%; translate: -50% -50%; font-size: 10px; font-weight: 900; color: #FFFFFF; letter-spacing: -.3px; pointer-events: none; }
+.cn-needle { position: absolute; top: -2px; bottom: -2px; width: 6px; margin-left: -3px; border-radius: 3px; background: #212529; box-shadow: 0 0 0 2px #FFFFFF; will-change: left; }
+.cn-gauge.stop .cn-needle { animation: cn-needle .5s ease-out; }
+@keyframes cn-needle { 0%, 100% { transform: none; } 30% { transform: scaleY(1.4); } }
+.cn-fire { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 120px; padding: 12px 18px; border: 0; border-radius: 14px; background: #19A7CE; color: #FFFFFF; font: inherit; font-size: 18px; font-weight: 900; cursor: pointer; box-shadow: 0 5px 0 #0B7FA3; }
+.cn-fire span { font-size: 12px; font-weight: 700; opacity: .92; }
+.cn-fire:active:not(:disabled) { transform: translateY(3px); box-shadow: 0 2px 0 #0B7FA3; }
+.cn-fire:disabled { background: var(--panel-line); color: var(--muted); box-shadow: none; cursor: not-allowed; }
+.cn-info { width: 100%; max-width: 760px; padding: 16px 18px; border-radius: 16px; background: var(--panel); border: 1px solid var(--panel-line); }
+.cn-info h3 { margin: 0 0 6px; font-size: 17px; }
+.cn-info p { margin: 0 0 8px; font-size: 13.5px; color: var(--text-2); line-height: 1.55; }
+.cn-info ul { margin: 0 0 12px; padding-left: 18px; font-size: 13px; color: var(--text-2); line-height: 1.6; }
+.cn-table-wrap { overflow-x: auto; }
+.cn-table { width: 100%; min-width: 420px; border-collapse: collapse; font-size: 13px; }
+.cn-table th { padding: 6px 4px; text-align: right; font-weight: 600; color: var(--muted); border-bottom: 1px solid var(--panel-line); white-space: nowrap; }
+.cn-table th:first-child, .cn-table td:first-child { text-align: left; }
+.cn-table td { padding: 6px 4px; text-align: right; border-bottom: 1px solid var(--panel-line); white-space: nowrap; }
+.cn-table tfoot td { font-weight: 800; color: var(--text); border-bottom: 0; }
+.cn-table .chip { display: inline-block; min-width: 40px; padding: 2px 8px; border-radius: 999px; color: #FFFFFF; font-weight: 800; text-align: center; }
+.cn-table .gp { color: #D6336C; } .cn-table .gg { color: #B07A00; } .cn-table .gn { color: #5C6380; }
+@media (max-width: 640px) {
+  .cn-stage { aspect-ratio: 4 / 3; border-radius: 16px; }
+  .cn-controls { grid-template-columns: minmax(0, 1fr); }
+  .cn-fire { width: 100%; }
+  .cn-gauge-label { flex-direction: column; gap: 2px; }
+  .cn-gauge-label span:first-child { font-weight: 700; color: var(--text); }
+  .cn-dist { font-size: 18px; }
+  .cn-banner { font-size: 20px; padding: 8px 16px; }
+  .cn-info { padding: 14px; }
+}
+
 /* ---------- 냥치 런 ---------- */
 .gt-new.rn { background: rgba(255,111,160,.18); color: #D6336C; }
 .rn-panel { grid-column: 1 / -1; }
@@ -1515,6 +1608,7 @@ img, svg, video { max-width: 100%; }
     <button type="button" role="tab" data-gtab="farm" aria-selected="false" style="--gtc:#3E9B4F"><span class="gt-dot"></span>팝콘 농장 <small class="gt-new fm">키우는 재미</small><span class="gt-farm" id="farm-count" hidden></span></button>
     <button type="button" role="tab" data-gtab="runner" aria-selected="false" style="--gtc:#FF6FA0"><span class="gt-dot"></span>냥치 런 <small class="gt-new rn">NEW</small></button>
     <button type="button" role="tab" data-gtab="plinko" aria-selected="false" style="--gtc:#FF8A3D"><span class="gt-dot"></span>팝콘 핀볼 <small class="gt-new pk">NEW</small></button>
+    <button type="button" role="tab" data-gtab="cannon" aria-selected="false" style="--gtc:#19A7CE"><span class="gt-dot"></span>팝콘 대포 <small class="gt-new cn">NEW</small></button>
   </div>
 
   <section class="zones-wrap">
@@ -1622,6 +1716,14 @@ img, svg, video { max-width: 100%; }
     <p class="hub-note">밭 늘리기 비용과 씨앗별 성장 시간·작물 색을 정해요. 씨앗의 심는 값·보상·확률·월 소진량은 위 "머신 상품·확률 편집"에서 씨앗 탭을 골라 바꾸고, 예산·RTP 계산과 "목표로 맞추기"에도 함께 들어가요.</p>
     <div class="fields fm-fields" id="fm-fields"></div>
     <div class="table-wrap"><table class="ad-table fm-table" id="fm-seeds"></table></div>
+  </div>
+
+  <div class="panel ad-block" id="cn-admin">
+    <h2>팝콘 대포 관리 <span class="tag" id="cn-sum"></span></h2>
+    <p class="hub-note">게이지를 멈춘 위치로 등급(퍼펙트 ±4%, 좋아요 ±16%, 그 밖은 보통)이 정해지고, 등급별 확률표에서 거리 구간을 뽑아요. 배수는 모든 등급이 같고 확률만 달라요. 실력으로 기대값이 바뀌지 않도록 <b>등급마다 RTP를 같게</b> 맞춰야 해요(차이 1%p 이하일 때 저장돼요).</p>
+    <div class="fields" id="cn-fields"></div>
+    <div class="table-wrap"><table class="ad-table" id="cn-prob-t"></table></div>
+    <div class="ed-foot"><div class="pa-calc" id="cn-calc"></div><button class="btn-ghost" type="button" id="cn-fit">목표 RTP로 등급별 확률 맞추기</button></div>
   </div>
 
   <div class="panel ad-block" id="pk-admin">
@@ -1814,6 +1916,7 @@ img, svg, video { max-width: 100%; }
     { id: 'farm', name: '팝콘 농장', cost: 200, color: '#3E9B4F', tab: 'farm' },
     { id: 'runner', name: '냥치 런', cost: 100, color: '#FF6FA0', tab: 'runner' },
     { id: 'plinko', name: '팝콘 핀볼', cost: 100, color: '#FF8A3D', tab: 'plinko' },
+    { id: 'cannon', name: '팝콘 대포', cost: 100, color: '#19A7CE', tab: 'cannon' },
     { id: 'gold', name: '골드존', cost: 2000, color: 'var(--t-gold)' },
     { id: 'creator', name: '크리에이터존', cost: 3000, color: 'var(--t-creator)' },
     { id: 'legend', name: '레전드존', cost: 10000, color: 'var(--t-legend)' }
@@ -1871,6 +1974,10 @@ img, svg, video { max-width: 100%; }
           PZ('sbset', '스타벅스 케이크 & 음료 2잔 세트', 22000, 1.56), PZ('chicken', '순살 치킨 + 콜라 세트', 22000, 1.56), PZ('akg', 'AKG K72 헤드폰', 69000, 0.5),
           PZ('hanwoo', '명품 한우 선물세트', 150000, 0.24)
         ] },
+      // 팝콘 대포: 게이지 등급(퍼펙트·좋아요·보통)별 확률표로 거리 구간 결정. 배수 공통, 등급별 RTP 동일(B 방식)
+      { id: 'cannon', zone: 'cannon', mode: 'cannon', name: '팝콘 대포', cost: 100, demand: 800000, mults: [0.2, 0.5, 1, 2, 4, 10],
+        probs: { perfect: [63.75, 16, 8.25, 5, 4, 3], good: [48.12, 25, 11.88, 9, 4.5, 1.5], normal: [38.75, 30, 16.25, 10, 4, 1] }, top: '800m 이상 ×10 · 강냉이 1,000개',
+        prizes: [W('C', '0~50m ×0.2', 'kernel', 20, 0, 38.75), W('C', '50~100m ×0.5', 'kernel', 50, 0, 30), W('B', '100~200m ×1', 'kernel', 100, 0, 16.25), W('A', '200~400m ×2', 'kernel', 200, 0, 10), W('A', '400~800m ×4', 'kernel', 400, 0, 4), W('S', '800m 이상 ×10', 'kernel', 1000, 0, 1)] },
       // 팝콘 핀볼: 핀 8줄(좌우 50%) → 9칸 이항분포. 칸 배수(가운데→끝) × 1회 금액 = 지급. RTP = Σ 확률 × 지급 ÷ 1회 금액
       { id: 'plinko', zone: 'plinko', mode: 'plinko', name: '팝콘 핀볼', cost: 100, demand: 800000, mults: [0.3, 0.5, 1.3, 3, 10], top: '맨 끝 칸 ×10 · 강냉이 1,000개',
         prizes: [W('C', '가운데 칸 ×0.3', 'kernel', 30, 0, 27.344), W('C', '가운데에서 1칸 ×0.5', 'kernel', 50, 0, 43.75), W('B', '가운데에서 2칸 ×1.3', 'kernel', 130, 0, 21.875), W('A', '가운데에서 3칸 ×3', 'kernel', 300, 0, 6.25), W('S', '가운데에서 4칸 ×10', 'kernel', 1000, 0, 0.781)] },
@@ -2034,6 +2141,7 @@ img, svg, video { max-width: 100%; }
       gacha: ['입장료가 높은 머신일수록 좋은 상품이 들어 있어요', '머신마다 캡슐 수가 정해져 있고, 남은 수량을 실시간으로 공개해요.'],
       board: ['칸을 골라 은박을 긁어 보는 뽑기판', '판마다 칸 수가 정해져 있고, 남은 칸과 남은 상품을 실시간으로 공개해요. 어느 칸을 골라도 당첨 확률은 같아요.'],
       puzzle: ['상품 퍼즐 6조각을 모아 상품을 받는 직소 퍼즐', '카드를 뽑을 때마다 상품 퍼즐 조각이 하나 나와요. 6조각을 다 모으면 그 상품을 받아요. 비싼 상품일수록 조각이 드물고, 이미 가진 조각은 중복이에요.'],
+      cannon: ['게이지를 멈춰 팝콘을 쏘는 팝콘 대포', '팝콘이 떨어진 거리 구간의 배수만큼 강냉이를 받아요. 게이지 타이밍에 따라 확률표가 달라지지만 평균 환원(RTP)은 같아요.'],
       plinko: ['팝콘을 떨어뜨려 칸 배수만큼 받는 팝콘 핀볼', '팝콘이 핀에 튕기며 내려와 아래 칸에 들어가요. 들어간 칸의 배수만큼 강냉이를 받아요. 양 끝으로 갈수록 배수가 크지만 드물어요.'],
       runner: ['냥치와 달리며 문을 고르는 냥치 런', '문 2개 중 하나만 통과돼요. 3초 안에 골라 문 5개를 통과하면 완주! 첫 문을 통과한 뒤에는 포기하고 점수를 받을 수도 있어요.'],
       farm: ['강냉이를 심고 키워서 팝콘을 수확하는 팝콘 농장', '운이 아니라 시간으로 자라요. 씨앗마다 수확량이 정해져 있고, 오래 키울수록 더 많이 받아요.']
@@ -2081,10 +2189,11 @@ img, svg, video { max-width: 100%; }
     if (state.tab === 'puzzle') { $('floor').innerHTML = puzzleFloorHTML(); return; }
     if (state.tab === 'runner') { $('floor').innerHTML = runnerFloorHTML(); return; }
     if (state.tab === 'plinko') { $('floor').innerHTML = plinkoFloorHTML(); return; }
+    if (state.tab === 'cannon') { $('floor').innerHTML = cannonFloorHTML(); cnInit(); return; }
     const order = id => zones.findIndex(z => z.id === id);
     const list = state.tab !== 'gacha'
       ? machines.filter(m => m.mode === state.tab)
-      : machines.filter(m => !['board', 'puzzle', 'farm', 'runner', 'plinko'].includes(m.mode) && (state.zone === 'all' || m.zone === state.zone)).sort((a, b) => order(a.zone) - order(b.zone));
+      : machines.filter(m => !['board', 'puzzle', 'farm', 'runner', 'plinko', 'cannon'].includes(m.mode) && (state.zone === 'all' || m.zone === state.zone)).sort((a, b) => order(a.zone) - order(b.zone));
     $('floor').innerHTML = list.map(m => m.mode === 'board' ? boardCardHTML(m) : machineHTML(m, 'button')).join('');
   }
   function renderHUD(bump) {
@@ -3165,6 +3274,210 @@ img, svg, video { max-width: 100%; }
   });
 
   // =====================================================================
+  // 팝콘 대포: 파워 게이지를 멈춰 팝콘을 쏘고, 떨어진 거리 구간의 배수만큼 강냉이를 받는다.
+  // 게이지 타이밍 → 등급(퍼펙트·좋아요·보통) → 등급별 확률표에서 거리 구간을 뽑는다(B 방식).
+  // 등급마다 확률표는 다르지만 RTP는 같게 맞춘다: 퍼펙트는 대박도 꽝도 많고, 보통은 고르게 받는다.
+  // 날아가고 튕기는 모습은 이미 정해진 거리에 맞춰 보여주는 연출
+  // =====================================================================
+  const CN_EDGES = [3, 50, 100, 200, 400, 800, 1500];
+  const CN_GRADES = [{ id: 'perfect', name: '퍼펙트', cls: 'g-perfect', tc: 'gp' }, { id: 'good', name: '좋아요', cls: 'g-good', tc: 'gg' }, { id: 'normal', name: '보통', cls: 'g-normal', tc: 'gn' }];
+  const CN_DEF_MULTS = [0.2, 0.5, 1, 2, 4, 10];
+  const CN_DEF_PROBS = { perfect: [63.75, 16, 8.25, 5, 4, 3], good: [48.12, 25, 11.88, 9, 4.5, 1.5], normal: [38.75, 30, 16.25, 10, 4, 1] };
+  const CN_PERFECT = 4, CN_GOOD = 16, CN_PERIOD = 1000;   // 게이지: 가운데에서 ±4% 퍼펙트, ±16% 좋아요, 한 번 왕복 1초
+  const CN = { flying: false, raf: 0, gRaf: 0, pos: 0, t0: 0, W: 0, H: 0, K: 1, x0: 0, gH: 0, worldW: 0, cam: 0 };
+  const cannonMachine = () => machines.find(m => m.mode === 'cannon');
+  const cnMults = m => (m && Array.isArray(m.mults) && m.mults.length === 6 ? m.mults : CN_DEF_MULTS).map(v => Math.max(0, Number(v) || 0));
+  const cnProbs = (m, g) => (m && m.probs && Array.isArray(m.probs[g]) && m.probs[g].length === 6 ? m.probs[g] : CN_DEF_PROBS[g]).map(v => Math.max(0, Number(v) || 0));
+  const cnPay = (m, mul) => Math.round(num(m.cost) * mul);
+  const cnRtp = (m, g) => { const c = num(m.cost); if (!c) return 0; const M = cnMults(m); return cnProbs(m, g).reduce((a, p, i) => a + p / 100 * cnPay(m, M[i]), 0) / c; };
+  const cnLabel = i => (i === 0 ? '0' : CN_EDGES[i]) + (i === CN_EDGES.length - 2 ? 'm 이상' : '~' + CN_EDGES[i + 1] + 'm');
+  const cnEl = id => document.getElementById(id);
+  const cnX = d => CN.x0 + CN.K * Math.sqrt(Math.max(0, d));
+  const cnD = x => Math.pow(Math.max(0, x - CN.x0) / CN.K, 2);
+  const CN_CORN = '<svg viewBox="-20 -20 40 40" aria-hidden="true"><g fill="#FFFDF5" stroke="#F0D9A8" stroke-width="1.2"><circle cx="-7" cy="-4" r="8"/><circle cx="7" cy="-5" r="8"/><circle cx="0" cy="-11" r="7.5"/><circle cx="-4" cy="5" r="8.5"/><circle cx="6" cy="5" r="8"/></g><ellipse cx="9" cy="11" rx="4" ry="3" fill="#F2B630"/><circle cx="-4" cy="-1" r="1.8" fill="#3A2A1A"/><circle cx="4" cy="-1" r="1.8" fill="#3A2A1A"/><path d="M-3.5 3.5 Q0 6.5 3.5 3.5" fill="none" stroke="#3A2A1A" stroke-width="1.4" stroke-linecap="round"/><circle cx="-7.5" cy="2.5" r="1.6" fill="#FFB3C7"/><circle cx="7.5" cy="2.5" r="1.6" fill="#FFB3C7"/></svg>';
+
+  function cannonFloorHTML() {
+    const m = cannonMachine(); if (!m) return '';
+    const M = cnMults(m);
+    const rows = M.map((v, i) => '<tr><td>' + cnLabel(i) + '</td><td><span class="chip" style="background:' + pkColor(v) + '">' + pkMulText(v) + '</span></td><td class="num">' + fmt(cnPay(m, v)) + '개</td>' +
+      CN_GRADES.map(g => '<td class="num ' + g.tc + '">' + (+cnProbs(m, g.id)[i].toFixed(2)) + '%</td>').join('') + '</tr>').reverse().join('');
+    return '<section class="cn-panel" aria-labelledby="cn-h">' +
+      '<div class="cn-wrap"><div class="cn-left">' +
+        '<div class="cn-stage" id="cn-stage">' +
+          '<div class="cn-sun"></div>' +
+          '<div class="cn-par" id="cn-p1"><i class="cn-cloud" style="left:6%;top:14%;width:90px"></i><i class="cn-cloud" style="left:19%;top:26%;width:60px;opacity:.8"></i><i class="cn-cloud" style="left:33%;top:10%;width:76px"></i><i class="cn-cloud" style="left:52%;top:22%;width:64px;opacity:.85"></i><i class="cn-cloud" style="left:70%;top:12%;width:88px"></i><i class="cn-cloud" style="left:88%;top:28%;width:58px;opacity:.8"></i></div>' +
+          '<div class="cn-par" id="cn-p2"><div class="cn-hills"></div></div>' +
+          '<div class="cn-world" id="cn-world"></div>' +
+          '<div class="cn-hud"><span class="cn-dist"><b class="num" id="cn-dist">0</b><small>m</small></span><span id="cn-grade"></span></div>' +
+          '<div class="cn-flash" id="cn-flash"></div>' +
+          '<div class="cn-msg" id="cn-msg"><div class="card">게이지가 <b style="color:#FF4D8D">퍼펙트</b>에 올 때 발사해 보세요!</div></div>' +
+        '</div>' +
+        '<div class="cn-controls">' +
+          '<div class="cn-gauge-wrap"><div class="cn-gauge-label"><span>파워 게이지</span><span>퍼펙트 = 대박도 꽝도 많아요 · 보통 = 고르게 받아요</span></div>' +
+            '<div class="cn-gauge" id="cn-gauge"><i class="cn-needle" id="cn-needle"></i></div></div>' +
+          '<button class="cn-fire" type="button" id="cn-fire" data-cn="fire">발사! <span class="num">' + K + fmt(m.cost) + '</span></button>' +
+        '</div>' +
+      '</div>' +
+      '<aside class="cn-info">' +
+        '<h3 id="cn-h">' + m.name + ' <small class="qmeta">1발 ' + K + fmt(m.cost) + '</small></h3>' +
+        '<p>파워 게이지를 멈춰 팝콘을 쏘세요. 팝콘이 떨어진 <b>거리 구간의 배수만큼</b> 강냉이를 받아요.</p>' +
+        '<ul><li>게이지를 어디에서 멈췄는지에 따라 <b>퍼펙트·좋아요·보통</b> 확률표가 정해져요.</li><li>퍼펙트는 멀리 날아갈 확률이 크지만 가까이 떨어질 확률도 커요. 보통은 고르게 받아요.</li><li>어느 등급이든 <b>평균적으로 돌려받는 비율(RTP)은 같아요.</b> 손맛만 달라요.</li><li>키보드 스페이스로도 발사할 수 있어요.</li></ul>' +
+        '<div class="cn-table-wrap"><table class="cn-table"><thead><tr><th>거리</th><th>배수</th><th>받는 강냉이</th>' + CN_GRADES.map(g => '<th class="' + g.tc + '">' + g.name + '</th>').join('') + '</tr></thead><tbody>' + rows + '</tbody>' +
+        '<tfoot><tr><td colspan="3">평균 환원(RTP)</td>' + CN_GRADES.map(g => '<td class="num ' + g.tc + '">' + pct(cnRtp(m, g.id)) + '</td>').join('') + '</tr></tfoot></table></div>' +
+      '</aside>' +
+    '</div></section>';
+  }
+
+  // 무대 크기에 맞춰 거리 → 화면 x를 정하고 땅·구간·눈금·대포를 그린다 (먼 거리일수록 압축: √거리)
+  function cnInit() {
+    const st = cnEl('cn-stage'), world = cnEl('cn-world'), m = cannonMachine(); if (!st || !world || !m) return;
+    CN.W = st.clientWidth; CN.H = st.clientHeight; CN.gH = CN.H * .21;
+    CN.K = CN.W * .055; CN.x0 = CN.W * .14;
+    CN.worldW = cnX(CN_EDGES.at(-1)) + CN.W * .45;
+    world.style.width = CN.worldW + 'px';
+    const M = cnMults(m);
+    let h = '<div class="cn-ground"></div>';
+    for (let i = 0; i < 6; i++) {
+      const a = cnX(i === 0 ? 0 : CN_EDGES[i]), b = cnX(CN_EDGES[i + 1]);
+      h += '<div class="cn-band" id="cn-band-' + i + '" style="left:' + (a + 2).toFixed(1) + 'px;width:' + Math.max(8, b - a - 4).toFixed(1) + 'px;background:' + pkColor(M[i]) + '">' + pkMulText(M[i]) + '</div>';
+    }
+    [50, 100, 200, 300, 400, 600, 800, 1000, 1200, 1500].forEach(d => { h += '<i class="cn-tick" style="left:' + cnX(d).toFixed(1) + 'px"><span>' + d + 'm</span></i>'; });
+    h += '<div class="cn-cannon" id="cn-cannon" style="left:' + CN.x0.toFixed(1) + 'px"><i class="barrel"></i><i class="wheel"></i></div>';
+    h += '<div class="cn-proj" id="cn-proj" hidden>' + CN_CORN + '</div>';
+    world.innerHTML = h;
+    cnCamera(0);
+    cnGaugeStart();
+  }
+  function cnCamera(x) {
+    CN.cam = Math.max(0, Math.min(CN.worldW - CN.W, x));
+    const w = cnEl('cn-world'), p1 = cnEl('cn-p1'), p2 = cnEl('cn-p2');
+    if (w) w.style.transform = 'translateX(' + (-CN.cam).toFixed(1) + 'px)';
+    if (p1) p1.style.transform = 'translateX(' + (-CN.cam * .12).toFixed(1) + 'px)';
+    if (p2) p2.style.transform = 'translateX(' + (-CN.cam * .35).toFixed(1) + 'px)';
+  }
+  function cnGaugeStart() {
+    if (CN.gRaf) return;
+    CN.t0 = performance.now();
+    const step = now => {
+      const nd = cnEl('cn-needle');
+      if (!nd) { CN.gRaf = 0; return; }
+      if (!CN.flying) {
+        const ph = ((now - CN.t0) % CN_PERIOD) / CN_PERIOD;
+        CN.pos = ph < .5 ? ph * 200 : (1 - ph) * 200;
+        nd.style.left = CN.pos.toFixed(2) + '%';
+      }
+      CN.gRaf = requestAnimationFrame(step);
+    };
+    CN.gRaf = requestAnimationFrame(step);
+  }
+  const cnGradeOf = pos => { const dv = Math.abs(pos - 50); return dv <= CN_PERFECT ? CN_GRADES[0] : dv <= CN_GOOD ? CN_GRADES[1] : CN_GRADES[2]; };
+
+  function cnFire() {
+    const m = cannonMachine(); if (!m || CN.flying || !cnEl('cn-stage')) return;
+    if (state.balance < m.cost) { toast('', '강냉이가 부족해요. 체험용 강냉이를 충전해 보세요.', true); return; }
+    state.balance -= m.cost; renderHUD(true);
+    CN.flying = true;
+    const fire = cnEl('cn-fire'); if (fire) fire.disabled = true;
+    const gauge = cnEl('cn-gauge'); if (gauge) restart(gauge, 'stop');
+    const grade = cnGradeOf(CN.pos);
+    const gEl = cnEl('cn-grade'); if (gEl) gEl.innerHTML = '<span class="cn-grade ' + grade.cls + '">' + grade.name + (grade.id === 'perfect' ? '!' : '') + '</span>';
+    cnEl('cn-msg').hidden = true;
+    // 등급 확률표에서 거리 구간을 뽑고, 구간 안의 거리를 하나 고른다
+    const P = cnProbs(m, grade.id), sum = P.reduce((a, b) => a + b, 0) || 1;
+    let r = Math.random() * sum, band = 0;
+    for (; band < 5; band++) { r -= P[band]; if (r < 0) break; }
+    const lo = band === 0 ? CN_EDGES[0] : CN_EDGES[band], hi = CN_EDGES[band + 1];
+    const dist = lo + Math.random() * (hi - lo - 1);
+    cnFly(m, grade, band, dist);
+  }
+  // 정해진 거리에 착지하도록 궤적을 거꾸로 맞춘다: 큰 포물선 → 튕김 2번 → 미끄러짐
+  function cnFly(m, grade, band, dist) {
+    const world = cnEl('cn-world'), proj = cnEl('cn-proj'), can = cnEl('cn-cannon'); if (!world || !proj) return;
+    world.querySelectorAll('.cn-flag, .cn-float, .cn-trail, .cn-dust').forEach(e => e.remove());
+    if (can) restart(can, 'fire');
+    const xs = CN.x0 + 26, xf = Math.max(xs + 20, cnX(dist)), span = xf - xs, total = cnX(CN_EDGES.at(-1)) - xs;
+    const puff = document.createElement('i'); puff.className = 'cn-puff'; puff.style.left = (xs + 4) + 'px'; puff.style.bottom = (CN.gH + 34) + 'px'; world.appendChild(puff); setTimeout(() => puff.remove(), 800);
+    const h1 = Math.max(30, Math.min(CN.H * .6, span * .5)), d1 = 650 + 1300 * Math.sqrt(span / total);
+    const segs = [
+      { a: xs, b: xs + span * .64, y0: 34, h: h1, dur: d1 },
+      { a: xs + span * .64, b: xs + span * .87, y0: 0, h: h1 * .28, dur: d1 * .42 },
+      { a: xs + span * .87, b: xs + span * .965, y0: 0, h: h1 * .08, dur: d1 * .26 },
+      { a: xs + span * .965, b: xf, y0: 0, h: 0, dur: 380, slide: true }
+    ];
+    proj.hidden = false;
+    let si = 0, t0 = performance.now(), rot = 0, lastTrail = 0;
+    const distEl = cnEl('cn-dist');
+    const step = now => {
+      if (!proj.isConnected) { cnLand(m, grade, band, dist, true); return; }
+      const s = segs[si]; let t = (now - t0) / s.dur;
+      if (t >= 1) {
+        if (!s.slide) cnDust(s.b);
+        si++; t0 = now;
+        if (si >= segs.length) { cnPlace(proj, xf, 0, rot); if (distEl) distEl.textContent = fmt(Math.round(dist)); cnLand(m, grade, band, dist, false); return; }
+        CN.raf = requestAnimationFrame(step); return;
+      }
+      const x = s.slide ? s.a + (s.b - s.a) * (1 - Math.pow(1 - t, 3)) : s.a + (s.b - s.a) * t;
+      const y = s.slide ? 0 : s.y0 * (1 - t) + 4 * s.h * t * (1 - t);
+      rot += s.slide ? 4 * (1 - t) : 9;
+      cnPlace(proj, x, y, rot);
+      cnCamera(x - CN.W * .4);
+      if (distEl) distEl.textContent = fmt(Math.round(cnD(x)));
+      if (!s.slide && now - lastTrail > 55) { lastTrail = now; const tr = document.createElement('i'); tr.className = 'cn-trail'; tr.style.left = x + 'px'; tr.style.bottom = (CN.gH + y) + 'px'; world.appendChild(tr); setTimeout(() => tr.remove(), 700); }
+      CN.raf = requestAnimationFrame(step);
+    };
+    CN.raf = requestAnimationFrame(step);
+  }
+  function cnPlace(el, x, y, rot) { el.style.transform = 'translate(' + (x - 20).toFixed(1) + 'px,' + (-(CN.gH + y + 34)).toFixed(1) + 'px) rotate(' + rot.toFixed(0) + 'deg)'; }
+  function cnDust(x) { const w = cnEl('cn-world'); if (!w) return; const d = document.createElement('i'); d.className = 'cn-dust'; d.style.left = x + 'px'; d.style.bottom = CN.gH + 'px'; w.appendChild(d); setTimeout(() => d.remove(), 700); }
+  function cnLand(m, grade, band, dist, silent) {
+    const mul = cnMults(m)[band], got = cnPay(m, mul), tier = pkTier(mul);
+    state.balance += got;
+    const p = { g: mul >= 5 ? 'S' : mul >= 2 ? 'A' : mul >= 1 ? 'B' : 'C', name: '팝콘 대포 ' + fmt(Math.round(dist)) + 'm ' + pkMulText(mul) + ' · ' + fmt(got) + '개', kind: 'kernel', val: got };
+    recordResult(p, m);
+    if (mul >= 4) { state.feed.unshift({ g: p.g, item: '강냉이 ' + fmt(got) + '개', who: '나 · 팝콘 대포 ' + fmt(Math.round(dist)) + 'm' }); renderFeed(true); }
+    saveMe(); renderHUD(true);
+    const done = () => { CN.flying = false; const f = cnEl('cn-fire'); if (f) f.disabled = false; };
+    if (silent) { done(); return; }
+    const world = cnEl('cn-world'), st = cnEl('cn-stage'), proj = cnEl('cn-proj');
+    const xf = cnX(dist);
+    const b = cnEl('cn-band-' + band); if (b) restart(b, 'hit');
+    const flag = document.createElement('div'); flag.className = 'cn-flag'; flag.style.left = xf + 'px'; flag.innerHTML = '<span>' + fmt(Math.round(dist)) + 'm</span>'; world.appendChild(flag);
+    const fl = document.createElement('div'); fl.className = 'cn-float' + (tier === 'top' ? ' top' : ''); fl.style.left = xf + 'px'; fl.style.bottom = (CN.gH + 60) + 'px'; fl.style.top = 'auto'; fl.style.translate = '-50% 0';
+    fl.textContent = '+' + fmt(got) + ' (' + pkMulText(mul) + ')'; world.appendChild(fl); setTimeout(() => fl.remove(), 1400);
+    const rc = proj ? proj.getBoundingClientRect() : st.getBoundingClientRect(), cx = rc.left + rc.width / 2, cy = rc.top + rc.height / 2;
+    if (tier === 'mid') { floatFx(); burst(['#FFE07A', '#FFFFFF', '#F0B429'], 22, 6, cx, cy); }
+    if (tier === 'hi') { floatFx(); burst(['#FF8A3D', '#FFE07A', '#FFFFFF'], 50, 9, cx, cy); restart(cnEl('cn-flash'), 'on'); }
+    if (tier === 'top') {
+      floatFx(); burst(['#FF4D4F', '#FFE07A', '#FFFFFF', '#FF8FB1'], 100, 12, cx, cy); burst(['#FFFFFF', '#FFF4D6'], 30, 9, cx, cy, 'p');
+      rain(['#FFC64E', '#FF8FB1', '#7CD992', '#519CFF', '#FFFFFF'], 130);
+      restart(cnEl('cn-flash'), 'on'); restart(st, 'shake');
+      const bn = document.createElement('div'); bn.className = 'cn-banner'; bn.innerHTML = '대박! ' + fmt(Math.round(dist)) + 'm<small>' + pkMulText(mul) + ' · 강냉이 ' + fmt(got) + '개</small>';
+      st.appendChild(bn); setTimeout(() => bn.remove(), 1900);
+    }
+    toast('', '팝콘 대포 · ' + grade.name + ' · ' + fmt(Math.round(dist)) + 'm · 강냉이 ' + fmt(got) + '개', true);
+    // 잠시 보여준 뒤 카메라를 대포 쪽으로 되돌리고 다음 발사 준비
+    setTimeout(() => {
+      if (!cnEl('cn-stage')) return done();
+      const from = CN.cam, t0 = performance.now();
+      const back = now => {
+        const t = Math.min(1, (now - t0) / 650), e = 1 - Math.pow(1 - t, 3);
+        cnCamera(from * (1 - e));
+        if (t < 1 && cnEl('cn-stage')) requestAnimationFrame(back);
+        else { if (proj && proj.isConnected) { proj.hidden = true; } const g = cnEl('cn-grade'); if (g) g.innerHTML = ''; done(); }
+      };
+      requestAnimationFrame(back);
+    }, tier === 'top' ? 1900 : 1300);
+  }
+  $('floor').addEventListener('click', e => { const b = e.target.closest('[data-cn="fire"]'); if (b && !b.disabled) cnFire(); });
+  document.addEventListener('keydown', e => {
+    if (state.tab !== 'cannon' || e.key !== ' ' || e.repeat) return;
+    if (e.target.closest && e.target.closest('input, textarea, select, button, [contenteditable]')) return;
+    if (!$('app') || $('app').hidden) return;
+    e.preventDefault(); cnFire();
+  });
+  addEventListener('resize', () => { if (state.tab === 'cannon' && !CN.flying && cnEl('cn-stage')) cnInit(); });
+
+  // =====================================================================
   // 팝콘 농장: 씨앗을 심고 시간이 지나면 수확. 수확할 때 공개 확률표에서 보상이 정해진다 (RTP 관리)
   // 씨앗 = machines의 mode:'farm' 항목. 내 밭 상태는 이 브라우저에만 저장되는 목업 데이터
   // =====================================================================
@@ -3755,6 +4068,11 @@ img, svg, video { max-width: 100%; }
   // 그래서 상품·확률·입장료를 바꿔 RTP를 내리면 같은 수요에서 경품 원가가 줄어든다.
   function econ(m, s) {
     const mRev = num(m.demand) * s.kernelValue;
+    if (m.mode === 'cannon') {
+      // 등급마다 RTP가 같아야 하지만, 다르면 가장 높은 등급 기준으로 예산을 잡는다
+      const rev = num(m.cost) * s.kernelValue, rs = CN_GRADES.map(g => cnRtp(m, g.id)), rtp = Math.max(...rs);
+      return { rev, pay: rev * rtp, rtp, rs, mRev, mPay: mRev * rtp, wsum: 100, runs: num(m.cost) ? num(m.demand) / num(m.cost) : 0 };
+    }
     if (m.mode === 'plinko') {
       const rev = num(m.cost) * s.kernelValue, evs = pkMults(m).map((v, d) => pkHalfProb(d) * pkPay(m, v) * s.kernelValue);
       const pay = evs.reduce((a, b) => a + b, 0), rtp = rev ? pay / rev : 0;
@@ -3809,6 +4127,9 @@ img, svg, video { max-width: 100%; }
       m.cost = Math.max(10, Math.round(basePay / (T * s.kernelValue * units) / 10) * 10);
       return '입장료 ' + fmt(m.cost) + '개';
     };
+    if (m.mode === 'cannon') {
+      return cnFitGrades(m, T) ? '등급별 확률 조정' : '확률만으로 맞출 수 없어요';
+    }
     if (m.mode === 'plinko') {
       if (!T || !e.rtp) return '조정할 수 없어요';
       const f = T / e.rtp; m.mults = pkMults(m).map(v => Math.round(v * f * 100) / 100); pkSyncPrizes(m);
@@ -3868,6 +4189,12 @@ img, svg, video { max-width: 100%; }
     if (!(draft.settings.kernelValue > 0)) errs.push('강냉이 1개 원가 환산 값을 입력해 주세요.');
     const fm = draft.farm;
     if (!(num(fm.unlockCost) >= 1)) errs.push('팝콘 농장: 밭 늘리기 비용을 입력해 주세요.');
+    draft.machines.filter(m => m.mode === 'cannon').forEach(m => {
+      if (!(num(m.cost) >= 10)) errs.push('팝콘 대포: 1발 금액은 10 이상이어야 해요.');
+      if (!Array.isArray(m.mults) || m.mults.length !== 6 || m.mults.some(v => !(Number(v) >= 0))) errs.push('팝콘 대포: 배수는 0 이상이어야 해요.');
+      CN_GRADES.forEach(g => { const P = m.probs && m.probs[g.id]; if (!Array.isArray(P) || P.length !== 6 || P.some(v => !(Number(v) >= 0))) errs.push('팝콘 대포: ' + g.name + ' 확률이 올바르지 않아요.'); else if (Math.abs(P.reduce((a, b) => a + Number(b), 0) - 100) > .05) errs.push('팝콘 대포: ' + g.name + ' 확률 합이 100%가 아니에요.'); });
+      const rs = CN_GRADES.map(g => cnRtp(m, g.id)); if (Math.max(...rs) - Math.min(...rs) > .01) errs.push('팝콘 대포: 등급별 RTP 차이가 1%p를 넘어요. [목표 RTP로 등급별 확률 맞추기]를 눌러 주세요.');
+    });
     draft.machines.filter(m => m.mode === 'plinko').forEach(m => { if (!(num(m.cost) >= 10)) errs.push('팝콘 핀볼: 1회 금액은 10 이상이어야 해요.'); const M = pkMults(m); if (!Array.isArray(m.mults) || m.mults.length !== 5 || m.mults.some(v => !(Number(v) >= 0))) errs.push('팝콘 핀볼: 칸 배수는 0 이상이어야 해요.'); else if (!M.some(v => v > 0)) errs.push('팝콘 핀볼: 배수가 모두 0이에요.'); });
     draft.machines.filter(m => m.mode === 'runner').forEach(m => { const L = rnLadder(m); if (L.length !== RN_DOORS || L.some((v, i) => !(v > 0) || (i && v <= L[i - 1]))) errs.push('냥치 런: 문 단계 점수는 0보다 크고 단계마다 커져야 해요.'); });
     draft.machines.filter(m => m.mode === 'puzzle').forEach(m => m.prizes.forEach(p => { if (p.kind === 'product' && !(num(p.cost) > 0)) errs.push('직소 퍼즐: ' + p.name + '의 원가를 입력해 주세요.'); }));
@@ -4001,9 +4328,9 @@ img, svg, video { max-width: 100%; }
       const e = econ(m, s), st = statusOf(e.rtp, T);
       return '<tr style="--c:' + zoneOf(m.zone).color + '">' +
         '<td><span class="mname"><i></i>' + m.name + '</span></td>' +
-        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'plinko' ? '팝콘 핀볼' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
+        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'plinko' ? '팝콘 핀볼' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
         '<td class="r">' + fmt(num(m.cost)) + '</td>' +
-        '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'plinko' ? '약 ' + fmt(Math.round(e.runs)) + '개' : m.mode === 'runner' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
+        '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'cannon' ? '약 ' + fmt(Math.round(e.runs)) + '발' : m.mode === 'plinko' ? '약 ' + fmt(Math.round(e.runs)) + '개' : m.mode === 'runner' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
         '<td class="r">' + won(e.mRev) + '</td>' +
         '<td class="r">' + won(e.mPay) + '</td>' +
         '<td><div class="rtpcell"><div class="rtpbar"><i style="width:' + Math.min(100, e.rtp / 1.5 * 100).toFixed(1) + '%;--st:var(--' + st.cls + ')"></i><b style="left:' + Math.min(100, T / 1.5 * 100).toFixed(1) + '%"></b></div><span>' + pct(e.rtp) + '</span></div></td>' +
@@ -4015,7 +4342,7 @@ img, svg, video { max-width: 100%; }
 
   function renderTabs() {
     const s = draft.settings;
-    $('ad-tabs').innerHTML = draft.machines.filter(m => !['runner', 'plinko'].includes(m.mode)).map(m =>
+    $('ad-tabs').innerHTML = draft.machines.filter(m => !['runner', 'plinko', 'cannon'].includes(m.mode)).map(m =>
       '<button class="ad-tab" type="button" role="tab" data-tab="' + m.id + '" aria-selected="' + (m.id === sel) + '" style="--c:' + zoneOf(m.zone).color + '"><i></i>' + m.name + ' <small>' + pct(econ(m, s).rtp) + '</small></button>').join('');
   }
 
@@ -4184,7 +4511,7 @@ img, svg, video { max-width: 100%; }
         c2.drawImage(img, (S - w) / 2, (S - h) / 2, w, h);
         const m = pzDraft(); if (!m || !m.prizes[i]) return;
         m.prizes[i].img = cv.toDataURL('image/jpeg', 0.72);
-        renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderStats();
+        renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats();
       };
       img.src = fr.result;
     };
@@ -4198,7 +4525,7 @@ img, svg, video { max-width: 100%; }
     }
     if (el.id === 'pa-auto') {
       m.autoW = el.checked; if (m.autoW) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats(); return true;
     }
     if (el.dataset.pi != null && el.dataset.k) {
       const p = m.prizes[Number(el.dataset.pi)], k = el.dataset.k;
@@ -4218,17 +4545,17 @@ img, svg, video { max-width: 100%; }
     if (e.target.id === 'pa-add') {
       m.prizes.push({ g: 'C', name: '새 상품', kind: 'product', val: 0, cost: 3000, w: 0, img: '', pid: 'p' + Date.now().toString(36) });
       if (m.autoW !== false) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats(); return true;
     }
     const del = e.target.closest('[data-padel]');
     if (del) {
       m.prizes.splice(Number(del.dataset.padel), 1);
       if (m.autoW !== false) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats(); return true;
     }
     if (e.target.id === 'pa-fit') {
       const msg = fitMachine(m, draft.settings, target(), 'price');
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderStats();
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats();
       toast('', '직소 퍼즐: ' + msg + ' → RTP ' + pct(econ(m, draft.settings).rtp), true);
       return true;
     }
@@ -4268,7 +4595,7 @@ img, svg, video { max-width: 100%; }
     if (e.target.id !== 'rn-fit') return false;
     const m = rnDraft(); if (!m) return true;
     const msg = fitMachine(m, draft.settings, target(), 'reward');
-    renderRunnerAdmin(); renderPlinkoAdmin(); renderStats();
+    renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats();
     toast('', '냥치 런: ' + msg + ' → RTP ' + pct(econ(m, draft.settings).rtp), true);
     return true;
   }
@@ -4312,15 +4639,99 @@ img, svg, video { max-width: 100%; }
     if (e.target.id !== 'pk-fit') return false;
     const m = pkDraft(); if (!m) return true;
     const msg = fitMachine(m, draft.settings, target(), 'reward');
-    renderPlinkoAdmin(); renderStats();
+    renderPlinkoAdmin(); renderCannonAdmin(); renderStats();
     toast('', '팝콘 핀볼: ' + msg + ' → RTP ' + pct(econ(m, draft.settings).rtp), true);
+    return true;
+  }
+
+  // ----- 팝콘 대포 관리: 거리 구간 배수(공통) + 게이지 등급별 확률표. 등급마다 RTP를 같게 맞춘다(B 방식) -----
+  const cnDraft = () => draft.machines.find(m => m.mode === 'cannon');
+  function cnSyncPrizes(m) {
+    const M = cnMults(m), P = cnProbs(m, 'normal');
+    m.prizes = M.map((v, i) => ({ g: v >= 5 ? 'S' : v >= 2 ? 'A' : v >= 1 ? 'B' : 'C', name: cnLabel(i) + ' ' + pkMulText(v), kind: 'kernel', val: cnPay(m, v), cost: 0, w: P[i] }));
+    m.top = cnLabel(5) + ' ' + pkMulText(M[5]) + ' · 강냉이 ' + fmt(cnPay(m, M[5])) + '개';
+  }
+  function renderCannonAdmin() {
+    const m = cnDraft(); if (!m) return;
+    $('cn-fields').innerHTML =
+      '<div class="field"><label for="cn-cost">1발 금액</label><div class="input-unit"><input class="input num" id="cn-cost" type="number" min="10" step="10" data-cnf="cost" value="' + num(m.cost) + '"><span>강냉이</span></div></div>' +
+      '<div class="field"><label for="cn-demand">월 예상 강냉이 소진</label><div class="input-unit"><input class="input num" id="cn-demand" type="number" min="0" data-cnf="demand" value="' + num(m.demand) + '"><span>강냉이</span></div></div>';
+    const M = cnMults(m);
+    $('cn-prob-t').innerHTML = '<thead><tr><th>거리 구간</th><th class="w-num">배수</th><th class="r">지급</th>' + CN_GRADES.map(g => '<th class="w-num">' + g.name + ' 확률</th>').join('') + '</tr></thead><tbody>' +
+      M.map((v, i) => '<tr><td>' + cnLabel(i) + '</td>' +
+        '<td><div class="input-unit"><span>×</span><input class="input sm num" type="number" min="0" step="0.1" data-cnm="' + i + '" value="' + v + '" aria-label="' + cnLabel(i) + ' 배수"></div></td>' +
+        '<td class="r num" data-cnpay="' + i + '"></td>' +
+        CN_GRADES.map(g => '<td><div class="input-unit"><input class="input sm num" type="number" min="0" step="0.01" data-cnp="' + g.id + ':' + i + '" value="' + cnProbs(m, g.id)[i] + '" aria-label="' + g.name + ' ' + cnLabel(i) + ' 확률"><span>%</span></div></td>').join('') + '</tr>').join('') +
+      '</tbody><tfoot><tr><td colspan="3">확률 합</td>' + CN_GRADES.map(g => '<td class="r num" data-cnsum="' + g.id + '"></td>').join('') + '</tr>' +
+      '<tr><td colspan="3">등급 RTP</td>' + CN_GRADES.map(g => '<td class="r num" data-cnrtp="' + g.id + '"></td>').join('') + '</tr></tfoot>';
+    renderCannonCalc();
+  }
+  function renderCannonCalc() {
+    const m = cnDraft(); if (!m) return;
+    const s = draft.settings, e = econ(m, s), T = target();
+    cnMults(m).forEach((v, i) => { const c = document.querySelector('[data-cnpay="' + i + '"]'); if (c) c.textContent = fmt(cnPay(m, v)) + '개'; });
+    CN_GRADES.forEach(g => {
+      const sum = cnProbs(m, g.id).reduce((a, b) => a + b, 0), r = cnRtp(m, g.id), st = statusOf(r, T);
+      const a = document.querySelector('[data-cnsum="' + g.id + '"]'), b = document.querySelector('[data-cnrtp="' + g.id + '"]');
+      if (a) { a.textContent = (+sum.toFixed(2)) + '%'; a.style.color = Math.abs(sum - 100) > .05 ? '#E03131' : ''; }
+      if (b) b.innerHTML = pct(r) + ' <span class="status ' + st.cls + '">' + st.label + '</span>';
+    });
+    const rs = CN_GRADES.map(g => cnRtp(m, g.id)), gap = Math.max(...rs) - Math.min(...rs), st = statusOf(e.rtp, T);
+    $('cn-sum').textContent = 'RTP ' + pct(e.rtp) + (gap > .01 ? ' · 등급 차이 ' + (gap * 100).toFixed(1) + '%p' : ' · 등급 동일');
+    $('cn-calc').innerHTML = '<span>1발 매출 <b>' + won(e.rev) + '</b></span><span>1발 기대 지급(가장 높은 등급) <b>' + won(e.pay) + '</b></span><span>RTP <b>' + pct(e.rtp) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>' +
+      (gap > .01 ? '<span style="color:#E03131">등급별 RTP가 ' + (gap * 100).toFixed(1) + '%p 달라요. 같게 맞춰 주세요.</span>' : '');
+  }
+  function cannonAdminInput(el) {
+    const m = cnDraft(); if (!m) return false;
+    if (el.dataset.cnf) { m[el.dataset.cnf] = Math.round(num(el.value)); cnSyncPrizes(m); renderCannonCalc(); renderStats(); return true; }
+    if (el.dataset.cnm != null) { m.mults = cnMults(m); m.mults[Number(el.dataset.cnm)] = Math.max(0, Number(el.value) || 0); cnSyncPrizes(m); renderCannonCalc(); renderStats(); return true; }
+    if (el.dataset.cnp) {
+      const [g, i] = el.dataset.cnp.split(':');
+      m.probs = m.probs || {}; CN_GRADES.forEach(x => { m.probs[x.id] = cnProbs(m, x.id); });
+      m.probs[g][Number(i)] = Math.max(0, Number(el.value) || 0); cnSyncPrizes(m); renderCannonCalc(); renderStats(); return true;
+    }
+    return false;
+  }
+  // 등급마다 '가장 낮은 구간'과 '×1에 가장 가까운 구간' 사이로 확률을 옮겨 목표 RTP에 맞춘다
+  // (대박 구간 확률은 그대로 두므로 등급별 손맛은 유지)
+  function cnFitGrades(m, T) {
+    m.probs = m.probs || {}; const M = cnMults(m), c = num(m.cost); let ok = true;
+    const pay = M.map(v => c ? cnPay(m, v) / c : 0);
+    const lo = pay.indexOf(Math.min(...pay)); let mid = -1, best = Infinity;
+    pay.forEach((v, i) => { if (i !== lo && v > pay[lo] && Math.abs(v - 1) < best) { best = Math.abs(v - 1); mid = i; } });
+    // RTP가 높으면: ×1 구간 → 그보다 큰 구간(작은 배수부터) → 그 사이 구간 순으로 꽝 구간에 옮김
+    // RTP가 낮으면: 꽝 구간 → 그보다 큰 작은 배수 구간 순으로 ×1 구간에 옮김 (대박 구간은 되도록 손대지 않음)
+    const downDonors = mid < 0 ? [] : [mid].concat(pay.map((v, i) => i).filter(i => i !== lo && i !== mid && pay[i] > pay[mid]).sort((a, b) => pay[a] - pay[b]), pay.map((v, i) => i).filter(i => i !== lo && i !== mid && pay[i] <= pay[mid]).sort((a, b) => pay[b] - pay[a]));
+    const upDonors = mid < 0 ? [] : pay.map((v, i) => i).filter(i => i !== mid && pay[i] < pay[mid]).sort((a, b) => pay[a] - pay[b]);
+    CN_GRADES.forEach(g => {
+      const P = cnProbs(m, g.id), sum = P.reduce((a, b) => a + b, 0) || 1;
+      const p = P.map(v => v / sum * 100);
+      const cur = () => p.reduce((a, v, i) => a + v / 100 * pay[i], 0);
+      if (mid >= 0 && c) {
+        if (cur() > T) for (const d of downDonors) { const gap = cur() - T; if (gap <= 1e-9) break; const per = (pay[d] - pay[lo]) / 100; if (per <= 0) continue; const mv = Math.min(p[d], gap / per); p[d] -= mv; p[lo] += mv; }
+        else for (const d of upDonors) { const gap = T - cur(); if (gap <= 1e-9) break; const per = (pay[mid] - pay[d]) / 100; if (per <= 0) continue; const mv = Math.min(p[d], gap / per); p[d] -= mv; p[mid] += mv; }
+      }
+      if (!c || mid < 0 || Math.abs(cur() - T) > .0005) ok = false;
+      const r = p.map(v => Math.round(v * 100) / 100), big = r.indexOf(Math.max(...r));
+      r[big] = Math.round((100 - r.reduce((a, v, i) => i === big ? a : a + v, 0)) * 100) / 100;
+      m.probs[g.id] = r;
+    });
+    cnSyncPrizes(m);
+    return ok;
+  }
+  function cannonAdminClick(e) {
+    if (e.target.id !== 'cn-fit') return false;
+    const m = cnDraft(); if (!m) return true;
+    const ok = cnFitGrades(m, target());
+    renderCannonAdmin(); renderStats();
+    toast('', '팝콘 대포: ' + (ok ? '등급별 확률을 목표 RTP ' + pct(target()) + '에 맞췄어요' : '일부 등급은 확률만으로 맞출 수 없어요. 배수를 조정해 주세요'), true);
     return true;
   }
 
   function openAdmin() {
     // 편집 중인 내용이 없으면 최신 설정(게임에서 줄어든 남은 수량 포함)으로 다시 시작
     if (!draft || JSON.stringify(draft) === draftBase) { draft = clone(config); draftBase = JSON.stringify(draft); }
-    renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderStats();
+    renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats();
   }
 
   // ----- 관리자 이벤트 -----
@@ -4330,6 +4741,7 @@ img, svg, video { max-width: 100%; }
     if (puzzleAdminInput(e.target)) return;
     if (runnerAdminInput(e.target)) return;
     if (plinkoAdminInput(e.target)) return;
+    if (cannonAdminInput(e.target)) return;
     const el = e.target, s = draft.settings;
     if (el.id === 'ad-budget') s.budget = num(el.value);
     else if (el.id === 'ad-kv') s.kernelValue = num(el.value);
@@ -4383,6 +4795,7 @@ img, svg, video { max-width: 100%; }
     if (puzzleAdminClick(e)) return;
     if (runnerAdminClick(e)) return;
     if (plinkoAdminClick(e)) return;
+    if (cannonAdminClick(e)) return;
     const tab = e.target.closest('[data-tab]');
     if (tab) { sel = tab.dataset.tab; renderEditor(); renderStats(); if (tab.dataset.jump) $('ad-editor').scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' }); return; }
     const fit = e.target.closest('[data-fit]');
@@ -4432,16 +4845,16 @@ img, svg, video { max-width: 100%; }
         draft.machines.forEach(m => fitMachine(m, s, T, s.method));
       }
       s.targetRtp = Math.round(T * 1000) / 10;
-      renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderStats();
+      renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats();
       const t = totalsOf(draft);
       toast('', '예산 사용률 ' + pct(t.usage) + ', 목표 RTP ' + s.targetRtp + '%로 모든 머신을 맞췄어요. 저장해야 게임에 반영돼요.', true);
     } else if (id === 'ad-revert') {
-      draft = clone(config); draftBase = JSON.stringify(draft); renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderStats();
+      draft = clone(config); draftBase = JSON.stringify(draft); renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats();
     } else if (id === 'ad-reset') {
       const btn = $('ad-reset');
       if (Date.now() - resetArmed < 4000) {
         draft = clone(DEFAULT_CONFIG); resetArmed = 0; btn.textContent = '기본값으로';
-        renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderStats();
+        renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats();
         toast('', '기본값을 불러왔어요. 저장해야 게임에 반영돼요.', true);
       } else {
         resetArmed = Date.now(); btn.textContent = '한 번 더 누르면 초기화';
@@ -4452,7 +4865,7 @@ img, svg, video { max-width: 100%; }
     } else if (id === 'ad-load-remote') {
       if (sync.remote) { draft = clone(config); draftBase = JSON.stringify(draft); }
       $('ad-remote').hidden = true;
-      renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderStats();
+      renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats();
     }
   });
 
@@ -4497,7 +4910,7 @@ img, svg, video { max-width: 100%; }
     if (!draft || JSON.stringify(draft) === draftBase) {
       draft = clone(config); draftBase = JSON.stringify(draft);
       $('ad-remote').hidden = true;
-      if (!$('admin').hidden) { renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderStats(); }
+      if (!$('admin').hidden) { renderSettings(); renderEditor(); renderShopAdmin(); renderFarmAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderPlinkoAdmin(); renderCannonAdmin(); renderStats(); }
     } else if (!sync.saving) {
       $('ad-remote').hidden = false;
       if (!$('admin').hidden) renderStats();
@@ -4567,9 +4980,10 @@ img, svg, video { max-width: 100%; }
 
   function route() {
     const admin = location.hash === '#admin', shop = location.hash === '#shop';
+    if (CN.flying && location.hash !== '#cannon') { history.replaceState(null, '', '#cannon'); toast('', '팝콘이 착지한 뒤에 이동할 수 있어요.', true); return; }
     if (PK.inflight > 0 && location.hash !== '#plinko') { history.replaceState(null, '', '#plinko'); toast('', '떨어지는 팝콘이 다 들어간 뒤에 이동할 수 있어요.', true); return; }
     if (RN.active && location.hash !== '#runner') { history.replaceState(null, '', '#runner'); toast('', '냥치 런이 끝난 뒤에 이동할 수 있어요.', true); return; }
-    const tab = ({ '#board': 'board', '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#farm': 'farm', '#runner': 'runner', '#plinko': 'plinko' })[location.hash] || 'gacha';
+    const tab = ({ '#board': 'board', '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#farm': 'farm', '#runner': 'runner', '#plinko': 'plinko', '#cannon': 'cannon' })[location.hash] || 'gacha';
     if (!admin && !shop && tab !== state.tab) {
       if (!$('modal').hidden) { if (busy) return; closeModal(); }
       state.tab = tab; renderZones(); renderFloor();
