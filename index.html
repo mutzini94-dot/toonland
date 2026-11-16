@@ -3860,8 +3860,11 @@ img, svg, video { max-width: 100%; }
     const P = cnProbs(m, grade.id), sum = P.reduce((a, b) => a + b, 0) || 1;
     let r = Math.random() * sum, band = 0;
     for (; band < 5; band++) { r -= P[band]; if (r < 0) break; }
+    // 퍼펙트·좋아요는 어떤 설정이든 ×1 이상 보장(안전장치)
+    if (grade.id !== 'normal') { const MM = cnMults(m); while (band < 5 && MM[band] < 1) band++; }
     const lo = band === 0 ? CN_EDGES[0] : CN_EDGES[band], hi = CN_EDGES[band + 1];
-    const dist = lo + Math.random() * (hi - lo - 1);
+    // 구간 경계에 걸쳐 보이지 않도록 구간 가운데 76% 안에서만 거리를 고른다 (배수는 구간으로 이미 정해짐)
+    const dist = lo + (hi - lo) * (.12 + Math.random() * .76);
     cnFly(m, grade, band, dist);
   }
   // 정해진 거리에 착지하도록 궤적을 거꾸로 맞춘다: 큰 포물선 → 튕김 2번 → 미끄러짐
