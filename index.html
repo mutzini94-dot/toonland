@@ -614,41 +614,10 @@ button.stat { font: inherit; color: inherit; cursor: pointer; }
 @keyframes fs-jolt { 30% { transform: translateY(6px) scale(1.015); } }
 @keyframes fs-rattle { 25% { transform: translate(1px, 1px); } 75% { transform: translate(-1px, -1px); } }
 @keyframes fs-rattle2 { 25% { transform: translate(3px, 2px) rotate(.3deg) scale(1.02); } 75% { transform: translate(-3px, -1px) rotate(-.3deg) scale(1.02); } }
-.fs-sky { position: absolute; left: 0; right: 0; top: 0; height: 40%; background: linear-gradient(180deg, #74C0FC, #D0EBFF 92%, #FFF4E6); }
-.fs-sun { position: absolute; right: 18%; top: 22px; width: 50px; height: 50px; border-radius: 50%; background: radial-gradient(circle, #FFF9DB, #FFD43B 70%); box-shadow: 0 0 40px 14px rgba(255,224,102,.55); }
-.fs-cloud { position: absolute; height: 18px; border-radius: 999px; background: #FFFFFF; opacity: .9; animation: fs-cloud 40s linear infinite; }
-.fs-cloud::before { content: ""; position: absolute; left: 18%; top: -10px; width: 40%; height: 22px; border-radius: 50%; background: inherit; }
-.fs-cloud.c1 { left: 8%; top: 30px; width: 96px; } .fs-cloud.c2 { left: 48%; top: 56px; width: 70px; animation-duration: 55s; opacity: .75; }
-@keyframes fs-cloud { from { translate: -40px 0; } to { translate: 60px 0; } }
-.fs-bird { position: absolute; left: 30%; top: 40px; width: 14px; height: 6px; border-top: 2px solid #495057; border-radius: 50% 50% 0 0; animation: fs-bird 18s linear infinite; }
-.fs-bird::after { content: ""; position: absolute; left: 12px; top: -2px; width: 14px; height: 6px; border-top: 2px solid #495057; border-radius: 50% 50% 0 0; }
-@keyframes fs-bird { from { translate: -200px 10px; } to { translate: 500px -20px; } }
-.fs-far { position: absolute; left: 0; right: 0; top: calc(40% - 26px); height: 26px; }
-.fs-isle { position: absolute; left: 12%; bottom: 0; width: 120px; height: 22px; border-radius: 60px 70px 0 0; background: #5C940D; opacity: .55; }
-.fs-isle::after { content: ""; position: absolute; left: 70px; bottom: 0; width: 90px; height: 14px; border-radius: 40px 50px 0 0; background: #74B816; }
-.fs-light { position: absolute; right: 24%; bottom: 0; width: 8px; height: 26px; background: linear-gradient(180deg, #FA5252 0 30%, #FFFFFF 30% 55%, #FA5252 55%); border-radius: 2px 2px 0 0; opacity: .7; }
-.fs-water { position: absolute; left: 0; right: 0; top: 40%; bottom: 0; overflow: hidden; background: linear-gradient(180deg, #74C0FC 0%, #339AF0 30%, #1971C2 70%, #134E8C 100%); }
-.fs-glint { position: absolute; right: 12%; top: 0; width: 120px; height: 60%; background: repeating-linear-gradient(180deg, rgba(255,255,255,.5) 0 2px, transparent 2px 9px); -webkit-mask: linear-gradient(180deg, #000, transparent); mask: linear-gradient(180deg, #000, transparent); clip-path: polygon(40% 0, 60% 0, 100% 100%, 0 100%); animation: fs-glint 2s ease-in-out infinite; }
-@keyframes fs-glint { 50% { opacity: .5; } }
-.fs-wave { position: absolute; left: -80px; right: -80px; background-repeat: repeat-x; animation: fs-wave 4s linear infinite; }
-.fs-wave.w1 { top: 3%; height: 6px; background-image: radial-gradient(8px 3px at 8px 0, rgba(255,255,255,.55) 98%, transparent); background-size: 24px 6px; animation-duration: 7s; }
-.fs-wave.w2 { top: 22%; height: 9px; background-image: radial-gradient(12px 4px at 12px 0, rgba(255,255,255,.45) 98%, transparent); background-size: 40px 9px; animation-duration: 5s; animation-direction: reverse; }
-.fs-wave.w3 { top: 48%; height: 13px; background-image: radial-gradient(20px 6px at 20px 0, rgba(255,255,255,.35) 98%, transparent); background-size: 70px 13px; }
-.fs-wave.w4 { top: 78%; height: 18px; background-image: radial-gradient(32px 8px at 32px 0, rgba(255,255,255,.25) 98%, transparent); background-size: 110px 18px; animation-duration: 3s; animation-direction: reverse; }
-@keyframes fs-wave { to { translate: 80px 0; } }
-.fs-boat { position: absolute; left: -6%; right: -6%; bottom: -70px; z-index: 5; height: 110px; border-radius: 50% 50% 0 0 / 40px 40px 0 0; background: linear-gradient(180deg, #C88A55, #8B5A2B 30%, #6B4220); box-shadow: inset 0 6px 0 #E0A96D, 0 -4px 10px rgba(0,0,0,.2); pointer-events: none; }
-.fs-boat::before { content: ""; position: absolute; left: 10%; right: 10%; top: 16px; height: 2px; background: rgba(0,0,0,.18); box-shadow: 0 14px 0 rgba(0,0,0,.14); }
 .fs-svg { position: absolute; inset: 0; z-index: 6; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
 .fs-hands { position: absolute; right: 4%; bottom: -14px; z-index: 7; width: 120px; height: 90px; pointer-events: none; transform-origin: 90% 100%; }
 .fs-hands.cast { animation: fs-cast .6s ease-out; }
 @keyframes fs-cast { 30% { transform: rotate(-14deg) translateY(-14px); } 60% { transform: rotate(6deg); } }
-.fs-reel { position: absolute; left: 22px; top: 18px; width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle, #DEE2E6 0 30%, #868E96 32% 60%, #495057 62%); box-shadow: 0 3px 6px rgba(0,0,0,.35); }
-.fs-crank { position: absolute; left: 50%; top: 50%; width: 30px; height: 6px; margin: -3px 0 0 -3px; border-radius: 3px; background: #343A40; transform-origin: 3px 3px; }
-.fs-crank::after { content: ""; position: absolute; right: -6px; top: -4px; width: 12px; height: 14px; border-radius: 4px; background: #FA5252; }
-.fs-paw { position: absolute; width: 50px; height: 44px; border-radius: 50% 50% 46% 46%; background: #FF8A3D; box-shadow: inset 0 -6px 0 #E8590C, 0 4px 8px rgba(0,0,0,.25); }
-.fs-paw::before { content: ""; position: absolute; left: 10px; top: 8px; width: 9px; height: 9px; border-radius: 50%; background: #FFD8A8; box-shadow: 12px -3px 0 #FFD8A8, 24px 0 0 #FFD8A8, 12px 12px 0 4px #FFD8A8; }
-.fs-paw.p1 { left: 0; top: 40px; transform: rotate(-20deg); }
-.fs-paw.p2 { left: 60px; top: 30px; transform: rotate(16deg); }
 .fs-bob { position: absolute; left: 0; top: 0; z-index: 3; width: 16px; height: 22px; transform-origin: 50% 100%; border-radius: 50% 50% 45% 45%; background: linear-gradient(180deg, #FA5252 0 48%, #FFFFFF 48% 100%); box-shadow: 0 0 0 2px #212529; transition: opacity .1s; }
 .fs-bob::before { content: ""; position: absolute; left: 7px; top: -7px; width: 2px; height: 8px; background: #212529; }
 .fs-bob.under { opacity: .45; }
@@ -782,6 +751,60 @@ button.stat { font: inherit; color: inherit; cursor: pointer; }
 .fs-shout.t-combo { top: 30%; font-size: 40px; color: #FFE066; text-shadow: 0 5px 0 #E8590C, 0 0 20px rgba(255,140,0,.8); }
 .fs-combo-break { position: absolute; right: 14px; top: 46px; font-size: 14px; font-weight: 900; color: #FFFFFF; text-shadow: 0 2px 0 rgba(0,0,0,.4); animation: fs-break 1.3s ease-in forwards; }
 @keyframes fs-break { 30% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(20px) rotate(8deg); opacity: 0; } }
+/* 낚시터 그래픽 다듬기: SVG 풍경·뱃전·낚싯대·앞발·찌·카드·조작부 */
+.fs-stage { background: #0A3B74; box-shadow: 0 10px 30px rgba(10,40,90,.18), 0 2px 0 rgba(0,0,0,.05); }
+.fs-scene, .fs-fg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+.fs-fg { z-index: 5; filter: drop-shadow(0 -6px 10px rgba(0,0,0,.18)); }
+.fs-wv { animation: fs-wv 8s linear infinite; }
+@keyframes fs-wv { to { transform: translateX(var(--p)); } }
+.fs-cl { animation: fs-cl 60s linear infinite alternate; }
+.fs-cl.b { animation-duration: 80s; opacity: .85; } .fs-cl.c { animation-duration: 45s; opacity: .7; }
+@keyframes fs-cl { to { translate: 50px 0; } }
+.fs-birds { animation: fs-birds 26s linear infinite; }
+@keyframes fs-birds { from { transform: translate(-60px, 60px) scale(.8); } to { transform: translate(800px, 30px) scale(.8); } }
+.fs-sail { animation: fs-sail 70s linear infinite alternate; }
+@keyframes fs-sail { from { transform: translate(250px, 134px); } to { transform: translate(430px, 134px); } }
+.fs-rf { animation: fs-rf 1.6s ease-in-out infinite alternate; }
+@keyframes fs-rf { from { opacity: .95; } to { opacity: .25; } }
+.fs-sp { opacity: 0; animation: fs-sp 2.6s ease-in-out infinite; }
+@keyframes fs-sp { 0%, 100% { opacity: 0; } 50% { opacity: .9; } }
+.fs-lamp { animation: fs-lamp 2s ease-in-out infinite; }
+@keyframes fs-lamp { 50% { opacity: .35; } }
+.fs-svg { filter: drop-shadow(2px 4px 3px rgba(0,0,0,.28)); }
+.fs-hands { right: 2%; bottom: -18px; width: 150px; height: 104px; }
+.fs-paws { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 6px 8px rgba(0,0,0,.3)); }
+.fs-reel { position: absolute; left: 48px; top: 8px; z-index: -1; width: 44px; height: 44px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #F8F9FA, #ADB5BD 45%, #495057 80%); box-shadow: inset 0 0 0 3px rgba(0,0,0,.25), 0 4px 8px rgba(0,0,0,.35); }
+.fs-spool { position: absolute; inset: 9px; border-radius: 50%; background: repeating-radial-gradient(circle, #E9ECEF 0 1.5px, #CED4DA 1.5px 3px); box-shadow: inset 0 0 0 2px #868E96; }
+.fs-crank { position: absolute; left: 50%; top: 50%; width: 30px; height: 5px; margin: -2.5px 0 0 -2.5px; border-radius: 3px; background: linear-gradient(180deg, #495057, #212529); transform-origin: 2.5px 2.5px; }
+.fs-crank::after { content: ""; position: absolute; right: -7px; top: -5px; width: 12px; height: 15px; border-radius: 5px; background: linear-gradient(180deg, #FF8787, #C92A2A); box-shadow: 0 2px 2px rgba(0,0,0,.3); }
+.fs-bob { width: 14px; height: 24px; border-radius: 50% 50% 45% 45% / 55% 55% 45% 45%; background: radial-gradient(circle at 35% 25%, rgba(255,255,255,.85) 0 12%, transparent 13%), linear-gradient(180deg, #FF6B6B 0 46%, #212529 46% 52%, #F8F9FA 52% 100%); box-shadow: 0 0 0 1.5px rgba(0,0,0,.55), 0 3px 4px rgba(0,0,0,.25); }
+.fs-bob::before { left: 6px; top: -9px; width: 2px; height: 10px; background: linear-gradient(180deg, #FFE066 0 30%, #343A40 30%); }
+.fs-alert { width: 38px; height: 46px; border-radius: 14px; background: linear-gradient(180deg, #FF6B6B, #E03131); box-shadow: 0 4px 0 #A61E1E, 0 0 18px rgba(255,80,80,.6); font-size: 30px; line-height: 46px; }
+.fs-shadow { mix-blend-mode: multiply; }
+/* 결과 카드: 위쪽 색 띠 + 스포트라이트 + 또렷한 글자 */
+.fs-catch { background: radial-gradient(circle at 50% 45%, rgba(10,40,80,.35), rgba(5,20,45,.72)); backdrop-filter: blur(2px); }
+.fs-catch-card { width: min(310px, 88%); padding: 0 0 12px; overflow: visible; border-radius: 22px; background: #FFFFFF; box-shadow: 0 0 0 1px rgba(255,255,255,.6), 0 24px 50px rgba(0,0,0,.45); }
+.fs-catch-card::before { content: ""; display: block; height: 128px; margin-bottom: -112px; border-radius: 22px 22px 0 0; background: radial-gradient(70% 90% at 50% 70%, color-mix(in srgb, var(--fc) 30%, #FFFFFF), color-mix(in srgb, var(--fc) 75%, #1A1B1E) 140%); }
+.fs-catch.t-top .fs-catch-card { box-shadow: 0 0 0 3px #FFE066, 0 0 0 6px #F59F00, 0 0 50px 14px rgba(250,176,5,.55), 0 24px 50px rgba(0,0,0,.45); }
+.fs-catch.t-hi .fs-catch-card { box-shadow: 0 0 0 3px #D0BFFF, 0 0 0 6px #7048E8, 0 0 40px 8px rgba(112,72,232,.45), 0 24px 50px rgba(0,0,0,.45); }
+.fs-catch-badges { position: relative; padding-top: 10px; }
+.fs-catch-art { position: relative; width: 196px; height: 112px; filter: drop-shadow(0 10px 8px rgba(0,0,0,.25)); }
+.fs-catch-name { margin-top: 8px; font-size: 21px; letter-spacing: -.01em; }
+.fs-catch-name b { color: #1971C2; }
+.fs-tape { margin: 8px 18px 0; }
+.fs-catch-pay { margin: 8px 14px 0; padding-top: 8px; border-top: 1px dashed #DEE2E6; }
+.fs-ribbon { top: -14px; z-index: 2; border-radius: 999px; padding: 4px 18px; font-size: 12.5px; }
+/* 조작부 */
+.fs-bait { padding: 10px 6px 9px; border-radius: 16px; transition: transform .15s, box-shadow .15s, border-color .15s; }
+.fs-bait:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(28,126,214,.12); }
+.fs-bait-ic { width: 38px; height: 30px; border-radius: 10px; background-color: #F1F3F5; background-size: 24px 18px; }
+.fs-bait[aria-pressed="true"] .fs-bait-ic { background-color: #FFFFFF; }
+.fs-go { position: relative; overflow: hidden; border-radius: 18px; background: linear-gradient(180deg, #4DABF7, #1C7ED6 55%, #1971C2); box-shadow: 0 6px 0 #145DA0, 0 10px 20px rgba(28,126,214,.25); }
+.fs-go::after { content: ""; position: absolute; left: 4%; right: 4%; top: 2px; height: 38%; border-radius: 14px 14px 40% 40%; background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,0)); pointer-events: none; }
+.fs-go.hook { background: linear-gradient(180deg, #FF8787, #E03131 55%, #C92A2A); box-shadow: 0 6px 0 #8F1D1D, 0 10px 20px rgba(224,49,49,.3); }
+.fs-dex-item { border-radius: 14px; transition: transform .15s; }
+.fs-dex-item:not(.unk):hover { transform: translateY(-2px); }
+.fs-dex-art { width: 78px; height: 46px; filter: drop-shadow(0 3px 3px rgba(0,0,0,.15)); }
 /* ===== 냥냥 레이스 ===== */
 .rc-panel { grid-column: 1 / -1; }
 .rc-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
@@ -5077,31 +5100,95 @@ img, svg, video { max-width: 100%; }
     const top = F.reduce((b, f) => f.mult > b.mult ? f : b, F[0]);
     m.top = top.name + ' ' + rcMul(top.mult);
   }
-  // 물고기 그림(SVG): 몸통·꼬리·지느러미·눈. 빈 깡통은 깡통 그림
+  // 물고기 그림(SVG): 등은 진하고 배는 밝은 그라데이션, 비늘 무늬, 반투명 지느러미, 반짝이는 눈. 꽝은 잡동사니 그림
+  let fsArtN = 0;
+  const fsShade = (hex, amt) => { const n = parseInt(hex.slice(1), 16), f = v => Math.max(0, Math.min(255, Math.round(amt < 0 ? v * (1 + amt) : v + (255 - v) * amt))); return '#' + [n >> 16, (n >> 8) & 255, n & 255].map(v => f(v).toString(16).padStart(2, '0')).join(''); };
   function fsArt(f, cls) {
-    if (f.id === 'can' && f.junk) {
+    const id = 'fa' + (++fsArtN), svg = body => '<svg class="' + (cls || '') + '" viewBox="0 0 120 70" aria-hidden="true">' + body + '</svg>';
+    if (f.id === 'can') {
       const J = {
-        1: '<path d="M44 8h26v34c0 4 4 6 10 7l14 3c6 1 8 5 8 9v3H40z" fill="#8D6E63" stroke="#4E342E" stroke-width="3" stroke-linejoin="round"/><path d="M40 60h62" stroke="#4E342E" stroke-width="5"/><path d="M48 18h18M48 26h18" stroke="#5D4037" stroke-width="2"/>',
-        2: '<path d="M40 60c-6-18 8-30 2-48M56 62c4-20-8-30 0-52M72 60c-4-16 10-28 4-46M86 62c2-14-6-22 2-36" fill="none" stroke="#2F9E44" stroke-width="7" stroke-linecap="round"/><path d="M50 60c6-16-2-26 4-40" fill="none" stroke="#69DB7C" stroke-width="5" stroke-linecap="round"/>',
-        3: '<circle cx="60" cy="36" r="24" fill="#F783AC" stroke="#A61E4D" stroke-width="3"/><path d="M38 30c14 8 30 8 44 0M38 44c14-6 30-6 44 0" fill="none" stroke="#FFFFFF" stroke-width="3"/><circle cx="60" cy="10" r="6" fill="#FFD43B" stroke="#E67700" stroke-width="2"/>',
-        4: '<circle cx="36" cy="35" r="14" fill="none" stroke="#B5651D" stroke-width="7"/><path d="M50 35h50M88 35v12M98 35v9" stroke="#B5651D" stroke-width="7" stroke-linecap="round"/><circle cx="62" cy="31" r="2" fill="#E8590C"/><circle cx="80" cy="38" r="2.5" fill="#E8590C"/>'
+        1: '<defs><linearGradient id="' + id + 'b" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6D4C41"/><stop offset=".5" stop-color="#A1887F"/><stop offset="1" stop-color="#5D4037"/></linearGradient></defs><path d="M44 8h26v34c0 4 4 6 10 7l14 3c6 1 8 5 8 9v3H40z" fill="url(#' + id + 'b)" stroke="#3E2723" stroke-width="2.5" stroke-linejoin="round"/><path d="M40 60h62" stroke="#3E2723" stroke-width="5"/><path d="M48 18h18M48 26h18" stroke="#4E342E" stroke-width="2"/><path d="M50 12v24" stroke="#FFFFFF" stroke-opacity=".25" stroke-width="3"/>',
+        2: '<path d="M40 60c-6-18 8-30 2-48M56 62c4-20-8-30 0-52M72 60c-4-16 10-28 4-46M86 62c2-14-6-22 2-36" fill="none" stroke="#2B8A3E" stroke-width="7" stroke-linecap="round"/><path d="M50 60c6-16-2-26 4-40M66 58c-2-12 6-20 2-32" fill="none" stroke="#8CE99A" stroke-width="4" stroke-linecap="round"/><circle cx="62" cy="40" r="2" fill="#FFFFFF" opacity=".6"/>',
+        3: '<defs><radialGradient id="' + id + 'p" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FFDEEB"/><stop offset=".6" stop-color="#F783AC"/><stop offset="1" stop-color="#C2255C"/></radialGradient></defs><circle cx="60" cy="38" r="24" fill="url(#' + id + 'p)"/><path d="M38 32c14 8 30 8 44 0M38 46c14-6 30-6 44 0" fill="none" stroke="#FFFFFF" stroke-width="3" opacity=".85"/><circle cx="60" cy="11" r="6" fill="#FFD43B" stroke="#E67700" stroke-width="2"/><ellipse cx="52" cy="28" rx="6" ry="3" fill="#FFFFFF" opacity=".6"/>',
+        4: '<defs><linearGradient id="' + id + 'k" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9822B"/><stop offset="1" stop-color="#8A4B14"/></linearGradient></defs><circle cx="36" cy="35" r="14" fill="none" stroke="url(#' + id + 'k)" stroke-width="7"/><path d="M50 35h50M88 35v12M98 35v9" stroke="url(#' + id + 'k)" stroke-width="7" stroke-linecap="round"/><circle cx="62" cy="31" r="2" fill="#E8590C"/><circle cx="80" cy="38" r="2.5" fill="#E8590C"/>'
       }[f.junk];
-      if (J) return '<svg class="' + (cls || '') + '" viewBox="0 0 120 70" aria-hidden="true">' + J + '</svg>';
+      if (J) return svg(J);
+      return svg('<defs><linearGradient id="' + id + 'c" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ADB5BD"/><stop offset=".45" stop-color="#F1F3F5"/><stop offset="1" stop-color="#868E96"/></linearGradient></defs><g transform="rotate(-14 60 35)"><rect x="34" y="14" width="52" height="42" rx="6" fill="url(#' + id + 'c)" stroke="#495057" stroke-width="2.5"/><rect x="34" y="25" width="52" height="16" fill="#E03131"/><path d="M40 33h40" stroke="#FFFFFF" stroke-width="2" opacity=".7"/><ellipse cx="60" cy="14" rx="26" ry="5" fill="#E9ECEF" stroke="#495057" stroke-width="2.5"/><circle cx="66" cy="14" r="2.5" fill="#868E96"/></g>');
     }
-    if (f.id === 'can') return '<svg class="' + (cls || '') + '" viewBox="0 0 120 70" aria-hidden="true"><g transform="rotate(-14 60 35)"><rect x="34" y="14" width="52" height="42" rx="6" fill="#CED4DA" stroke="#868E96" stroke-width="3"/><rect x="34" y="24" width="52" height="16" fill="#FA5252"/><ellipse cx="60" cy="14" rx="26" ry="5" fill="#E9ECEF" stroke="#868E96" stroke-width="3"/><path d="M44 46h12" stroke="#868E96" stroke-width="3" stroke-linecap="round"/></g></svg>';
     const c = f.color, gold = f.id === 'gold', big = f.id === 'tuna';
-    return '<svg class="' + (cls || '') + '" viewBox="0 0 120 70" aria-hidden="true">' +
-      (gold ? '<defs><linearGradient id="fsg' + (cls || '') + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE066"/><stop offset=".6" stop-color="#FAB005"/><stop offset="1" stop-color="#E67700"/></linearGradient></defs>' : '') +
-      '<path d="M92 35 L116 ' + (big ? 10 : 16) + ' L110 35 L116 ' + (big ? 60 : 54) + ' Z" fill="' + (gold ? '#F59F00' : c) + '" stroke="#212529" stroke-width="2.5" stroke-linejoin="round"/>' +
-      '<ellipse cx="54" cy="35" rx="' + (big ? 44 : 40) + '" ry="' + (f.id === 'minnow' ? 13 : f.id === 'catfish' ? 15 : 19) + '" fill="' + (gold ? 'url(#fsg' + (cls || '') + ')' : c) + '" stroke="#212529" stroke-width="2.5"/>' +
-      '<path d="M22 40 Q54 56 88 40" fill="#FFFFFF" opacity=".35"/>' +
-      '<path d="M50 ' + (f.id === 'minnow' ? 23 : 17) + ' Q60 6 72 ' + (f.id === 'minnow' ? 24 : 18) + '" fill="' + (gold ? '#F59F00' : c) + '" stroke="#212529" stroke-width="2.5" stroke-linejoin="round"/>' +
-      '<path d="M58 38 q8 4 14 0" fill="none" stroke="#212529" stroke-width="2" opacity=".5"/>' +
-      '<circle cx="28" cy="30" r="5.5" fill="#FFFFFF" stroke="#212529" stroke-width="2"/><circle cx="27" cy="30" r="2.6" fill="#212529"/>' +
-      (f.id === 'catfish' ? '<path d="M16 38 q-10 6 -14 16M18 40 q-6 10 -6 20" fill="none" stroke="#212529" stroke-width="2" stroke-linecap="round"/>' : '') +
-      (f.id === 'salmon' ? '<path d="M40 30v10M50 28v12M60 29v10" stroke="#FFFFFF" stroke-width="2" opacity=".6"/>' : '') +
-      (gold ? '<path d="M78 10l2 5 5 2-5 2-2 5-2-5-5-2 5-2z M20 12l1.5 3.5 3.5 1.5-3.5 1.5-1.5 3.5-1.5-3.5-3.5-1.5 3.5-1.5z" fill="#FFFFFF"/>' : '') +
-      '</svg>';
+    const top = gold ? '#E67700' : fsShade(c, -.38), mid = gold ? '#FAB005' : c, belly = gold ? '#FFF3BF' : fsShade(c, .65), fin = gold ? '#F59F00' : fsShade(c, -.18);
+    const ry = f.id === 'minnow' ? 12 : f.id === 'catfish' ? 15 : f.id === 'tuna' ? 18 : 19, rx = big ? 45 : 40;
+    return svg('<defs>' +
+        '<linearGradient id="' + id + 'g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + top + '"/><stop offset=".48" stop-color="' + mid + '"/><stop offset="1" stop-color="' + belly + '"/></linearGradient>' +
+        '<linearGradient id="' + id + 'f" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="' + fin + '" stop-opacity=".95"/><stop offset="1" stop-color="' + fin + '" stop-opacity=".55"/></linearGradient>' +
+        '<pattern id="' + id + 's" width="8" height="7" patternUnits="userSpaceOnUse"><path d="M0 7 q4 -6 8 0" fill="none" stroke="#FFFFFF" stroke-opacity="' + (f.id === 'catfish' || big ? .08 : .22) + '" stroke-width="1"/></pattern>' +
+        '<clipPath id="' + id + 'k"><ellipse cx="54" cy="35" rx="' + rx + '" ry="' + ry + '"/></clipPath>' +
+      '</defs>' +
+      '<path d="M90 35 L116 ' + (big ? 9 : 15) + ' Q108 35 116 ' + (big ? 61 : 55) + ' Z" fill="url(#' + id + 'f)" stroke="' + top + '" stroke-width="1.5" stroke-linejoin="round"/>' +
+      '<path d="M96 35 L112 20M96 35 L112 50M96 35 L113 35" stroke="#FFFFFF" stroke-opacity=".25" stroke-width="1"/>' +
+      '<path d="M46 ' + (35 - ry + 2) + ' Q58 ' + (35 - ry - 14) + ' 74 ' + (35 - ry + 3) + 'Z" fill="url(#' + id + 'f)" stroke="' + top + '" stroke-width="1.5" stroke-linejoin="round"/>' +
+      '<ellipse cx="54" cy="35" rx="' + rx + '" ry="' + ry + '" fill="url(#' + id + 'g)"/>' +
+      '<g clip-path="url(#' + id + 'k)"><rect x="30" y="10" width="64" height="50" fill="url(#' + id + 's)"/><path d="M20 ' + (35 + ry * .55) + ' Q54 ' + (35 + ry * 1.2) + ' 92 ' + (35 + ry * .4) + '" fill="none" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="5"/>' +
+        '<path d="M22 33 Q56 30 92 35" fill="none" stroke="' + top + '" stroke-opacity=".45" stroke-width="1.2" stroke-dasharray="2 2"/>' +
+        (f.id === 'salmon' ? '<g fill="' + top + '" opacity=".5"><circle cx="48" cy="24" r="1.6"/><circle cx="58" cy="22" r="1.6"/><circle cx="68" cy="25" r="1.6"/><circle cx="78" cy="27" r="1.6"/></g>' : '') +
+        (big ? '<path d="M30 ' + (35 - ry) + ' Q60 ' + (35 - ry * .2) + ' 96 ' + (35 - ry * .3) + '" fill="none" stroke="#212529" stroke-opacity=".25" stroke-width="7"/>' : '') +
+      '</g>' +
+      '<ellipse cx="54" cy="35" rx="' + rx + '" ry="' + ry + '" fill="none" stroke="' + top + '" stroke-width="1.6"/>' +
+      '<path d="M58 40 Q64 48 72 44" fill="url(#' + id + 'f)" stroke="' + top + '" stroke-width="1.2"/>' +
+      '<path d="M30 26 Q26 35 30 44" fill="none" stroke="' + top + '" stroke-opacity=".5" stroke-width="1.6"/>' +
+      '<circle cx="23" cy="31" r="5.2" fill="#FFFFFF"/><circle cx="22.4" cy="31.2" r="3" fill="#1A1B1E"/><circle cx="21.3" cy="29.8" r="1.2" fill="#FFFFFF"/>' +
+      '<path d="M15 39 q3 2 6 1" fill="none" stroke="' + top + '" stroke-width="1.4" stroke-linecap="round"/>' +
+      (f.id === 'catfish' ? '<path d="M15 38 q-9 5 -13 15M17 40 q-5 9 -5 18M16 34 q-10 0 -15 -4" fill="none" stroke="#3B2F2F" stroke-width="1.8" stroke-linecap="round"/>' : '') +
+      (gold ? '<g fill="#FFFFFF"><path d="M80 9l1.8 4.4 4.4 1.8-4.4 1.8-1.8 4.4-1.8-4.4-4.4-1.8 4.4-1.8z"/><path d="M40 52l1.2 3 3 1.2-3 1.2-1.2 3-1.2-3-3-1.2 3-1.2z" opacity=".8"/></g>' : ''));
+  }
+  // 1인칭 풍경 SVG (760×340 기준, 좁은 화면은 좌우를 잘라 보여준다. 수평선 y=136 = 40%)
+  function fsSceneSVG() {
+    const wave = (y, p, a, w, op, dur, rev) => {
+      let d = 'M' + (-2 * p) + ' ' + y;
+      for (let x = -2 * p; x < 760 + 2 * p; x += p) d += ' q' + (p / 4) + ' ' + (-a) + ' ' + (p / 2) + ' 0 t' + (p / 2) + ' 0';
+      return '<g class="fs-wv" style="--p:' + p + 'px;animation-duration:' + dur + 's' + (rev ? ';animation-direction:reverse' : '') + '"><path d="' + d + '" fill="none" stroke="#FFFFFF" stroke-width="' + w + '" stroke-linecap="round" opacity="' + op + '"/></g>';
+    };
+    const ys = [141, 147, 155, 165, 178, 195, 216, 242, 274, 312];
+    const waves = ys.map((y, k) => wave(y, 22 + k * 15, .8 + k * .9, .6 + k * .32, (.28 + k * .04).toFixed(2), 9 - k * .55, k % 2)).join('');
+    let ref = '';
+    for (let i = 0; i < 16; i++) { const y = 140 + Math.pow(i / 15, 1.35) * 150, w = 6 + i * 3.2 + (i % 3) * 4; ref += '<rect class="fs-rf" x="' + (600 - w / 2 + (i % 2 ? 6 : -6)) + '" y="' + y.toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + (1.2 + i * .18).toFixed(1) + '" rx="1" style="animation-delay:' + (i * .13).toFixed(2) + 's"/>'; }
+    let spark = '';
+    [[120, 190], [250, 232], [470, 175], [690, 260], [380, 290], [60, 280], [560, 214]].forEach(([x, y], i) => { spark += '<circle class="fs-sp" cx="' + x + '" cy="' + y + '" r="1.6" style="animation-delay:' + (i * .37).toFixed(2) + 's"/>'; });
+    const cloud = (x, y, k, cls) => '<g class="' + cls + '" transform="translate(' + x + ' ' + y + ') scale(' + k + ')"><path d="M0 20 a14 14 0 0 1 14-14 a20 20 0 0 1 36-4 a16 16 0 0 1 26 10 a11 11 0 0 1 2 22 H6 a10 10 0 0 1-6-14z" fill="url(#fsCloud)"/></g>';
+    return '<defs>' +
+      '<linearGradient id="fsSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3B82E0"/><stop offset=".55" stop-color="#8EC8FF"/><stop offset=".9" stop-color="#FFE7C2"/><stop offset="1" stop-color="#FFD9A8"/></linearGradient>' +
+      '<radialGradient id="fsSun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFFBEA"/><stop offset=".18" stop-color="#FFF1BF" stop-opacity=".95"/><stop offset=".45" stop-color="#FFE08A" stop-opacity=".35"/><stop offset="1" stop-color="#FFE08A" stop-opacity="0"/></radialGradient>' +
+      '<linearGradient id="fsCloud" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E3EFFC"/></linearGradient>' +
+      '<linearGradient id="fsSea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ED0F7"/><stop offset=".1" stop-color="#4AA6E6"/><stop offset=".45" stop-color="#1F74C4"/><stop offset="1" stop-color="#0A3B74"/></linearGradient>' +
+      '<linearGradient id="fsMtn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8FA9CC"/><stop offset="1" stop-color="#B9CCE4"/></linearGradient>' +
+      '<linearGradient id="fsIsle" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6DB36E"/><stop offset="1" stop-color="#3D7A4D"/></linearGradient>' +
+      '<linearGradient id="fsHaze" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="1" stop-color="#FFF4E0" stop-opacity=".55"/></linearGradient>' +
+      '<radialGradient id="fsLamp" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFF3BF"/><stop offset="1" stop-color="#FFE066" stop-opacity="0"/></radialGradient>' +
+      '</defs>' +
+      '<rect width="760" height="137" fill="url(#fsSky)"/>' +
+      '<circle cx="600" cy="64" r="92" fill="url(#fsSun)"/><circle cx="600" cy="64" r="21" fill="#FFFDF2"/>' +
+      cloud(70, 34, 1.15, 'fs-cl a') + cloud(330, 18, .8, 'fs-cl b') + cloud(470, 70, .55, 'fs-cl c') +
+      '<g class="fs-birds" fill="none" stroke="#3D4A5C" stroke-width="1.6" stroke-linecap="round"><path d="M0 0q5-5 10 0q5-5 10 0"/><path d="M26 8q4-4 8 0q4-4 8 0"/></g>' +
+      '<path d="M0 136 L0 118 Q40 96 86 108 Q120 88 170 104 Q220 92 262 112 Q330 98 380 118 Q430 104 490 122 L760 126 L760 136 Z" fill="url(#fsMtn)" opacity=".75"/>' +
+      '<path d="M18 136 Q30 118 60 116 Q76 104 96 112 Q112 100 132 110 Q160 106 176 118 Q210 120 236 136 Z" fill="url(#fsIsle)"/>' +
+      '<g fill="#2F6B3F"><circle cx="76" cy="110" r="7"/><circle cx="88" cy="106" r="8"/><circle cx="104" cy="104" r="7"/><circle cx="122" cy="108" r="6"/></g>' +
+      '<g transform="translate(640 104)"><path d="M-22 32 Q-14 22 0 22 Q16 22 24 32Z" fill="#6C757D"/><path d="M-5 22 L-3 -6 H3 L5 22Z" fill="#FFFFFF"/><path d="M-4.4 14 H4.4 L4 8 H-4Z M-3.6 2 H3.6 L3.3 -3 H-3.3Z" fill="#E03131"/><rect x="-5" y="-11" width="10" height="6" rx="1" fill="#343A40"/><circle cx="0" cy="-8" r="16" fill="url(#fsLamp)" class="fs-lamp"/><path d="M-6 -11 L0 -17 L6 -11Z" fill="#C92A2A"/></g>' +
+      '<g class="fs-sail"><path d="M0 0 L0 -18 L10 0Z" fill="#FFFFFF"/><path d="M-1 -14 L-1 0 L-8 0Z" fill="#F1F3F5"/><path d="M-10 1 H12 L9 5 H-7Z" fill="#495057"/></g>' +
+      '<rect y="96" width="760" height="41" fill="url(#fsHaze)"/>' +
+      '<rect y="136" width="760" height="204" fill="url(#fsSea)"/>' +
+      '<rect y="136" width="760" height="1.4" fill="#FFFFFF" opacity=".75"/>' +
+      '<g fill="#FFF6D5">' + ref + '</g>' + waves + '<g fill="#FFFFFF">' + spark + '</g>';
+  }
+  // 앞쪽 뱃전(나무 배)
+  function fsBoatSVG() {
+    return '<defs><linearGradient id="fsWood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C98B54"/><stop offset=".35" stop-color="#9A6233"/><stop offset="1" stop-color="#5E3A1C"/></linearGradient>' +
+      '<linearGradient id="fsRim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2C28E"/><stop offset="1" stop-color="#B9773F"/></linearGradient></defs>' +
+      '<path d="M-20 340 L-20 306 C140 288 620 288 780 306 L780 340Z" fill="url(#fsWood)"/>' +
+      '<path d="M-20 318 C140 302 620 302 780 318 M-20 330 C140 316 620 316 780 330" fill="none" stroke="#4A2C12" stroke-opacity=".35" stroke-width="1.5"/>' +
+      '<path d="M-20 306 C140 288 620 288 780 306" fill="none" stroke="url(#fsRim)" stroke-width="9" stroke-linecap="round"/>' +
+      '<path d="M-20 303 C140 285 620 285 780 303" fill="none" stroke="#FFE3C2" stroke-opacity=".6" stroke-width="2"/>' +
+      '<g transform="translate(70 304)"><ellipse cx="0" cy="0" rx="26" ry="9" fill="none" stroke="#D9B98C" stroke-width="5"/><ellipse cx="0" cy="-2" rx="17" ry="6" fill="none" stroke="#E8CFA6" stroke-width="4"/><ellipse cx="0" cy="-4" rx="8" ry="3" fill="#C9A87A"/></g>' +
+      '<g transform="translate(150 292)"><rect x="-22" y="-12" width="44" height="22" rx="4" fill="#2F9E44"/><rect x="-22" y="-12" width="44" height="7" rx="3" fill="#40C057"/><rect x="-6" y="-9" width="12" height="4" rx="1.5" fill="#FFD43B"/></g>';
   }
   const fsEl = id => document.getElementById(id);
   function fsBoardHTML(m) {
@@ -5131,15 +5218,19 @@ img, svg, video { max-width: 100%; }
       '<div class="rc-wrap">' +
         '<div class="fs-stage" id="fs-stage">' +
           '<div class="fs-view" id="fs-view">' +
-            '<div class="fs-sky"><i class="fs-sun"></i><i class="fs-cloud c1"></i><i class="fs-cloud c2"></i><i class="fs-bird"></i></div>' +
-            '<div class="fs-far"><i class="fs-isle"></i><i class="fs-light"></i></div>' +
-            '<div class="fs-water"><i class="fs-glint"></i><i class="fs-wave w1"></i><i class="fs-wave w2"></i><i class="fs-wave w3"></i><i class="fs-wave w4"></i></div>' +
+            '<svg class="fs-scene" viewBox="0 0 760 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' + fsSceneSVG() + '</svg>' +
             '<div class="fs-school" id="fs-school" hidden></div><i class="fs-shadow" id="fs-shadow" hidden></i><i class="fs-glow" id="fs-glow" hidden></i>' +
             '<i class="fs-bob" id="fs-bob" hidden></i><i class="fs-fish" id="fs-fish" hidden></i>' +
             '<div class="fs-alert" id="fs-alert" hidden>!</div>' +
-            '<div class="fs-boat" aria-hidden="true"></div>' +
-            '<svg class="fs-svg" id="fs-svg" aria-hidden="true"><defs><linearGradient id="fs-rodg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5C3412"/><stop offset=".5" stop-color="#A86E35"/><stop offset="1" stop-color="#5C3412"/></linearGradient></defs><path id="fs-line" fill="none" stroke="#FFFFFF" stroke-width="1.4" opacity=".9"/><path id="fs-rod" fill="none" stroke="#6B4220" stroke-linecap="round"/><path id="fs-rod2" fill="none" stroke="#C88A55" stroke-linecap="round" opacity=".7"/></svg>' +
-            '<div class="fs-hands" id="fs-hands" aria-hidden="true"><i class="fs-reel"><i class="fs-crank" id="fs-crank"></i></i><i class="fs-paw p1"></i><i class="fs-paw p2"></i></div>' +
+            '<svg class="fs-fg" viewBox="0 0 760 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' + fsBoatSVG() + '</svg>' +
+            '<svg class="fs-svg" id="fs-svg" aria-hidden="true"><defs><linearGradient id="fsRodG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2B2F36"/><stop offset=".5" stop-color="#454B55"/><stop offset="1" stop-color="#1F2329"/></linearGradient></defs>' +
+              '<path id="fs-line" fill="none" stroke="#F8F9FA" stroke-width="1.2" opacity=".85"/><path id="fs-rod" fill="url(#fsRodG)"/><path id="fs-grip" fill="#C9A27A"/><path id="fs-rod2" fill="none" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="1.2" stroke-linecap="round"/><g id="fs-guides" fill="none" stroke="#DEE2E6" stroke-width="1.6"></g><circle id="fs-tipdot" r="2.4" fill="#FA5252"/></svg>' +
+            '<div class="fs-hands" id="fs-hands" aria-hidden="true">' +
+              '<svg class="fs-paws" viewBox="0 0 140 100"><defs><radialGradient id="fsFur" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#FFC078"/><stop offset=".6" stop-color="#FF922B"/><stop offset="1" stop-color="#E8590C"/></radialGradient></defs>' +
+                '<g transform="translate(26 62) rotate(-22)"><ellipse rx="27" ry="23" fill="url(#fsFur)"/><path d="M-12 -14 v10 M0 -18 v11 M12 -14 v10" stroke="#C2410C" stroke-width="2" stroke-linecap="round" opacity=".55"/><path d="M-20 4 q20 12 40 0" fill="none" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="3" stroke-linecap="round"/></g>' +
+                '<g transform="translate(98 52) rotate(18)"><ellipse rx="27" ry="23" fill="url(#fsFur)"/><path d="M-12 -14 v10 M0 -18 v11 M12 -14 v10" stroke="#C2410C" stroke-width="2" stroke-linecap="round" opacity=".55"/><path d="M-20 4 q20 12 40 0" fill="none" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="3" stroke-linecap="round"/></g>' +
+              '</svg>' +
+              '<i class="fs-reel"><i class="fs-spool"></i><i class="fs-crank" id="fs-crank"></i></i></div>' +
           '</div>' +
           '<div class="fs-tension" id="fs-tension" hidden><span>장력</span><i><b id="fs-tbar"></b></i></div>' +
           '<div class="fs-fx" id="fs-fx"></div><div class="fs-combo" id="fs-combo"' + (FS.combo >= 2 ? '' : ' hidden') + '><b class="num">' + FS.combo + '</b><span>콤보</span></div>' +
@@ -5173,9 +5264,17 @@ img, svg, video { max-width: 100%; }
     const tip = { x: g.tip.x + pull * .35 + jit, y: g.tip.y + pull + jit * .5 };
     FS.tip = tip;
     const cx = (g.hand.x + tip.x) / 2 + pull * .5 + 10, cy = (g.hand.y + tip.y) / 2 - 28 + pull * .2;
-    const d = 'M' + g.hand.x + ' ' + g.hand.y + ' Q' + cx + ' ' + cy + ' ' + tip.x + ' ' + tip.y;
-    rod.setAttribute('d', d); rod.setAttribute('stroke-width', Math.max(6, g.W * .016));
-    rod2.setAttribute('d', d); rod2.setAttribute('stroke-width', Math.max(2, g.W * .005));
+    const A = g.hand, C = { x: cx, y: cy }, Bp = tip;
+    const at = t => ({ x: (1 - t) * (1 - t) * A.x + 2 * (1 - t) * t * C.x + t * t * Bp.x, y: (1 - t) * (1 - t) * A.y + 2 * (1 - t) * t * C.y + t * t * Bp.y });
+    const nrm = t => { const dx = 2 * (1 - t) * (C.x - A.x) + 2 * t * (Bp.x - C.x), dy = 2 * (1 - t) * (C.y - A.y) + 2 * t * (Bp.y - C.y), l = Math.hypot(dx, dy) || 1; return { x: -dy / l, y: dx / l }; };
+    const band = (t0, t1, w0, w1) => { const L = [], R = []; for (let i = 0; i <= 18; i++) { const t = t0 + (t1 - t0) * i / 18, P = at(t), N = nrm(t), w = (w0 + (w1 - w0) * i / 18) / 2; L.push((P.x + N.x * w).toFixed(1) + ' ' + (P.y + N.y * w).toFixed(1)); R.unshift((P.x - N.x * w).toFixed(1) + ' ' + (P.y - N.y * w).toFixed(1)); } return 'M' + L.join(' L') + ' L' + R.join(' L') + 'Z'; };
+    const kz = Math.max(.75, Math.min(1.25, g.W / 760));
+    rod.setAttribute('d', band(0, 1, 12 * kz, 1.8));
+    const grip = fsEl('fs-grip'); if (grip) grip.setAttribute('d', band(0, .16, 17 * kz, 14 * kz));
+    let hl = ''; for (let i = 0; i <= 14; i++) { const t = .18 + .8 * i / 14, P = at(t), N = nrm(t); hl += (i ? ' L' : 'M') + (P.x + N.x * 2).toFixed(1) + ' ' + (P.y + N.y * 2).toFixed(1); }
+    rod2.setAttribute('d', hl);
+    const gd = fsEl('fs-guides'); if (gd) gd.innerHTML = [.38, .6, .78, .92].map((t, i) => { const P = at(t), N = nrm(t), r = (4 - i * .7) * kz; return '<circle cx="' + (P.x - N.x * (r + 2)).toFixed(1) + '" cy="' + (P.y - N.y * (r + 2)).toFixed(1) + '" r="' + r.toFixed(1) + '"/>'; }).join('');
+    const td = fsEl('fs-tipdot'); if (td) { td.setAttribute('cx', tip.x.toFixed(1)); td.setAttribute('cy', tip.y.toFixed(1)); }
     if (FS.bob) {
       const b = FS.bob, taut = ['reel', 'bite', 'jump'].includes(FS.phase), k = fsDepth(g, b.y);
       line.setAttribute('d', 'M' + tip.x + ' ' + tip.y + ' Q' + ((tip.x + b.x) / 2) + ' ' + (Math.max(tip.y, b.y) + (taut ? 2 : 40)) + ' ' + b.x + ' ' + b.y);
