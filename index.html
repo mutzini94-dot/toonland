@@ -602,6 +602,85 @@ button.stat { font: inherit; color: inherit; cursor: pointer; }
 @keyframes pk-shake { 0%, 100% { transform: none; } 20% { transform: translate(-4px, 2px) rotate(-.6deg); } 40% { transform: translate(4px, -2px) rotate(.6deg); } 60% { transform: translate(-3px, 1px); } 80% { transform: translate(2px, 0); } }
 @keyframes pk-chip { from { transform: scale(.4); opacity: 0; } }
 .gt-new.cn { background: rgba(25,167,206,.18); color: #0B7FA3; }
+/* ===== 냥 낚시터 ===== */
+.fs-panel { grid-column: 1 / -1; }
+.fs-stage { position: relative; width: 100%; max-width: 760px; height: 320px; overflow: hidden; border-radius: 18px; background: linear-gradient(180deg, #8EC5FF 0%, #D0EBFF 50%); box-shadow: 0 6px 0 rgba(0,0,0,.08); user-select: none; -webkit-user-select: none; }
+.fs-stage.shake { animation: pk-shake .45s; }
+.fs-sun { position: absolute; right: 12%; top: 26px; width: 46px; height: 46px; border-radius: 50%; background: radial-gradient(circle, #FFF9DB, #FFD43B 70%); box-shadow: 0 0 30px 10px rgba(255,224,102,.55); }
+.fs-cloud { position: absolute; height: 18px; border-radius: 999px; background: #FFFFFF; opacity: .9; animation: fs-cloud 40s linear infinite; }
+.fs-cloud::before { content: ""; position: absolute; left: 18%; top: -10px; width: 40%; height: 22px; border-radius: 50%; background: inherit; }
+.fs-cloud.c1 { left: 8%; top: 34px; width: 90px; } .fs-cloud.c2 { left: 46%; top: 58px; width: 70px; animation-duration: 55s; opacity: .75; }
+@keyframes fs-cloud { from { translate: -40px 0; } to { translate: 60px 0; } }
+.fs-hills { position: absolute; left: 0; right: 0; top: 34%; height: 24%; background: radial-gradient(60% 100% at 20% 100%, #69DB7C 60%, transparent 61%), radial-gradient(50% 90% at 75% 100%, #8CE99A 60%, transparent 61%); }
+.fs-water { position: absolute; left: 0; right: 0; top: 56%; bottom: 0; overflow: hidden; background: linear-gradient(180deg, #4DABF7, #1971C2); }
+.fs-wave { position: absolute; left: -50px; right: -50px; height: 10px; background: radial-gradient(12px 5px at 12px 0, rgba(255,255,255,.55) 98%, transparent) 0 0 / 40px 10px repeat-x; animation: fs-wave 4s linear infinite; }
+.fs-wave.w1 { top: 2px; } .fs-wave.w2 { top: 38%; opacity: .5; animation-duration: 6s; animation-direction: reverse; } .fs-wave.w3 { top: 72%; opacity: .35; animation-duration: 8s; }
+@keyframes fs-wave { to { translate: 40px 0; } }
+.fs-dock { position: absolute; left: 0; top: 52%; width: 24%; height: 22px; border-radius: 0 6px 6px 0; background: repeating-linear-gradient(90deg, #A9713C 0 22px, #8B5A2B 22px 24px); box-shadow: 0 4px 0 #6B4220; }
+.fs-dock::after { content: ""; position: absolute; left: 30%; top: 22px; width: 10px; height: 120px; background: #6B4220; box-shadow: 60px 0 0 #6B4220; }
+.fs-cat { position: absolute; left: 4%; top: calc(52% - 78px); z-index: 2; width: 66px; height: 80px; background-color: transparent !important; background-size: contain; background-repeat: no-repeat; background-position: 50% 100%; }
+.fs-svg { position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.fs-bob { position: absolute; left: 0; top: 0; z-index: 4; width: 16px; height: 22px; border-radius: 50% 50% 45% 45%; background: linear-gradient(180deg, #FA5252 0 48%, #FFFFFF 48% 100%); box-shadow: 0 0 0 2px #212529; transition: opacity .1s; }
+.fs-bob::before { content: ""; position: absolute; left: 7px; top: -7px; width: 2px; height: 8px; background: #212529; }
+.fs-bob.under { opacity: .45; }
+.fs-ripple { position: absolute; z-index: 3; width: 20px; height: 7px; margin: -3px 0 0 -10px; border: 2px solid rgba(255,255,255,.85); border-radius: 50%; animation: fs-ripple .9s ease-out forwards; pointer-events: none; }
+.fs-ripple.big { border-width: 3px; animation-duration: 1s; }
+@keyframes fs-ripple { to { transform: scale(4); opacity: 0; } }
+.fs-drop { position: absolute; z-index: 4; width: 6px; height: 6px; margin: -3px; border-radius: 50%; background: #E7F5FF; animation: fs-drop .65s ease-out forwards; pointer-events: none; }
+@keyframes fs-drop { 50% { transform: translate(calc(var(--dx) * .6), var(--dy)); } to { transform: translate(var(--dx), 10px); opacity: 0; } }
+.fs-alert { position: absolute; z-index: 5; width: 40px; height: 48px; margin-left: -20px; border-radius: 12px; background: #FA5252; color: #FFFFFF; font-size: 34px; font-weight: 900; line-height: 48px; text-align: center; box-shadow: 0 4px 0 #C92A2A; pointer-events: none; }
+.fs-alert.on { animation: fs-alert .45s cubic-bezier(.2,1.8,.4,1); }
+@keyframes fs-alert { from { transform: scale(0) rotate(-20deg); } }
+.fs-stage.bigfish .fs-water { animation: fs-churn .25s linear infinite; }
+@keyframes fs-churn { 50% { filter: brightness(1.12); } }
+.fs-fish { position: absolute; left: 0; top: 0; z-index: 5; width: 100px; height: 60px; pointer-events: none; }
+.fs-fish svg { width: 100%; height: 100%; }
+.fs-msg { top: 8px; }
+.fs-catch { position: absolute; inset: 0; z-index: 6; display: grid; place-items: center; background: rgba(10,30,60,.45); cursor: pointer; animation: rc-fade .25s; overflow: hidden; }
+.fs-catch[hidden] { display: none; }
+.fs-catch-rays { position: absolute; left: 50%; top: 50%; width: 640px; height: 640px; margin: -320px 0 0 -320px; border-radius: 50%; background: repeating-conic-gradient(rgba(255,255,255,.5) 0 8deg, transparent 8deg 16deg); -webkit-mask: radial-gradient(circle, #000 0 18%, transparent 60%); mask: radial-gradient(circle, #000 0 18%, transparent 60%); animation: sl-m-spin 12s linear infinite; }
+.fs-catch-card { position: relative; width: min(300px, 86%); padding: 14px 14px 10px; border-radius: 20px; background: linear-gradient(180deg, color-mix(in srgb, var(--fc) 22%, #FFFFFF), #FFFFFF 70%); box-shadow: 0 0 0 4px #FFFFFF, 0 0 0 7px var(--fc), 0 16px 34px rgba(0,0,0,.35); text-align: center; color: #212529; animation: sl-m-pop .55s cubic-bezier(.2,1.5,.4,1); }
+.fs-catch.t-top .fs-catch-card { box-shadow: 0 0 0 4px #FFFFFF, 0 0 0 8px #FAB005, 0 0 40px 10px rgba(250,176,5,.6); }
+.fs-catch-badges { display: flex; justify-content: center; gap: 6px; min-height: 20px; }
+.nb { padding: 1px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 900; color: #FFFFFF; animation: rc-rank .45s cubic-bezier(.2,1.6,.4,1) .3s both; }
+.nb.new { background: #E64980; } .nb.rec { background: #1C7ED6; }
+.fs-catch-art { display: block; width: 170px; height: 100px; margin: 2px auto 0; animation: fs-flop .5s ease-in-out .4s 3; }
+@keyframes fs-flop { 50% { transform: rotate(-8deg) translateY(-4px); } }
+.fs-catch-name { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 20px; font-weight: 900; }
+.fs-catch-name b { color: #1C7ED6; }
+.fs-catch-pay { margin-top: 4px; font-size: 15px; font-weight: 700; color: #495057; }
+.fs-catch-pay b { font-size: 22px; font-weight: 900; color: #212529; }
+.fs-catch-pay .chip { display: inline-block; padding: 1px 9px; border-radius: 999px; color: #FFFFFF; font-weight: 900; }
+.fs-catch-hint { display: block; margin-top: 6px; font-size: 11px; color: #868E96; }
+.fs-dex-g { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 5px; border-radius: 7px; color: #FFFFFF; font-size: 12px; font-weight: 900; }
+.fs-dex-g.gS { background: #F59F00; } .fs-dex-g.gA { background: #7048E8; } .fs-dex-g.gB { background: #1C7ED6; } .fs-dex-g.gC { background: #868E96; }
+.fs-baits { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 12px; }
+.fs-bait { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 9px 6px; border: 2px solid var(--panel-line); border-radius: 14px; background: var(--panel); color: var(--text); font: inherit; cursor: pointer; }
+.fs-bait b { font-size: 14px; } .fs-bait span { font-size: 12.5px; font-weight: 700; color: var(--muted); }
+.fs-bait[aria-pressed="true"] { border-color: #1C7ED6; background: #E7F5FF; color: #1864AB; box-shadow: 0 4px 0 #1C7ED6; transform: translateY(-2px); }
+.fs-bait:disabled { opacity: .55; cursor: not-allowed; }
+.fs-bait-ic { width: 30px; height: 22px; background-repeat: no-repeat; background-position: center; background-size: contain; }
+.fs-bait-ic.b0 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 22'%3E%3Cpath d='M3 15c4-8 8 6 12-2s8 4 12-4' fill='none' stroke='%23E8590C' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E"); }
+.fs-bait-ic.b1 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 22'%3E%3Cpath d='M24 6c-8-4-18 0-18 8 0 4 4 6 8 5' fill='none' stroke='%23FF8787' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M24 6l4-4M24 6l5 1' stroke='%23FF8787' stroke-width='2'/%3E%3C/svg%3E"); }
+.fs-bait-ic.b2 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 22'%3E%3Ccircle cx='15' cy='11' r='8' fill='%23FAB005' stroke='%23E67700' stroke-width='2'/%3E%3Cpath d='M15 5l1.5 4 4 .5-3 2.5 1 4-3.5-2-3.5 2 1-4-3-2.5 4-.5z' fill='%23FFF3BF'/%3E%3C/svg%3E"); }
+.fs-go { display: flex; flex-direction: column; align-items: center; gap: 2px; width: 100%; padding: 12px; border: 0; border-radius: 16px; background: linear-gradient(180deg, #4DABF7, #1C7ED6); color: #FFFFFF; font: inherit; font-size: 20px; font-weight: 900; cursor: pointer; box-shadow: 0 6px 0 #1864AB; touch-action: manipulation; }
+.fs-go span { font-size: 12px; font-weight: 700; opacity: .92; }
+.fs-go.hook { background: linear-gradient(180deg, #FF8787, #E03131); box-shadow: 0 6px 0 #A61E1E; }
+.fs-go.now { animation: fs-now .2s linear infinite; }
+@keyframes fs-now { 50% { transform: scale(1.03); filter: brightness(1.15); } }
+.fs-go:active:not(:disabled) { transform: translateY(3px); }
+.fs-go:disabled { background: #ADB5BD; box-shadow: 0 6px 0 #868E96; cursor: not-allowed; }
+.fs-dex h4 { margin: 0 0 10px; font-size: 15px; }
+.fs-dex h4 small { margin-left: 4px; color: var(--muted); font-weight: 700; }
+.fs-dex-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+@media (max-width: 560px) { .fs-dex-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.fs-dex-item { position: relative; display: flex; flex-direction: column; align-items: center; padding: 8px 6px; border-radius: 12px; background: color-mix(in srgb, var(--fc) 14%, var(--panel)); border: 1px solid var(--panel-line); text-align: center; }
+.fs-dex-item b { font-size: 13px; } .fs-dex-item small { font-size: 11px; color: var(--muted); }
+.fs-dex-item .fs-dex-g { position: absolute; right: 6px; top: 6px; min-width: 18px; height: 18px; font-size: 10.5px; border-radius: 5px; }
+.fs-dex-art { width: 72px; height: 42px; }
+.fs-dex-item.unk { background: var(--panel); }
+.fs-dex-item.unk .fs-dex-art { filter: brightness(0); opacity: .18; }
+.fs-tbl-art svg { width: 30px; height: 18px; margin-right: 6px; vertical-align: middle; }
 /* ===== 냥냥 레이스 ===== */
 .rc-panel { grid-column: 1 / -1; }
 .rc-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
@@ -2227,6 +2306,7 @@ img, svg, video { max-width: 100%; }
     <button type="button" role="tab" data-gtab="slot" aria-selected="false" style="--gtc:#B5179E"><span class="gt-dot"></span>캐릭터 슬롯 <small class="gt-new">NEW</small></button>
     <button type="button" role="tab" data-gtab="gslot" aria-selected="false" style="--gtc:#1C7ED6"><span class="gt-dot"></span>상품 슬롯 <small class="gt-new">NEW</small></button>
     <button type="button" role="tab" data-gtab="race" aria-selected="false" style="--gtc:#2F9E44"><span class="gt-dot"></span>냥냥 레이스 <small class="gt-new">NEW</small></button>
+    <button type="button" role="tab" data-gtab="fish" aria-selected="false" style="--gtc:#1971C2"><span class="gt-dot"></span>냥 낚시터 <small class="gt-new">NEW</small></button>
   </div>
   </div>
 
@@ -2267,7 +2347,7 @@ img, svg, video { max-width: 100%; }
   <p class="ad-invalid" id="ad-invalid" hidden></p>
 
   <div class="ad-layout">
-  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="archery"><span class="gnb-dot" data-addot="archery"></span><span class="gnb-text"><b>깡통 사격</b><small>캔별 상품 보상표</small></span></button><button type="button" class="gnb-item" data-adpage="slot"><span class="gnb-dot" data-addot="slot"></span><span class="gnb-text"><b>캐릭터 슬롯</b><small>캐릭터별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="gslot"><span class="gnb-dot" data-addot="gslot"></span><span class="gnb-text"><b>상품 슬롯</b><small>상품별 비중·준비 수량</small></span></button><button type="button" class="gnb-item" data-adpage="race"><span class="gnb-dot" data-addot="race"></span><span class="gnb-text"><b>냥냥 레이스</b><small>우승 비중·배당</small></span></button></div></nav>
+  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="archery"><span class="gnb-dot" data-addot="archery"></span><span class="gnb-text"><b>깡통 사격</b><small>캔별 상품 보상표</small></span></button><button type="button" class="gnb-item" data-adpage="slot"><span class="gnb-dot" data-addot="slot"></span><span class="gnb-text"><b>캐릭터 슬롯</b><small>캐릭터별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="gslot"><span class="gnb-dot" data-addot="gslot"></span><span class="gnb-text"><b>상품 슬롯</b><small>상품별 비중·준비 수량</small></span></button><button type="button" class="gnb-item" data-adpage="race"><span class="gnb-dot" data-addot="race"></span><span class="gnb-text"><b>냥냥 레이스</b><small>우승 비중·배당</small></span></button><button type="button" class="gnb-item" data-adpage="fish"><span class="gnb-dot" data-addot="fish"></span><span class="gnb-text"><b>냥 낚시터</b><small>미끼별 물고기 확률표</small></span></button></div></nav>
   <div class="ad-main">
   <div class="ad-page" data-page="overview">
 
@@ -2335,6 +2415,15 @@ img, svg, video { max-width: 100%; }
     <div class="fields" id="rc-fields"></div>
     <div class="table-wrap"><table class="ad-table" id="rc-t"></table></div>
     <div class="ed-foot"><div class="pa-calc" id="rc-calc"></div></div>
+  </div>
+  </div>
+  <div class="ad-page" data-page="fish" hidden>
+  <div class="panel ad-block" id="fs-admin">
+    <h2>냥 낚시터 관리 <span class="tag" id="fs-sum"></span></h2>
+    <p class="hub-note">어떤 물고기가 물지는 던지는 순간 <b>미끼별 확률표</b>로 정해지고, 지급은 <b>배수 × 미끼 값</b>이에요. 챔질을 놓치면 아무것도 받지 못해서 실제 환원은 낮아져요. RTP는 <b>예산 기준 챔질 성공률</b>을 곱해 계산하고(기본 100% = 모두 성공해도 목표 이내), 미끼 3종 중 가장 큰 값으로 상태를 봐요. 크기(cm)는 기록·연출용이라 지급과 상관없어요.</p>
+    <div class="fields" id="fs-fields"></div>
+    <div class="table-wrap"><table class="ad-table" id="fs-t"></table></div>
+    <div class="ed-foot"><div class="pa-calc" id="fs-calc"></div></div>
   </div>
   </div>
   <div class="ad-page" data-page="archery" hidden>
@@ -2696,6 +2785,7 @@ img, svg, video { max-width: 100%; }
     { id: 'slot', name: '캐릭터 슬롯', cost: 100, color: '#B5179E', tab: 'slot' },
     { id: 'gslot', name: '상품 슬롯', cost: 100, color: '#1C7ED6', tab: 'gslot' },
     { id: 'race', name: '냥냥 레이스', cost: 100, color: '#2F9E44', tab: 'race' },
+    { id: 'fish', name: '냥 낚시터', cost: 100, color: '#1971C2', tab: 'fish' },
     { id: 'gold', name: '골드존', cost: 2000, color: 'var(--t-gold)' },
     { id: 'creator', name: '크리에이터존', cost: 3000, color: 'var(--t-creator)' },
     { id: 'legend', name: '레전드존', cost: 10000, color: 'var(--t-legend)' }
@@ -2749,6 +2839,11 @@ img, svg, video { max-width: 100%; }
       { id: 'race', zone: 'race', mode: 'race', name: '냥냥 레이스', cost: 100, maxBet: 1000, demand: 800000, top: '초록 공룡 1등 ×10.5',
         runners: [{ name: '주황 고양이', w: 35, win: 2.4, show: 1 }, { name: '갈색 강아지', w: 25, win: 3.4, show: 1.15 }, { name: '판다 고양이', w: 20, win: 4.2, show: 1.3 }, { name: '개구리', w: 12, win: 7, show: 1.85 }, { name: '초록 공룡', w: 8, win: 10.5, show: 2.65 }],
         prizes: [W('B', '주황 고양이 1등 ×2.4', 'kernel', 240, 0, 35), W('B', '갈색 강아지 1등 ×3.4', 'kernel', 340, 0, 25), W('A', '판다 고양이 1등 ×4.2', 'kernel', 420, 0, 20), W('A', '개구리 1등 ×7', 'kernel', 700, 0, 12), W('S', '초록 공룡 1등 ×10.5', 'kernel', 1050, 0, 8)] },
+      // 냥 낚시터: 미끼(3종)별 물고기 확률표. 지급 = 배수 × 미끼 값. RTP = 예산 기준 챔질 성공률 × Σ 확률 × 배수 (미끼별, 최대값으로 관리)
+      { id: 'fish', zone: 'fish', mode: 'fish', name: '냥 낚시터', cost: 100, hit: 100, demand: 800000, top: '황금 잉어 ×30',
+        baits: [{ name: '지렁이', cost: 100 }, { name: '새우', cost: 300 }, { name: '황금 미끼', cost: 1000 }],
+        fish: [{ id: 'can', mult: 0, probs: [15, 33.1, 50.6] }, { id: 'minnow', mult: 0.3, probs: [30, 28, 24] }, { id: 'crucian', mult: 0.6, probs: [25, 16, 9] }, { id: 'carp', mult: 1.2, probs: [18, 11, 6] }, { id: 'catfish', mult: 2, probs: [8, 6, 4] }, { id: 'salmon', mult: 4, probs: [3, 4, 3.5] }, { id: 'tuna', mult: 8, probs: [0.9, 1.4, 2] }, { id: 'gold', mult: 30, probs: [0.1, 0.5, 0.9] }],
+        prizes: [W('C', '빈 깡통 ×0', 'kernel', 0, 0, 15), W('C', '피라미 ×0.3', 'kernel', 30, 0, 30), W('C', '붕어 ×0.6', 'kernel', 60, 0, 25), W('B', '잉어 ×1.2', 'kernel', 120, 0, 18), W('B', '메기 ×2', 'kernel', 200, 0, 8), W('A', '연어 ×4', 'kernel', 400, 0, 3), W('A', '참치 ×8', 'kernel', 800, 0, 0.9), W('S', '황금 잉어 ×30', 'kernel', 3000, 0, 0.1)] },
       // 팝콘 대포: 게이지 등급(퍼펙트·좋아요·보통)별 확률표로 거리 구간 결정. 배수 공통, 등급별 RTP 동일(B 방식)
       { id: 'cannon', zone: 'cannon', mode: 'cannon', cv: 2, name: '팝콘 대포', cost: 100, demand: 800000, mults: [0.2, 0.5, 1, 2, 4, 10],
         probs: { perfect: [0, 0, 90.2, 7, 2, 0.8], good: [0, 0, 96, 3.5, 0.5, 0], normal: [45, 30, 10, 10, 4, 1] }, top: '800m 이상 ×10 · 강냉이 1,000개',
@@ -2821,7 +2916,7 @@ img, svg, video { max-width: 100%; }
   const WALLET_KEY = 'tooneland-wallet-v1';
   const WALLET = (() => { try { const w = JSON.parse(localStorage.getItem(WALLET_KEY)); if (w && typeof w.bal === 'number' && Array.isArray(w.log)) return w; } catch (e) { /* 저장소 없음 */ } return { bal: 12340, log: [{ t: Date.now(), d: 0, after: 12340, why: '시작 잔액 (목업)' }] }; })();
   let ledgerWhy = '', walletT = 0;
-  const GAME_WHY = { puzzle: ['직소 퍼즐 카드 뽑기', '직소 퍼즐 보상'], runner: ['냥치 런 입장', '냥치 런 점수 받기'], cannon: ['팝콘 대포 발사', '팝콘 대포 착지 보상'], slot: ['캐릭터 슬롯 돌리기', '캐릭터 슬롯 당첨'], gslot: ['상품 슬롯 돌리기', '상품 슬롯 당첨'], race: ['냥냥 레이스 응원', '냥냥 레이스 적중'], archery: ['깡통 사격 입장(탄 구매)', '깡통 사격 명중 상품'] };
+  const GAME_WHY = { puzzle: ['직소 퍼즐 카드 뽑기', '직소 퍼즐 보상'], runner: ['냥치 런 입장', '냥치 런 점수 받기'], cannon: ['팝콘 대포 발사', '팝콘 대포 착지 보상'], slot: ['캐릭터 슬롯 돌리기', '캐릭터 슬롯 당첨'], gslot: ['상품 슬롯 돌리기', '상품 슬롯 당첨'], race: ['냥냥 레이스 응원', '냥냥 레이스 적중'], fish: ['냥 낚시터 미끼', '냥 낚시터 조과'], archery: ['깡통 사격 입장(탄 구매)', '깡통 사격 명중 상품'] };
   function ledgerReason(d) {
     if (ledgerWhy) return ledgerWhy;
     if (typeof current !== 'undefined' && current) return current.name + (d < 0 ? ' 뽑기' : ' 당첨');
@@ -2917,6 +3012,7 @@ img, svg, video { max-width: 100%; }
 
   function renderZones() {
     const COPY = {
+      fish: ['찌가 쑥 잠길 때 챔질하는 냥 낚시터', '미끼를 던지고 찌가 잠기는 순간 [챔질!]을 누르면 물고기를 낚아요. 물고기마다 배수만큼 강냉이를 받고, 처음 낚은 물고기는 도감에 올라가요.'],
       race: ['캐릭터 5마리가 달리는 냥냥 레이스', '응원할 캐릭터를 고르고 1등 또는 3위 안을 맞히면 배당만큼 강냉이를 받아요. 우승 확률이 낮은 캐릭터일수록 배당이 커요.'],
       gslot: ['직소 퍼즐 상품을 3단으로 맞추는 상품 슬롯', '상품 그림을 위·가운데·아래로 나눈 릴 3개가 차례로 멈춰요. 세 칸이 모두 같은 상품이면 그 상품을 받아요. 비싼 상품일수록 드물게 나와요.'],
       slot: ['머리·몸통·다리를 한 캐릭터로 맞추는 캐릭터 슬롯', '릴 3개가 머리부터 차례로 멈춰요. 세 부분이 모두 같은 캐릭터면 그 캐릭터의 배수만큼 강냉이를 받아요. 드문 캐릭터일수록 배수가 커요.'],
@@ -2971,10 +3067,11 @@ img, svg, video { max-width: 100%; }
     if (state.tab === 'archery') { $('floor').innerHTML = archeryFloorHTML(); arInit(); return; }
     if (state.tab === 'slot' || state.tab === 'gslot') { $('floor').innerHTML = slotFloorHTML(); slInit(); return; }
     if (state.tab === 'race') { $('floor').innerHTML = raceFloorHTML(); rcInit(); return; }
+    if (state.tab === 'fish') { $('floor').innerHTML = fishFloorHTML(); fsInit(); return; }
     const order = id => zones.findIndex(z => z.id === id);
     const list = state.tab !== 'gacha'
       ? machines.filter(m => m.mode === state.tab)
-      : machines.filter(m => !['board', 'puzzle', 'farm', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race'].includes(m.mode) && (state.zone === 'all' || m.zone === state.zone)).sort((a, b) => order(a.zone) - order(b.zone));
+      : machines.filter(m => !['board', 'puzzle', 'farm', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish'].includes(m.mode) && (state.zone === 'all' || m.zone === state.zone)).sort((a, b) => order(a.zone) - order(b.zone));
     $('floor').innerHTML = list.map(m => m.mode === 'board' ? boardCardHTML(m) : machineHTML(m, 'button')).join('');
   }
   function renderHUD(bump) {
@@ -4836,6 +4933,286 @@ img, svg, video { max-width: 100%; }
     e.preventDefault(); rcGo();
   });
   addEventListener('resize', () => { if (state.tab === 'race' && !RC.running && rcEl('rc-stage')) rcInit(); });
+  // =====================================================================
+  // 냥 낚시터: 미끼를 사서 던지고, 찌가 쑥 잠길 때 [챔질!]을 눌러 물고기를 낚는다.
+  // 어떤 물고기가 물지는 던지는 순간 미끼별 확률표로 정해지고(크기는 연출·기록용), 챔질 타이밍은 놓칠지 말지만 정한다.
+  // 지급 = 물고기 배수 × 미끼 값. RTP = 예산 기준 챔질 성공률 × Σ(확률 × 배수). 미끼마다 따로 계산하고 가장 큰 값으로 관리한다.
+  const FS_DEF_BAITS = [{ name: '지렁이', cost: 100 }, { name: '새우', cost: 300 }, { name: '황금 미끼', cost: 1000 }];
+  const FS_DEF_FISH = [
+    { id: 'can', name: '빈 깡통', g: 'C', mult: 0, min: 0, max: 0, color: '#ADB5BD', probs: [15, 33.1, 50.6] },
+    { id: 'minnow', name: '피라미', g: 'C', mult: 0.3, min: 6, max: 12, color: '#74C0FC', probs: [30, 28, 24] },
+    { id: 'crucian', name: '붕어', g: 'C', mult: 0.6, min: 15, max: 30, color: '#C2A36B', probs: [25, 16, 9] },
+    { id: 'carp', name: '잉어', g: 'B', mult: 1.2, min: 30, max: 70, color: '#FF922B', probs: [18, 11, 6] },
+    { id: 'catfish', name: '메기', g: 'B', mult: 2, min: 40, max: 90, color: '#8C7B6B', probs: [8, 6, 4] },
+    { id: 'salmon', name: '연어', g: 'A', mult: 4, min: 60, max: 100, color: '#FF8787', probs: [3, 4, 3.5] },
+    { id: 'tuna', name: '참치', g: 'A', mult: 8, min: 100, max: 250, color: '#4263EB', probs: [0.9, 1.4, 2] },
+    { id: 'gold', name: '황금 잉어', g: 'S', mult: 30, min: 50, max: 120, color: '#FAB005', probs: [0.1, 0.5, 0.9] }
+  ];
+  const FS_KEY = 'tooneland-fish-v1';
+  const FS = { phase: 'idle', bait: 0, raf: 0, timers: [], bob: null, tip: null, rec: (() => { try { const v = JSON.parse(localStorage.getItem(FS_KEY) || 'null'); return v && typeof v === 'object' ? v : {}; } catch (e) { return {}; } })() };
+  const fsSaveRec = () => { try { localStorage.setItem(FS_KEY, JSON.stringify(FS.rec)); } catch (e) { /* 저장 불가 */ } };
+  const fishMachine = () => machines.find(m => m.mode === 'fish');
+  const fsBaits = m => FS_DEF_BAITS.map((d, i) => { const b = m && Array.isArray(m.baits) ? m.baits[i] || {} : {}; return { name: String(b.name == null ? d.name : b.name).trim() || d.name, cost: b.cost == null ? d.cost : Math.max(0, Math.round(Number(b.cost) || 0)) }; });
+  const fsFish = m => FS_DEF_FISH.map((d, i) => { const f = m && Array.isArray(m.fish) ? m.fish.find(x => x.id === d.id) || {} : {}; return Object.assign({}, d, { mult: f.mult == null ? d.mult : Math.max(0, Number(f.mult) || 0), probs: d.probs.map((v, k) => f.probs && f.probs[k] != null ? Math.max(0, Number(f.probs[k]) || 0) : v) }); });
+  const fsHit = m => Math.min(100, Math.max(0, m && m.hit != null ? Number(m.hit) || 0 : 100)) / 100;
+  const fsRtp = (m, k) => { const F = fsFish(m), s = F.reduce((a, f) => a + f.probs[k], 0); return s ? fsHit(m) * F.reduce((a, f) => a + f.probs[k] / s * f.mult, 0) : 0; };
+  const fsMaxRtp = m => Math.max(0, ...fsBaits(m).map((_, k) => fsRtp(m, k)));
+  function fsSync(m) {
+    const F = fsFish(m), B = fsBaits(m);
+    m.baits = B; m.cost = B[0].cost;
+    m.fish = F.map(f => ({ id: f.id, mult: f.mult, probs: f.probs.slice() }));
+    m.prizes = F.map(f => ({ g: f.g, name: f.name + ' ' + rcMul(f.mult), kind: 'kernel', val: Math.round(B[0].cost * f.mult), cost: 0, w: f.probs[0] }));
+    const top = F.reduce((b, f) => f.mult > b.mult ? f : b, F[0]);
+    m.top = top.name + ' ' + rcMul(top.mult);
+  }
+  // 물고기 그림(SVG): 몸통·꼬리·지느러미·눈. 빈 깡통은 깡통 그림
+  function fsArt(f, cls) {
+    if (f.id === 'can') return '<svg class="' + (cls || '') + '" viewBox="0 0 120 70" aria-hidden="true"><g transform="rotate(-14 60 35)"><rect x="34" y="14" width="52" height="42" rx="6" fill="#CED4DA" stroke="#868E96" stroke-width="3"/><rect x="34" y="24" width="52" height="16" fill="#FA5252"/><ellipse cx="60" cy="14" rx="26" ry="5" fill="#E9ECEF" stroke="#868E96" stroke-width="3"/><path d="M44 46h12" stroke="#868E96" stroke-width="3" stroke-linecap="round"/></g></svg>';
+    const c = f.color, gold = f.id === 'gold', big = f.id === 'tuna';
+    return '<svg class="' + (cls || '') + '" viewBox="0 0 120 70" aria-hidden="true">' +
+      (gold ? '<defs><linearGradient id="fsg' + (cls || '') + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE066"/><stop offset=".6" stop-color="#FAB005"/><stop offset="1" stop-color="#E67700"/></linearGradient></defs>' : '') +
+      '<path d="M92 35 L116 ' + (big ? 10 : 16) + ' L110 35 L116 ' + (big ? 60 : 54) + ' Z" fill="' + (gold ? '#F59F00' : c) + '" stroke="#212529" stroke-width="2.5" stroke-linejoin="round"/>' +
+      '<ellipse cx="54" cy="35" rx="' + (big ? 44 : 40) + '" ry="' + (f.id === 'minnow' ? 13 : f.id === 'catfish' ? 15 : 19) + '" fill="' + (gold ? 'url(#fsg' + (cls || '') + ')' : c) + '" stroke="#212529" stroke-width="2.5"/>' +
+      '<path d="M22 40 Q54 56 88 40" fill="#FFFFFF" opacity=".35"/>' +
+      '<path d="M50 ' + (f.id === 'minnow' ? 23 : 17) + ' Q60 6 72 ' + (f.id === 'minnow' ? 24 : 18) + '" fill="' + (gold ? '#F59F00' : c) + '" stroke="#212529" stroke-width="2.5" stroke-linejoin="round"/>' +
+      '<path d="M58 38 q8 4 14 0" fill="none" stroke="#212529" stroke-width="2" opacity=".5"/>' +
+      '<circle cx="28" cy="30" r="5.5" fill="#FFFFFF" stroke="#212529" stroke-width="2"/><circle cx="27" cy="30" r="2.6" fill="#212529"/>' +
+      (f.id === 'catfish' ? '<path d="M16 38 q-10 6 -14 16M18 40 q-6 10 -6 20" fill="none" stroke="#212529" stroke-width="2" stroke-linecap="round"/>' : '') +
+      (f.id === 'salmon' ? '<path d="M40 30v10M50 28v12M60 29v10" stroke="#FFFFFF" stroke-width="2" opacity=".6"/>' : '') +
+      (gold ? '<path d="M78 10l2 5 5 2-5 2-2 5-2-5-5-2 5-2z M20 12l1.5 3.5 3.5 1.5-3.5 1.5-1.5 3.5-1.5-3.5-3.5-1.5 3.5-1.5z" fill="#FFFFFF"/>' : '') +
+      '</svg>';
+  }
+  const fsEl = id => document.getElementById(id);
+  function fsBoardHTML(m) {
+    const B = fsBaits(m), busy = FS.phase !== 'idle' && FS.phase !== 'result';
+    const label = { idle: '던지기', result: '다시 던지기', cast: '던지는 중…', wait: '챔질!', bite: '챔질!', reel: '감는 중…', jump: '감는 중…' }[FS.phase] || '던지기';
+    return '<div class="rc-step">미끼 고르기 <small class="qmeta">비싼 미끼일수록 큰 물고기가 자주 물지만 빈 깡통도 많아요</small></div>' +
+      '<div class="fs-baits" role="group" aria-label="미끼">' + B.map((b, k) =>
+        '<button type="button" class="fs-bait" data-fs-bait="' + k + '" aria-pressed="' + (FS.bait === k) + '"' + (busy ? ' disabled' : '') + '><i class="fs-bait-ic b' + k + '" aria-hidden="true"></i><b>' + slEsc(b.name) + '</b><span class="num">' + K + fmt(b.cost) + '</span></button>').join('') + '</div>' +
+      '<button type="button" class="fs-go' + (FS.phase === 'wait' || FS.phase === 'bite' ? ' hook' : '') + (FS.phase === 'bite' ? ' now' : '') + '" id="fs-go" data-fs="go"' + (['cast', 'reel', 'jump'].includes(FS.phase) ? ' disabled' : '') + '>' + label +
+        (FS.phase === 'idle' || FS.phase === 'result' ? ' <span class="num">' + K + fmt(B[FS.bait].cost) + '</span>' : FS.phase === 'wait' ? ' <span>찌가 쑥 잠길 때 눌러요</span>' : FS.phase === 'bite' ? ' <span>지금!</span>' : '') + '</button>';
+  }
+  function fsDexHTML(m) {
+    const F = fsFish(m), got = F.filter(f => FS.rec[f.id]).length;
+    return '<h4>물고기 도감 <small class="num">' + got + ' / ' + F.length + '</small></h4><div class="fs-dex-grid">' + F.map(f => {
+      const r = FS.rec[f.id];
+      return '<div class="fs-dex-item' + (r ? '' : ' unk') + '" style="--fc:' + f.color + '">' + fsArt(f, 'fs-dex-art') +
+        '<b>' + (r ? slEsc(f.name) : '???') + '</b><small>' + (r ? (f.id === 'can' ? r.n + '개' : '최대 ' + r.max + 'cm · ' + r.n + '마리') : '아직 못 낚았어요') + '</small>' +
+        '<span class="fs-dex-g g' + f.g + '">' + f.g + '</span></div>';
+    }).join('') + '</div>';
+  }
+  function fishFloorHTML() {
+    const m = fishMachine(); if (!m) return '';
+    slStyle(); fsSync(m);
+    const F = fsFish(m), B = fsBaits(m);
+    const rows = F.slice().reverse().map(f => '<tr><td><span class="fs-tbl-art">' + fsArt(f) + '</span>' + slEsc(f.name) + '</td><td><span class="chip" style="background:' + pkColor(f.mult) + '">' + rcMul(f.mult) + '</span></td>' + B.map((_, k) => '<td class="num">' + (+f.probs[k].toFixed(2)) + '%</td>').join('') + '</tr>').join('');
+    return '<section class="fs-panel" aria-labelledby="fs-h">' +
+      '<div class="rc-wrap">' +
+        '<div class="fs-stage" id="fs-stage">' +
+          '<div class="fs-sky"><i class="fs-sun"></i><i class="fs-cloud c1"></i><i class="fs-cloud c2"></i></div><div class="fs-hills"></div>' +
+          '<div class="fs-water"><i class="fs-wave w1"></i><i class="fs-wave w2"></i><i class="fs-wave w3"></i></div>' +
+          '<div class="fs-dock"></div><i class="fs-cat slc0" id="fs-cat" aria-hidden="true"></i>' +
+          '<svg class="fs-svg" id="fs-svg" aria-hidden="true"><path id="fs-rod" fill="none" stroke="#7A4A1E" stroke-width="5" stroke-linecap="round"/><path id="fs-line" fill="none" stroke="#FFFFFF" stroke-width="1.6" opacity=".9"/></svg>' +
+          '<i class="fs-bob" id="fs-bob" hidden></i><i class="fs-fish" id="fs-fish" hidden></i>' +
+          '<div class="fs-alert" id="fs-alert" hidden>!</div>' +
+          '<div class="rc-ticker fs-msg" id="fs-msg" aria-live="polite">미끼를 고르고 던져 보세요</div>' +
+          '<div class="fs-catch" id="fs-catch" hidden></div>' +
+        '</div>' +
+        '<div class="rc-board" id="fs-board">' + fsBoardHTML(m) + '</div>' +
+        '<div class="rc-board fs-dex" id="fs-dex">' + fsDexHTML(m) + '</div>' +
+        '<aside class="cn-info">' +
+          '<h3 id="fs-h">' + m.name + ' <small class="qmeta">미끼 ' + K + fmt(B[0].cost) + '부터</small></h3>' +
+          '<p>미끼를 사서 낚싯대를 던지고, 찌가 <b>쑥 잠길 때</b> [챔질!]을 누르면 물고기를 낚아요. 낚은 물고기의 <b>배수 × 미끼 값</b>만큼 강냉이를 받아요.</p>' +
+          '<ul><li>찌가 살짝 까딱이는 건 가짜 입질이에요. 너무 빨리 누르면 물고기가 도망가요.</li><li>찌가 잠긴 뒤 0.7초 안에 눌러야 해요. 늦으면 놓쳐요.</li><li>어떤 물고기가 물지는 던지는 순간 아래 확률대로 정해지고, 크기는 기록용이에요.</li><li>챔질에 모두 성공할 때 평균 환원(RTP)은 미끼에 따라 ' + B.map((_, k) => pct(fsRtp(m, k) / fsHit(m))).join(' · ') + '예요.</li><li>처음 낚은 물고기는 도감에 올라가고, 최대 크기가 기록돼요.</li></ul>' +
+          '<div class="cn-table-wrap"><table class="cn-table sl-paytable"><thead><tr><th>물고기</th><th>배수</th>' + B.map(b => '<th>' + slEsc(b.name) + '</th>').join('') + '</tr></thead><tbody>' + rows + '</tbody></table></div>' +
+        '</aside>' +
+      '</div></section>';
+  }
+  // ----- 화면 좌표: 낚싯대 끝·찌 위치를 무대 크기에 맞춰 계산하고 줄을 그린다 -----
+  function fsGeom() {
+    const st = fsEl('fs-stage'), cat = fsEl('fs-cat'); if (!st || !cat) return null;
+    const W = st.clientWidth, H = st.clientHeight, cx = cat.offsetLeft, cy = cat.offsetTop;
+    if (!W || !H) return null;
+    return { W, H, waterY: H * .56, hand: { x: cx + cat.offsetWidth * .78, y: cy + cat.offsetHeight * .55 }, tip: { x: cx + cat.offsetWidth * .78 + Math.min(110, W * .2), y: cy - 34 } };
+  }
+  function fsDraw() {
+    const g = fsGeom(); if (!g) return;
+    const rod = fsEl('fs-rod'), line = fsEl('fs-line'), bob = fsEl('fs-bob'), svg = fsEl('fs-svg');
+    svg.setAttribute('viewBox', '0 0 ' + g.W + ' ' + g.H);
+    const bend = FS.phase === 'reel' || FS.phase === 'bite' ? 26 : FS.phase === 'jump' ? 34 : 6;
+    const tip = { x: g.tip.x - bend * .6, y: g.tip.y + bend };
+    FS.tip = tip;
+    rod.setAttribute('d', 'M' + g.hand.x + ' ' + g.hand.y + ' Q' + ((g.hand.x + tip.x) / 2 + 6) + ' ' + ((g.hand.y + tip.y) / 2 - bend * .4 - 8) + ' ' + tip.x + ' ' + tip.y);
+    if (FS.bob) {
+      const b = FS.bob, taut = FS.phase === 'reel' || FS.phase === 'bite' || FS.phase === 'jump';
+      line.setAttribute('d', 'M' + tip.x + ' ' + tip.y + ' Q' + ((tip.x + b.x) / 2) + ' ' + (Math.max(tip.y, b.y) + (taut ? 4 : 34)) + ' ' + b.x + ' ' + b.y);
+      line.style.display = '';
+      bob.hidden = !!b.hide; bob.style.transform = 'translate(' + (b.x - 8).toFixed(1) + 'px,' + (b.y - 10 + (b.dip || 0)).toFixed(1) + 'px)';
+      bob.classList.toggle('under', (b.dip || 0) > 10);
+    } else { line.style.display = 'none'; bob.hidden = true; }
+  }
+  function fsInit() { FS.bob = null; fsDraw(); requestAnimationFrame(fsDraw); setTimeout(fsDraw, 150); }
+  function fsMsg(t) { const e = fsEl('fs-msg'); if (e) { e.innerHTML = t; restart(e, 'pop'); } }
+  function fsRenderBoard() { const m = fishMachine(), b = fsEl('fs-board'); if (m && b) b.innerHTML = fsBoardHTML(m); }
+  function fsRipple(x, y, big) {
+    const st = fsEl('fs-stage'); if (!st) return;
+    const r = document.createElement('i'); r.className = 'fs-ripple' + (big ? ' big' : ''); r.style.left = x + 'px'; r.style.top = y + 'px'; st.appendChild(r); setTimeout(() => r.remove(), 1000);
+    if (big) for (let i = 0; i < 8; i++) { const d = document.createElement('i'); d.className = 'fs-drop'; d.style.left = x + 'px'; d.style.top = y + 'px'; d.style.setProperty('--dx', ((Math.random() - .5) * 70).toFixed(0) + 'px'); d.style.setProperty('--dy', (-20 - Math.random() * 40).toFixed(0) + 'px'); st.appendChild(d); setTimeout(() => d.remove(), 700); }
+  }
+  const fsLater = (fn, ms) => FS.timers.push(setTimeout(fn, ms));
+  function fsClear() { FS.timers.forEach(clearTimeout); FS.timers = []; cancelAnimationFrame(FS.raf); }
+  function fsSet(phase) { FS.phase = phase; fsRenderBoard(); }
+  // 한 번 던지기: 미끼 값 차감 → 물고기·크기 결정 → 찌 날아가기 → 가짜 입질 → 진짜 입질(0.7초) → 챔질 성공이면 감기 → 물고기 튀어오름 → 결과
+  function fsCast() {
+    const m = fishMachine(), g = fsGeom(); if (!m || !g || !['idle', 'result'].includes(FS.phase)) return;
+    const B = fsBaits(m), bait = B[FS.bait];
+    if (state.balance < bait.cost) { toast('', '강냉이가 부족해요. 체험용 강냉이를 충전해 보세요.', true); return; }
+    state.balance -= bait.cost; renderHUD(true);
+    fsClear();
+    const c = fsEl('fs-catch'); if (c) { c.hidden = true; c.innerHTML = ''; }
+    const F = fsFish(m), P = F.map(f => f.probs[FS.bait]), tot = P.reduce((a, b) => a + b, 0);
+    let r = Math.random() * tot, fi = F.length - 1; for (let i = 0; i < F.length; i++) { r -= P[i]; if (r < 0) { fi = i; break; } }
+    const f = F[fi], u = Math.pow(Math.random(), 1.8), size = f.max ? Math.round(f.min + (f.max - f.min) * u) : 0;
+    FS.cur = { m, f, size, bait: FS.bait, cost: bait.cost };
+    fsSet('cast'); SFX.whoosh();
+    fsMsg('휙~ ' + slEsc(bait.name) + ' 미끼를 던졌어요');
+    const from = Object.assign({}, FS.tip || g.tip), to = { x: g.W * (.6 + Math.random() * .14), y: g.waterY + 10 }, t0 = performance.now(), dur = 650;
+    FS.home = to;
+    const fly = now => {
+      const t = Math.min(1, (now - t0) / dur);
+      FS.bob = { x: from.x + (to.x - from.x) * t, y: from.y + (to.y - from.y) * t - Math.sin(t * Math.PI) * 90 };
+      fsDraw();
+      if (t < 1) { FS.raf = requestAnimationFrame(fly); return; }
+      fsRipple(to.x, to.y + 4, true); SFX.splat();
+      fsWait();
+    };
+    FS.raf = requestAnimationFrame(fly);
+  }
+  function fsWait() {
+    fsSet('wait'); fsMsg('찌를 잘 보세요… 쑥 잠기면 챔질!');
+    const nib = 1 + Math.floor(Math.random() * 3), times = [];
+    let t = 900 + Math.random() * 700;
+    for (let i = 0; i < nib; i++) { times.push(t); t += 650 + Math.random() * 900; }
+    const bite = t + 300 + Math.random() * 600, t0 = performance.now();
+    times.forEach(ms => fsLater(() => { if (FS.phase !== 'wait') return; FS.nib = performance.now(); fsRipple(FS.home.x, FS.home.y + 4); SFX.tick && SFX.tick(); }, ms));
+    fsLater(() => { if (FS.phase === 'wait') fsBite(); }, bite);
+    const idle = now => {
+      if (FS.phase !== 'wait' || !fsEl('fs-stage')) return;
+      const s = (now - t0) / 1000, nibAge = FS.nib ? (now - FS.nib) / 1000 : 9;
+      FS.bob = { x: FS.home.x, y: FS.home.y, dip: Math.sin(s * 2.4) * 1.6 + (nibAge < .3 ? Math.sin(nibAge / .3 * Math.PI) * 7 : 0) };
+      fsDraw(); FS.raf = requestAnimationFrame(idle);
+    };
+    FS.raf = requestAnimationFrame(idle);
+  }
+  function fsBite() {
+    cancelAnimationFrame(FS.raf);
+    fsSet('bite'); fsMsg('<b>입질!</b> 지금 챔질!');
+    FS.bob = { x: FS.home.x, y: FS.home.y, dip: 18 }; fsDraw();
+    fsRipple(FS.home.x, FS.home.y + 4, true); SFX.popup();
+    const al = fsEl('fs-alert'); if (al) { al.hidden = false; al.style.left = FS.home.x + 'px'; al.style.top = (FS.home.y - 66) + 'px'; restart(al, 'on'); }
+    const t0 = performance.now();
+    const shake = now => { if (FS.phase !== 'bite') return; const s = (now - t0) / 1000; FS.bob = { x: FS.home.x + Math.sin(s * 40) * 2, y: FS.home.y, dip: 18 + Math.sin(s * 25) * 3 }; fsDraw(); FS.raf = requestAnimationFrame(shake); };
+    FS.raf = requestAnimationFrame(shake);
+    fsLater(() => { if (FS.phase === 'bite') fsMiss('late'); }, 700);
+  }
+  function fsHook() {
+    if (FS.phase === 'wait') { fsMiss('early'); return; }
+    if (FS.phase !== 'bite') return;
+    fsClear(); const al = fsEl('fs-alert'); if (al) al.hidden = true;
+    fsSet('reel'); fsMsg('걸렸다! 릴을 감아요…'); SFX.crank();
+    const g = fsGeom(), from = Object.assign({}, FS.home), to = { x: g.W * .42, y: g.waterY + 12 }, t0 = performance.now(), big = ['A', 'S'].includes(FS.cur.f.g), dur = big ? 1700 : 1100;
+    if (big) { const st = fsEl('fs-stage'); if (st) st.classList.add('bigfish'); fsMsg('<b>무거워요!</b> 대어인가 봐요…'); }
+    let lastR = 0;
+    const reel = now => {
+      if (!fsEl('fs-stage')) return;
+      const t = Math.min(1, (now - t0) / dur), e = t * t * (3 - 2 * t);
+      FS.bob = { x: from.x + (to.x - from.x) * e + Math.sin(t * 30) * (big ? 10 : 5), y: from.y + Math.sin(t * 22) * 2, dip: 14 };
+      fsDraw();
+      if (now - lastR > 140) { lastR = now; fsRipple(FS.bob.x, FS.bob.y + 4, big && Math.random() < .5); }
+      if (t < 1) { FS.raf = requestAnimationFrame(reel); return; }
+      fsJump();
+    };
+    FS.raf = requestAnimationFrame(reel);
+  }
+  function fsMiss(why) {
+    fsClear(); const al = fsEl('fs-alert'); if (al) al.hidden = true;
+    fsMsg(why === 'early' ? '너무 빨랐어요! 물고기가 놀라 도망갔어요' : '앗, 늦었어요! 물고기가 미끼만 먹고 도망갔어요');
+    SFX.lose();
+    if (FS.home) fsRipple(FS.home.x, FS.home.y + 4);
+    recordResult({ g: 'C', name: '냥 낚시터 놓침', kind: 'kernel', val: 0 }, FS.cur.m); saveMe();
+    // 찌를 다시 감아 들인다
+    const g = fsGeom(), from = Object.assign({}, FS.bob || FS.home), t0 = performance.now();
+    FS.phase = 'result';
+    const back = now => { if (!fsEl('fs-stage')) return; const t = Math.min(1, (now - t0) / 500); FS.bob = t < 1 ? { x: from.x + (FS.tip.x - from.x) * t, y: from.y + (FS.tip.y - from.y) * t } : null; fsDraw(); if (t < 1) FS.raf = requestAnimationFrame(back); else fsSet('result'); };
+    FS.raf = requestAnimationFrame(back);
+  }
+  function fsJump() {
+    const { f, size, cost, m } = FS.cur, st = fsEl('fs-stage'), g = fsGeom(), fish = fsEl('fs-fish');
+    fsSet('jump');
+    fsRipple(FS.bob.x, FS.bob.y + 4, true); SFX.splat();
+    FS.bob = null; fsDraw();
+    if (st) st.classList.remove('bigfish');
+    fish.innerHTML = fsArt(f); fish.hidden = false;
+    const from = { x: g.W * .42, y: g.waterY }, to = { x: g.W * .5, y: g.H * .3 }, t0 = performance.now(), dur = 650;
+    const jump = now => {
+      const t = Math.min(1, (now - t0) / dur);
+      const x = from.x + (to.x - from.x) * t, y = from.y + (to.y - from.y) * t - Math.sin(t * Math.PI) * 60;
+      fish.style.transform = 'translate(' + (x - 50) + 'px,' + (y - 30) + 'px) rotate(' + (-30 + 390 * t) + 'deg) scale(' + (.6 + .5 * t) + ')';
+      if (t < 1) { FS.raf = requestAnimationFrame(jump); return; }
+      fish.hidden = true; fsResult(m, f, size, cost);
+    };
+    FS.raf = requestAnimationFrame(jump);
+  }
+  function fsResult(m, f, size, cost) {
+    const got = Math.round(cost * f.mult), rec = FS.rec[f.id], isNew = !rec, isRec = !!rec && size > rec.max && f.id !== 'can';
+    FS.rec[f.id] = { n: (rec ? rec.n : 0) + 1, max: Math.max(rec ? rec.max : 0, size) }; fsSaveRec();
+    state.balance += got;
+    const p = { g: f.g, name: '냥 낚시터 ' + f.name + (size ? ' ' + size + 'cm' : '') + ' ' + rcMul(f.mult) + ' · ' + fmt(got) + '개', kind: 'kernel', val: got };
+    recordResult(p, m);
+    if (f.g === 'S' || f.g === 'A') { state.feed.unshift({ g: f.g, item: f.name + (size ? ' ' + size + 'cm' : ''), who: '나 · 냥 낚시터' }); renderFeed(true); toast('방송 오버레이 미리보기', '나님이 투네랜드 낚시터에서 ' + f.name + ' ' + size + 'cm를 낚았어요!'); }
+    saveMe(); renderHUD(true);
+    const tier = f.g === 'S' ? 'top' : f.g === 'A' ? 'hi' : f.mult >= 1 ? 'mid' : 'lo';
+    const c = fsEl('fs-catch'), st = fsEl('fs-stage');
+    if (c) {
+      c.className = 'fs-catch t-' + tier; c.style.setProperty('--fc', f.color);
+      c.innerHTML = (tier === 'top' || tier === 'hi' ? '<i class="fs-catch-rays" aria-hidden="true"></i>' : '') +
+        '<div class="fs-catch-card">' +
+          '<div class="fs-catch-badges">' + (isNew ? '<span class="nb new">NEW! 도감 등록</span>' : '') + (isRec ? '<span class="nb rec">최대 기록!</span>' : '') + '</div>' +
+          fsArt(f, 'fs-catch-art') +
+          '<div class="fs-catch-name"><span class="fs-dex-g g' + f.g + '">' + f.g + '</span>' + slEsc(f.name) + (size ? ' <b class="num">' + size + 'cm</b>' : '') + '</div>' +
+          '<div class="fs-catch-pay">' + (got ? '<span class="chip" style="background:' + pkColor(f.mult) + '">' + rcMul(f.mult) + '</span> 강냉이 <b class="num">+' + fmt(got) + '</b>' : '꽝이에요… 다음엔 물고기를!') + '</div>' +
+          '<small class="fs-catch-hint">누르면 닫혀요</small>' +
+        '</div>';
+      c.hidden = false;
+    }
+    fsMsg(f.id === 'can' ? '빈 깡통을 낚았어요…' : '<b>' + slEsc(f.name) + '</b> ' + size + 'cm를 낚았어요!');
+    SFX.land(tier === 'lo' ? 'lo' : tier);
+    if (tier !== 'lo' && c) {
+      const r = c.querySelector('.fs-catch-card').getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 3;
+      floatFx(); burst([f.color, '#FFFFFF', '#FFE07A'], tier === 'top' ? 110 : tier === 'hi' ? 70 : 30, tier === 'top' ? 12 : 8, cx, cy);
+      if (tier === 'top' || tier === 'hi') rain([f.color, '#FFC64E', '#74C0FC', '#FFFFFF'], tier === 'top' ? 150 : 70);
+      if (tier === 'top' && st) restart(st, 'shake');
+    }
+    const dex = fsEl('fs-dex'); if (dex) dex.innerHTML = fsDexHTML(m);
+    fsSet('result');
+  }
+  $('floor').addEventListener('click', e => {
+    if (state.tab !== 'fish') return;
+    const c = e.target.closest('#fs-catch'); if (c) { c.hidden = true; return; }
+    const bt = e.target.closest('[data-fs-bait]'); if (bt && !bt.disabled) { FS.bait = Number(bt.dataset.fsBait); fsRenderBoard(); return; }
+    const go = e.target.closest('[data-fs="go"]'); if (!go || go.disabled) return;
+    if (FS.phase === 'idle' || FS.phase === 'result') fsCast(); else fsHook();
+  });
+  // 챔질은 누르는 순간 반응하도록 pointerdown 에서도 처리 (클릭보다 빠름)
+  $('floor').addEventListener('pointerdown', e => { if (state.tab === 'fish' && (FS.phase === 'wait' || FS.phase === 'bite') && e.target.closest('[data-fs="go"]')) { e.preventDefault(); fsHook(); } });
+  document.addEventListener('keydown', e => {
+    if (state.tab !== 'fish' || e.key !== ' ' || e.repeat) return;
+    if (e.target.closest && e.target.closest('input, textarea, select, button, [contenteditable]')) return;
+    if (!$('app') || $('app').hidden || $('app').classList.contains('in-lounge')) return;
+    e.preventDefault();
+    if (FS.phase === 'idle' || FS.phase === 'result') fsCast(); else fsHook();
+  });
+  addEventListener('resize', () => { if (state.tab === 'fish' && fsEl('fs-stage') && (FS.phase === 'idle' || FS.phase === 'result')) { FS.bob = null; fsDraw(); } });
 
   // =====================================================================
   // 깡통 사격: 서부 사격장 건물의 구멍 6개에서 캔이 2개씩 2초 동안 나왔다 들어간다(10초 동안 5번).
@@ -5291,7 +5668,7 @@ img, svg, video { max-width: 100%; }
   const goodsQty = (m, p) => m.mode === 'puzzle' || m.mode === 'gslot' || isProb(m) ? num(p.qty) : num(p.total);
   // RTP = 강냉이로 돌려준 양 ÷ 받은 강냉이 (강냉이 전용. 100% − RTP = 강냉이 소진)
   // 상품 예산 = 머신에 넣은 상품 수량 × 원가 합계 (직접 정하지 않고 수량으로 조절)
-  const NO_PRIZE_GAMES = ['runner', 'cannon', 'archery', 'slot', 'race'];
+  const NO_PRIZE_GAMES = ['runner', 'cannon', 'archery', 'slot', 'race', 'fish'];
   function econ(m, s) {
     if (m.mode === 'gslot') gsSync(m);
     const e = econCore(m, s);
@@ -5307,6 +5684,10 @@ img, svg, video { max-width: 100%; }
     const mRev = num(m.demand) * s.kernelValue;
     if (m.mode === 'archery') {
       const rev = num(m.cost) * s.kernelValue, rtp = arRtp(m);
+      return { rev, pay: rev * rtp, rtp, mRev, mPay: mRev * rtp, wsum: 100, runs: num(m.cost) ? num(m.demand) / num(m.cost) : 0 };
+    }
+    if (m.mode === 'fish') {
+      const rev = num(m.cost) * s.kernelValue, rtp = fsMaxRtp(m);
       return { rev, pay: rev * rtp, rtp, mRev, mPay: mRev * rtp, wsum: 100, runs: num(m.cost) ? num(m.demand) / num(m.cost) : 0 };
     }
     if (m.mode === 'race') {
@@ -5387,6 +5768,7 @@ img, svg, video { max-width: 100%; }
     if (m.mode === 'slot') return '배수는 직접 정해요';
     if (m.mode === 'gslot') return '상품 머신은 수량으로 관리해요';
     if (m.mode === 'race') return '배당은 직접 정해요';
+    if (m.mode === 'fish') return '배수·확률은 직접 정해요';
     if (isProb(m)) {
       if (method === 'price' || !e.rtp) return byPrice(e.pay);
       const f = T / e.rtp;
@@ -5420,7 +5802,7 @@ img, svg, video { max-width: 100%; }
       const e = econ(m, draft.settings);
       if (!num(m.cost)) errs.push(m.name + ': 입장료를 입력해 주세요.');
       if (isProb(m) && Math.abs(e.wsum - 100) > 0.01) errs.push(m.name + ': 확률 합계가 ' + fmt(+e.wsum.toFixed(2)) + '%예요. 100%로 맞춰 주세요.');
-      if (!isProb(m) && !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race'].includes(m.mode) && !e.N) errs.push(m.name + ': 캡슐 수량이 0개예요.');   // 냥치 런·팝콘 대포는 캡슐이 없는 게임
+      if (!isProb(m) && !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish'].includes(m.mode) && !e.N) errs.push(m.name + ': 캡슐 수량이 0개예요.');   // 냥치 런·팝콘 대포는 캡슐이 없는 게임
       if (m.prizes.some(p => !String(p.name).trim())) errs.push(m.name + ': 이름이 비어 있는 상품이 있어요.');
     });
     draft.machines.filter(m => m.mode === 'archery').forEach(m => {
@@ -5455,6 +5837,12 @@ img, svg, video { max-width: 100%; }
       if (!(rcRunners(m).reduce((a, r) => a + r.w, 0) > 0)) errs.push('냥냥 레이스: 우승 비중 합이 0이에요.');
       if (rcRunners(m).some((r, i) => !String(((m.runners || [])[i] || {}).name || '').trim())) errs.push('냥냥 레이스: 캐릭터 이름을 입력해 주세요.');
     });
+    draft.machines.filter(m => m.mode === 'fish').forEach(m => {
+      const B = fsBaits(m), F = fsFish(m);
+      if (B.some(b => !(b.cost >= 10))) errs.push('냥 낚시터: 미끼 값은 10 이상이어야 해요.');
+      B.forEach((b, k) => { const sum = F.reduce((a, f) => a + f.probs[k], 0); if (Math.abs(sum - 100) > .05) errs.push('냥 낚시터: ' + b.name + ' 확률 합이 100%가 아니에요.'); });
+      if (!(num(m.hit) > 0 && num(m.hit) <= 100)) errs.push('냥 낚시터: 예산 기준 챔질 성공률은 1~100%여야 해요.');
+    });
     draft.machines.filter(m => m.mode === 'puzzle').forEach(m => m.prizes.forEach(p => { if (p.kind === 'product' && !(num(p.cost) > 0)) errs.push('직소 퍼즐: ' + p.name + '의 원가를 입력해 주세요.'); }));
     return errs;
   }
@@ -5484,21 +5872,21 @@ img, svg, video { max-width: 100%; }
       const e = econ(m, s), st = mSt(m, e);
       return '<tr style="--c:' + zoneOf(m.zone).color + '">' +
         '<td><span class="mname"><i></i>' + m.name + '</span></td>' +
-        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'archery' ? '깡통 사격' : m.mode === 'slot' ? '캐릭터 슬롯' : m.mode === 'gslot' ? '상품 슬롯' : m.mode === 'race' ? '냥냥 레이스' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
+        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'archery' ? '깡통 사격' : m.mode === 'slot' ? '캐릭터 슬롯' : m.mode === 'gslot' ? '상품 슬롯' : m.mode === 'race' ? '냥냥 레이스' : m.mode === 'fish' ? '냥 낚시터' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
         '<td class="r">' + fmt(num(m.cost)) + '</td>' +
-        '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'cannon' || m.mode === 'archery' ? '약 ' + fmt(Math.round(e.runs)) + '발' : m.mode === 'runner' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'slot' || m.mode === 'gslot' ? '약 ' + fmt(Math.round(e.runs)) + '회' : m.mode === 'race' ? '약 ' + fmt(Math.round(e.runs)) + '판(최소 기준)' : m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
+        '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'cannon' || m.mode === 'archery' ? '약 ' + fmt(Math.round(e.runs)) + '발' : m.mode === 'runner' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'slot' || m.mode === 'gslot' ? '약 ' + fmt(Math.round(e.runs)) + '회' : m.mode === 'race' ? '약 ' + fmt(Math.round(e.runs)) + '판(최소 기준)' : m.mode === 'fish' ? '약 ' + fmt(Math.round(e.runs)) + '번(지렁이 기준)' : m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
         '<td class="r">' + (e.hasGoods ? won(e.goods) + '<span class="ed-left">상품 ' + fmt(e.goodsN) + '개</span>' : '<span class="qmeta">상품 없음</span>') + '</td>' +
         (e.hasGoods ? '<td>' + (e.hasKern ? '<b class="num">' + pct(e.rtp) + '</b> <span class="qmeta">강냉이 보상분 (참고)</span>' : '<span class="qmeta">강냉이 보상 없음</span>') + '</td>' :
         '<td><div class="rtpcell"><div class="rtpbar"><i style="width:' + Math.min(100, e.rtp / 1.5 * 100).toFixed(1) + '%;--st:var(--' + st.cls + ')"></i><b style="left:' + Math.min(100, T / 1.5 * 100).toFixed(1) + '%"></b></div><span>' + pct(e.rtp) + '</span></div></td>' ) +
         '<td><span class="status ' + st.cls + '">' + st.label + '</span></td>' +
-        '<td>' + (e.hasGoods || m.mode === 'runner' || m.mode === 'slot' || m.mode === 'race' ? '' : '<button class="btn-xs" type="button" data-fit="' + m.id + '">목표로 맞추기</button>') + '</td></tr>';
+        '<td>' + (e.hasGoods || m.mode === 'runner' || m.mode === 'slot' || m.mode === 'race' || m.mode === 'fish' ? '' : '<button class="btn-xs" type="button" data-fit="' + m.id + '">목표로 맞추기</button>') + '</td></tr>';
     }).join('');
     $('ad-compare').innerHTML = '<thead><tr><th>머신</th><th>방식</th><th class="r">입장료(강냉이)</th><th class="r">월 소진(강냉이)</th><th class="r">상품 예산 (수량 × 원가)</th><th>강냉이 RTP</th><th>상태</th><th></th></tr></thead><tbody>' + rows + '</tbody>';
   }
 
   function renderTabs() {
     const s = draft.settings;
-    $('ad-tabs').innerHTML = draft.machines.filter(m => !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race'].includes(m.mode)).map(m =>
+    $('ad-tabs').innerHTML = draft.machines.filter(m => !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish'].includes(m.mode)).map(m =>
       '<button class="ad-tab" type="button" role="tab" data-tab="' + m.id + '" aria-selected="' + (m.id === sel) + '" style="--c:' + zoneOf(m.zone).color + '"><i></i>' + m.name + ' <small>' + (econ(m, s).hasGoods ? won(econ(m, s).goods) : pct(econ(m, s).rtp)) + '</small></button>').join('');
   }
 
@@ -5630,7 +6018,7 @@ img, svg, video { max-width: 100%; }
         c2.drawImage(img, (S - w) / 2, (S - h) / 2, w, h);
         const m = pzDraft(); if (!m || !m.prizes[i]) return;
         m.prizes[i].img = cv.toDataURL('image/jpeg', 0.72);
-        renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderStats();
+        renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats();
       };
       img.src = fr.result;
     };
@@ -5644,7 +6032,7 @@ img, svg, video { max-width: 100%; }
     }
     if (el.id === 'pa-auto') {
       m.autoW = el.checked; if (m.autoW) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats(); return true;
     }
     if (el.dataset.pi != null && el.dataset.k) {
       const p = m.prizes[Number(el.dataset.pi)], k = el.dataset.k;
@@ -5665,13 +6053,13 @@ img, svg, video { max-width: 100%; }
     if (e.target.id === 'pa-add') {
       m.prizes.push({ g: 'C', name: '새 상품', kind: 'product', val: 0, cost: 3000, w: 0, qty: 10, img: '', pid: 'p' + Date.now().toString(36) });
       if (m.autoW !== false) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats(); return true;
     }
     const del = e.target.closest('[data-padel]');
     if (del) {
       m.prizes.splice(Number(del.dataset.padel), 1);
       if (m.autoW !== false) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats(); return true;
     }
     return false;
   }
@@ -5706,7 +6094,7 @@ img, svg, video { max-width: 100%; }
     return false;
   }
   // ----- 관리자 좌측 메뉴: 기능별로 한 화면씩 -----
-  const AD_PAGES = ['overview', 'machines', 'puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race'];
+  const AD_PAGES = ['overview', 'machines', 'puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish'];
   let adPage = (() => { try { const v = localStorage.getItem('tooneland-ad-page'); return AD_PAGES.includes(v) ? v : 'overview'; } catch (e) { return 'overview'; } })();
   function adGo(page, keepScroll) {
     if (!AD_PAGES.includes(page)) page = 'overview';
@@ -5722,7 +6110,7 @@ img, svg, video { max-width: 100%; }
     const s = draft.settings, T = target(), R = { ok: 1, warn: 2, bad: 3 };
     const worst = list => list.reduce((w, m) => { const c = mSt(m, econ(m, s)).cls; return (R[c] || 0) > (R[w] || 0) ? c : w; }, '');
     const by = mode => draft.machines.filter(m => mode(m));
-    const map = { overview: worst(draft.machines), machines: worst(by(m => !['puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race'].includes(m.mode))), archery: worst(by(m => m.mode === 'archery')), puzzle: worst(by(m => m.mode === 'puzzle')), runner: worst(by(m => m.mode === 'runner')), cannon: worst(by(m => m.mode === 'cannon')), slot: worst(by(m => m.mode === 'slot')), gslot: worst(by(m => m.mode === 'gslot')), race: worst(by(m => m.mode === 'race')) };
+    const map = { overview: worst(draft.machines), machines: worst(by(m => !['puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish'].includes(m.mode))), archery: worst(by(m => m.mode === 'archery')), puzzle: worst(by(m => m.mode === 'puzzle')), runner: worst(by(m => m.mode === 'runner')), cannon: worst(by(m => m.mode === 'cannon')), slot: worst(by(m => m.mode === 'slot')), gslot: worst(by(m => m.mode === 'gslot')), race: worst(by(m => m.mode === 'race')), fish: worst(by(m => m.mode === 'fish')) };
     document.querySelectorAll('#ad-gnb [data-addot]').forEach(d => { d.className = 'gnb-dot' + (map[d.dataset.addot] ? ' ' + map[d.dataset.addot] : ''); });
   }
   document.getElementById('ad-gnb').addEventListener('click', e => { const b = e.target.closest('[data-adpage]'); if (b) adGo(b.dataset.adpage); });
@@ -5807,7 +6195,7 @@ img, svg, video { max-width: 100%; }
     if (e.target.id !== 'ar-fit') return false;
     const m = arDraft(); if (!m) return true;
     const ok = arFitGrades(m, target());
-    renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderStats();
+    renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats();
     toast('', '깡통 사격: ' + (ok ? '캔별 확률을 목표 RTP ' + pct(target()) + '(' + arBullets(m) + '발 중 ' + arHits(m) + '발 명중 기준)에 맞췄어요' : '일부 캔은 확률만으로 맞출 수 없어요. 배수를 조정해 주세요'), true);
     return true;
   }
@@ -5895,7 +6283,7 @@ img, svg, video { max-width: 100%; }
     if (e.target.id !== 'cn-fit') return false;
     const m = cnDraft(); if (!m) return true;
     const ok = cnFitGrades(m, target());
-    renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderStats();
+    renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats();
     toast('', '팝콘 대포: ' + (ok ? '보통 확률을 조정해 전체 RTP를 ' + pct(target()) + '에 맞췄어요' : '보통 확률만으로 맞출 수 없어요. 퍼펙트·좋아요 확률이나 배수를 조정해 주세요'), true);
     return true;
   }
@@ -6028,10 +6416,51 @@ img, svg, video { max-width: 100%; }
     return true;
   }
 
+  // ----- 냥 낚시터 관리: 미끼 값·챔질 성공률 + 물고기별 배수·미끼별 확률 -----
+  const fsDraft = () => draft.machines.find(m => m.mode === 'fish');
+  function renderFishAdmin() {
+    const m = fsDraft(); if (!m || !fsEl('fs-fields')) return;
+    fsSync(m);
+    const B = fsBaits(m), F = fsFish(m);
+    $('fs-fields').innerHTML = B.map((b, k) => '<div class="field"><label for="fs-b' + k + '">' + slEsc(b.name) + ' 값</label><div class="input-unit"><input class="input num" id="fs-b' + k + '" type="number" min="10" step="10" data-fsb="' + k + '" value="' + b.cost + '"><span>강냉이</span></div></div>').join('') +
+      '<div class="field"><label for="fs-hit">예산 기준 챔질 성공률</label><div class="input-unit"><input class="input num" id="fs-hit" type="number" min="1" max="100" step="1" data-fsf="hit" value="' + Math.round(fsHit(m) * 100) + '"><span>%</span></div></div>' +
+      '<div class="field"><label for="fs-demand">월 예상 강냉이 소진</label><div class="input-unit"><input class="input num" id="fs-demand" type="number" min="0" data-fsf="demand" value="' + num(m.demand) + '"><span>강냉이</span></div></div>';
+    $('fs-t').innerHTML = '<thead><tr><th>물고기</th><th class="w-num">배수</th>' + B.map(b => '<th class="w-num">' + slEsc(b.name) + ' 확률</th>').join('') + '</tr></thead><tbody>' +
+      F.map(f => '<tr><td><span class="fs-tbl-art">' + fsArt(f) + '</span>' + slEsc(f.name) + ' <span class="fs-dex-g g' + f.g + '">' + f.g + '</span></td>' +
+        '<td><div class="input-unit"><input class="input sm num" type="number" min="0" step="0.1" data-fsm="' + f.id + '" value="' + f.mult + '" aria-label="' + slEsc(f.name) + ' 배수"><span>배</span></div></td>' +
+        B.map((b, k) => '<td><div class="input-unit"><input class="input sm num" type="number" min="0" step="0.1" data-fsp="' + f.id + ':' + k + '" value="' + f.probs[k] + '" aria-label="' + slEsc(b.name) + ' ' + slEsc(f.name) + ' 확률"><span>%</span></div></td>').join('') + '</tr>').join('') +
+      '</tbody><tfoot><tr><td colspan="2">확률 합</td>' + B.map((_, k) => '<td class="r num" data-fssum="' + k + '"></td>').join('') + '</tr><tr><td colspan="2">미끼별 RTP</td>' + B.map((_, k) => '<td class="r num" data-fsrtp="' + k + '"></td>').join('') + '</tr></tfoot>';
+    renderFishCalc();
+  }
+  function renderFishCalc() {
+    const m = fsDraft(); if (!m || !fsEl('fs-calc')) return;
+    const B = fsBaits(m), F = fsFish(m), T = target(), mx = fsMaxRtp(m), st = statusOf(mx, T);
+    B.forEach((b, k) => {
+      const sum = F.reduce((a, f) => a + f.probs[k], 0), r = fsRtp(m, k);
+      const a = document.querySelector('[data-fssum="' + k + '"]'), c = document.querySelector('[data-fsrtp="' + k + '"]');
+      if (a) { a.textContent = (+sum.toFixed(2)) + '%'; a.style.color = Math.abs(sum - 100) > .05 ? '#E03131' : ''; }
+      if (c) { c.textContent = pct(r); c.style.color = r > T + .005 ? '#E03131' : ''; }
+    });
+    $('fs-sum').textContent = '최대 RTP ' + pct(mx);
+    $('fs-calc').innerHTML = B.map((b, k) => '<span>' + slEsc(b.name) + ' <b>' + pct(fsRtp(m, k)) + '</b></span>').join('') + '<span>최대 RTP <b>' + pct(mx) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span><span class="qmeta">챔질 성공률 ' + Math.round(fsHit(m) * 100) + '% 기준</span>';
+  }
+  function fishAdminInput(el) {
+    const m = fsDraft(); if (!m) return false;
+    const d = el.dataset;
+    if (d.fsb == null && d.fsf == null && d.fsm == null && d.fsp == null) return false;
+    fsSync(m);
+    if (d.fsb != null) { m.baits[Number(d.fsb)].cost = Math.max(0, Math.round(num(el.value))); m.cost = m.baits[0].cost; }
+    if (d.fsf) m[d.fsf] = num(el.value);
+    if (d.fsm != null) { const x = m.fish.find(y => y.id === d.fsm); if (x) x.mult = Math.max(0, num(el.value)); }
+    if (d.fsp != null) { const [id, k] = d.fsp.split(':'), x = m.fish.find(y => y.id === id); if (x) x.probs[Number(k)] = Math.max(0, num(el.value)); }
+    fsSync(m); renderFishCalc(); renderStats();
+    return true;
+  }
+
   function openAdmin() {
     // 편집 중인 내용이 없으면 최신 설정(게임에서 줄어든 남은 수량 포함)으로 다시 시작
     if (!draft || JSON.stringify(draft) === draftBase) { draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); }
-    renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderStats(); adGo(adPage, true);
+    renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats(); adGo(adPage, true);
   }
 
   // ----- 관리자 이벤트 -----
@@ -6045,6 +6474,7 @@ img, svg, video { max-width: 100%; }
     if (slotAdminInput(e.target)) return;
     if (gslotAdminInput(e.target)) return;
     if (raceAdminInput(e.target)) return;
+    if (fishAdminInput(e.target)) return;
     const el = e.target, s = draft.settings;
     if (el.id === 'ad-rtp' || el.id === 'ad-rtp-range') {
       s.targetRtp = num(el.value);
@@ -6095,17 +6525,17 @@ img, svg, video { max-width: 100%; }
         : { g: 'B', name: '새 상품', kind: 'product', val: 0, cost: 1000, total: 10, left: 10 });
       renderEditor(); renderStats();
     } else if (id === 'ad-fit-all') {
-      const km = draft.machines.filter(m => m.mode !== 'runner' && m.mode !== 'slot' && m.mode !== 'race' && !isGoods(m) && econ(m, draft.settings).hasKern);
+      const km = draft.machines.filter(m => m.mode !== 'runner' && m.mode !== 'slot' && m.mode !== 'race' && m.mode !== 'fish' && !isGoods(m) && econ(m, draft.settings).hasKern);
       km.forEach(m => fitMachine(m, draft.settings, target(), 'price'));
-      renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderStats();
+      renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats();
       toast('', '강냉이 머신 ' + km.length + '개를 목표 RTP ' + draft.settings.targetRtp + '%에 맞췄어요. 저장해야 게임에 반영돼요.', true);
     } else if (id === 'ad-revert') {
-      draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderStats();
+      draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats();
     } else if (id === 'ad-reset') {
       const btn = $('ad-reset');
       if (Date.now() - resetArmed < 4000) {
         draft = clone(DEFAULT_CONFIG); resetArmed = 0; btn.textContent = '기본값으로';
-        renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderStats();
+        renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats();
         toast('', '기본값을 불러왔어요. 저장해야 게임에 반영돼요.', true);
       } else {
         resetArmed = Date.now(); btn.textContent = '한 번 더 누르면 초기화';
@@ -6116,7 +6546,7 @@ img, svg, video { max-width: 100%; }
     } else if (id === 'ad-load-remote') {
       if (sync.remote) { draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); }
       $('ad-remote').hidden = true;
-      renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderStats();
+      renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats();
     }
   });
 
@@ -6161,7 +6591,7 @@ img, svg, video { max-width: 100%; }
     if (!draft || JSON.stringify(draft) === draftBase) {
       draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft);
       $('ad-remote').hidden = true;
-      if (!$('admin').hidden) { renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderStats(); }
+      if (!$('admin').hidden) { renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats(); }
     } else if (!sync.saving) {
       $('ad-remote').hidden = false;
       if (!$('admin').hidden) renderStats();
@@ -6290,6 +6720,11 @@ img, svg, video { max-width: 100%; }
       '<g transform="translate(80 58)"><rect width="6" height="34" fill="#212529"/><rect x="0" y="0" width="3" height="3" fill="#FFFFFF"/><rect x="3" y="3" width="3" height="3" fill="#FFFFFF"/><rect x="0" y="6" width="3" height="3" fill="#FFFFFF"/><rect x="3" y="9" width="3" height="3" fill="#FFFFFF"/></g>' +
       '<image href="' + SL_ART[4] + '" x="18" y="44" width="26" height="32"/><image href="' + SL_ART[0] + '" x="46" y="58" width="28" height="35"/>' +
       '<path d="M8 66h8M6 72h8M10 84h10M34 80h8" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity=".8"/></svg>',
+    fish: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgf1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A5D8FF"/><stop offset=".5" stop-color="#E7F5FF"/><stop offset=".5" stop-color="#4DABF7"/><stop offset="1" stop-color="#1864AB"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgf1)"/>' +
+      '<path d="M10 8 Q60 0 74 50" fill="none" stroke="#7A4A1E" stroke-width="4" stroke-linecap="round"/><path d="M74 50 L74 56" stroke="#FFFFFF" stroke-width="1.5"/>' +
+      '<ellipse cx="74" cy="60" rx="5" ry="7" fill="#FA5252" stroke="#212529" stroke-width="1.5"/><path d="M69 60h10v7h-10z" fill="#FFFFFF"/>' +
+      '<ellipse cx="74" cy="66" rx="14" ry="3" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity=".8"/>' +
+      '<g transform="translate(14 64) scale(.42)"><path d="M92 35 L116 16 L110 35 L116 54 Z" fill="#F59F00" stroke="#212529" stroke-width="3"/><ellipse cx="54" cy="35" rx="40" ry="19" fill="#FAB005" stroke="#212529" stroke-width="3"/><circle cx="28" cy="30" r="5" fill="#FFFFFF" stroke="#212529" stroke-width="2"/><circle cx="27" cy="30" r="2.5" fill="#212529"/></g></svg>',
     hall: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgu5" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD43B"/><stop offset="1" stop-color="#E67700"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgu5)"/>' +
       '<path d="M34 24h32v14a16 16 0 0 1-32 0z" fill="#FFFFFF"/><path d="M34 29h-7a8 8 0 0 0 9 13M66 29h7a8 8 0 0 1-9 13" stroke="#FFFFFF" stroke-width="4" fill="none"/><rect x="46" y="53" width="8" height="11" fill="#FFFFFF"/><rect x="35" y="64" width="30" height="9" rx="2.5" fill="#FFFFFF"/>' +
       '<path d="M50 29l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.2 2.7 1-5.7-4.1-4 5.7-.8z" fill="#F59F00"/></svg>'
@@ -6302,7 +6737,8 @@ img, svg, video { max-width: 100%; }
     { id: 'archery', name: '깡통 사격', sub: '10초 사격', ic: '#F76707', fc: '#D9480F', badge: 'N', desc: '10초 동안 튀어나오는 캔을 맞혀요. 맞힌 캔 안에서 상품이 나와요.' },
     { id: 'slot', name: '캐릭터 슬롯', sub: '3단 맞추기', ic: '#9C36B5', fc: '#862E9C', badge: 'N', desc: '머리·몸통·다리 릴이 차례로 멈춰요. 한 캐릭터로 맞추면 당첨!' },
     { id: 'gslot', name: '상품 슬롯', sub: '상품 3단 맞추기', ic: '#1C7ED6', fc: '#1864AB', badge: 'N', desc: '상품 그림 3칸을 한 상품으로 맞추면 그 상품을 받아요!' },
-    { id: 'race', name: '냥냥 레이스', sub: '1등 맞히기', ic: '#2F9E44', fc: '#2B8A3E', badge: 'N', desc: '캐릭터 5마리가 달려요. 1등이나 3위 안을 맞히면 배당만큼!' }
+    { id: 'race', name: '냥냥 레이스', sub: '1등 맞히기', ic: '#2F9E44', fc: '#2B8A3E', badge: 'N', desc: '캐릭터 5마리가 달려요. 1등이나 3위 안을 맞히면 배당만큼!' },
+    { id: 'fish', name: '냥 낚시터', sub: '챔질 타이밍', ic: '#1971C2', fc: '#1864AB', badge: 'N', desc: '찌가 쑥 잠길 때 챔질! 황금 잉어를 낚으면 ×30이에요.' }
   ];
   const LG_DOCK = [
     { id: 'hall', name: '명예의 전당', ic: '#E67700' },
@@ -6359,11 +6795,12 @@ img, svg, video { max-width: 100%; }
     const lounge = !admin && !shop && ['', '#', '#lounge', '#home'].includes(location.hash);
     if (AR.active && location.hash !== '#archery') { history.replaceState(null, '', '#archery'); toast('', '사격이 끝난 뒤에 이동할 수 있어요.', true); return; }
     if (slEl('sl-modal') && !slEl('sl-modal').hidden) slCloseWin(false);
+    if (['cast', 'wait', 'bite', 'reel', 'jump'].includes(FS.phase) && location.hash !== '#fish') { history.replaceState(null, '', '#fish'); toast('', '낚시가 끝난 뒤에 이동할 수 있어요.', true); return; }
     if (RC.running && location.hash !== '#race') { history.replaceState(null, '', '#race'); toast('', '경주가 끝난 뒤에 이동할 수 있어요.', true); return; }
     if (SL.spinning && location.hash !== '#' + SL.tab) { history.replaceState(null, '', '#' + SL.tab); toast('', '릴이 멈춘 뒤에 이동할 수 있어요.', true); return; }
     if (CN.flying && location.hash !== '#cannon') { history.replaceState(null, '', '#cannon'); toast('', '팝콘이 착지한 뒤에 이동할 수 있어요.', true); return; }
     if (RN.active && location.hash !== '#runner') { history.replaceState(null, '', '#runner'); toast('', '냥치 런이 끝난 뒤에 이동할 수 있어요.', true); return; }
-    const tab = ({ '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#runner': 'runner', '#cannon': 'cannon', '#archery': 'archery', '#slot': 'slot', '#gslot': 'gslot', '#race': 'race' })[location.hash] || 'gacha';
+    const tab = ({ '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#runner': 'runner', '#cannon': 'cannon', '#archery': 'archery', '#slot': 'slot', '#gslot': 'gslot', '#race': 'race', '#fish': 'fish' })[location.hash] || 'gacha';
     if (!admin && !shop && !lounge && tab !== state.tab) {
       if (!$('modal').hidden) { if (busy) return; closeModal(); }
       state.tab = tab; renderZones(); renderFloor();
