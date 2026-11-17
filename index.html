@@ -1988,7 +1988,6 @@ img, svg, video { max-width: 100%; }
   <header class="hud">
     <div class="logo"><span class="brand">투네이션</span><h1><a class="logo-home" href="#" title="게임 라운지로" aria-label="투네랜드, 게임 라운지로">투네<em>랜드</em></a></h1></div>
     <button class="stat stat-link" type="button" id="stat-kernel" title="강냉이 사용·획득 내역 보기" aria-label="보유 강냉이, 사용·획득 내역 보기"><svg class="kernel"><use href="#k"/></svg><small>강냉이</small><span class="val num" id="balance">0</span><span class="go" aria-hidden="true">›</span></button>
-    <a class="stat stat-link" id="stat-piece" href="#shop" title="조각 교환소로 이동" aria-label="보유 조각, 조각 교환소로 이동"><i class="piece-dot"></i><small>조각교환소</small><span class="val num" id="pieces">0</span><span class="go" aria-hidden="true">›</span></a>
     <button class="btn-line snd-btn" id="sound-toggle" type="button" aria-pressed="true" title="효과음 끄기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="w" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="x" d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>효과음 켬</span></button>
     <button class="btn-ghost" id="charge" type="button" aria-label="체험용 강냉이 5,000개 충전"><span class="ch-l">체험용 강냉이</span><span class="ch-s">충전</span> +5,000</button>
     <a class="btn-line" href="#admin">관리자</a>
@@ -2026,11 +2025,6 @@ img, svg, video { max-width: 100%; }
         <h2>내 보관함 <span class="tag" id="inv-count">0개</span></h2>
         <ul class="inv" id="inv"></ul>
       </div>
-      <div class="panel">
-        <h2>조각 교환소 <span class="tag" id="shop-pieces">보유 0</span></h2>
-        <ul class="shop" id="shop"></ul>
-        <a class="btn-ghost shop-go" href="#shop">상점 전체 보기</a>
-      </div>
     </aside>
   </main>
 </div>
@@ -2051,37 +2045,31 @@ img, svg, video { max-width: 100%; }
   <p class="ad-invalid" id="ad-invalid" hidden></p>
 
   <div class="ad-layout">
-  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="archery"><span class="gnb-dot" data-addot="archery"></span><span class="gnb-text"><b>깡통 사격</b><small>캔별 상품 보상표</small></span></button></div><div class="gnb-group"><span class="gnb-title">보상</span><button type="button" class="gnb-item" data-adpage="shop"><span class="gnb-dot" data-addot="shop"></span><span class="gnb-text"><b>조각 교환소</b><small>교환 상품·수량</small></span></button></div></nav>
+  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="archery"><span class="gnb-dot" data-addot="archery"></span><span class="gnb-text"><b>깡통 사격</b><small>캔별 상품 보상표</small></span></button></div></nav>
   <div class="ad-main">
   <div class="ad-page" data-page="overview">
 
   <div class="ad-top">
     <div class="panel">
-      <h2>상품 예산과 강냉이 RTP</h2>
+      <h2>강냉이 RTP와 상품 예산</h2>
       <div class="fields">
-        <div class="field">
-          <label for="ad-budget">월 상품 예산 <small class="qmeta">강냉이 제외</small></label>
-          <div class="input-unit"><input class="input num" id="ad-budget" type="number" min="0" step="100000"><span>원</span></div>
-          <p class="help">기프티콘·실물 상품과 조각(교환소 상품) 원가의 한 달 상한이에요. 강냉이 보상은 원가가 없어 들어가지 않아요.</p>
-        </div>
-        <div class="field">
-          <div class="label-row"><label for="ad-pv">조각 1개 가치</label><label class="sh-check sm"><input type="checkbox" id="ad-pv-auto"> 교환소 기준 자동</label></div>
-          <div class="input-unit"><input class="input num" id="ad-pv" type="number" min="0" step="1"><span>원</span></div>
-          <p class="help" id="ad-pv-help"></p>
-        </div>
-        <div class="field">
+        <div class="field" style="grid-column:1/-1">
           <label for="ad-rtp">목표 RTP <small class="qmeta">강냉이 머신</small></label>
           <div class="rtp-row"><input id="ad-rtp-range" type="range" min="30" max="120" step="0.1" aria-label="목표 RTP 슬라이더"><div class="input-unit"><input class="input num" id="ad-rtp" type="number" min="1" max="200" step="0.1"><span>%</span></div></div>
           <p class="help" id="ad-rtp-help"></p>
+        </div>
+        <div class="field" style="grid-column:1/-1">
+          <span class="lbl">상품 예산 <small class="qmeta">자동 계산</small></span>
+          <div class="num" id="ad-budget-sum" style="font-size:24px;font-weight:700;letter-spacing:-.5px;line-height:1.3">0원</div>
+          <p class="help">직접 정하지 않아요. 머신에 넣은 상품(기프티콘·실물)의 <b>수량 × 원가</b>를 더한 값이에요. 수량을 늘리거나 줄여서 예산을 조절해요.</p>
         </div>
       </div>
       <div class="ad-actions">
         <label class="sr" for="ad-method">맞추는 방식</label>
         <select class="input" id="ad-method">
-          <option value="filler">한정 머신: C등급(조각) 수량 조절</option>
+          <option value="reward">강냉이 보상 크기 조절</option>
           <option value="price">입장료 조절</option>
         </select>
-        <button class="btn-line" id="ad-maxrtp" type="button">상품 머신을 예산에 맞추기</button>
         <button class="btn-ghost" id="ad-fit-all" type="button">강냉이 머신에 목표 RTP 적용</button>
       </div>
     </div>
@@ -2102,15 +2090,6 @@ img, svg, video { max-width: 100%; }
     <h2>머신 상품·확률 편집</h2>
     <div class="ad-tabs" id="ad-tabs" role="tablist" aria-label="머신 선택"></div>
     <div id="ad-editor"></div>
-  </div>
-
-  </div>
-  <div class="ad-page" data-page="shop" hidden>
-  <div class="panel ad-block">
-    <h2>조각 교환소 관리 <span class="tag" id="sh-sum"></span></h2>
-    <p class="hub-note">교환소에 나오는 상품의 순서, 가격(조각), 한정 수량과 종료 일시, 상품 그림을 편집해요. 환원율은 조각 가치(조각 1개 = <span id="sh-pv"></span>원) 대비 상품 원가예요. 저장하면 게임의 교환소에 바로 반영돼요.</p>
-    <div class="sh-list" id="sh-list"></div>
-    <div class="ed-foot"><button class="btn-line" type="button" id="sh-add">교환소 상품 추가</button></div>
   </div>
 
   </div>
@@ -2149,7 +2128,7 @@ img, svg, video { max-width: 100%; }
     <p class="hub-note">퍼즐로 모을 상품을 관리해요. 상품마다 6조각 퍼즐이 만들어지고, 카드 1장마다 아래 확률로 상품을 고른 뒤 1~6번 조각 중 하나가 나와요. 이미 가진 조각이면 중복이라 한 상품을 완성하려면 그 상품 조각이 평균 14.7장 필요해요. 저장하면 게임에 바로 반영돼요.</p>
     <div class="fields pa-fields" id="pa-fields"></div>
     <div class="table-wrap"><table class="ad-table" id="pa-list"></table></div>
-    <div class="ed-foot"><button class="btn-line" type="button" id="pa-add">상품 추가</button><div class="pa-calc" id="pa-calc"></div><button class="btn-ghost" type="button" id="pa-fit">예산 비율로 카드 가격 맞추기</button></div>
+    <div class="ed-foot"><button class="btn-line" type="button" id="pa-add">상품 추가</button><div class="pa-calc" id="pa-calc"></div></div>
   </div>
   </div>
   </div>
@@ -2185,28 +2164,6 @@ img, svg, video { max-width: 100%; }
   </div>
 </div>
 
-<section class="shop-page" id="shop-page" hidden aria-label="조각 교환소">
-  <header class="hud sp-hud">
-    <a class="btn-line sp-back" href="#">← 투네랜드로</a>
-    <div class="logo"><h1>조각 <em>교환소</em></h1></div>
-    <div class="stat" id="sp-stat-piece" title="보유 조각"><i class="piece-dot"></i><small>조각</small><span class="val num" id="sp-pieces">0</span></div>
-    <div class="stat" title="보유 강냉이"><svg class="kernel"><use href="#k"/></svg><small>강냉이</small><span class="val num" id="sp-kernels">0</span></div>
-  </header>
-
-  <div class="sp-hero" id="sp-hero"></div>
-
-  <div class="sp-bar">
-    <div class="sp-cats" id="sp-cats" role="tablist" aria-label="상품 분류"></div>
-    <p class="sp-earn">조각은 C등급 캡슐에서 나와요. <a href="#gacha">머신 보러 가기</a></p>
-  </div>
-
-  <div class="sp-grid" id="sp-grid"></div>
-
-  <div class="panel sp-log-wrap">
-    <h2>최근 교환 내역 <span class="tag" id="sp-log-count">0건</span></h2>
-    <ul class="sp-log" id="sp-log"></ul>
-  </div>
-</section>
 
 
 <div class="modal" id="ledger-modal" hidden>
@@ -2502,47 +2459,31 @@ img, svg, video { max-width: 100%; }
   let boardSel = new Set();   // 뽑기판 모달에서 고른 칸 번호
 
   // ---------- 운영 설정 (관리자 화면에서 수정) ----------
-  // P(등급, 상품명, 유형, 값(조각·강냉이 개수), 원가(원), 총 수량, 남은 수량)
+  // P(등급, 상품명, 유형, 값(강냉이 개수), 원가(원), 총 수량, 남은 수량)
   const P = (g, name, kind, val, cost, total, left) => ({ g, name, kind, val, cost, total, left });
   const K_ = (g, val, w) => ({ g, name: '강냉이 ' + val.toLocaleString('ko-KR') + '개', kind: 'kernel', val, cost: 0, w });
   // W(등급, 이름, 유형, 값(개수), 원가(원), 확률%) — 확률형 보상
   const W = (g, name, kind, val, cost, w) => ({ g, name, kind, val, cost, w });
   // 퍼즐 상품: 원가로 등급, 샘플 그림 키 = pid
-  const PZ = (pid, name, cost, w) => ({ pid, g: cost >= 100000 ? 'S' : cost >= 20000 ? 'A' : cost >= 5000 ? 'B' : 'C', name, kind: 'product', val: 0, cost, w, img: 'sample:' + pid });
-  // 조각 1개 가치(원) = 상시 교환 상품의 "원가 ÷ 조각 가격" 중앙값.
-  // 한정 상품은 미끼 성격이라 제외. 머신의 C등급(조각) 원가와 RTP 계산에 쓰인다
-  function shopPieceStats(shop, kv) {
-    const n = v => Number(v) || 0;
-    const r = (shop || []).filter(it => !it.limited && it.kind !== 'kernel' && n(it.cost) > 0)
-      .map(it => (it.kind === 'kernel' ? n(it.val) * n(kv) : n(it.worth)) / n(it.cost))
-      .filter(x => x > 0).sort((a, b) => a - b);
-    if (!r.length) return { value: 0, count: 0, min: 0, max: 0 };
-    const h = Math.floor(r.length / 2);
-    const mid = r.length % 2 ? r.at(h) : (r.at(h - 1) + r.at(h)) / 2;
-    return { value: Math.round(mid), count: r.length, min: Math.round(r.at(0)), max: Math.round(r.at(-1)) };
-  }
-  function syncPieceValue(c) {
-    if (c.settings.pieceAuto === false) return;
-    const st = shopPieceStats(c.shop, c.settings.kernelValue);
-    if (st.value) c.settings.pieceValue = st.value;
-  }
+  // qty = 준비 수량(예산 = 수량 × 원가)
+  const PZ = (pid, name, cost, w, qty) => ({ pid, g: cost >= 100000 ? 'S' : cost >= 20000 ? 'A' : cost >= 5000 ? 'B' : 'C', name, kind: 'product', val: 0, cost, w, qty, img: 'sample:' + pid });
   const DEFAULT_CONFIG = {
-    settings: { budget: 25000000, kernelValue: 1, pieceValue: 143, pieceAuto: true, targetRtp: 85, method: 'filler' },
+    settings: { kernelValue: 1, targetRtp: 85, method: 'reward' },
     machines: [
       { id: 'pop', zone: 'coin', name: '팝콘 머신', mode: 'prob', cost: 100, demand: 5000000, top: '강냉이 1,000개',
         prizes: [K_('S', 1000, 2), K_('A', 300, 8), K_('B', 120, 15), K_('C', 60, 30), K_('C', 30, 45)] },
       { id: 'cafe', zone: 'silver', name: '카페 머신', cost: 500, demand: 2000000, top: '커피 2잔 세트',
-        prizes: [P('S', '커피 2잔 세트 기프티콘', 'product', 0, 9000, 4, 2), P('A', '아메리카노 기프티콘', 'product', 0, 4500, 16, 9), P('B', '편의점 1천원권', 'product', 0, 1000, 60, 31), P('C', '조각 1개', 'piece', 1, 0, 120, 58)] },
+        prizes: [P('S', '커피 2잔 세트 기프티콘', 'product', 0, 9000, 4, 2), P('A', '아메리카노 기프티콘', 'product', 0, 4500, 16, 9), P('B', '편의점 1천원권', 'product', 0, 1000, 60, 31), P('C', '강냉이 100개', 'kernel', 100, 0, 120, 58)] },
       { id: 'dessert', zone: 'silver', name: '디저트 머신', cost: 500, demand: 1500000, top: '조각케이크',
-        prizes: [P('S', '조각케이크 기프티콘', 'product', 0, 6000, 3, 3), P('A', '아이스크림 기프티콘', 'product', 0, 3000, 15, 11), P('B', '도넛 기프티콘', 'product', 0, 2000, 42, 30), P('C', '조각 1개', 'piece', 1, 0, 90, 64)] },
+        prizes: [P('S', '조각케이크 기프티콘', 'product', 0, 6000, 3, 3), P('A', '아이스크림 기프티콘', 'product', 0, 3000, 15, 11), P('B', '도넛 기프티콘', 'product', 0, 2000, 42, 30), P('C', '강냉이 100개', 'kernel', 100, 0, 90, 64)] },
       // 직소 퍼즐: 상품마다 6조각 퍼즐. 카드 1장 = w% 확률로 고른 상품의 1~6번 조각 하나 (이미 가진 조각이면 중복 처리)
       // RTP = Σ(조각 확률 × 원가) ÷ 14.7 ÷ 카드 가격(원).  w는 원가에 반비례(autoW)
       { id: 'puzzle', zone: 'puzzle', mode: 'puzzle', pv: 2, autoW: true, name: '퍼즐 카드', cost: 140, demand: 1000000, top: '명품 한우 선물세트',
         prizes: [
-          PZ('cu1000', 'CU 모바일 금액권 1천원', 1000, 34.26), PZ('chocosong', '오리온 초코송이', 1500, 22.84), PZ('monster', '몬스터 에너지 울트라', 2000, 17.13),
-          PZ('compose', '컴포즈커피 망고 음료', 3500, 9.79), PZ('sblatte', '스타벅스 카페 라떼', 5000, 6.85), PZ('twosome', '투썸 초콜릿 케이크', 6500, 5.27),
-          PZ('sbset', '스타벅스 케이크 & 음료 2잔 세트', 22000, 1.56), PZ('chicken', '순살 치킨 + 콜라 세트', 22000, 1.56), PZ('akg', 'AKG K72 헤드폰', 69000, 0.5),
-          PZ('hanwoo', '명품 한우 선물세트', 150000, 0.24)
+          PZ('cu1000', 'CU 모바일 금액권 1천원', 1000, 34.26, 170), PZ('chocosong', '오리온 초코송이', 1500, 22.84, 115), PZ('monster', '몬스터 에너지 울트라', 2000, 17.13, 85),
+          PZ('compose', '컴포즈커피 망고 음료', 3500, 9.79, 50), PZ('sblatte', '스타벅스 카페 라떼', 5000, 6.85, 35), PZ('twosome', '투썸 초콜릿 케이크', 6500, 5.27, 27),
+          PZ('sbset', '스타벅스 케이크 & 음료 2잔 세트', 22000, 1.56, 8), PZ('chicken', '순살 치킨 + 콜라 세트', 22000, 1.56, 8), PZ('akg', 'AKG K72 헤드폰', 69000, 0.5, 3),
+          PZ('hanwoo', '명품 한우 선물세트', 150000, 0.24, 2)
         ] },
       // 깡통 사격: 구멍 6개에서 캔 2개씩 2초, 10초 동안. 리볼버 6발. 맞힌 캔 보상표에서 상품, 못 맞히면 꽝. RTP = 맞혔을 때 기대 환원 × 명중 수 ÷ 탄 수
       { id: 'archery', zone: 'archery', mode: 'archery', av: 4, name: '깡통 사격', cost: 100, bullets: 6, hits: 6, demand: 800000, top: '강냉이 2,000개 (×20)',
@@ -2556,21 +2497,11 @@ img, svg, video { max-width: 100%; }
       { id: 'runner', zone: 'runner', mode: 'runner', name: '냥치 런', cost: 100, demand: 1000000, ladder: [150, 320, 600, 1150, 2200], top: '문 5개 완주 2,200점',
         prizes: [W('C', '문 1개 통과', 'kernel', 150, 0, 0), W('B', '문 2개 통과', 'kernel', 320, 0, 0), W('B', '문 3개 통과', 'kernel', 600, 0, 0), W('A', '문 4개 통과', 'kernel', 1150, 0, 0), W('S', '문 5개 통과', 'kernel', 2200, 0, 0)] },
       { id: 'night', zone: 'gold', name: '야식 머신', cost: 2000, demand: 2400000, top: '치킨 기프티콘',
-        prizes: [P('S', '치킨 기프티콘', 'product', 0, 20000, 3, 1), P('A', '배달앱 1만원권', 'product', 0, 10000, 12, 5), P('B', '편의점 5천원권', 'product', 0, 5000, 35, 14), P('C', '조각 3개', 'piece', 3, 0, 70, 22)] },
+        prizes: [P('S', '치킨 기프티콘', 'product', 0, 20000, 3, 1), P('A', '배달앱 1만원권', 'product', 0, 10000, 12, 5), P('B', '편의점 5천원권', 'product', 0, 5000, 35, 14), P('C', '강냉이 400개', 'kernel', 400, 0, 70, 22)] },
       { id: 'creator', zone: 'creator', name: '크리에이터 굿즈', cost: 3000, demand: 1200000, top: '친필 사인 폴라로이드',
-        prizes: [P('S', '친필 사인 폴라로이드', 'product', 0, 30000, 2, 2), P('A', '아크릴 스탠드', 'product', 0, 8000, 10, 7), P('B', '캐릭터 키링', 'product', 0, 4000, 28, 19), P('C', '조각 3개', 'piece', 3, 0, 40, 26)] },
+        prizes: [P('S', '친필 사인 폴라로이드', 'product', 0, 30000, 2, 2), P('A', '아크릴 스탠드', 'product', 0, 8000, 10, 7), P('B', '캐릭터 키링', 'product', 0, 4000, 28, 19), P('C', '강냉이 600개', 'kernel', 600, 0, 40, 26)] },
       { id: 'legend', zone: 'legend', name: '레전드 머신', cost: 10000, demand: 2400000, top: '휴대용 게임기',
-        prizes: [P('S', '휴대용 게임기', 'product', 0, 400000, 1, 1), P('S', '무선 이어폰', 'product', 0, 250000, 2, 1), P('A', '문화상품권 5만원', 'product', 0, 50000, 6, 4), P('B', '문화상품권 1만원', 'product', 0, 10000, 21, 9), P('C', '조각 10개', 'piece', 10, 0, 90, 46)] },
-    ],
-    // 조각 교환소 상품. worth = 상품 원가(원), limited.endDate가 비어 있으면 이번 주 일요일 자정에 끝나요
-    shop: [
-      { id: 'polaroid', cat: 'limited', hero: true, name: '크리에이터 사인 폴라로이드', desc: '이번 주 5장 한정, 크리에이터 친필 사인 폴라로이드 (실물 배송)', cost: 150, kind: 'product', worth: 30000, limited: { total: 5, left: 2, endDate: '' }, art: { t: 'photo', tile: '#EEF0FF' } },
-      { id: 'keyring', cat: 'limited', name: '투네랜드 캡슐 키링', desc: '캡슐 모양 한정 키링 (실물 배송)', cost: 60, kind: 'product', worth: 5000, limited: { total: 30, left: 12, endDate: '' }, art: { t: 'capsule', cc: '#F84949', ring: true, tile: '#FFE4E4' } },
-      { id: 'kernel500', cat: 'kernel', name: '강냉이 500개', desc: '바로 강냉이로 적립돼 다시 뽑기에 쓸 수 있어요', cost: 10, kind: 'kernel', val: 500, limited: null, art: { t: 'kernel', tile: '#FFF3D1' } },
-      { id: 'kernel1600', cat: 'kernel', name: '강냉이 1,600개', desc: '묶음 교환 보너스 100개가 더 붙어요', cost: 30, kind: 'kernel', val: 1600, limited: null, art: { t: 'kernel', tile: '#FFE7A8' } },
-      { id: 'cvs3000', cat: 'gift', name: '편의점 3천원권', desc: '전국 편의점에서 쓰는 모바일 상품권', cost: 20, kind: 'product', worth: 3000, limited: null, art: { t: 'coupon', big: '3,000', small: '편의점 상품권', tile: '#E5F6EF', tc: '#0E8F63' } },
-      { id: 'americano', cat: 'gift', name: '아메리카노 기프티콘', desc: '카페 아메리카노 한 잔', cost: 30, kind: 'product', worth: 4500, limited: null, art: { t: 'coupon', big: 'COFFEE', small: '아메리카노 1잔', tile: '#F3E9DF', tc: '#6B4226' } },
-      { id: 'chicken', cat: 'gift', name: '치킨 기프티콘', desc: '후라이드 치킨 한 마리', cost: 140, kind: 'product', worth: 20000, limited: null, art: { t: 'coupon', big: 'CHICKEN', small: '후라이드 1마리', tile: '#FFEBD6', tc: '#C2410C' } }
+        prizes: [P('S', '휴대용 게임기', 'product', 0, 400000, 1, 1), P('S', '무선 이어폰', 'product', 0, 250000, 2, 1), P('A', '문화상품권 5만원', 'product', 0, 50000, 6, 4), P('B', '문화상품권 1만원', 'product', 0, 10000, 21, 9), P('C', '강냉이 2,000개', 'kernel', 2000, 0, 90, 46)] },
     ]
   };
   const CONFIG_KEY = 'tooneland-config-v3';
@@ -2585,8 +2516,11 @@ img, svg, video { max-width: 100%; }
   function persistConfig(c) { try { localStorage.setItem(CONFIG_KEY, JSON.stringify(c)); return true; } catch (e) { return false; } }
   let config, machines;
   function applyConfig(c) {
-    // 교환소 설정이 없던 예전 저장본은 기본 교환소 상품으로 채운다
-    if (!Array.isArray(c.shop)) c.shop = clone(DEFAULT_CONFIG.shop);
+    // 조각·조각 교환소는 삭제됨. 예산은 직접 입력하지 않고 상품 수량 × 원가로 계산한다
+    delete c.shop; delete c.settings.budget; delete c.settings.pieceValue; delete c.settings.pieceAuto;
+    if (c.settings.method !== 'price') c.settings.method = 'reward';
+    // 예전 C등급 조각 보상은 강냉이(입장료의 20%)로 바꾼다
+    c.machines.forEach(m => (m.prizes || []).forEach(p => { if (p.kind === 'piece') { const v = Math.max(10, Math.round((Number(m.cost) || 0) * .2 / 10) * 10); p.kind = 'kernel'; p.val = v; p.cost = 0; p.name = '강냉이 ' + v.toLocaleString('ko-KR') + '개'; } }));
     c.settings.kernelValue = 1;   // 강냉이는 원가가 없어 환산하지 않는다(내부 계산용 1 고정)
     delete c.rankBenefit;   // 순위 베네핏은 삭제됨
     // 예전(크리에이터 라인업) 퍼즐 설정은 상품 퍼즐 기본값으로 바꾼다
@@ -2603,7 +2537,8 @@ img, svg, video { max-width: 100%; }
     delete c.farm;   // 팝콘 농장은 삭제된 게임
     // 예전 저장본에 없는 기본 머신(뽑기존 등)은 기본값으로 채운다
     DEFAULT_CONFIG.machines.forEach(d => { if (!c.machines.some(m => m.id === d.id)) c.machines.push(clone(d)); });
-    syncPieceValue(c);
+    // 퍼즐 상품 준비 수량이 없던 저장본: 월 예상 완성 수로 채운다(평균 14.7장에 1개 완성)
+    c.machines.filter(m => m.mode === 'puzzle').forEach(m => { const ws = m.prizes.reduce((a, p) => a + (Number(p.w) || 0), 0) || 1, runs = (Number(m.demand) || 0) / (Number(m.cost) || 1); m.prizes.forEach(p => { if (!(Number(p.qty) >= 0) || p.qty === '' || p.qty == null) p.qty = Math.max(1, Math.ceil(runs * (Number(p.w) || 0) / ws / 14.7)); }); });
     config = c; machines = c.machines;
     machines.forEach(m => { const z = zoneOf(m.zone); m.color = z.color; m.zoneName = z.name; delete m.last; delete m.lastCost; ensureBoard(m); });
   }
@@ -2629,7 +2564,6 @@ img, svg, video { max-width: 100%; }
   const GAME_WHY = { puzzle: ['직소 퍼즐 카드 뽑기', '직소 퍼즐 보상'], runner: ['냥치 런 입장', '냥치 런 점수 받기'], cannon: ['팝콘 대포 발사', '팝콘 대포 착지 보상'], archery: ['깡통 사격 입장(탄 구매)', '깡통 사격 명중 상품'] };
   function ledgerReason(d) {
     if (ledgerWhy) return ledgerWhy;
-    const sp = document.getElementById('shop-page'); if (sp && !sp.hidden) return d < 0 ? '조각 교환소' : '조각 교환소 교환';
     if (typeof current !== 'undefined' && current) return current.name + (d < 0 ? ' 뽑기' : ' 당첨');
     const g = GAME_WHY[state.tab]; return g ? g[d < 0 ? 0 : 1] : (d < 0 ? '강냉이 사용' : '강냉이 획득');
   }
@@ -2643,7 +2577,6 @@ img, svg, video { max-width: 100%; }
   const state = {
     get balance() { return WALLET.bal; },
     set balance(v) { const d = Math.round(v - WALLET.bal); WALLET.bal = Math.round(v); if (d) ledgerAdd(d); },
-    pieces: 24,
     zone: 'all',
     tab: 'gacha',   // 'gacha' 가챠샵 | 'board' 뽑기판
     inventory: [{ id: 1, name: '아메리카노 기프티콘', from: '카페 머신', status: 'kept' }],
@@ -2781,9 +2714,8 @@ img, svg, video { max-width: 100%; }
   }
   function renderHUD(bump) {
     $('balance').textContent = fmt(state.balance);
-    $('pieces').textContent = fmt(state.pieces);
-    if (bump) ['stat-kernel', 'stat-piece'].forEach(id => { const el = $(id); el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); });
-    renderShop(); renderLounge();
+    if (bump) ['stat-kernel'].forEach(id => { const el = $(id); el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); });
+    renderLounge();
   }
   function renderFeed(fresh) {
     renderLounge(fresh);
@@ -2966,7 +2898,7 @@ img, svg, video { max-width: 100%; }
     raf = parts.length ? requestAnimationFrame(tick) : 0;
   }
 
-  const CHEER = { S: '대박 당첨!', A: '좋은 상품 당첨!', B: '당첨!', C: '조각 획득' };
+  const CHEER = { S: '대박 당첨!', A: '좋은 상품 당첨!', B: '당첨!', C: '강냉이 획득' };
   let tapResolve = null, skipped = false;
   function waitOrTap(ms) {
     return new Promise(r => {
@@ -3035,7 +2967,7 @@ img, svg, video { max-width: 100%; }
     burst(palette(p.g), count, power);
     if (p.g === 'S') rain(palette('S'), 120);
     if (p.g === 'S' || p.g === 'A') rays.classList.add('on');
-    const type = p.kind === 'kernel' ? '강냉이 적립' : p.kind === 'piece' ? '조각 적립' : '보관함에 담았어요';
+    const type = p.kind === 'kernel' ? '강냉이 적립' : '보관함에 담았어요';
     prize.style.setProperty('--gc', GRADE_COLOR[p.g]);
     prize.innerHTML = '<span class="cheer">' + CHEER[p.g] + '</span><span class="grade" style="--gc:' + GRADE_COLOR[p.g] + '">' + GRADE_LABEL[p.g] + '</span><b>' + p.name + '</b><small>' + st + '성 캡슐 · ' + type + '</small>';
     if (p.g === 'S') prize.classList.add('s');
@@ -3221,7 +3153,7 @@ img, svg, video { max-width: 100%; }
     $('sc-name').textContent = m.name;
     $('sc-no').textContent = (p.cell + 1) + '번 칸';
     $('sc-stars').innerHTML = starText(p.stars);
-    const type = p.kind === 'kernel' ? '강냉이 적립' : p.kind === 'piece' ? '조각 적립' : '보관함에 담겨요';
+    const type = p.kind === 'kernel' ? '강냉이 적립' : '보관함에 담겨요';
     $('sc-prize').innerHTML = '<span class="grade" style="--gc:' + GRADE_COLOR[p.g] + '">' + GRADE_LABEL[p.g] + '</span><b>' + p.name + '</b><small>' + type + '</small>';
     $('sc-auto').hidden = false; $('sc-next').hidden = true;
     foilSetup();
@@ -3283,7 +3215,7 @@ img, svg, video { max-width: 100%; }
   const puzzleMachine = () => machines.find(m => m.mode === 'puzzle');
   const pzItems = m => (m || puzzleMachine() || { prizes: [] }).prizes;
   const piecesOf = pid => { if (!Array.isArray(pz.pieces[pid])) pz.pieces[pid] = Array(PZ_PIECES).fill(false); return pz.pieces[pid]; };
-  const priceLabel = p => p.kind === 'kernel' ? '강냉이 ' + fmt(num(p.val)) + '개' : p.kind === 'piece' ? '조각 ' + fmt(num(p.val)) + '개' : fmt(num(p.cost)) + '원 <small>상당</small>';
+  const priceLabel = p => p.kind === 'kernel' ? '강냉이 ' + fmt(num(p.val)) + '개' : fmt(num(p.cost)) + '원 <small>상당</small>';
   const gradeByCost = c => c >= 100000 ? 'S' : c >= 20000 ? 'A' : c >= 5000 ? 'B' : 'C';
   // 상품 그림: 샘플(sample:키) 또는 관리자가 올린 그림(data URL)
   const imgSrc = p => {
@@ -3493,7 +3425,6 @@ img, svg, video { max-width: 100%; }
     for (const d of list.filter(x => x.done)) {
       const p = d.p;
       if (p.kind === 'kernel') state.balance += num(p.val);
-      else if (p.kind === 'piece') state.pieces += num(p.val);
       else state.inventory.push({ id: nextInv++, name: p.name, from: m.name, status: 'kept' });
       recordResult(p, m);
       state.feed.unshift({ g: p.g, item: p.name, who: '나 · 퍼즐 완성' });
@@ -4291,10 +4222,9 @@ img, svg, video { max-width: 100%; }
 
     const box = $('results');
     for (const p of got) {
-      const type = p.kind === 'kernel' ? '강냉이 적립' : p.kind === 'piece' ? '조각 적립' : '보관함에 담김';
+      const type = p.kind === 'kernel' ? '강냉이 적립' : '보관함에 담김';
       box.insertAdjacentHTML('beforeend', '<div class="res" style="--gc:' + GRADE_COLOR[p.g] + '"><span class="ball" style="--gc:' + STAR_COLOR[p.stars] + '"></span>' + starText(p.stars) + '<span class="grade" style="--gc:' + GRADE_COLOR[p.g] + '">' + GRADE_LABEL[p.g] + '</span><span class="pname">' + p.name + '</span><span class="ptype">' + type + '</span></div>');
       if (p.kind === 'kernel') state.balance += p.val;
-      else if (p.kind === 'piece') state.pieces += p.val;
       else state.inventory.push({ id: nextInv++, name: p.name, from: m.name, status: 'kept' });
       recordResult(p, m);
       if (p.g === 'S' || p.g === 'A') {
@@ -4312,111 +4242,9 @@ img, svg, video { max-width: 100%; }
   }
 
   // =====================================================================
-  // 조각 교환소 · 명예의 전당
+  // 명예의 전당
   // 내 최고 당첨 기록은 이 브라우저에만 저장되는 목업 데이터
   // =====================================================================
-
-  function nextSundayEnd() {
-    const d = new Date();
-    return new Date(d.getFullYear(), d.getMonth(), d.getDate() + ((7 - d.getDay()) % 7), 23, 59, 59).getTime();
-  }
-  // 교환소 상품은 운영 설정(config.shop)에서 가져와요. 관리자 화면에서 편집해요
-  const shopItems = () => config.shop;
-  const endsOf = it => (it.limited && it.limited.endDate && !isNaN(Date.parse(it.limited.endDate))) ? Date.parse(it.limited.endDate) : nextSundayEnd();
-  const SHOP_CATS = [['all', '전체'], ['limited', '기간 한정'], ['gift', '기프티콘'], ['kernel', '강냉이'], ['goods', '굿즈·기타']];
-  let shopCat = 'all';
-  function artHTML(it) {
-    const a = it.art || { t: 'coupon', tile: '#EEF0FF' };
-    const inner = a.t === 'kernel' ? '<div class="iart art-kernel"><svg aria-hidden="true"><use href="#k"/></svg><b>×' + fmt(it.val || 0) + '</b></div>'
-      : a.t === 'coupon' ? '<div class="iart art-coupon"><div class="tk" style="--tc:' + a.tc + '"><span><b>' + a.big + '</b><small>' + a.small + '</small></span></div></div>'
-      : a.t === 'capsule' ? '<div class="iart art-capsule">' + (a.ring ? '<span class="ring"></span>' : '') + '<span class="ball2" style="--cc:' + a.cc + '"></span></div>'
-      : '<div class="iart art-photo"><div class="ph"><i></i><s>with love</s></div></div>';
-    return '<div class="itile" style="--tile:' + a.tile + '" aria-hidden="true">' + inner + '</div>';
-  }
-  const itemOver = it => !!it.limited && (it.limited.left <= 0 || endsOf(it) <= Date.now());
-  function priceBtn(it, attr) {
-    let label = '<i class="piece-dot"></i>' + fmt(it.cost), dis = false;
-    if (itemOver(it)) { label = it.limited.left <= 0 ? '품절' : '교환 종료'; dis = true; }
-    else if (state.pieces < it.cost) { label = '조각 ' + fmt(it.cost - state.pieces) + '개 부족'; dis = true; }
-    return '<button class="price-btn" type="button" ' + attr + '="' + it.id + '"' + (dis ? ' disabled' : '') + ' aria-label="' + it.name + ' 조각 ' + it.cost + '개로 교환">' + label + '</button>';
-  }
-  function countdown(ts) {
-    const ms = Math.max(0, ts - Date.now());
-    const d = Math.floor(ms / 86400000), h = Math.floor(ms % 86400000 / 3600000), mi = Math.floor(ms % 3600000 / 60000), s = Math.floor(ms % 60000 / 1000);
-    const p = n => String(n).padStart(2, '0');
-    return [[d, '일'], [p(h), '시간'], [p(mi), '분'], [p(s), '초']].map(x => '<span class="seg"><b>' + x[0] + '</b><small>' + x[1] + '</small></span>').join('');
-  }
-  function renderShopPage() {
-    $('sp-pieces').textContent = fmt(state.pieces);
-    $('sp-kernels').textContent = fmt(state.balance);
-    const items = shopItems();
-    const hero = items.find(x => x.hero);
-    $('sp-hero').hidden = !hero;
-    if (hero) {
-      const lim = hero.limited;
-      $('sp-hero').innerHTML = artHTML(hero) +
-        '<div class="sp-hero-body"><span class="sp-kicker">' + (lim ? '이번 주 한정' : '추천 상품') + '</span><h2>' + hero.name + '</h2><p>' + hero.desc + '</p>' +
-        (lim ? '<div class="sp-timer" id="sp-timer">' + countdown(endsOf(hero)) + '</div>' +
-          '<div class="sp-stock"><span>남은 수량 <b>' + lim.left + '</b> / ' + lim.total + '</span><div class="bar"><i style="width:' + (lim.total ? lim.left / lim.total * 100 : 0) + '%"></i></div></div>' : '') +
-        priceBtn(hero, 'data-buy') + '</div>';
-    }
-    const cats = SHOP_CATS.filter(c => c[0] === 'all' || items.some(x => x.cat === c[0]));
-    if (!cats.some(c => c[0] === shopCat)) shopCat = 'all';
-    $('sp-cats').innerHTML = cats.map(c => '<button class="ad-tab" type="button" role="tab" data-cat="' + c[0] + '" aria-selected="' + (shopCat === c[0]) + '">' + c[1] + ' <small class="num">' + (c[0] === 'all' ? items.length : items.filter(x => x.cat === c[0]).length) + '</small></button>').join('');
-    $('sp-grid').innerHTML = items.filter(it => shopCat === 'all' || it.cat === shopCat).map(it => {
-      const l = it.limited, over = itemOver(it);
-      const ribbon = l ? '<span class="sp-ribbon">기간 한정</span>' : '';
-      const meta = l ? '<div class="sp-meta num"><span>남은 수량 <b>' + l.left + '</b>/' + l.total + '</span><span>' + timeLeft(endsOf(it)) + '</span></div>' : '<div class="sp-meta"><span>상시 교환</span></div>';
-      return '<article class="sp-card' + (l ? ' lim' : '') + (over ? ' soldout' : '') + '">' + ribbon + artHTML(it) + '<h3>' + it.name + '</h3><p>' + it.desc + '</p>' + meta + priceBtn(it, 'data-buy') + '</article>';
-    }).join('');
-    const log = state.shopLog || [];
-    $('sp-log-count').textContent = log.length + '건';
-    $('sp-log').innerHTML = log.length ? log.slice(0, 8).map(r => '<li><span>' + r.name + '</span><span class="cost">−' + r.cost + ' 조각</span><span class="when">' + r.when + '</span></li>').join('') : '<li><p class="empty">아직 교환한 상품이 없어요.</p></li>';
-  }
-  function openBuy(id) {
-    const it = shopItems().find(x => x.id === id); if (!it) return;
-    $('buy-body').innerHTML = '<div class="buy-art">' + artHTML(it) + '</div><p class="buy-name">' + it.name + '</p><p class="buy-desc">' + it.desc + '</p>' +
-      '<div class="buy-calc num"><div><span>보유 조각</span><span>' + fmt(state.pieces) + '개</span></div><div><span>교환에 쓰는 조각</span><span>−' + fmt(it.cost) + '개</span></div><div><span>교환 후 조각</span><span>' + fmt(state.pieces - it.cost) + '개</span></div></div>' +
-      '<div class="buy-actions"><button class="btn-line" type="button" data-buy-cancel>취소</button>' + priceBtn(it, 'data-confirm').replace('aria-label="' + it.name + ' 조각 ' + it.cost + '개로 교환">', 'aria-label="교환 확정">') + '</div>';
-    const btn = $('buy-body').querySelector('[data-confirm]');
-    if (btn && !btn.disabled) btn.innerHTML = '<i class="piece-dot"></i>' + fmt(it.cost) + ' 조각으로 교환';
-    $('buy-modal').hidden = false;
-    $('buy-close').focus();
-  }
-  function closeBuy() { $('buy-modal').hidden = true; }
-  function confirmBuy(id) {
-    const it = shopItems().find(x => x.id === id);
-    if (!it || state.pieces < it.cost || itemOver(it)) return;
-    state.pieces -= it.cost;
-    let after = '보관함에 담았어요. 받기나 크리에이터 선물을 할 수 있어요.';
-    if (it.kind === 'kernel') { state.balance += it.val; after = '강냉이 ' + fmt(it.val) + '개를 적립했어요.'; }
-    else state.inventory.push({ id: nextInv++, name: it.name, from: '조각 교환소', status: 'kept' });
-    if (it.limited) it.limited.left -= 1;
-    const d = new Date(), p = n => String(n).padStart(2, '0');
-    state.shopLog = [{ name: it.name, cost: it.cost, when: p(d.getMonth() + 1) + '.' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes()) }].concat(state.shopLog || []);
-    $('buy-body').innerHTML = '<div class="buy-done"><div class="buy-art">' + artHTML(it) + '</div><h3>교환 완료!</h3><p>' + after + '</p>' +
-      '<div class="buy-actions"><button class="price-btn" type="button" data-buy-cancel>확인</button></div></div>';
-    renderHUD(true); renderInv(); if (current) renderDrawButtons();
-    const st = $('sp-stat-piece'); st.classList.remove('bump'); void st.offsetWidth; st.classList.add('bump');
-  }
-  function timeLeft(ts) {
-    const ms = ts - Date.now();
-    if (ms <= 0) return '교환 종료';
-    const h = Math.floor(ms / 3600000), d = Math.floor(h / 24);
-    return d > 0 ? d + '일 ' + (h % 24) + '시간 남음' : h + '시간 ' + Math.floor((ms % 3600000) / 60000) + '분 남음';
-  }
-  // 사이드 패널: 한정 상품 미리보기 + 상점 바로가기
-  function renderShop() {
-    $('shop-pieces').textContent = '보유 ' + fmt(state.pieces);
-    const lims = shopItems().filter(it => it.limited);
-    $('shop').innerHTML = !lims.length ? '<li><p class="empty">지금 진행 중인 한정 상품이 없어요.</p></li>' : lims.map(it => {
-      const lim = it.limited;
-      const meta = '조각 <b>' + it.cost + '</b> · ' + (lim.left > 0 ? '남은 수량 <b>' + lim.left + '/' + lim.total + '</b>' : '품절') + ' · ' + timeLeft(endsOf(it));
-      return '<li class="lim"><span class="sname"><span class="limited">기간 한정</span>' + it.name + '</span><span class="smeta num">' + meta + '</span>' +
-        '<button type="button" data-goshop="' + it.id + '"' + (itemOver(it) ? ' disabled' : '') + '>' + (itemOver(it) ? '품절' : '보러 가기') + '</button></li>';
-    }).join('');
-    if (!$('shop-page').hidden) renderShopPage();
-  }
 
   // ----- 내 기록: 머신별 최고 당첨 (이 브라우저에만 저장) -----
   const ME_KEY = 'tooneland-me-v2';
@@ -4558,22 +4386,6 @@ img, svg, video { max-width: 100%; }
     ledgerWhy = '체험용 강냉이 충전'; state.balance += 5000; ledgerWhy = ''; renderHUD(true); if (current) renderDrawButtons();
     toast('', '체험용 강냉이 5,000개를 넣었어요. 실제 서비스에서는 캐시 충전 보너스로 쌓여요.', true);
   });
-  $('shop').addEventListener('click', e => {
-    const b = e.target.closest('button[data-goshop]'); if (!b || b.disabled) return;
-    shopCat = 'limited'; location.hash = '#shop';
-  });
-  $('shop-page').addEventListener('click', e => {
-    const c = e.target.closest('[data-cat]'); if (c) { shopCat = c.dataset.cat; renderShopPage(); return; }
-    const b = e.target.closest('button[data-buy]'); if (b && !b.disabled) openBuy(b.dataset.buy);
-  });
-  $('buy-close').addEventListener('click', closeBuy);
-  $('buy-modal').addEventListener('click', e => {
-    if (e.target === $('buy-modal') || e.target.closest('[data-buy-cancel]')) { closeBuy(); return; }
-    const ok = e.target.closest('button[data-confirm]'); if (ok && !ok.disabled) { confirmBuy(ok.dataset.confirm); return; }
-  });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('buy-modal').hidden) closeBuy(); });
-  setInterval(() => renderShop(), 60000);
-  setInterval(() => { if (!$('shop-page').hidden && $('sp-timer')) { const h = shopItems().find(x => x.hero); if (h && h.limited) $('sp-timer').innerHTML = countdown(endsOf(h)); } }, 1000);
   $('inv').addEventListener('click', e => {
     const b = e.target.closest('button[data-act]'); if (!b) return;
     const it = state.inventory.find(x => x.id === Number(b.dataset.inv)); if (!it) return;
@@ -4590,24 +4402,26 @@ img, svg, video { max-width: 100%; }
   const clean = v => String(v).replace(/[<>&"]/g, '');
   const num = v => { const n = Number(v); return Number.isFinite(n) && n > 0 ? n : 0; };
 
-  // 상품 1개의 원가(원)
+  // 당첨 가치(명예의 전당 순위용): 상품은 원가(원), 강냉이는 개수
   function unitCost(p, s) {
     if (p.kind === 'product') return num(p.cost);
-    if (p.kind === 'piece') return num(p.val) * s.pieceValue;
     return num(p.val) * s.kernelValue;
   }
-  // RTP = 돌려준 가치 ÷ 받은 강냉이 (상품은 원가를 강냉이 가치로 환산해 비교).
-  // 강냉이는 원가가 없다 → 강냉이로 돌려준 몫은 예산에 들어가지 않고, RTP(환원율)로만 관리한다(100% − RTP = 강냉이 소진).
-  // 예산은 상품(기프티콘·실물)과 조각(교환소 상품) 원가만: 월 상품 원가 = 월 소진액 × RTP × 상품 몫(share)
+  // RTP 계산은 강냉이만: 상품은 RTP에 넣지 않는다
+  const kernOf = p => p.kind === 'kernel' ? num(p.val) : 0;
+  // 상품 준비 수량: 한정 캡슐은 캡슐 수량, 퍼즐은 준비 수량
+  const goodsQty = (m, p) => m.mode === 'puzzle' || isProb(m) ? num(p.qty) : num(p.total);
+  // RTP = 강냉이로 돌려준 양 ÷ 받은 강냉이 (강냉이 전용. 100% − RTP = 강냉이 소진)
+  // 상품 예산 = 머신에 넣은 상품 수량 × 원가 합계 (직접 정하지 않고 수량으로 조절)
+  const NO_PRIZE_GAMES = ['runner', 'cannon', 'archery'];
   function econ(m, s) {
     const e = econCore(m, s);
-    let share = 0;
-    if (!['runner', 'cannon', 'archery'].includes(m.mode) && Array.isArray(m.prizes)) {
-      const wt = p => isProb(m) || m.mode === 'puzzle' ? num(p.w) : num(p.total);
-      const all = m.prizes.reduce((a, p) => a + wt(p) * unitCost(p, s), 0), goods = m.prizes.reduce((a, p) => a + (p.kind === 'kernel' ? 0 : wt(p) * unitCost(p, s)), 0);
-      share = all ? goods / all : 0;
-    }
-    e.share = share; e.mGoods = e.mPay * share; e.mKern = e.mPay * (1 - share);
+    const list = !NO_PRIZE_GAMES.includes(m.mode) && Array.isArray(m.prizes) ? m.prizes.filter(p => p.kind === 'product') : [];
+    e.goods = list.reduce((a, p) => a + num(p.cost) * goodsQty(m, p), 0);
+    e.goodsLeft = m.mode === 'puzzle' || isProb(m) ? e.goods : list.reduce((a, p) => a + num(p.cost) * num(p.left), 0);
+    e.goodsN = list.reduce((a, p) => a + goodsQty(m, p), 0);
+    e.hasGoods = list.length > 0;
+    e.hasKern = NO_PRIZE_GAMES.includes(m.mode) || (m.prizes || []).some(p => p.kind === 'kernel');
     return e;
   }
   function econCore(m, s) {
@@ -4629,34 +4443,29 @@ img, svg, video { max-width: 100%; }
     if (m.mode === 'puzzle') {
       const wsum = m.prizes.reduce((a, p) => a + num(p.w), 0);
       const rev = num(m.cost) * s.kernelValue;
-      const pay = wsum ? m.prizes.reduce((a, p) => a + num(p.w) / wsum * unitCost(p, s), 0) / PZ_EXP : 0;
+      const pay = wsum ? m.prizes.reduce((a, p) => a + num(p.w) / wsum * kernOf(p), 0) / PZ_EXP : 0;
       const rtp = rev ? pay / rev : 0;
       return { rev, pay, rtp, mRev, mPay: mRev * rtp, wsum, runs: num(m.cost) ? num(m.demand) / num(m.cost) : 0 };
     }
     if (isProb(m)) {
       const wsum = m.prizes.reduce((a, p) => a + num(p.w), 0);
       const rev = num(m.cost) * s.kernelValue;
-      const pay = wsum ? m.prizes.reduce((a, p) => a + num(p.w) / wsum * unitCost(p, s), 0) : 0;
+      const pay = wsum ? m.prizes.reduce((a, p) => a + num(p.w) / wsum * kernOf(p), 0) : 0;
       const rtp = rev ? pay / rev : 0;
       return { rev, pay, rtp, mRev, mPay: mRev * rtp, wsum, runs: num(m.cost) ? num(m.demand) / num(m.cost) : 0 };
     }
     const N = m.prizes.reduce((a, p) => a + num(p.total), 0);
     const rev = num(m.cost) * N * s.kernelValue;
-    const pay = m.prizes.reduce((a, p) => a + unitCost(p, s) * num(p.total), 0);
+    const pay = m.prizes.reduce((a, p) => a + kernOf(p) * num(p.total), 0);
     const rtp = rev ? pay / rev : 0;
     return { rev, pay, rtp, mRev, mPay: mRev * rtp, N, runs: num(m.cost) && N ? num(m.demand) / (num(m.cost) * N) : 0 };
   }
   function totalsOf(c) {
-    let mRev = 0, mPay = 0, mGoods = 0, mKern = 0, goodsBase = 0, kmRev = 0, kmPay = 0;
-    c.machines.forEach(m => { const e = econ(m, c.settings); mRev += e.mRev; mPay += e.mPay; mGoods += e.mGoods; mKern += e.mKern; goodsBase += e.mRev * e.share; if (!e.share) { kmRev += e.mRev; kmPay += e.mPay; } });
-    const kv = c.settings.kernelValue || 1;
-    // 예산 기준 최대 RTP: 모든 머신을 같은 RTP로 맞출 때 상품 원가가 예산과 같아지는 값(상품 머신이 없으면 제한 없음)
-    return { mRev, mPay, mGoods, mKern, rtp: mRev ? mPay / mRev : 0, maxRtp: goodsBase ? c.settings.budget / goodsBase : Infinity,
-      usage: c.settings.budget ? mGoods / c.settings.budget : (mGoods ? Infinity : 0), kUsed: mRev / kv, kBack: mKern / kv, kRtp: kmRev ? kmPay / kmRev : 0 };
+    let kUsed = 0, kBack = 0, goods = 0, goodsLeft = 0, goodsN = 0, kmRev = 0, kmPay = 0, gm = 0;
+    c.machines.forEach(m => { const e = econ(m, c.settings); kUsed += e.mRev; kBack += e.mPay; goods += e.goods; goodsLeft += e.goodsLeft; goodsN += e.goodsN; if (e.hasGoods) gm++; else { kmRev += e.mRev; kmPay += e.mPay; } });
+    return { kUsed, kBack, goods, goodsLeft, goodsN, gm, kRtp: kmRev ? kmPay / kmRev : 0 };
   }
   const kn = v => fmt(Math.round(v)) + '개';   // 강냉이 수량 표시
-  // 1회 상품 원가: 확률형·퍼즐은 1회(1장), 한정 머신은 캡슐 1개 기준
-  const perDraw = (m, e) => isProb(m) || m.mode === 'puzzle' ? e.pay : (e.N ? e.pay / e.N : 0);
   function statusOf(rtp, target) {
     const d = rtp - target;
     if (Math.abs(d) <= 0.03) return { cls: 'ok', label: '적정' };
@@ -4687,10 +4496,6 @@ img, svg, video { max-width: 100%; }
       const f = T / e.rtp; m.ladder = rnLadder(m).map(v => Math.max(10, Math.round(v * f / 10) * 10)); rnSyncPrizes(m);
       return '문 점수 ×' + f.toFixed(2);
     }
-    if (m.mode === 'puzzle') {
-      if (!T || !e.pay) return '조정할 수 없어요';
-      m.cost = Math.max(10, Math.round(e.pay / (T * s.kernelValue) / 10) * 10); return '카드 1장 가격 ' + fmt(m.cost) + '개';
-    }
     if (isProb(m)) {
       if (method === 'price' || !e.rtp) return byPrice(e.pay);
       const f = T / e.rtp;
@@ -4704,30 +4509,18 @@ img, svg, video { max-width: 100%; }
       if (best && /^강냉이 [\d,]+개$/.test(m.top)) m.top = best.name;
       return '강냉이 보상 ×' + f.toFixed(2);
     }
-    if (method === 'filler') {
-      let idx = -1;
-      m.prizes.forEach((p, i) => { if (p.g === 'C') idx = i; });
-      if (idx >= 0) {
-        const p = m.prizes[idx], cC = unitCost(p, s), r = num(m.cost) * s.kernelValue, nC = num(p.total);
-        const Pf = e.pay - cC * nC, Nf = e.N - nC, denom = T * r - cC;
-        if (denom > 0) {
-          const n = Math.round((Pf - T * r * Nf) / denom);
-          if (n >= 0 && n <= 100000) { setTotal(p, n); return 'C등급 수량 ' + fmt(n) + '개'; }
-        }
-      }
-    }
     return byPrice(e.pay);
   }
 
   let draft = null, sel = 'pop', resetArmed = 0, pendingRemote = null;
   const sync = { state: 'loading', ref: null, remote: false, readOnly: false, saving: false };
   const target = () => draft.settings.targetRtp / 100;
-  // 상품 머신(기프티콘·조각을 주는 머신)은 목표 RTP 대신 예산으로 관리: 모든 상품 머신에 같은 '강냉이 1개당 원가 비율'을 적용해 예산을 채운다
-  const isGoods = m => econ(m, draft.settings).share > 0;
-  const goodsRatio = () => { const s = draft.settings; const base = draft.machines.reduce((a, m) => { const e = econ(m, s); return a + e.mRev * e.share; }, 0); return base ? s.budget / base : 0; };
-  const fitT = m => isGoods(m) ? goodsRatio() : target();
-  const goodsSt = () => { const u = totalsOf(draft).usage; return u > 1 ? { cls: 'bad', label: '예산 초과' } : u > .9 ? { cls: 'warn', label: '예산 임박' } : { cls: 'ok', label: '예산 안' }; };
-  const mSt = (m, e) => e.share > 0 ? goodsSt() : statusOf(e.rtp, target());
+  // 상품 머신(기프티콘·실물을 주는 머신)은 RTP 대신 수량으로 관리, 강냉이 머신만 목표 RTP와 비교
+  const isGoods = m => econ(m, draft.settings).hasGoods;
+  // 퍼즐: 월 예상 완성 수가 준비 수량보다 많은 상품 수
+  const pzShort = m => { const ws = m.prizes.reduce((a, p) => a + num(p.w), 0), runs = num(m.cost) ? num(m.demand) / num(m.cost) : 0; return ws ? m.prizes.filter(p => runs * num(p.w) / ws / PZ_EXP > num(p.qty)).length : 0; };
+  const goodsSt = (m, e) => m.mode === 'puzzle' ? (pzShort(m) ? { cls: 'warn', label: '수량 부족' } : { cls: 'ok', label: '수량 충분' }) : !isProb(m) && !e.goodsLeft ? { cls: 'warn', label: '상품 소진' } : { cls: 'ok', label: '수량 관리' };
+  const mSt = (m, e) => e.hasGoods ? goodsSt(m, e) : statusOf(e.rtp, target());
   const selMachine = () => draft.machines.find(m => m.id === sel) || draft.machines[0];
 
   function validate() {
@@ -4755,123 +4548,27 @@ img, svg, video { max-width: 100%; }
     });
     draft.machines.filter(m => m.mode === 'runner').forEach(m => { const L = rnLadder(m); if (L.length !== RN_DOORS || L.some((v, i) => !(v > 0) || (i && v <= L[i - 1]))) errs.push('냥치 런: 문 단계 점수는 0보다 크고 단계마다 커져야 해요.'); });
     draft.machines.filter(m => m.mode === 'puzzle').forEach(m => m.prizes.forEach(p => { if (p.kind === 'product' && !(num(p.cost) > 0)) errs.push('직소 퍼즐: ' + p.name + '의 원가를 입력해 주세요.'); }));
-    draft.shop.forEach(it => {
-      const n = '교환소 [' + (String(it.name).trim() || '이름 없음') + ']';
-      if (!String(it.name).trim()) errs.push('교환소: 이름이 비어 있는 상품이 있어요.');
-      if (!(num(it.cost) >= 1)) errs.push(n + ': 조각 가격을 1개 이상으로 정해 주세요.');
-      if (it.kind === 'kernel' && !num(it.val)) errs.push(n + ': 지급할 강냉이 수를 입력해 주세요.');
-      if (it.limited) {
-        if (!num(it.limited.total)) errs.push(n + ': 한정 수량을 1개 이상으로 정해 주세요.');
-        if (num(it.limited.left) > num(it.limited.total)) errs.push(n + ': 남은 수량이 전체 수량보다 많아요.');
-        if (it.limited.endDate && isNaN(Date.parse(it.limited.endDate))) errs.push(n + ': 종료 일시를 다시 입력해 주세요.');
-      }
-    });
     return errs;
-  }
-
-  // ----- 조각 교환소 관리 -----
-  const SH_CATS = [['limited', '기간 한정'], ['gift', '기프티콘'], ['kernel', '강냉이'], ['goods', '굿즈·기타']];
-  const SH_ARTS = [['coupon', '상품권 티켓'], ['capsule', '캡슐'], ['photo', '폴라로이드'], ['kernel', '강냉이']];
-  const shWorth = it => it.kind === 'kernel' ? num(it.val) * draft.settings.kernelValue : num(it.worth);
-  function sfield(label, i, key, value, o) {
-    o = o || {};
-    const id = 'sh-' + i + '-' + key.replace('.', '-');
-    let input;
-    if (o.options) input = '<select class="input sm" id="' + id + '" data-s="' + key + '" data-i="' + i + '">' + o.options.map(x => '<option value="' + x[0] + '"' + (String(value) === x[0] ? ' selected' : '') + '>' + x[1] + '</option>').join('') + '</select>';
-    else input = '<input class="input sm' + (o.type === 'number' ? ' num' : '') + '" id="' + id + '" type="' + (o.type || 'text') + '"' + (o.type === 'number' ? ' min="0" step="' + (o.step || 1) + '"' : '') + ' data-s="' + key + '" data-i="' + i + '" value="' + (value == null ? '' : value) + '">';
-    return '<div class="field' + (o.cls ? ' ' + o.cls : '') + '"><label for="' + id + '">' + label + '</label>' + (o.unit ? '<div class="input-unit">' + input + '<span>' + o.unit + '</span></div>' : input) + '</div>';
-  }
-  function shCalc(it) {
-    const pv = draft.settings.pieceValue, w = shWorth(it), paid = num(it.cost) * pv;
-    return '<span>조각 가치 <b>' + won(paid) + '</b></span><span>상품 원가 <b>' + won(w) + '</b></span><span>환원율 <b>' + (paid ? pct(w / paid) : '–') + '</b></span>' +
-      (it.limited ? '<span>종료 <b>' + savedLabel(new Date(endsOf(it)).toISOString()) + '</b></span>' : '');
-  }
-  function renderShopAdmin() {
-    const list = draft.shop, a = it => it.art || (it.art = { t: 'coupon', tile: '#EEF0FF' });
-    $('sh-pv').textContent = fmt(draft.settings.pieceValue);
-    $('sh-sum').textContent = list.length + '개 상품 · 한정 ' + list.filter(x => x.limited).length + '개';
-    $('sh-list').innerHTML = list.map((it, i) => {
-      const art = a(it), lim = it.limited;
-      const fields =
-        sfield('상품명', i, 'name', it.name, { cls: 'wide' }) +
-        sfield('분류', i, 'cat', it.cat, { options: SH_CATS }) +
-        sfield('조각 가격', i, 'cost', num(it.cost), { type: 'number', unit: '조각' }) +
-        sfield('설명', i, 'desc', it.desc, { cls: 'wide' }) +
-        sfield('지급 방식', i, 'kind', it.kind, { options: [['product', '상품 (보관함 지급)'], ['kernel', '강냉이 적립']] }) +
-        (it.kind === 'kernel' ? sfield('지급 강냉이', i, 'val', num(it.val), { type: 'number', unit: '개' }) : sfield('상품 원가', i, 'worth', num(it.worth), { type: 'number', step: 100, unit: '원' })) +
-        '<div class="sh-sec">한정 판매</div>' +
-        '<div class="field"><label class="sh-check"><input type="checkbox" data-s="limitedOn" data-i="' + i + '"' + (lim ? ' checked' : '') + '> 기간·수량 한정</label></div>' +
-        (lim ? sfield('전체 수량', i, 'ltotal', num(lim.total), { type: 'number', unit: '개' }) + sfield('남은 수량', i, 'lleft', num(lim.left), { type: 'number', unit: '개' }) +
-          sfield('종료 일시 (비우면 이번 주 일요일 자정)', i, 'lend', lim.endDate || '', { type: 'datetime-local' }) : '') +
-        '<div class="sh-sec">상품 그림</div>' +
-        sfield('그림', i, 'art.t', art.t, { options: SH_ARTS }) +
-        sfield('배경색', i, 'art.tile', art.tile || '#EEF0FF', { type: 'color' }) +
-        (art.t === 'coupon' ? sfield('큰 글자', i, 'art.big', art.big || '') + sfield('작은 글자', i, 'art.small', art.small || '') + sfield('글자색', i, 'art.tc', art.tc || '#212529', { type: 'color' }) : '') +
-        (art.t === 'capsule' ? sfield('캡슐 색', i, 'art.cc', art.cc || '#F84949', { type: 'color' }) + '<div class="field"><label class="sh-check"><input type="checkbox" data-s="art.ring" data-i="' + i + '"' + (art.ring ? ' checked' : '') + '> 키링 고리</label></div>' : '') +
-        '<div class="sh-calc num" data-shcalc="' + i + '">' + shCalc(it) + '</div>';
-      return '<div class="sh-item' + (it.hero ? ' is-hero' : '') + '"><div class="sh-side"><div class="sh-prev" data-shprev="' + i + '">' + artHTML(it) + '</div>' +
-        '<div class="sh-tools"><label class="sh-hero"><input type="radio" name="sh-hero" data-s="hero" data-i="' + i + '"' + (it.hero ? ' checked' : '') + '> 대표 배너</label>' +
-        '<button class="icon-btn" type="button" data-shmove="' + i + ':-1" aria-label="' + it.name + ' 위로"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
-        '<button class="icon-btn" type="button" data-shmove="' + i + ':1" aria-label="' + it.name + ' 아래로"' + (i === list.length - 1 ? ' disabled' : '') + '>↓</button>' +
-        '<button class="icon-btn" type="button" data-shdel="' + i + '" aria-label="' + it.name + ' 삭제">×</button></div></div>' +
-        '<div class="sh-fields">' + fields + '</div></div>';
-    }).join('') || '<p class="empty">교환소 상품이 없어요. 상품을 추가해 주세요.</p>';
-  }
-  // 입력값을 초안에 반영. structural=true면 카드 구성이 바뀌어 목록을 다시 그린다
-  function setShopVal(el) {
-    const it = draft.shop[Number(el.dataset.i)], k = el.dataset.s;
-    if (!it) return false;
-    const art = it.art || (it.art = { t: 'coupon', tile: '#EEF0FF' });
-    if (k === 'name' || k === 'desc') { it[k] = clean(el.value); return false; }
-    if (k === 'cost' || k === 'val' || k === 'worth') { it[k] = Math.round(num(el.value)); return false; }
-    if (k === 'cat') { it.cat = el.value; return false; }
-    if (k === 'kind') {
-      it.kind = el.value;
-      if (it.kind === 'kernel') { it.val = num(it.val) || 500; art.t = 'kernel'; }
-      else { it.worth = num(it.worth) || 1000; if (art.t === 'kernel') { art.t = 'coupon'; art.big = art.big || 'GIFT'; art.small = art.small || it.name; art.tc = art.tc || '#212529'; } }
-      return true;
-    }
-    if (k === 'limitedOn') { it.limited = el.checked ? { total: 10, left: 10, endDate: '' } : null; if (el.checked && it.cat !== 'limited') it.cat = 'limited'; return true; }
-    if (k === 'ltotal') { const t = Math.round(num(el.value)); it.limited.left = Math.min(num(it.limited.left) + (t - num(it.limited.total)), t); if (it.limited.left < 0) it.limited.left = 0; it.limited.total = t; return false; }
-    if (k === 'lleft') { it.limited.left = Math.round(num(el.value)); return false; }
-    if (k === 'lend') { it.limited.endDate = el.value; return false; }
-    if (k === 'hero') { draft.shop.forEach(x => { x.hero = false; }); it.hero = true; return true; }
-    if (k === 'art.ring') { art.ring = el.checked; return false; }
-    if (k.indexOf('art.') === 0) { art[k.slice(4)] = k === 'art.big' || k === 'art.small' ? clean(el.value) : el.value; return k === 'art.t'; }
-    return false;
-  }
-  function refreshShopCard(i) {
-    const it = draft.shop[i];
-    const pv = document.querySelector('[data-shprev="' + i + '"]'); if (pv) pv.innerHTML = artHTML(it);
-    const cc = document.querySelector('[data-shcalc="' + i + '"]'); if (cc) cc.innerHTML = shCalc(it);
   }
 
   function renderSettings() {
     const s = draft.settings;
-    $('ad-budget').value = s.budget;
-    $('ad-pv').value = s.pieceValue;
-    $('ad-pv-auto').checked = s.pieceAuto !== false;
-    $('ad-pv').disabled = s.pieceAuto !== false;
     $('ad-rtp').value = s.targetRtp;
     $('ad-rtp-range').value = s.targetRtp;
     $('ad-method').value = s.method;
   }
 
   function renderKpis(t) {
-    const s = draft.settings;
-    const usageCls = t.usage > 1 ? 'bad' : t.usage > 0.9 ? 'warn' : 'ok';
-    const mc = { ok: 'var(--ok)', warn: 'var(--warn)', bad: 'var(--bad)' }[usageCls];
-    const left = s.budget - t.mGoods, burn = t.kUsed - t.kBack;
+    const s = draft.settings, burn = t.kUsed - t.kBack, given = t.goods - t.goodsLeft;
+    $('ad-budget-sum').textContent = won(t.goods);
     $('ad-kpis').innerHTML =
-      '<div class="kpi wide"><div class="k-label">상품 예산 사용률 (월 예상 상품 원가 ÷ 월 상품 예산, 강냉이 제외)</div>' +
-        '<div class="k-val num">' + pct(t.usage) + ' <span class="status ' + usageCls + '">' + (usageCls === 'bad' ? '예산 초과' : usageCls === 'warn' ? '예산 임박' : '여유 있음') + '</span></div>' +
-        '<div class="meter"><i style="width:' + Math.min(100, t.usage * 100).toFixed(1) + '%;--mc:' + mc + '"></i></div>' +
-        '<div class="k-sub num">' + won(t.mGoods) + ' / ' + won(s.budget) + ' · ' + (left >= 0 ? '남은 예산 ' + won(left) : won(-left) + ' 초과') + '</div></div>' +
-      '<div class="kpi"><div class="k-label">월 강냉이 사용 → 소진</div><div class="k-val num">' + fmt(Math.round(burn)) + '개</div><div class="k-sub num">사용 ' + fmt(Math.round(t.kUsed)) + '개 중 ' + pct(t.kUsed ? burn / t.kUsed : 0) + ' 소진 · 강냉이로 ' + fmt(Math.round(t.kBack)) + '개 환원</div></div>' +
-      '<div class="kpi"><div class="k-label">월 예상 상품 원가</div><div class="k-val num">' + won(t.mGoods) + '</div><div class="k-sub">기프티콘·조각 합계 (강냉이 제외)</div></div>' +
+      '<div class="kpi wide"><div class="k-label">상품 예산 (상품 수량 × 원가 합계)</div>' +
+        '<div class="k-val num">' + won(t.goods) + '</div>' +
+        '<div class="meter"><i style="width:' + (t.goods ? Math.min(100, given / t.goods * 100) : 0).toFixed(1) + '%;--mc:var(--ok)"></i></div>' +
+        '<div class="k-sub num">상품 머신 ' + t.gm + '개 · 상품 ' + fmt(t.goodsN) + '개 · 지급 ' + won(given) + ' · 남은 상품 ' + won(t.goodsLeft) + '</div></div>' +
       '<div class="kpi"><div class="k-label">강냉이 머신 RTP</div><div class="k-val num">' + pct(t.kRtp) + '</div><div class="k-sub">목표 ' + s.targetRtp + '% · 소진 ' + pct(1 - t.kRtp) + '</div></div>' +
-      '<div class="kpi"><div class="k-label">남은 상품 예산</div><div class="k-val num">' + won(Math.max(0, left)) + '</div><div class="k-sub">' + (left >= 0 ? '예산 안이에요' : won(-left) + ' 초과') + '</div></div>';
-    $('ad-rtp-help').innerHTML = '강냉이를 주는 머신(팝콘 머신·미니게임)에만 적용돼요. 강냉이 소진 목표는 ' + (Math.round((100 - s.targetRtp) * 10) / 10) + '%예요. 상품 머신은 예산으로 관리해요.';
+      '<div class="kpi"><div class="k-label">월 강냉이 사용 → 소진</div><div class="k-val num">' + fmt(Math.round(burn)) + '개</div><div class="k-sub num">사용 ' + fmt(Math.round(t.kUsed)) + '개 중 ' + pct(t.kUsed ? burn / t.kUsed : 0) + ' 소진 · ' + fmt(Math.round(t.kBack)) + '개 환원</div></div>';
+    $('ad-rtp-help').innerHTML = 'RTP는 강냉이로만 계산해요(돌려준 강냉이 ÷ 쓴 강냉이). 강냉이를 주는 머신(팝콘 머신·미니게임)에 적용되고, 강냉이 소진 목표는 ' + (Math.round((100 - s.targetRtp) * 10) / 10) + '%예요.';
   }
 
   function renderCompare() {
@@ -4883,19 +4580,19 @@ img, svg, video { max-width: 100%; }
         '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'archery' ? '깡통 사격' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
         '<td class="r">' + fmt(num(m.cost)) + '</td>' +
         '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'cannon' || m.mode === 'archery' ? '약 ' + fmt(Math.round(e.runs)) + '발' : m.mode === 'runner' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
-        '<td class="r">' + (e.share > 0 ? won(e.mGoods) : '<span class="qmeta">강냉이만 · 0원</span>') + (e.share > 0 && e.share < 1 ? '<span class="ed-left">강냉이 환원 ' + fmt(Math.round(e.mKern / (s.kernelValue || 1))) + '개 별도</span>' : '') + '</td>' +
-        (e.share > 0 ? '<td><span class="qmeta">1회 상품 원가</span> <b class="num">' + won(perDraw(m, e)) + '</b></td>' :
+        '<td class="r">' + (e.hasGoods ? won(e.goods) + '<span class="ed-left">상품 ' + fmt(e.goodsN) + '개</span>' : '<span class="qmeta">상품 없음</span>') + '</td>' +
+        (e.hasGoods ? '<td>' + (e.hasKern ? '<b class="num">' + pct(e.rtp) + '</b> <span class="qmeta">강냉이 보상분 (참고)</span>' : '<span class="qmeta">강냉이 보상 없음</span>') + '</td>' :
         '<td><div class="rtpcell"><div class="rtpbar"><i style="width:' + Math.min(100, e.rtp / 1.5 * 100).toFixed(1) + '%;--st:var(--' + st.cls + ')"></i><b style="left:' + Math.min(100, T / 1.5 * 100).toFixed(1) + '%"></b></div><span>' + pct(e.rtp) + '</span></div></td>' ) +
         '<td><span class="status ' + st.cls + '">' + st.label + '</span></td>' +
-        '<td><button class="btn-xs" type="button" data-fit="' + m.id + '">' + (e.share > 0 ? '예산 비율로' : '목표로 맞추기') + '</button></td></tr>';
+        '<td>' + (e.hasGoods ? '' : '<button class="btn-xs" type="button" data-fit="' + m.id + '">목표로 맞추기</button>') + '</td></tr>';
     }).join('');
-    $('ad-compare').innerHTML = '<thead><tr><th>머신</th><th>방식</th><th class="r">입장료(강냉이)</th><th class="r">월 소진(강냉이)</th><th class="r">월 상품 원가 (강냉이 제외)</th><th>RTP (강냉이 머신) · 1회 원가 (상품 머신)</th><th>상태</th><th></th></tr></thead><tbody>' + rows + '</tbody>';
+    $('ad-compare').innerHTML = '<thead><tr><th>머신</th><th>방식</th><th class="r">입장료(강냉이)</th><th class="r">월 소진(강냉이)</th><th class="r">상품 예산 (수량 × 원가)</th><th>강냉이 RTP</th><th>상태</th><th></th></tr></thead><tbody>' + rows + '</tbody>';
   }
 
   function renderTabs() {
     const s = draft.settings;
     $('ad-tabs').innerHTML = draft.machines.filter(m => !['runner', 'cannon', 'archery'].includes(m.mode)).map(m =>
-      '<button class="ad-tab" type="button" role="tab" data-tab="' + m.id + '" aria-selected="' + (m.id === sel) + '" style="--c:' + zoneOf(m.zone).color + '"><i></i>' + m.name + ' <small>' + (econ(m, s).share > 0 ? won(perDraw(m, econ(m, s))) : pct(econ(m, s).rtp)) + '</small></button>').join('');
+      '<button class="ad-tab" type="button" role="tab" data-tab="' + m.id + '" aria-selected="' + (m.id === sel) + '" style="--c:' + zoneOf(m.zone).color + '"><i></i>' + m.name + ' <small>' + (econ(m, s).hasGoods ? won(econ(m, s).goods) : pct(econ(m, s).rtp)) + '</small></button>').join('');
   }
 
   function field(label, attr, value, unit, type) {
@@ -4913,14 +4610,14 @@ img, svg, video { max-width: 100%; }
       field('월 예상 강냉이 소진', 'demand', num(m.demand), '강냉이', 'number') +
       field('최고 상품 문구', 'top', m.top) +
       '</div>';
-    const head = '<thead><tr><th class="w-grade">등급</th><th>상품명</th><th class="w-kind">유형</th><th class="w-num">가치</th><th class="w-num">' + (m.mode === 'puzzle' ? '조각 확률' : prob ? '확률' : '수량') + '</th><th class="r">당첨 확률</th><th class="r">원가 비중</th><th></th></tr></thead>';
+    const head = '<thead><tr><th class="w-grade">등급</th><th>상품명</th><th class="w-kind">유형</th><th class="w-num">가치</th><th class="w-num">' + (m.mode === 'puzzle' ? '조각 확률' : prob ? '확률' : '수량') + '</th><th class="r">당첨 확률</th><th class="r">합계</th><th></th></tr></thead>';
     const rows = m.prizes.map((p, i) => {
       const gradeSel = '<select class="input sm" data-p="' + i + '" data-f="g" aria-label="등급">' + ['S', 'A', 'B', 'C'].map(g => '<option' + (p.g === g ? ' selected' : '') + '>' + g + '</option>').join('') + '</select>';
-      const kinds = prob ? [['kernel', '강냉이'], ['piece', '조각'], ['product', '상품']] : [['product', '상품'], ['piece', '조각'], ['kernel', '강냉이']];
+      const kinds = prob ? [['kernel', '강냉이']] : [['product', '상품'], ['kernel', '강냉이']];
       const kindSel = '<select class="input sm" data-p="' + i + '" data-f="kind" aria-label="유형">' + kinds.map(k => '<option value="' + k[0] + '"' + (p.kind === k[0] ? ' selected' : '') + '>' + k[1] + '</option>').join('') + '</select>';
       const valField = p.kind === 'product'
         ? '<div class="input-unit"><input class="input sm num" type="number" min="0" step="100" data-p="' + i + '" data-f="cost" value="' + num(p.cost) + '" aria-label="원가"><span>원</span></div>'
-        : '<div class="input-unit"><input class="input sm num" type="number" min="0" data-p="' + i + '" data-f="val" value="' + num(p.val) + '" aria-label="개수"><span>' + (p.kind === 'piece' ? '조각' : '강냉이') + '</span></div>';
+        : '<div class="input-unit"><input class="input sm num" type="number" min="0" data-p="' + i + '" data-f="val" value="' + num(p.val) + '" aria-label="개수"><span>강냉이</span></div>';
       const qtyField = prob
         ? '<div class="input-unit"><input class="input sm num" type="number" min="0" step="0.5" data-p="' + i + '" data-f="w" value="' + num(p.w) + '" aria-label="확률"><span>%</span></div>'
         : '<div class="input-unit"><input class="input sm num" type="number" min="0" step="1" data-p="' + i + '" data-f="total" value="' + num(p.total) + '" aria-label="수량"><span>개</span></div><span class="ed-left num" data-calc="left-' + i + '">남은 ' + fmt(num(p.left)) + '개</span>';
@@ -4931,7 +4628,7 @@ img, svg, video { max-width: 100%; }
     $('ad-editor').innerHTML = basic +
       '<div class="table-wrap"><table class="ad-table ed-table">' + head + '<tbody>' + rows + '</tbody></table></div>' +
       '<div class="ed-foot"><button class="btn-line" type="button" id="ed-add">상품 추가</button><div class="ed-sum" id="ed-sum"></div>' +
-      '<button class="btn-ghost" type="button" data-fit="' + m.id + '">' + (isGoods(m) ? '이 머신 예산 비율로 맞추기' : '이 머신 목표 RTP로 맞추기') + '</button><p class="ed-warn" id="ed-warn" hidden></p></div>';
+      (isGoods(m) ? '<p class="qmeta">상품 머신은 수량으로 예산을 조절해요.</p>' : '<button class="btn-ghost" type="button" data-fit="' + m.id + '">이 머신 목표 RTP로 맞추기</button>') + '<p class="ed-warn" id="ed-warn" hidden></p></div>';
   }
 
   // 입력 중에도 포커스를 잃지 않도록 계산 값만 갱신
@@ -4939,45 +4636,26 @@ img, svg, video { max-width: 100%; }
     const m = selMachine(), s = draft.settings, e = econ(m, s), prob = isProb(m);
     m.prizes.forEach((p, i) => {
       const q = prob ? (e.wsum ? num(p.w) / e.wsum : 0) : (e.N ? num(p.total) / e.N : 0);
-      const cost = prob ? q * unitCost(p, s) : unitCost(p, s) * num(p.total);
+      const tot = prob ? '평균 ' + kn(q * kernOf(p)) : p.kind === 'product' ? won(num(p.cost) * num(p.total)) : '강냉이 ' + kn(kernOf(p) * num(p.total));
       const pe = document.querySelector('[data-calc="prob-' + i + '"]'); if (pe) pe.textContent = pct(q);
-      const se = document.querySelector('[data-calc="share-' + i + '"]'); if (se) se.textContent = e.pay ? pct(cost / e.pay) : '–';
+      const se = document.querySelector('[data-calc="share-' + i + '"]'); if (se) se.textContent = tot;
       const le = document.querySelector('[data-calc="left-' + i + '"]'); if (le) le.textContent = '남은 ' + fmt(num(p.left)) + '개';
     });
     const st = mSt(m, e);
+    const rtpTxt = e.hasKern ? '<span>강냉이 RTP <b>' + pct(e.rtp) + '</b></span>' : '';
     $('ed-sum').innerHTML = m.mode === 'puzzle'
-      ? '<span>카드 1장 가격 <b>강냉이 ' + kn(e.rev) + '</b></span><span>1장당 상품 원가 <b>' + won(e.pay) + '</b></span><span>확률 합계 <b>' + fmt(+e.wsum.toFixed(2)) + '%</b></span><span><span class="status ' + st.cls + '">' + st.label + '</span></span>'
+      ? '<span>카드 1장 가격 <b>강냉이 ' + kn(e.rev) + '</b></span><span>상품 예산 <b>' + won(e.goods) + '</b></span><span>확률 합계 <b>' + fmt(+e.wsum.toFixed(2)) + '%</b></span><span><span class="status ' + st.cls + '">' + st.label + '</span></span>'
       : prob
-      ? '<span>1회 입장 <b>강냉이 ' + kn(e.rev) + '</b></span><span>1회 ' + (e.share > 0 ? '상품 원가 <b>' + won(perDraw(m, e)) : '평균 환원 <b>강냉이 ' + kn(e.pay)) + '</b></span><span>확률 합계 <b>' + fmt(+e.wsum.toFixed(2)) + '%</b></span><span>' + (e.share > 0 ? '' : 'RTP <b>' + pct(e.rtp) + '</b> ') + '<span class="status ' + st.cls + '">' + st.label + '</span></span>'
-      : '<span>캡슐 <b>' + fmt(e.N) + '개</b></span><span>회차 매출 <b>강냉이 ' + kn(e.rev) + '</b></span><span>회차 상품 원가 <b>' + won(e.pay) + '</b></span><span>1회 상품 원가 <b>' + won(perDraw(m, e)) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>';
+      ? '<span>1회 입장 <b>강냉이 ' + kn(e.rev) + '</b></span><span>1회 평균 환원 <b>강냉이 ' + kn(e.pay) + '</b></span><span>확률 합계 <b>' + fmt(+e.wsum.toFixed(2)) + '%</b></span>' + rtpTxt + '<span><span class="status ' + st.cls + '">' + st.label + '</span></span>'
+      : '<span>캡슐 <b>' + fmt(e.N) + '개</b></span><span>회차 매출 <b>강냉이 ' + kn(e.rev) + '</b></span>' + (e.hasGoods ? '<span>상품 예산 <b>' + won(e.goods) + '</b> (남은 ' + won(e.goodsLeft) + ')</span>' : '') + rtpTxt + '<span><span class="status ' + st.cls + '">' + st.label + '</span></span>';
     const warn = $('ed-warn');
     if (prob && Math.abs(e.wsum - 100) > 0.01) { warn.hidden = false; warn.textContent = '확률 합계가 ' + fmt(+e.wsum.toFixed(2)) + '%예요. 100%가 되도록 맞춰야 저장할 수 있어요.'; }
     else if (!prob && !e.N) { warn.hidden = false; warn.textContent = '캡슐 수량이 0개예요.'; }
     else warn.hidden = true;
   }
 
-  // 조각 가치를 교환소와 맞추고, 바뀌었으면 교환소 카드의 환원율도 다시 계산
-  function renderPieceValue() {
-    const s = draft.settings, before = s.pieceValue;
-    syncPieceValue(draft);
-    const st = shopPieceStats(draft.shop, s.kernelValue), auto = s.pieceAuto !== false;
-    if (auto) $('ad-pv').value = s.pieceValue;
-    const help = $('ad-pv-help');
-    if (!st.count) help.innerHTML = '상시 교환 상품이 없어 교환소 기준을 계산할 수 없어요.';
-    else if (auto) help.innerHTML = '상시 교환 상품 ' + st.count + '개의 조각당 원가 중앙값이에요 (' + fmt(st.min) + '~' + fmt(st.max) + '원). 교환소 상품을 바꾸면 함께 바뀌어요.';
-    else {
-      const gap = st.value ? Math.abs(s.pieceValue - st.value) / st.value : 0;
-      help.innerHTML = gap > 0.15
-        ? '<span style="color:var(--bad-ink);font-weight:600">교환소 기준 ' + fmt(st.value) + '원과 ' + Math.round(gap * 100) + '% 차이가 나요. 조각 상품의 실제 원가와 RTP가 다르게 잡혀요.</span>'
-        : '교환소 기준 ' + fmt(st.value) + '원과 비슷해요.';
-    }
-    $('sh-pv').textContent = fmt(s.pieceValue);
-    if (before !== s.pieceValue) draft.shop.forEach((it, i) => { const cc = document.querySelector('[data-shcalc="' + i + '"]'); if (cc) cc.innerHTML = shCalc(it); });
-  }
-
   function renderStats() {
     renderGnbDots();
-    renderPieceValue();
     const t = totalsOf(draft);
     renderKpis(t);
     renderCompare();
@@ -4995,7 +4673,7 @@ img, svg, video { max-width: 100%; }
   }
 
   let draftBase = '';
-  // ----- 직소 퍼즐 상품 관리: 상품(그림·이름·원가)과 조각 확률, 카드 가격 -----
+  // ----- 직소 퍼즐 상품 관리: 상품(그림·이름·원가·준비 수량)과 조각 확률, 카드 가격 -----
   const pzDraft = () => draft.machines.find(m => m.mode === 'puzzle');
   function renderPuzzleAdmin() {
     const m = pzDraft(); if (!m) { $('pa-list').innerHTML = ''; return; }
@@ -5005,14 +4683,15 @@ img, svg, video { max-width: 100%; }
       '<div class="field"><label for="pa-demand">월 예상 강냉이 소진</label><div class="input-unit"><input class="input num" id="pa-demand" type="number" min="0" data-pa="demand" value="' + num(m.demand) + '"><span>강냉이</span></div></div>' +
       '<div class="field"><label for="pa-top">최고 상품 문구</label><input class="input" id="pa-top" data-pa="top" value="' + String(m.top || '').replace(/"/g, '&quot;') + '"></div>' +
       '<div class="field"><span class="lbl">조각 확률</span><label class="sh-check"><input type="checkbox" id="pa-auto"' + (auto ? ' checked' : '') + '> 원가에 반비례해 자동 계산</label></div>';
-    $('pa-list').innerHTML = '<thead><tr><th>그림</th><th>상품명</th><th class="w-num">원가</th><th>등급</th><th class="w-num">조각 확률</th><th class="r">1장당 완성 확률</th><th class="r">완성까지 평균</th><th></th></tr></thead><tbody>' +
+    $('pa-list').innerHTML = '<thead><tr><th>그림</th><th>상품명</th><th class="w-num">원가</th><th>등급</th><th class="w-num">조각 확률</th><th class="w-num">준비 수량</th><th class="r">월 예상 완성</th><th class="r">1장당 완성 확률</th><th class="r">완성까지 평균</th><th></th></tr></thead><tbody>' +
       m.prizes.map((p, i) => '<tr>' +
         '<td><label class="pa-img" title="그림 바꾸기">' + thumbHTML(p, 'md') + '<input type="file" accept="image/*" data-paimg="' + i + '" hidden><span>변경</span></label></td>' +
         '<td><input class="input sm" data-pi="' + i + '" data-k="name" value="' + String(p.name).replace(/"/g, '&quot;') + '" aria-label="상품명"></td>' +
         '<td><div class="input-unit"><input class="input sm num" type="number" min="1" step="100" data-pi="' + i + '" data-k="cost" value="' + num(p.cost) + '" aria-label="' + p.name + ' 원가"><span>원</span></div></td>' +
         '<td><span class="grade" style="--gc:' + GRADE_COLOR[p.g] + '">' + p.g + '</span></td>' +
         '<td><div class="input-unit"><input class="input sm num" type="number" min="0" step="0.01" data-pi="' + i + '" data-k="w" value="' + num(p.w) + '"' + (auto ? ' disabled' : '') + ' aria-label="' + p.name + ' 조각 확률"><span>%</span></div></td>' +
-        '<td class="r num" data-pacalc="q-' + i + '"></td><td class="r num" data-pacalc="n-' + i + '"></td>' +
+        '<td><div class="input-unit"><input class="input sm num" type="number" min="0" step="1" data-pi="' + i + '" data-k="qty" value="' + num(p.qty) + '" aria-label="' + p.name + ' 준비 수량"><span>개</span></div></td>' +
+        '<td class="r num" data-pacalc="x-' + i + '"></td><td class="r num" data-pacalc="q-' + i + '"></td><td class="r num" data-pacalc="n-' + i + '"></td>' +
         '<td><button class="icon-btn" type="button" data-padel="' + i + '" aria-label="' + p.name + ' 삭제"' + (m.prizes.length < 2 ? ' disabled' : '') + '>×</button></td></tr>').join('') + '</tbody>';
     renderPuzzleCalc();
   }
@@ -5023,10 +4702,12 @@ img, svg, video { max-width: 100%; }
       const q = num(p.w) / tot;
       const a = document.querySelector('[data-pacalc="q-' + i + '"]'); if (a) a.textContent = q ? (q / PZ_EXP * 100).toFixed(4) + '%' : '–';
       const b = document.querySelector('[data-pacalc="n-' + i + '"]'); if (b) b.textContent = q ? '약 ' + fmt(Math.round(PZ_EXP / q)) + '장' : '–';
+      const x = document.querySelector('[data-pacalc="x-' + i + '"]'), ex = e.runs * q / PZ_EXP;
+      if (x) x.innerHTML = ex > num(p.qty) ? '<span style="color:var(--bad-ink);font-weight:600">약 ' + fmt(Math.round(ex * 10) / 10) + '개 · 부족</span>' : '약 ' + fmt(Math.round(ex * 10) / 10) + '개';
     });
     const st = mSt(m, e);
-    $('pa-sum').textContent = '상품 ' + m.prizes.length + '개 · 1장당 원가 ' + won(e.pay);
-    $('pa-calc').innerHTML = '<span>카드 1장 가격 <b>강냉이 ' + kn(e.rev) + '</b></span><span>1장당 상품 원가 <b>' + won(e.pay) + '</b></span><span>확률 합계 <b>' + fmt(+e.wsum.toFixed(2)) + '%</b></span><span><span class="status ' + st.cls + '">' + st.label + '</span></span>';
+    $('pa-sum').textContent = '상품 ' + m.prizes.length + '종 · ' + fmt(e.goodsN) + '개 · 예산 ' + won(e.goods);
+    $('pa-calc').innerHTML = '<span>카드 1장 가격 <b>강냉이 ' + kn(e.rev) + '</b></span><span>월 약 ' + fmt(Math.round(e.runs)) + '장</span><span>상품 예산 <b>' + won(e.goods) + '</b></span><span>확률 합계 <b>' + fmt(+e.wsum.toFixed(2)) + '%</b></span><span><span class="status ' + st.cls + '">' + st.label + '</span></span>';
   }
   // 그림 올리기: 300×300 JPEG로 줄여 설정에 저장
   function readPuzzleImage(file, i) {
@@ -5061,6 +4742,7 @@ img, svg, video { max-width: 100%; }
       const p = m.prizes[Number(el.dataset.pi)], k = el.dataset.k;
       if (k === 'name') p.name = el.value.slice(0, 30);
       else if (k === 'cost') { p.cost = Math.round(num(el.value)); p.g = gradeByCost(p.cost); if (m.autoW !== false) autoWeights(m.prizes); }
+      else if (k === 'qty') p.qty = Math.round(num(el.value));
       else p.w = num(el.value);
       if (k === 'cost') { // 등급·자동 확률이 바뀌므로 표의 계산 칸만 다시 그림 (입력 포커스 유지)
         const row = el.closest('tr'), gr = row && row.querySelector('.grade'); if (gr) { gr.textContent = p.g; gr.style.setProperty('--gc', GRADE_COLOR[p.g]); }
@@ -5073,7 +4755,7 @@ img, svg, video { max-width: 100%; }
   function puzzleAdminClick(e) {
     const m = pzDraft(); if (!m) return false;
     if (e.target.id === 'pa-add') {
-      m.prizes.push({ g: 'C', name: '새 상품', kind: 'product', val: 0, cost: 3000, w: 0, img: '', pid: 'p' + Date.now().toString(36) });
+      m.prizes.push({ g: 'C', name: '새 상품', kind: 'product', val: 0, cost: 3000, w: 0, qty: 10, img: '', pid: 'p' + Date.now().toString(36) });
       if (m.autoW !== false) autoWeights(m.prizes);
       renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats(); return true;
     }
@@ -5082,12 +4764,6 @@ img, svg, video { max-width: 100%; }
       m.prizes.splice(Number(del.dataset.padel), 1);
       if (m.autoW !== false) autoWeights(m.prizes);
       renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats(); return true;
-    }
-    if (e.target.id === 'pa-fit') {
-      const msg = fitMachine(m, draft.settings, fitT(m), 'price');
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats();
-      toast('', '직소 퍼즐: ' + msg + ' → 1장당 상품 원가 ' + won(econ(m, draft.settings).pay) + ' · 상품 예산 사용률 ' + pct(totalsOf(draft).usage), true);
-      return true;
     }
     return false;
   }
@@ -5131,7 +4807,7 @@ img, svg, video { max-width: 100%; }
   }
 
   // ----- 관리자 좌측 메뉴: 기능별로 한 화면씩 -----
-  const AD_PAGES = ['overview', 'machines', 'puzzle', 'runner', 'cannon', 'archery', 'shop'];
+  const AD_PAGES = ['overview', 'machines', 'puzzle', 'runner', 'cannon', 'archery'];
   let adPage = (() => { try { const v = localStorage.getItem('tooneland-ad-page'); return AD_PAGES.includes(v) ? v : 'overview'; } catch (e) { return 'overview'; } })();
   function adGo(page, keepScroll) {
     if (!AD_PAGES.includes(page)) page = 'overview';
@@ -5147,7 +4823,7 @@ img, svg, video { max-width: 100%; }
     const s = draft.settings, T = target(), R = { ok: 1, warn: 2, bad: 3 };
     const worst = list => list.reduce((w, m) => { const c = mSt(m, econ(m, s)).cls; return (R[c] || 0) > (R[w] || 0) ? c : w; }, '');
     const by = mode => draft.machines.filter(m => mode(m));
-    const map = { overview: worst(draft.machines), machines: worst(by(m => !['puzzle', 'runner', 'cannon', 'archery'].includes(m.mode))), archery: worst(by(m => m.mode === 'archery')), puzzle: worst(by(m => m.mode === 'puzzle')), runner: worst(by(m => m.mode === 'runner')), cannon: worst(by(m => m.mode === 'cannon')), shop: '' };
+    const map = { overview: worst(draft.machines), machines: worst(by(m => !['puzzle', 'runner', 'cannon', 'archery'].includes(m.mode))), archery: worst(by(m => m.mode === 'archery')), puzzle: worst(by(m => m.mode === 'puzzle')), runner: worst(by(m => m.mode === 'runner')), cannon: worst(by(m => m.mode === 'cannon')) };
     document.querySelectorAll('#ad-gnb [data-addot]').forEach(d => { d.className = 'gnb-dot' + (map[d.dataset.addot] ? ' ' + map[d.dataset.addot] : ''); });
   }
   document.getElementById('ad-gnb').addEventListener('click', e => { const b = e.target.closest('[data-adpage]'); if (b) adGo(b.dataset.adpage); });
@@ -5328,7 +5004,7 @@ img, svg, video { max-width: 100%; }
   function openAdmin() {
     // 편집 중인 내용이 없으면 최신 설정(게임에서 줄어든 남은 수량 포함)으로 다시 시작
     if (!draft || JSON.stringify(draft) === draftBase) { draft = clone(config); draftBase = JSON.stringify(draft); }
-    renderSettings(); renderEditor(); renderShopAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats(); adGo(adPage, true);
+    renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats(); adGo(adPage, true);
   }
 
   // ----- 관리자 이벤트 -----
@@ -5340,9 +5016,7 @@ img, svg, video { max-width: 100%; }
     if (cannonAdminInput(e.target)) return;
     if (archeryAdminInput(e.target)) return;
     const el = e.target, s = draft.settings;
-    if (el.id === 'ad-budget') s.budget = num(el.value);
-    else if (el.id === 'ad-pv') s.pieceValue = num(el.value);
-    else if (el.id === 'ad-rtp' || el.id === 'ad-rtp-range') {
+    if (el.id === 'ad-rtp' || el.id === 'ad-rtp-range') {
       s.targetRtp = num(el.value);
       (el.id === 'ad-rtp' ? $('ad-rtp-range') : $('ad-rtp')).value = s.targetRtp;
     } else if (el.dataset.m) {
@@ -5353,27 +5027,11 @@ img, svg, video { max-width: 100%; }
       if (f === 'name') p.name = clean(el.value);
       else if (f === 'total') setTotal(p, Math.round(num(el.value)));
       else p[f] = num(el.value);
-    } else if (el.dataset.s) {
-      // 선택 상자·체크박스·라디오는 change에서 처리
-      if (el.tagName === 'SELECT' || el.type === 'checkbox' || el.type === 'radio') return;
-      setShopVal(el); refreshShopCard(Number(el.dataset.i)); renderStats(); return;
     } else return;
-    if (el.id === 'ad-pv') renderShopAdmin();
     renderStats();
   });
   adminEl.addEventListener('change', e => {
     const el = e.target;
-    if (el.dataset.s) {
-      if (setShopVal(el)) renderShopAdmin(); else refreshShopCard(Number(el.dataset.i));
-      renderStats(); return;
-    }
-    if (el.id === 'ad-pv-auto') {
-      draft.settings.pieceAuto = el.checked;
-      $('ad-pv').disabled = el.checked;
-      renderStats(); renderShopAdmin();
-      if (!el.checked) $('ad-pv').focus();
-      return;
-    }
     if (el.id === 'ad-method') { draft.settings.method = el.value; renderStats(); return; }
     if (el.tagName === 'SELECT' && el.dataset.f) {
       const p = selMachine().prizes[Number(el.dataset.p)];
@@ -5392,30 +5050,16 @@ img, svg, video { max-width: 100%; }
     const fit = e.target.closest('[data-fit]');
     if (fit) {
       const m = draft.machines.find(x => x.id === fit.dataset.fit);
-      const msg = fitMachine(m, draft.settings, fitT(m), draft.settings.method);
+      const msg = fitMachine(m, draft.settings, target(), draft.settings.method);
       if (m.id === sel) renderEditor();
       renderStats();
       const e2 = econ(m, draft.settings);
-      toast('', m.name + ': ' + msg + (e2.share > 0 ? ' → 1회 상품 원가 ' + won(perDraw(m, e2)) + ' · 상품 예산 사용률 ' + pct(totalsOf(draft).usage) : ' → RTP ' + pct(e2.rtp)), true);
+      toast('', m.name + ': ' + msg + ' → 강냉이 RTP ' + pct(e2.rtp), true);
       return;
     }
     const del = e.target.closest('[data-del]');
     if (del && !del.disabled) { selMachine().prizes.splice(Number(del.dataset.del), 1); renderEditor(); renderStats(); return; }
-    const mv = e.target.closest('[data-shmove]');
-    if (mv && !mv.disabled) {
-      const [i, d] = mv.dataset.shmove.split(':').map(Number), j = i + d, s = draft.shop;
-      if (j >= 0 && j < s.length) { const t = s[i]; s[i] = s[j]; s[j] = t; renderShopAdmin(); renderStats(); }
-      return;
-    }
-    const sd = e.target.closest('[data-shdel]');
-    if (sd) { const it = draft.shop.splice(Number(sd.dataset.shdel), 1)[0]; renderShopAdmin(); renderStats(); toast('', it.name + '을(를) 교환소에서 뺐어요. 되돌리기로 취소할 수 있어요.', true); return; }
     const id = e.target.id;
-    if (id === 'sh-add') {
-      draft.shop.push({ id: 'item-' + Date.now().toString(36), cat: 'gift', name: '새 상품', desc: '상품 설명을 입력해 주세요', cost: 20, kind: 'product', worth: 3000, limited: null, art: { t: 'coupon', big: 'NEW', small: '새 상품', tile: '#EEF0FF', tc: '#4B57C9' } });
-      renderShopAdmin(); renderStats();
-      const cards = document.querySelectorAll('.sh-item'); if (cards.length) cards[cards.length - 1].scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
-      return;
-    }
     if (id === 'ed-add') {
       const m = selMachine();
       m.prizes.push(isProb(m)
@@ -5423,32 +5067,17 @@ img, svg, video { max-width: 100%; }
         : { g: 'B', name: '새 상품', kind: 'product', val: 0, cost: 1000, total: 10, left: 10 });
       renderEditor(); renderStats();
     } else if (id === 'ad-fit-all') {
-      const km = draft.machines.filter(m => !isGoods(m));
+      const km = draft.machines.filter(m => !isGoods(m) && econ(m, draft.settings).hasKern);
       km.forEach(m => fitMachine(m, draft.settings, target(), draft.settings.method));
-      renderEditor(); renderShopAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats();
+      renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats();
       toast('', '강냉이 머신 ' + km.length + '개를 목표 RTP ' + draft.settings.targetRtp + '%에 맞췄어요. 저장해야 게임에 반영돼요.', true);
-    } else if (id === 'ad-maxrtp') {
-      // 상품 예산은 기프티콘·조각 원가만. 상품을 주는 머신만 예산에 맞추고, 강냉이만 주는 머신은 목표 RTP(강냉이 소진 목표)로 맞춘다
-      const s = draft.settings, goodsM = draft.machines.filter(m => econ(m, s).share > 0), kernM = draft.machines.filter(m => !goodsM.includes(m));
-      if (!goodsM.length) { toast('', '상품을 주는 머신이 없어 예산으로 맞출 게 없어요. 목표 RTP를 직접 정해 주세요.', true); return; }
-      const base = goodsM.reduce((a, m) => { const e = econ(m, s); return a + e.mRev * e.share; }, 0);
-      let T = Math.floor(s.budget / base * 10000) / 10000;
-      goodsM.forEach(m => fitMachine(m, s, T, s.method));
-      // 수량·입장료 반올림 때문에 예산을 조금 넘으면 상품 머신 RTP를 조금씩 낮춰 예산 안으로 넣는다
-      for (let g = 0; g < 80 && totalsOf(draft).usage > 1; g++) {
-        T = Math.floor(T * .995 * 10000) / 10000;
-        goodsM.forEach(m => fitMachine(m, s, T, s.method));
-      }
-      renderSettings(); renderEditor(); renderShopAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats();
-      const t = totalsOf(draft);
-      toast('', '상품 머신 ' + goodsM.length + '개를 예산에 맞췄어요. 상품 예산 사용률 ' + pct(t.usage) + '예요(강냉이 머신은 그대로). 저장해야 게임에 반영돼요.', true);
     } else if (id === 'ad-revert') {
-      draft = clone(config); draftBase = JSON.stringify(draft); renderSettings(); renderEditor(); renderShopAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats();
+      draft = clone(config); draftBase = JSON.stringify(draft); renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats();
     } else if (id === 'ad-reset') {
       const btn = $('ad-reset');
       if (Date.now() - resetArmed < 4000) {
         draft = clone(DEFAULT_CONFIG); resetArmed = 0; btn.textContent = '기본값으로';
-        renderSettings(); renderEditor(); renderShopAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats();
+        renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats();
         toast('', '기본값을 불러왔어요. 저장해야 게임에 반영돼요.', true);
       } else {
         resetArmed = Date.now(); btn.textContent = '한 번 더 누르면 초기화';
@@ -5459,7 +5088,7 @@ img, svg, video { max-width: 100%; }
     } else if (id === 'ad-load-remote') {
       if (sync.remote) { draft = clone(config); draftBase = JSON.stringify(draft); }
       $('ad-remote').hidden = true;
-      renderSettings(); renderEditor(); renderShopAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats();
+      renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats();
     }
   });
 
@@ -5474,7 +5103,7 @@ img, svg, video { max-width: 100%; }
     return out;
   }
   function validConfig(c) {
-    return c && c.settings && typeof c.settings.budget === 'number' && Array.isArray(c.machines) && c.machines.length > 0 &&
+    return c && c.settings && typeof c.settings.targetRtp === 'number' && Array.isArray(c.machines) && c.machines.length > 0 &&
       c.machines.every(m => m && typeof m.id === 'string' && zoneOf(m.zone) && Array.isArray(m.prizes) && m.prizes.length > 0);
   }
   function setSync(stateName, text) {
@@ -5496,7 +5125,7 @@ img, svg, video { max-width: 100%; }
     const openId = current ? current.id : null;
     applyConfig(c);
     persistConfig(config);
-    renderZones(); renderFloor(); renderShop();
+    renderZones(); renderFloor();
     if (openId && !$('modal').hidden) {
       current = machines.find(m => m.id === openId) || null;
       if (current) { $('stage').innerHTML = machineHTML(current, 'div'); renderPrizes(); renderDrawButtons(); } else closeModal();
@@ -5504,7 +5133,7 @@ img, svg, video { max-width: 100%; }
     if (!draft || JSON.stringify(draft) === draftBase) {
       draft = clone(config); draftBase = JSON.stringify(draft);
       $('ad-remote').hidden = true;
-      if (!$('admin').hidden) { renderSettings(); renderEditor(); renderShopAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats(); }
+      if (!$('admin').hidden) { renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats(); }
     } else if (!sync.saving) {
       $('ad-remote').hidden = false;
       if (!$('admin').hidden) renderStats();
@@ -5521,7 +5150,7 @@ img, svg, video { max-width: 100%; }
         applyConfig(clone(body.config)); persistConfig(config);
         draft = clone(config); draftBase = JSON.stringify(draft);
         $('ad-remote').hidden = true;
-        renderZones(); renderFloor(); renderShop(); renderStats();
+        renderZones(); renderFloor(); renderStats();
         toast('', '공유 저장소에 저장했어요. 페이지를 연 모든 사람의 게임 화면에 반영돼요.', true);
       } catch (err) {
         sync.saving = false;
@@ -5539,7 +5168,7 @@ img, svg, video { max-width: 100%; }
     applyConfig(clone(body.config));
     const ok = persistConfig(config);
     draft = clone(config); draftBase = JSON.stringify(draft);
-    renderZones(); renderFloor(); renderShop(); renderStats();
+    renderZones(); renderFloor(); renderStats();
     toast('', ok ? '공유 저장소에 연결할 수 없어 이 브라우저에만 저장했어요.' : '게임 화면에만 반영했어요. 새로고침하면 사라져요.', true);
   }
   async function connectShared() {
@@ -5647,7 +5276,7 @@ img, svg, video { max-width: 100%; }
         '<div class="lg-widgets">' +
           '<button class="lg-widget lg-feature" type="button" data-lg-go="' + f.id + '" style="--fc:' + f.fc + '"><span class="lg-f-art">' + LG_ART[f.id].replace('<svg viewBox', '<svg preserveAspectRatio="xMidYMid slice" viewBox').replace(/id="(lg\w+)"/g, 'id="$1f"').replace(/url\(#(lg\w+)\)/g, 'url(#$1f)') + '</span>' +
             '<span class="lg-f-body"><span class="lg-wh">오늘의 추천 게임</span><span class="lg-f-name">' + f.name + '</span><span class="lg-f-desc">' + f.desc + '</span><span class="lg-f-go">지금 하기 ›</span></span></button>' +
-          '<button class="lg-widget lg-wallet" type="button" data-lg-go="ledger" aria-label="강냉이 지갑, 사용·획득 내역 보기"><span class="lg-wh">내 강냉이</span><span class="lg-bal num">' + K + '<span id="lg-bal">0</span></span><span class="lg-today" id="lg-today"></span><span class="lg-pc"><span id="lg-pc"></span><u>내역 ›</u></span></button>' +
+          '<button class="lg-widget lg-wallet" type="button" data-lg-go="ledger" aria-label="강냉이 지갑, 사용·획득 내역 보기"><span class="lg-wh">내 강냉이</span><span class="lg-bal num">' + K + '<span id="lg-bal">0</span></span><span class="lg-today" id="lg-today"></span><span class="lg-pc"><span>사용·획득 내역</span><u>보기 ›</u></span></button>' +
           '<button class="lg-widget lg-feed" type="button" data-lg-go="hall" aria-label="실시간 당첨, 명예의 전당 보기"><span class="lg-wh"><i aria-hidden="true"></i>실시간 당첨</span><span class="lg-fl" id="lg-feed"></span></button>' +
         '</div>' +
       '</div>';
@@ -5659,7 +5288,6 @@ img, svg, video { max-width: 100%; }
     const gin = todays.filter(x => x.d > 0).reduce((a, x) => a + x.d, 0), gout = todays.filter(x => x.d < 0).reduce((a, x) => a - x.d, 0);
     $('lg-bal').textContent = fmt(state.balance);
     $('lg-today').innerHTML = '<div class="in"><small>오늘 획득</small><b class="num">+' + fmt(gin) + '</b></div><div class="out"><small>오늘 사용</small><b class="num">-' + fmt(gout) + '</b></div>';
-    $('lg-pc').textContent = '조각 ' + fmt(state.pieces) + '개';
     $('lg-feed').innerHTML = state.feed.slice(0, 3).map((x, i) => '<span class="lg-fi' + (fresh && i === 0 ? ' new' : '') + '"><span class="g" style="--gc:' + GRADE_COLOR[x.g] + '">' + GRADE_LABEL[x.g] + '</span><span>' + x.item + ' <small>' + x.who + '</small></span></span>').join('');
   }
   $('lounge').addEventListener('click', e => {
@@ -5683,7 +5311,7 @@ img, svg, video { max-width: 100%; }
   });
 
   function route() {
-    const admin = location.hash === '#admin', shop = location.hash === '#shop';
+    const admin = location.hash === '#admin', shop = false;
     const lounge = !admin && !shop && ['', '#', '#lounge', '#home'].includes(location.hash);
     if (AR.active && location.hash !== '#archery') { history.replaceState(null, '', '#archery'); toast('', '사격이 끝난 뒤에 이동할 수 있어요.', true); return; }
     if (CN.flying && location.hash !== '#cannon') { history.replaceState(null, '', '#cannon'); toast('', '팝콘이 착지한 뒤에 이동할 수 있어요.', true); return; }
@@ -5695,16 +5323,13 @@ img, svg, video { max-width: 100%; }
     }
     if ((admin || shop || lounge) && !$('modal').hidden) { if (busy) return; closeModal(); }
     if (!$('hub').hidden) closeHub();
-    if (!$('buy-modal').hidden) closeBuy();
     $('app').hidden = admin || shop;
     const appEl = $('app'), wasLounge = appEl.classList.contains('in-lounge');
     appEl.classList.toggle('in-lounge', lounge);
     if (lounge && !wasLounge) { renderLounge(); restart($('lounge'), 'lg-back'); }
     if (!lounge && !admin && !shop && wasLounge) restart(appEl, 'lg-enter');
     $('admin').hidden = !admin;
-    $('shop-page').hidden = !shop;
     if (admin) openAdmin();
-    if (shop) renderShopPage();
     if (!lounge && !admin && !shop) { const gsel = document.querySelector('.game-tabs [aria-selected="true"]'), gt = document.querySelector('.game-tabs'); if (gsel && gt.scrollWidth > gt.clientWidth) gt.scrollLeft = gsel.offsetLeft - (gt.clientWidth - gsel.offsetWidth) / 2; }
     window.scrollTo(0, 0);
   }
