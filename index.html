@@ -856,6 +856,10 @@ button.stat { font: inherit; color: inherit; cursor: pointer; }
 .fs-bk-bar { height: 5px; margin-top: 6px; border-radius: 999px; background: repeating-linear-gradient(90deg, #FFE066 0 9px, #F59F00 9px 10px); overflow: hidden; }
 .fs-bk-bar i { display: block; height: 100%; background: rgba(28,126,214,.6); }
 .fs-bk-foot { margin: 14px 18px 0; font-size: 11.5px; color: #868E96; }
+/* 사실적인 낚싯대: SVG 릴을 쓰므로 HTML 릴은 숨김, 앞발은 손잡이를 쥔 위치로 */
+.fs-hands .fs-reel { display: none; }
+.fs-hands { right: auto; bottom: auto; }
+.fs-svg { filter: drop-shadow(3px 6px 4px rgba(0,20,60,.35)); }
 /* ===== 냥냥 레이스 ===== */
 .rc-panel { grid-column: 1 / -1; }
 .rc-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
@@ -5310,8 +5314,9 @@ img, svg, video { max-width: 100%; }
             '<i class="fs-bob" id="fs-bob" hidden></i><i class="fs-fish" id="fs-fish" hidden></i>' +
             '<div class="fs-alert" id="fs-alert" hidden>!</div>' +
             '<svg class="fs-fg" viewBox="0 0 760 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' + fsBoatSVG() + '</svg>' +
-            '<svg class="fs-svg" id="fs-svg" aria-hidden="true"><defs><linearGradient id="fsRodG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2B2F36"/><stop offset=".5" stop-color="#454B55"/><stop offset="1" stop-color="#1F2329"/></linearGradient></defs>' +
-              '<path id="fs-line" fill="none" stroke="#F8F9FA" stroke-width="1.2" opacity=".85"/><path id="fs-rod" fill="url(#fsRodG)"/><path id="fs-grip" fill="#C9A27A"/><path id="fs-rod2" fill="none" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="1.2" stroke-linecap="round"/><g id="fs-guides" fill="none" stroke="#DEE2E6" stroke-width="1.6"></g><circle id="fs-tipdot" r="2.4" fill="#FA5252"/></svg>' +
+            '<svg class="fs-svg" id="fs-svg" aria-hidden="true"><defs>' +
+              '<radialGradient id="fsReelG" cx=".35" cy=".3" r=".85"><stop offset="0" stop-color="#F8F9FA"/><stop offset=".5" stop-color="#A3ACB7"/><stop offset="1" stop-color="#454C56"/></radialGradient><radialGradient id="fsGoldG" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#FFF1BF"/><stop offset=".45" stop-color="#E0B341"/><stop offset="1" stop-color="#8A6414"/></radialGradient><radialGradient id="fsKnobG" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#6C717A"/><stop offset=".5" stop-color="#25282D"/><stop offset="1" stop-color="#0B0C0E"/></radialGradient></defs>' +
+              '<path id="fs-line" fill="none" stroke="#F8F9FA" stroke-width="1.1" opacity=".85"/><g id="fs-rodg"></g></svg>' +
             '<div class="fs-hands" id="fs-hands" aria-hidden="true">' +
               '<svg class="fs-paws" viewBox="0 0 140 100"><defs><radialGradient id="fsFur" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#FFC078"/><stop offset=".6" stop-color="#FF922B"/><stop offset="1" stop-color="#E8590C"/></radialGradient></defs>' +
                 '<g transform="translate(26 62) rotate(-22)"><ellipse rx="27" ry="23" fill="url(#fsFur)"/><path d="M-12 -14 v10 M0 -18 v11 M12 -14 v10" stroke="#C2410C" stroke-width="2" stroke-linecap="round" opacity=".55"/><path d="M-20 4 q20 12 40 0" fill="none" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="3" stroke-linecap="round"/></g>' +
@@ -5338,12 +5343,12 @@ img, svg, video { max-width: 100%; }
   function fsGeom() {
     const st = fsEl('fs-stage'); if (!st) return null;
     const W = st.clientWidth, H = st.clientHeight; if (!W || !H) return null;
-    return { W, H, horizon: H * .4, hand: { x: W * .9, y: H * 1.04 }, tip: { x: W * .58, y: H * .14 } };
+    return { W, H, horizon: H * .4, hand: { x: W * .95, y: H * .9 }, tip: { x: W * .54, y: H * .12 } };
   }
   const fsDepth = (g, y) => Math.max(.35, Math.min(1.6, .35 + (y - g.horizon) / (g.H - g.horizon) * 1.4));
   function fsDraw() {
     const g = fsGeom(); if (!g) return;
-    const rod = fsEl('fs-rod'), rod2 = fsEl('fs-rod2'), line = fsEl('fs-line'), bob = fsEl('fs-bob'), svg = fsEl('fs-svg');
+    const line = fsEl('fs-line'), bob = fsEl('fs-bob'), svg = fsEl('fs-svg'), rodg = fsEl('fs-rodg');
     svg.setAttribute('viewBox', '0 0 ' + g.W + ' ' + g.H);
     // 물고기가 걸리면 낚싯대 끝이 아래로 휘고 떨린다
     const pull = FS.phase === 'reel' ? (FS.heavy ? 70 : 46) : FS.phase === 'bite' ? 30 : FS.phase === 'jump' ? 20 : 4;
@@ -5355,13 +5360,68 @@ img, svg, video { max-width: 100%; }
     const at = t => ({ x: (1 - t) * (1 - t) * A.x + 2 * (1 - t) * t * C.x + t * t * Bp.x, y: (1 - t) * (1 - t) * A.y + 2 * (1 - t) * t * C.y + t * t * Bp.y });
     const nrm = t => { const dx = 2 * (1 - t) * (C.x - A.x) + 2 * t * (Bp.x - C.x), dy = 2 * (1 - t) * (C.y - A.y) + 2 * t * (Bp.y - C.y), l = Math.hypot(dx, dy) || 1; return { x: -dy / l, y: dx / l }; };
     const band = (t0, t1, w0, w1) => { const L = [], R = []; for (let i = 0; i <= 18; i++) { const t = t0 + (t1 - t0) * i / 18, P = at(t), N = nrm(t), w = (w0 + (w1 - w0) * i / 18) / 2; L.push((P.x + N.x * w).toFixed(1) + ' ' + (P.y + N.y * w).toFixed(1)); R.unshift((P.x - N.x * w).toFixed(1) + ' ' + (P.y - N.y * w).toFixed(1)); } return 'M' + L.join(' L') + ' L' + R.join(' L') + 'Z'; };
-    const kz = Math.max(.75, Math.min(1.25, g.W / 760));
-    rod.setAttribute('d', band(0, 1, 12 * kz, 1.8));
-    const grip = fsEl('fs-grip'); if (grip) grip.setAttribute('d', band(0, .16, 17 * kz, 14 * kz));
-    let hl = ''; for (let i = 0; i <= 14; i++) { const t = .18 + .8 * i / 14, P = at(t), N = nrm(t); hl += (i ? ' L' : 'M') + (P.x + N.x * 2).toFixed(1) + ' ' + (P.y + N.y * 2).toFixed(1); }
-    rod2.setAttribute('d', hl);
-    const gd = fsEl('fs-guides'); if (gd) gd.innerHTML = [.38, .6, .78, .92].map((t, i) => { const P = at(t), N = nrm(t), r = (4 - i * .7) * kz; return '<circle cx="' + (P.x - N.x * (r + 2)).toFixed(1) + '" cy="' + (P.y - N.y * (r + 2)).toFixed(1) + '" r="' + r.toFixed(1) + '"/>'; }).join('');
-    const td = fsEl('fs-tipdot'); if (td) { td.setAttribute('cx', tip.x.toFixed(1)); td.setAttribute('cy', tip.y.toFixed(1)); }
+    const kz = Math.max(.95, Math.min(1.35, g.W / 640));
+    const f1 = v => v.toFixed(1);
+    const tan = t => { const N = nrm(t); return { x: N.y, y: -N.x }; };
+    // 굵기 w0→w1인 띠. k = 굵기 비율, o = 가운데에서 법선 방향으로 밀어낸 정도(굵기 비율)
+    const seg = (t0, t1, w0, w1, fill, k, o, op) => {
+      k = k == null ? 1 : k; o = o || 0;
+      const L = [], R = [], n = Math.max(2, Math.ceil((t1 - t0) * 50));
+      for (let i = 0; i <= n; i++) { const t = t0 + (t1 - t0) * i / n, P = at(t), N = nrm(t), w = w0 + (w1 - w0) * i / n, cx = P.x + N.x * w * o, cy = P.y + N.y * w * o, h = w * k / 2; L.push(f1(cx + N.x * h) + ' ' + f1(cy + N.y * h)); R.unshift(f1(cx - N.x * h) + ' ' + f1(cy - N.y * h)); }
+      return '<path d="M' + L.join(' L') + ' L' + R.join(' L') + 'Z" fill="' + fill + '"' + (op != null ? ' opacity="' + op + '"' : '') + '/>';
+    };
+    // 원통처럼: 밑색 + 아래쪽 그림자 + 위쪽 밝은 면 + 가는 광택선 (빛은 화면 오른쪽 위)
+    const cyl = (t0, t1, w0, w1, c) => seg(t0, t1, w0, w1, c[0]) + seg(t0, t1, w0, w1, c[1], .42, -.29) + seg(t0, t1, w0, w1, c[2], .34, .19, .9) + seg(t0, t1, w0, w1, '#FFFFFF', .09, .3, .55);
+    const GOLD = ['#C99A2E', '#7E5A12', '#FFE08A'], BLACK = ['#26272B', '#0D0E10', '#5B5E66'], SILVER = ['#9AA3AE', '#5A626D', '#EEF1F4'], BLUE = ['#2155C8', '#0E2B78', '#6E9BFF'];
+    const BW = t => (10 - 8.2 * (t - .3) / .7) * kz;   // 블랭크 굵기(끝으로 갈수록 가늘게)
+    let h = '';
+    h += cyl(-.03, -.012, 20 * kz, 20 * kz, GOLD) + cyl(-.012, 0, 20.5 * kz, 20.5 * kz, BLACK);   // 금색 엔드캡
+    h += cyl(0, .13, 19 * kz, 17 * kz, BLACK);                      // 뒤 손잡이(EVA)
+    h += cyl(.128, .142, 20 * kz, 20 * kz, GOLD);                   // 금장 링
+    h += cyl(.142, .2, 15 * kz, 15 * kz, SILVER);                   // 릴시트
+    h += cyl(.142, .152, 16.5 * kz, 16.5 * kz, GOLD) + cyl(.19, .2, 16.5 * kz, 16.5 * kz, GOLD);
+    for (let t = .156; t < .188; t += .006) { const P = at(t), N = nrm(t), w = 7 * kz; h += '<path d="M' + f1(P.x + N.x * w) + ' ' + f1(P.y + N.y * w) + ' L' + f1(P.x - N.x * w) + ' ' + f1(P.y - N.y * w) + '" stroke="#4A515B" stroke-width=".8" opacity=".6"/>'; }
+    h += cyl(.2, .29, 14 * kz, 13 * kz, BLACK);                     // 앞 손잡이
+    h += cyl(.288, .3, 14.5 * kz, 13.5 * kz, GOLD) + cyl(.3, .307, 11.5 * kz, 11.5 * kz, GOLD);
+    h += cyl(.307, 1, BW(.307), BW(1), BLUE);                       // 블랭크(파란 카본)
+    // 가이드: 금색 실감기 + 블랭크 아래로 매달린 은색 링
+    const GT = [.42, .55, .67, .78, .87, .945], gp = [];
+    let gh = '';
+    GT.forEach((t, i) => {
+      const w = BW(t), P = at(t), N = nrm(t), T = tan(t), r = (6.6 - i * .85) * kz, d = w / 2 + r + 3.5 * kz;
+      h += cyl(t - .013, t + .013, w + 2.2 * kz, w + 2 * kz, GOLD);
+      const C = { x: P.x - N.x * d, y: P.y - N.y * d }; gp.push(C);
+      const A1 = at(t - .01), A2 = at(t + .01), N1 = nrm(t - .01), N2 = nrm(t + .01);
+      gh += '<path d="M' + f1(A1.x - N1.x * w / 2) + ' ' + f1(A1.y - N1.y * w / 2) + ' L' + f1(C.x - T.x * r * .55) + ' ' + f1(C.y - T.y * r * .55) + ' M' + f1(A2.x - N2.x * w / 2) + ' ' + f1(A2.y - N2.y * w / 2) + ' L' + f1(C.x + T.x * r * .55) + ' ' + f1(C.y + T.y * r * .55) + '" stroke="#B9C0C8" stroke-width="' + f1(1.6 * kz) + '" stroke-linecap="round" fill="none"/>' +
+        '<circle cx="' + f1(C.x) + '" cy="' + f1(C.y) + '" r="' + f1(r) + '" fill="none" stroke="#5A626D" stroke-width="' + f1(2.6 * kz) + '"/><circle cx="' + f1(C.x) + '" cy="' + f1(C.y) + '" r="' + f1(r) + '" fill="none" stroke="#E9ECEF" stroke-width="' + f1(1.3 * kz) + '"/>' +
+        '<circle cx="' + f1(C.x) + '" cy="' + f1(C.y) + '" r="' + f1(Math.max(1, r - 1.6 * kz)) + '" fill="none" stroke="#2B2F36" stroke-width=".7"/>';
+    });
+    // 톱 가이드(끝)
+    gh += '<circle cx="' + f1(tip.x) + '" cy="' + f1(tip.y) + '" r="' + f1(2.8 * kz) + '" fill="none" stroke="#D4A537" stroke-width="' + f1(1.6 * kz) + '"/>';
+    // 스피닝 릴: 릴시트 아래로 매달림(은색 몸통·금색 스풀·파란 낚싯줄·돌아가는 핸들)
+    const tr = .171, PR = at(tr), NR = nrm(tr), TR = tan(tr), dR = 30 * kz;
+    const RC = { x: PR.x - NR.x * dR, y: PR.y - NR.y * dR };
+    let rh = '<path d="M' + f1(PR.x - NR.x * 6 * kz) + ' ' + f1(PR.y - NR.y * 6 * kz) + ' L' + f1(RC.x) + ' ' + f1(RC.y) + '" stroke="#7D8590" stroke-width="' + f1(7 * kz) + '" stroke-linecap="round"/>' +
+      '<path d="M' + f1(PR.x - NR.x * 6 * kz + TR.x * 2) + ' ' + f1(PR.y - NR.y * 6 * kz + TR.y * 2) + ' L' + f1(RC.x + TR.x * 2) + ' ' + f1(RC.y + TR.y * 2) + '" stroke="#E9ECEF" stroke-width="' + f1(1.6 * kz) + '" stroke-linecap="round" opacity=".7"/>';
+    const SP = { x: RC.x + TR.x * 17 * kz, y: RC.y + TR.y * 17 * kz }, ang = Math.atan2(TR.y, TR.x) * 180 / Math.PI;
+    rh += '<g transform="translate(' + f1(SP.x) + ' ' + f1(SP.y) + ') rotate(' + f1(ang) + ') scale(' + kz.toFixed(2) + ')">' +
+        '<rect x="-12" y="-15" width="20" height="30" rx="4" fill="url(#fsGoldG)" stroke="#7E5A12" stroke-width="1"/>' +
+        '<rect x="-8" y="-11" width="12" height="22" rx="2" fill="#1C7ED6"/><path d="M-8 -7h12M-8 -3h12M-8 1h12M-8 5h12" stroke="#74C0FC" stroke-width="1.1"/>' +
+        '<ellipse cx="9" cy="0" rx="4" ry="15" fill="url(#fsGoldG)" stroke="#7E5A12" stroke-width="1"/><ellipse cx="9.5" cy="0" rx="1.6" ry="6" fill="#8A6414"/>' +
+        '<path d="M-10 -15 C 4 -26, 20 -10, 13 6" fill="none" stroke="#DEE2E6" stroke-width="2.2" stroke-linecap="round"/><path d="M-10 -15 C 4 -26, 20 -10, 13 6" fill="none" stroke="#868E96" stroke-width=".8"/>' +
+      '</g>';
+    rh += '<circle cx="' + f1(RC.x) + '" cy="' + f1(RC.y) + '" r="' + f1(15 * kz) + '" fill="url(#fsReelG)" stroke="#3B4048" stroke-width="1.2"/>' +
+      '<circle cx="' + f1(RC.x) + '" cy="' + f1(RC.y) + '" r="' + f1(9 * kz) + '" fill="none" stroke="#D4A537" stroke-width="' + f1(2.2 * kz) + '"/>' +
+      '<circle cx="' + f1(RC.x) + '" cy="' + f1(RC.y) + '" r="' + f1(3.4 * kz) + '" fill="#E9ECEF" stroke="#5A626D" stroke-width="1"/>';
+    const a0 = (FS.crank || 0) * Math.PI / 180, KN = { x: RC.x + Math.cos(a0) * 22 * kz, y: RC.y + Math.sin(a0) * 22 * kz };
+    rh += '<path d="M' + f1(RC.x) + ' ' + f1(RC.y) + ' L' + f1(KN.x) + ' ' + f1(KN.y) + '" stroke="#ADB5BD" stroke-width="' + f1(4 * kz) + '" stroke-linecap="round"/><path d="M' + f1(RC.x) + ' ' + f1(RC.y) + ' L' + f1(KN.x) + ' ' + f1(KN.y) + '" stroke="#F1F3F5" stroke-width="' + f1(1.3 * kz) + '" stroke-linecap="round"/>' +
+      '<ellipse cx="' + f1(KN.x) + '" cy="' + f1(KN.y) + '" rx="' + f1(6 * kz) + '" ry="' + f1(7.5 * kz) + '" fill="url(#fsKnobG)" stroke="#0B0C0E" stroke-width=".8"/>';
+    // 낚싯줄: 스풀 → 가이드 링 → 톱 가이드
+    const LS = { x: SP.x + TR.x * 6 * kz, y: SP.y + TR.y * 6 * kz };
+    const lineIn = '<path d="M' + f1(LS.x) + ' ' + f1(LS.y) + gp.map(p => ' L' + f1(p.x) + ' ' + f1(p.y)).join('') + ' L' + f1(tip.x) + ' ' + f1(tip.y) + '" fill="none" stroke="#F8F9FA" stroke-width=".9" opacity=".75"/>';
+    if (rodg) rodg.innerHTML = lineIn + h + gh + rh;
+    // 앞발은 뒤 손잡이를 쥔 자리에
+    const hands = fsEl('fs-hands'), PH = at(.02); if (hands) { hands.style.left = f1(PH.x - 52) + 'px'; hands.style.top = f1(PH.y - 46) + 'px'; }
     if (FS.bob) {
       const b = FS.bob, taut = ['reel', 'bite', 'jump'].includes(FS.phase), k = fsDepth(g, b.y);
       line.setAttribute('d', 'M' + tip.x + ' ' + tip.y + ' Q' + ((tip.x + b.x) / 2) + ' ' + (Math.max(tip.y, b.y) + (taut ? 2 : 40)) + ' ' + b.x + ' ' + b.y);
