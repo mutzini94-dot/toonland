@@ -2113,7 +2113,7 @@ img, svg, video { max-width: 100%; }
     <p class="hub-note">문 2개 중 하나만 통과(각 50%)하는 게임이에요. 문 단계별 누적 점수가 곧 지급 강냉이예요. 손님이 가장 유리한 단계에서 포기한다고 보고 RTP를 계산해서 예산에 넣어요(실제 지급은 이보다 같거나 적어요).</p>
     <div class="fields" id="rn-fields"></div>
     <div class="table-wrap"><table class="ad-table" id="rn-ladder-t"></table></div>
-    <div class="ed-foot"><div class="pa-calc" id="rn-calc"></div><button class="btn-ghost" type="button" id="rn-fit">목표 RTP로 점수 맞추기</button></div>
+    <div class="ed-foot"><div class="pa-calc" id="rn-calc"></div><p class="qmeta">문 점수는 위 표에서 직접 정해요.</p></div>
   </div>
 
   </div>
@@ -4486,11 +4486,7 @@ img, svg, video { max-width: 100%; }
     if (m.mode === 'cannon') {
       return cnFitGrades(m, T) ? '보통 확률 조정' : '확률만으로 맞출 수 없어요';
     }
-    if (m.mode === 'runner') {
-      if (!T || !e.rtp) return '조정할 수 없어요';
-      const f = T / e.rtp; m.ladder = rnLadder(m).map(v => Math.max(10, Math.round(v * f / 10) * 10)); rnSyncPrizes(m);
-      return '문 점수 ×' + f.toFixed(2);
-    }
+    if (m.mode === 'runner') return '문 점수는 직접 정해요';
     if (isProb(m)) {
       if (method === 'price' || !e.rtp) return byPrice(e.pay);
       const f = T / e.rtp;
@@ -4578,7 +4574,7 @@ img, svg, video { max-width: 100%; }
         (e.hasGoods ? '<td>' + (e.hasKern ? '<b class="num">' + pct(e.rtp) + '</b> <span class="qmeta">강냉이 보상분 (참고)</span>' : '<span class="qmeta">강냉이 보상 없음</span>') + '</td>' :
         '<td><div class="rtpcell"><div class="rtpbar"><i style="width:' + Math.min(100, e.rtp / 1.5 * 100).toFixed(1) + '%;--st:var(--' + st.cls + ')"></i><b style="left:' + Math.min(100, T / 1.5 * 100).toFixed(1) + '%"></b></div><span>' + pct(e.rtp) + '</span></div></td>' ) +
         '<td><span class="status ' + st.cls + '">' + st.label + '</span></td>' +
-        '<td>' + (e.hasGoods ? '' : '<button class="btn-xs" type="button" data-fit="' + m.id + '">목표로 맞추기</button>') + '</td></tr>';
+        '<td>' + (e.hasGoods || m.mode === 'runner' ? '' : '<button class="btn-xs" type="button" data-fit="' + m.id + '">목표로 맞추기</button>') + '</td></tr>';
     }).join('');
     $('ad-compare').innerHTML = '<thead><tr><th>머신</th><th>방식</th><th class="r">입장료(강냉이)</th><th class="r">월 소진(강냉이)</th><th class="r">상품 예산 (수량 × 원가)</th><th>강냉이 RTP</th><th>상태</th><th></th></tr></thead><tbody>' + rows + '</tbody>';
   }
@@ -4791,15 +4787,6 @@ img, svg, video { max-width: 100%; }
     if (el.dataset.rnl != null) { m.ladder = rnLadder(m); m.ladder[Number(el.dataset.rnl)] = Math.round(num(el.value)); rnSyncPrizes(m); renderRunnerCalc(); renderStats(); return true; }
     return false;
   }
-  function runnerAdminClick(e) {
-    if (e.target.id !== 'rn-fit') return false;
-    const m = rnDraft(); if (!m) return true;
-    const msg = fitMachine(m, draft.settings, target(), 'reward');
-    renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats();
-    toast('', '냥치 런: ' + msg + ' → RTP ' + pct(econ(m, draft.settings).rtp), true);
-    return true;
-  }
-
   // ----- 관리자 좌측 메뉴: 기능별로 한 화면씩 -----
   const AD_PAGES = ['overview', 'machines', 'puzzle', 'runner', 'cannon', 'archery'];
   let adPage = (() => { try { const v = localStorage.getItem('tooneland-ad-page'); return AD_PAGES.includes(v) ? v : 'overview'; } catch (e) { return 'overview'; } })();
@@ -5035,7 +5022,6 @@ img, svg, video { max-width: 100%; }
   });
   adminEl.addEventListener('click', e => {
     if (puzzleAdminClick(e)) return;
-    if (runnerAdminClick(e)) return;
     if (cannonAdminClick(e)) return;
     if (archeryAdminClick(e)) return;
     const tab = e.target.closest('[data-tab]');
@@ -5060,7 +5046,7 @@ img, svg, video { max-width: 100%; }
         : { g: 'B', name: '새 상품', kind: 'product', val: 0, cost: 1000, total: 10, left: 10 });
       renderEditor(); renderStats();
     } else if (id === 'ad-fit-all') {
-      const km = draft.machines.filter(m => !isGoods(m) && econ(m, draft.settings).hasKern);
+      const km = draft.machines.filter(m => m.mode !== 'runner' && !isGoods(m) && econ(m, draft.settings).hasKern);
       km.forEach(m => fitMachine(m, draft.settings, target(), 'price'));
       renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats();
       toast('', '강냉이 머신 ' + km.length + '개를 목표 RTP ' + draft.settings.targetRtp + '%에 맞췄어요. 저장해야 게임에 반영돼요.', true);
