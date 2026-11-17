@@ -2057,7 +2057,7 @@ img, svg, video { max-width: 100%; }
 
   <div class="ad-top">
     <div class="panel">
-      <h2>예산과 목표 RTP</h2>
+      <h2>상품 예산과 강냉이 RTP</h2>
       <div class="fields">
         <div class="field">
           <label for="ad-budget">월 상품 예산 <small class="qmeta">강냉이 제외</small></label>
@@ -2065,17 +2065,12 @@ img, svg, video { max-width: 100%; }
           <p class="help">기프티콘·실물 상품과 조각(교환소 상품) 원가의 한 달 상한이에요. 강냉이 보상은 원가가 없어 들어가지 않아요.</p>
         </div>
         <div class="field">
-          <label for="ad-kv">강냉이 1개 가치 <small class="qmeta">RTP 계산용</small></label>
-          <div class="input-unit"><input class="input num" id="ad-kv" type="number" min="0.1" step="0.1"><span>원</span></div>
-          <p class="help">강냉이는 원가가 없어요. 상품 원가(원)를 강냉이와 비교해 RTP를 계산할 때만 쓰는 환산값이에요.</p>
-        </div>
-        <div class="field">
           <div class="label-row"><label for="ad-pv">조각 1개 가치</label><label class="sh-check sm"><input type="checkbox" id="ad-pv-auto"> 교환소 기준 자동</label></div>
           <div class="input-unit"><input class="input num" id="ad-pv" type="number" min="0" step="1"><span>원</span></div>
           <p class="help" id="ad-pv-help"></p>
         </div>
         <div class="field">
-          <label for="ad-rtp">목표 RTP</label>
+          <label for="ad-rtp">목표 RTP <small class="qmeta">강냉이 머신</small></label>
           <div class="rtp-row"><input id="ad-rtp-range" type="range" min="30" max="120" step="0.1" aria-label="목표 RTP 슬라이더"><div class="input-unit"><input class="input num" id="ad-rtp" type="number" min="1" max="200" step="0.1"><span>%</span></div></div>
           <p class="help" id="ad-rtp-help"></p>
         </div>
@@ -2086,8 +2081,8 @@ img, svg, video { max-width: 100%; }
           <option value="filler">한정 머신: C등급(조각) 수량 조절</option>
           <option value="price">입장료 조절</option>
         </select>
-        <button class="btn-line" id="ad-maxrtp" type="button">예산에 맞춰 자동 조정</button>
-        <button class="btn-ghost" id="ad-fit-all" type="button">모든 머신에 목표 RTP 적용</button>
+        <button class="btn-line" id="ad-maxrtp" type="button">상품 머신을 예산에 맞추기</button>
+        <button class="btn-ghost" id="ad-fit-all" type="button">강냉이 머신에 목표 RTP 적용</button>
       </div>
     </div>
     <div class="panel">
@@ -2154,7 +2149,7 @@ img, svg, video { max-width: 100%; }
     <p class="hub-note">퍼즐로 모을 상품을 관리해요. 상품마다 6조각 퍼즐이 만들어지고, 카드 1장마다 아래 확률로 상품을 고른 뒤 1~6번 조각 중 하나가 나와요. 이미 가진 조각이면 중복이라 한 상품을 완성하려면 그 상품 조각이 평균 14.7장 필요해요. 저장하면 게임에 바로 반영돼요.</p>
     <div class="fields pa-fields" id="pa-fields"></div>
     <div class="table-wrap"><table class="ad-table" id="pa-list"></table></div>
-    <div class="ed-foot"><button class="btn-line" type="button" id="pa-add">상품 추가</button><div class="pa-calc" id="pa-calc"></div><button class="btn-ghost" type="button" id="pa-fit">목표 RTP로 카드 가격 맞추기</button></div>
+    <div class="ed-foot"><button class="btn-line" type="button" id="pa-add">상품 추가</button><div class="pa-calc" id="pa-calc"></div><button class="btn-ghost" type="button" id="pa-fit">예산 비율로 카드 가격 맞추기</button></div>
   </div>
   </div>
   </div>
@@ -2518,7 +2513,7 @@ img, svg, video { max-width: 100%; }
   // 한정 상품은 미끼 성격이라 제외. 머신의 C등급(조각) 원가와 RTP 계산에 쓰인다
   function shopPieceStats(shop, kv) {
     const n = v => Number(v) || 0;
-    const r = (shop || []).filter(it => !it.limited && n(it.cost) > 0)
+    const r = (shop || []).filter(it => !it.limited && it.kind !== 'kernel' && n(it.cost) > 0)
       .map(it => (it.kind === 'kernel' ? n(it.val) * n(kv) : n(it.worth)) / n(it.cost))
       .filter(x => x > 0).sort((a, b) => a - b);
     if (!r.length) return { value: 0, count: 0, min: 0, max: 0 };
@@ -2532,7 +2527,7 @@ img, svg, video { max-width: 100%; }
     if (st.value) c.settings.pieceValue = st.value;
   }
   const DEFAULT_CONFIG = {
-    settings: { budget: 25000000, kernelValue: 2, pieceValue: 143, pieceAuto: true, targetRtp: 85, method: 'filler' },
+    settings: { budget: 25000000, kernelValue: 1, pieceValue: 143, pieceAuto: true, targetRtp: 85, method: 'filler' },
     machines: [
       { id: 'pop', zone: 'coin', name: '팝콘 머신', mode: 'prob', cost: 100, demand: 5000000, top: '강냉이 1,000개',
         prizes: [K_('S', 1000, 2), K_('A', 300, 8), K_('B', 120, 15), K_('C', 60, 30), K_('C', 30, 45)] },
@@ -2592,6 +2587,7 @@ img, svg, video { max-width: 100%; }
   function applyConfig(c) {
     // 교환소 설정이 없던 예전 저장본은 기본 교환소 상품으로 채운다
     if (!Array.isArray(c.shop)) c.shop = clone(DEFAULT_CONFIG.shop);
+    c.settings.kernelValue = 1;   // 강냉이는 원가가 없어 환산하지 않는다(내부 계산용 1 고정)
     delete c.rankBenefit;   // 순위 베네핏은 삭제됨
     // 예전(크리에이터 라인업) 퍼즐 설정은 상품 퍼즐 기본값으로 바꾼다
     // 깡통 사격 v4: 양궁 → 사격장으로 바뀌어 예전 설정은 기본값으로
@@ -4651,13 +4647,16 @@ img, svg, video { max-width: 100%; }
     return { rev, pay, rtp, mRev, mPay: mRev * rtp, N, runs: num(m.cost) && N ? num(m.demand) / (num(m.cost) * N) : 0 };
   }
   function totalsOf(c) {
-    let mRev = 0, mPay = 0, mGoods = 0, mKern = 0, goodsBase = 0;
-    c.machines.forEach(m => { const e = econ(m, c.settings); mRev += e.mRev; mPay += e.mPay; mGoods += e.mGoods; mKern += e.mKern; goodsBase += e.mRev * e.share; });
+    let mRev = 0, mPay = 0, mGoods = 0, mKern = 0, goodsBase = 0, kmRev = 0, kmPay = 0;
+    c.machines.forEach(m => { const e = econ(m, c.settings); mRev += e.mRev; mPay += e.mPay; mGoods += e.mGoods; mKern += e.mKern; goodsBase += e.mRev * e.share; if (!e.share) { kmRev += e.mRev; kmPay += e.mPay; } });
     const kv = c.settings.kernelValue || 1;
     // 예산 기준 최대 RTP: 모든 머신을 같은 RTP로 맞출 때 상품 원가가 예산과 같아지는 값(상품 머신이 없으면 제한 없음)
     return { mRev, mPay, mGoods, mKern, rtp: mRev ? mPay / mRev : 0, maxRtp: goodsBase ? c.settings.budget / goodsBase : Infinity,
-      usage: c.settings.budget ? mGoods / c.settings.budget : (mGoods ? Infinity : 0), kUsed: mRev / kv, kBack: mKern / kv };
+      usage: c.settings.budget ? mGoods / c.settings.budget : (mGoods ? Infinity : 0), kUsed: mRev / kv, kBack: mKern / kv, kRtp: kmRev ? kmPay / kmRev : 0 };
   }
+  const kn = v => fmt(Math.round(v)) + '개';   // 강냉이 수량 표시
+  // 1회 상품 원가: 확률형·퍼즐은 1회(1장), 한정 머신은 캡슐 1개 기준
+  const perDraw = (m, e) => isProb(m) || m.mode === 'puzzle' ? e.pay : (e.N ? e.pay / e.N : 0);
   function statusOf(rtp, target) {
     const d = rtp - target;
     if (Math.abs(d) <= 0.03) return { cls: 'ok', label: '적정' };
@@ -4723,6 +4722,12 @@ img, svg, video { max-width: 100%; }
   let draft = null, sel = 'pop', resetArmed = 0, pendingRemote = null;
   const sync = { state: 'loading', ref: null, remote: false, readOnly: false, saving: false };
   const target = () => draft.settings.targetRtp / 100;
+  // 상품 머신(기프티콘·조각을 주는 머신)은 목표 RTP 대신 예산으로 관리: 모든 상품 머신에 같은 '강냉이 1개당 원가 비율'을 적용해 예산을 채운다
+  const isGoods = m => econ(m, draft.settings).share > 0;
+  const goodsRatio = () => { const s = draft.settings; const base = draft.machines.reduce((a, m) => { const e = econ(m, s); return a + e.mRev * e.share; }, 0); return base ? s.budget / base : 0; };
+  const fitT = m => isGoods(m) ? goodsRatio() : target();
+  const goodsSt = () => { const u = totalsOf(draft).usage; return u > 1 ? { cls: 'bad', label: '예산 초과' } : u > .9 ? { cls: 'warn', label: '예산 임박' } : { cls: 'ok', label: '예산 안' }; };
+  const mSt = (m, e) => e.share > 0 ? goodsSt() : statusOf(e.rtp, target());
   const selMachine = () => draft.machines.find(m => m.id === sel) || draft.machines[0];
 
   function validate() {
@@ -4734,7 +4739,6 @@ img, svg, video { max-width: 100%; }
       if (!isProb(m) && !['runner', 'cannon', 'archery'].includes(m.mode) && !e.N) errs.push(m.name + ': 캡슐 수량이 0개예요.');   // 냥치 런·팝콘 대포는 캡슐이 없는 게임
       if (m.prizes.some(p => !String(p.name).trim())) errs.push(m.name + ': 이름이 비어 있는 상품이 있어요.');
     });
-    if (!(draft.settings.kernelValue > 0)) errs.push('강냉이 1개 가치(RTP 계산용)를 입력해 주세요.');
     draft.machines.filter(m => m.mode === 'archery').forEach(m => {
       if (!(num(m.cost) >= 10)) errs.push('깡통 사격: 1발 금액은 10 이상이어야 해요.');
       if (!(num(m.bullets) >= 1 && num(m.bullets) <= 12)) errs.push('깡통 사격: 1판 탄 수는 1~12발이어야 해요.');
@@ -4845,7 +4849,6 @@ img, svg, video { max-width: 100%; }
   function renderSettings() {
     const s = draft.settings;
     $('ad-budget').value = s.budget;
-    $('ad-kv').value = s.kernelValue;
     $('ad-pv').value = s.pieceValue;
     $('ad-pv-auto').checked = s.pieceAuto !== false;
     $('ad-pv').disabled = s.pieceAuto !== false;
@@ -4866,37 +4869,33 @@ img, svg, video { max-width: 100%; }
         '<div class="k-sub num">' + won(t.mGoods) + ' / ' + won(s.budget) + ' · ' + (left >= 0 ? '남은 예산 ' + won(left) : won(-left) + ' 초과') + '</div></div>' +
       '<div class="kpi"><div class="k-label">월 강냉이 사용 → 소진</div><div class="k-val num">' + fmt(Math.round(burn)) + '개</div><div class="k-sub num">사용 ' + fmt(Math.round(t.kUsed)) + '개 중 ' + pct(t.kUsed ? burn / t.kUsed : 0) + ' 소진 · 강냉이로 ' + fmt(Math.round(t.kBack)) + '개 환원</div></div>' +
       '<div class="kpi"><div class="k-label">월 예상 상품 원가</div><div class="k-val num">' + won(t.mGoods) + '</div><div class="k-sub">기프티콘·조각 합계 (강냉이 제외)</div></div>' +
-      '<div class="kpi"><div class="k-label">현재 전체 RTP</div><div class="k-val num">' + pct(t.rtp) + '</div><div class="k-sub">목표 ' + s.targetRtp + '%</div></div>' +
-      '<div class="kpi"><div class="k-label">상품 머신 최대 RTP (예산 기준)</div><div class="k-val num">' + (isFinite(t.maxRtp) ? pct(t.maxRtp) : '제한 없음') + '</div><div class="k-sub">이보다 높으면 상품 예산을 넘어요</div></div>';
-    const over = s.targetRtp / 100 > t.maxRtp + 0.0005;
-    $('ad-rtp-help').innerHTML = (over
-      ? '<span style="color:var(--bad-ink);font-weight:600">목표가 상품 머신 최대 RTP(' + pct(t.maxRtp) + ')보다 높아 상품 예산을 넘어요.</span>'
-      : '상품 머신은 예산 기준 최대 RTP ' + (isFinite(t.maxRtp) ? pct(t.maxRtp) : '제한 없음') + ' 이내예요.') +
-      ' 강냉이 소진 목표는 ' + (Math.round((100 - s.targetRtp) * 10) / 10) + '%예요(강냉이 머신 기준).';
+      '<div class="kpi"><div class="k-label">강냉이 머신 RTP</div><div class="k-val num">' + pct(t.kRtp) + '</div><div class="k-sub">목표 ' + s.targetRtp + '% · 소진 ' + pct(1 - t.kRtp) + '</div></div>' +
+      '<div class="kpi"><div class="k-label">남은 상품 예산</div><div class="k-val num">' + won(Math.max(0, left)) + '</div><div class="k-sub">' + (left >= 0 ? '예산 안이에요' : won(-left) + ' 초과') + '</div></div>';
+    $('ad-rtp-help').innerHTML = '강냉이를 주는 머신(팝콘 머신·미니게임)에만 적용돼요. 강냉이 소진 목표는 ' + (Math.round((100 - s.targetRtp) * 10) / 10) + '%예요. 상품 머신은 예산으로 관리해요.';
   }
 
   function renderCompare() {
     const s = draft.settings, T = target();
     const rows = draft.machines.map(m => {
-      const e = econ(m, s), st = statusOf(e.rtp, T);
+      const e = econ(m, s), st = mSt(m, e);
       return '<tr style="--c:' + zoneOf(m.zone).color + '">' +
         '<td><span class="mname"><i></i>' + m.name + '</span></td>' +
         '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'archery' ? '깡통 사격' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
         '<td class="r">' + fmt(num(m.cost)) + '</td>' +
         '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'cannon' || m.mode === 'archery' ? '약 ' + fmt(Math.round(e.runs)) + '발' : m.mode === 'runner' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
-        '<td class="r">' + won(e.mRev) + '</td>' +
         '<td class="r">' + (e.share > 0 ? won(e.mGoods) : '<span class="qmeta">강냉이만 · 0원</span>') + (e.share > 0 && e.share < 1 ? '<span class="ed-left">강냉이 환원 ' + fmt(Math.round(e.mKern / (s.kernelValue || 1))) + '개 별도</span>' : '') + '</td>' +
-        '<td><div class="rtpcell"><div class="rtpbar"><i style="width:' + Math.min(100, e.rtp / 1.5 * 100).toFixed(1) + '%;--st:var(--' + st.cls + ')"></i><b style="left:' + Math.min(100, T / 1.5 * 100).toFixed(1) + '%"></b></div><span>' + pct(e.rtp) + '</span></div></td>' +
+        (e.share > 0 ? '<td><span class="qmeta">1회 상품 원가</span> <b class="num">' + won(perDraw(m, e)) + '</b></td>' :
+        '<td><div class="rtpcell"><div class="rtpbar"><i style="width:' + Math.min(100, e.rtp / 1.5 * 100).toFixed(1) + '%;--st:var(--' + st.cls + ')"></i><b style="left:' + Math.min(100, T / 1.5 * 100).toFixed(1) + '%"></b></div><span>' + pct(e.rtp) + '</span></div></td>' ) +
         '<td><span class="status ' + st.cls + '">' + st.label + '</span></td>' +
-        '<td><button class="btn-xs" type="button" data-fit="' + m.id + '">목표로 맞추기</button></td></tr>';
+        '<td><button class="btn-xs" type="button" data-fit="' + m.id + '">' + (e.share > 0 ? '예산 비율로' : '목표로 맞추기') + '</button></td></tr>';
     }).join('');
-    $('ad-compare').innerHTML = '<thead><tr><th>머신</th><th>방식</th><th class="r">입장료(강냉이)</th><th class="r">월 소진(강냉이)</th><th class="r">월 소진(원 환산)</th><th class="r">월 상품 원가 (강냉이 제외)</th><th>RTP (막대: 0~150%, 선: 목표)</th><th>상태</th><th></th></tr></thead><tbody>' + rows + '</tbody>';
+    $('ad-compare').innerHTML = '<thead><tr><th>머신</th><th>방식</th><th class="r">입장료(강냉이)</th><th class="r">월 소진(강냉이)</th><th class="r">월 상품 원가 (강냉이 제외)</th><th>RTP (강냉이 머신) · 1회 원가 (상품 머신)</th><th>상태</th><th></th></tr></thead><tbody>' + rows + '</tbody>';
   }
 
   function renderTabs() {
     const s = draft.settings;
     $('ad-tabs').innerHTML = draft.machines.filter(m => !['runner', 'cannon', 'archery'].includes(m.mode)).map(m =>
-      '<button class="ad-tab" type="button" role="tab" data-tab="' + m.id + '" aria-selected="' + (m.id === sel) + '" style="--c:' + zoneOf(m.zone).color + '"><i></i>' + m.name + ' <small>' + pct(econ(m, s).rtp) + '</small></button>').join('');
+      '<button class="ad-tab" type="button" role="tab" data-tab="' + m.id + '" aria-selected="' + (m.id === sel) + '" style="--c:' + zoneOf(m.zone).color + '"><i></i>' + m.name + ' <small>' + (econ(m, s).share > 0 ? won(perDraw(m, econ(m, s))) : pct(econ(m, s).rtp)) + '</small></button>').join('');
   }
 
   function field(label, attr, value, unit, type) {
@@ -4932,7 +4931,7 @@ img, svg, video { max-width: 100%; }
     $('ad-editor').innerHTML = basic +
       '<div class="table-wrap"><table class="ad-table ed-table">' + head + '<tbody>' + rows + '</tbody></table></div>' +
       '<div class="ed-foot"><button class="btn-line" type="button" id="ed-add">상품 추가</button><div class="ed-sum" id="ed-sum"></div>' +
-      '<button class="btn-ghost" type="button" data-fit="' + m.id + '">이 머신 목표 RTP로 맞추기</button><p class="ed-warn" id="ed-warn" hidden></p></div>';
+      '<button class="btn-ghost" type="button" data-fit="' + m.id + '">' + (isGoods(m) ? '이 머신 예산 비율로 맞추기' : '이 머신 목표 RTP로 맞추기') + '</button><p class="ed-warn" id="ed-warn" hidden></p></div>';
   }
 
   // 입력 중에도 포커스를 잃지 않도록 계산 값만 갱신
@@ -4945,12 +4944,12 @@ img, svg, video { max-width: 100%; }
       const se = document.querySelector('[data-calc="share-' + i + '"]'); if (se) se.textContent = e.pay ? pct(cost / e.pay) : '–';
       const le = document.querySelector('[data-calc="left-' + i + '"]'); if (le) le.textContent = '남은 ' + fmt(num(p.left)) + '개';
     });
-    const st = statusOf(e.rtp, target());
+    const st = mSt(m, e);
     $('ed-sum').innerHTML = m.mode === 'puzzle'
-      ? '<span>카드 1장 매출 <b>' + won(e.rev) + '</b></span><span>1장당 기대 원가 <b>' + won(e.pay) + '</b></span><span>확률 합계 <b>' + fmt(+e.wsum.toFixed(2)) + '%</b></span><span>RTP <b>' + pct(e.rtp) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>'
+      ? '<span>카드 1장 가격 <b>강냉이 ' + kn(e.rev) + '</b></span><span>1장당 상품 원가 <b>' + won(e.pay) + '</b></span><span>확률 합계 <b>' + fmt(+e.wsum.toFixed(2)) + '%</b></span><span><span class="status ' + st.cls + '">' + st.label + '</span></span>'
       : prob
-      ? '<span>1회 매출 <b>' + won(e.rev) + '</b></span><span>1회 기대 원가 <b>' + won(e.pay) + '</b></span><span>확률 합계 <b>' + fmt(+e.wsum.toFixed(2)) + '%</b></span><span>RTP <b>' + pct(e.rtp) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>'
-      : '<span>캡슐 <b>' + fmt(e.N) + '개</b></span><span>회차 매출 <b>' + won(e.rev) + '</b></span><span>회차 경품 원가 <b>' + won(e.pay) + '</b></span><span>RTP <b>' + pct(e.rtp) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>';
+      ? '<span>1회 입장 <b>강냉이 ' + kn(e.rev) + '</b></span><span>1회 ' + (e.share > 0 ? '상품 원가 <b>' + won(perDraw(m, e)) : '평균 환원 <b>강냉이 ' + kn(e.pay)) + '</b></span><span>확률 합계 <b>' + fmt(+e.wsum.toFixed(2)) + '%</b></span><span>' + (e.share > 0 ? '' : 'RTP <b>' + pct(e.rtp) + '</b> ') + '<span class="status ' + st.cls + '">' + st.label + '</span></span>'
+      : '<span>캡슐 <b>' + fmt(e.N) + '개</b></span><span>회차 매출 <b>강냉이 ' + kn(e.rev) + '</b></span><span>회차 상품 원가 <b>' + won(e.pay) + '</b></span><span>1회 상품 원가 <b>' + won(perDraw(m, e)) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>';
     const warn = $('ed-warn');
     if (prob && Math.abs(e.wsum - 100) > 0.01) { warn.hidden = false; warn.textContent = '확률 합계가 ' + fmt(+e.wsum.toFixed(2)) + '%예요. 100%가 되도록 맞춰야 저장할 수 있어요.'; }
     else if (!prob && !e.N) { warn.hidden = false; warn.textContent = '캡슐 수량이 0개예요.'; }
@@ -5025,9 +5024,9 @@ img, svg, video { max-width: 100%; }
       const a = document.querySelector('[data-pacalc="q-' + i + '"]'); if (a) a.textContent = q ? (q / PZ_EXP * 100).toFixed(4) + '%' : '–';
       const b = document.querySelector('[data-pacalc="n-' + i + '"]'); if (b) b.textContent = q ? '약 ' + fmt(Math.round(PZ_EXP / q)) + '장' : '–';
     });
-    const st = statusOf(e.rtp, target());
-    $('pa-sum').textContent = '상품 ' + m.prizes.length + '개 · RTP ' + pct(e.rtp);
-    $('pa-calc').innerHTML = '<span>카드 1장 매출 <b>' + won(e.rev) + '</b></span><span>1장당 기대 원가 <b>' + won(e.pay) + '</b></span><span>확률 합계 <b>' + fmt(+e.wsum.toFixed(2)) + '%</b></span><span>RTP <b>' + pct(e.rtp) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>';
+    const st = mSt(m, e);
+    $('pa-sum').textContent = '상품 ' + m.prizes.length + '개 · 1장당 원가 ' + won(e.pay);
+    $('pa-calc').innerHTML = '<span>카드 1장 가격 <b>강냉이 ' + kn(e.rev) + '</b></span><span>1장당 상품 원가 <b>' + won(e.pay) + '</b></span><span>확률 합계 <b>' + fmt(+e.wsum.toFixed(2)) + '%</b></span><span><span class="status ' + st.cls + '">' + st.label + '</span></span>';
   }
   // 그림 올리기: 300×300 JPEG로 줄여 설정에 저장
   function readPuzzleImage(file, i) {
@@ -5085,9 +5084,9 @@ img, svg, video { max-width: 100%; }
       renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats(); return true;
     }
     if (e.target.id === 'pa-fit') {
-      const msg = fitMachine(m, draft.settings, target(), 'price');
+      const msg = fitMachine(m, draft.settings, fitT(m), 'price');
       renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats();
-      toast('', '직소 퍼즐: ' + msg + ' → RTP ' + pct(econ(m, draft.settings).rtp), true);
+      toast('', '직소 퍼즐: ' + msg + ' → 1장당 상품 원가 ' + won(econ(m, draft.settings).pay) + ' · 상품 예산 사용률 ' + pct(totalsOf(draft).usage), true);
       return true;
     }
     return false;
@@ -5114,7 +5113,7 @@ img, svg, video { max-width: 100%; }
     const s = draft.settings, e = econ(m, s), st = statusOf(e.rtp, target());
     e.evs.forEach((v, i) => { const c = document.querySelector('[data-rncalc="' + i + '"]'); if (c) c.textContent = pct(e.rev ? v / e.rev : 0); });
     $('rn-sum').textContent = '최대 ' + fmt(rnLadder(m).at(-1)) + '점 · RTP ' + pct(e.rtp);
-    $('rn-calc').innerHTML = '<span>1판 매출 <b>' + won(e.rev) + '</b></span><span>최대 기대 지급 <b>' + won(e.pay) + '</b></span><span>RTP(가장 유리한 포기 시점) <b>' + pct(e.rtp) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>';
+    $('rn-calc').innerHTML = '<span>1판 입장 <b>강냉이 ' + kn(e.rev) + '</b></span><span>최대 기대 지급 <b>강냉이 ' + kn(e.pay) + '</b></span><span>RTP(가장 유리한 포기 시점) <b>' + pct(e.rtp) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>';
   }
   function runnerAdminInput(el) {
     const m = rnDraft(); if (!m) return false;
@@ -5146,7 +5145,7 @@ img, svg, video { max-width: 100%; }
   function renderGnbDots() {
     if (!draft) return;
     const s = draft.settings, T = target(), R = { ok: 1, warn: 2, bad: 3 };
-    const worst = list => list.reduce((w, m) => { const c = statusOf(econ(m, s).rtp, T).cls; return (R[c] || 0) > (R[w] || 0) ? c : w; }, '');
+    const worst = list => list.reduce((w, m) => { const c = mSt(m, econ(m, s)).cls; return (R[c] || 0) > (R[w] || 0) ? c : w; }, '');
     const by = mode => draft.machines.filter(m => mode(m));
     const map = { overview: worst(draft.machines), machines: worst(by(m => !['puzzle', 'runner', 'cannon', 'archery'].includes(m.mode))), archery: worst(by(m => m.mode === 'archery')), puzzle: worst(by(m => m.mode === 'puzzle')), runner: worst(by(m => m.mode === 'runner')), cannon: worst(by(m => m.mode === 'cannon')), shop: '' };
     document.querySelectorAll('#ad-gnb [data-addot]').forEach(d => { d.className = 'gnb-dot' + (map[d.dataset.addot] ? ' ' + map[d.dataset.addot] : ''); });
@@ -5342,7 +5341,6 @@ img, svg, video { max-width: 100%; }
     if (archeryAdminInput(e.target)) return;
     const el = e.target, s = draft.settings;
     if (el.id === 'ad-budget') s.budget = num(el.value);
-    else if (el.id === 'ad-kv') s.kernelValue = num(el.value);
     else if (el.id === 'ad-pv') s.pieceValue = num(el.value);
     else if (el.id === 'ad-rtp' || el.id === 'ad-rtp-range') {
       s.targetRtp = num(el.value);
@@ -5360,7 +5358,7 @@ img, svg, video { max-width: 100%; }
       if (el.tagName === 'SELECT' || el.type === 'checkbox' || el.type === 'radio') return;
       setShopVal(el); refreshShopCard(Number(el.dataset.i)); renderStats(); return;
     } else return;
-    if (el.id === 'ad-pv' || el.id === 'ad-kv') renderShopAdmin();
+    if (el.id === 'ad-pv') renderShopAdmin();
     renderStats();
   });
   adminEl.addEventListener('change', e => {
@@ -5394,10 +5392,11 @@ img, svg, video { max-width: 100%; }
     const fit = e.target.closest('[data-fit]');
     if (fit) {
       const m = draft.machines.find(x => x.id === fit.dataset.fit);
-      const msg = fitMachine(m, draft.settings, target(), draft.settings.method);
+      const msg = fitMachine(m, draft.settings, fitT(m), draft.settings.method);
       if (m.id === sel) renderEditor();
       renderStats();
-      toast('', m.name + ': ' + msg + ' → RTP ' + pct(econ(m, draft.settings).rtp), true);
+      const e2 = econ(m, draft.settings);
+      toast('', m.name + ': ' + msg + (e2.share > 0 ? ' → 1회 상품 원가 ' + won(perDraw(m, e2)) + ' · 상품 예산 사용률 ' + pct(totalsOf(draft).usage) : ' → RTP ' + pct(e2.rtp)), true);
       return;
     }
     const del = e.target.closest('[data-del]');
@@ -5424,25 +5423,25 @@ img, svg, video { max-width: 100%; }
         : { g: 'B', name: '새 상품', kind: 'product', val: 0, cost: 1000, total: 10, left: 10 });
       renderEditor(); renderStats();
     } else if (id === 'ad-fit-all') {
-      draft.machines.forEach(m => fitMachine(m, draft.settings, target(), draft.settings.method));
-      renderEditor(); renderStats();
-      toast('', '모든 머신을 목표 RTP ' + draft.settings.targetRtp + '%에 맞췄어요. 저장해야 게임에 반영돼요.', true);
+      const km = draft.machines.filter(m => !isGoods(m));
+      km.forEach(m => fitMachine(m, draft.settings, target(), draft.settings.method));
+      renderEditor(); renderShopAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats();
+      toast('', '강냉이 머신 ' + km.length + '개를 목표 RTP ' + draft.settings.targetRtp + '%에 맞췄어요. 저장해야 게임에 반영돼요.', true);
     } else if (id === 'ad-maxrtp') {
       // 상품 예산은 기프티콘·조각 원가만. 상품을 주는 머신만 예산에 맞추고, 강냉이만 주는 머신은 목표 RTP(강냉이 소진 목표)로 맞춘다
       const s = draft.settings, goodsM = draft.machines.filter(m => econ(m, s).share > 0), kernM = draft.machines.filter(m => !goodsM.includes(m));
       if (!goodsM.length) { toast('', '상품을 주는 머신이 없어 예산으로 맞출 게 없어요. 목표 RTP를 직접 정해 주세요.', true); return; }
-      kernM.forEach(m => fitMachine(m, s, target(), s.method));
       const base = goodsM.reduce((a, m) => { const e = econ(m, s); return a + e.mRev * e.share; }, 0);
-      let T = Math.min(1, Math.floor(s.budget / base * 1000) / 1000);
+      let T = Math.floor(s.budget / base * 10000) / 10000;
       goodsM.forEach(m => fitMachine(m, s, T, s.method));
       // 수량·입장료 반올림 때문에 예산을 조금 넘으면 상품 머신 RTP를 조금씩 낮춰 예산 안으로 넣는다
       for (let g = 0; g < 80 && totalsOf(draft).usage > 1; g++) {
-        T = Math.floor((T - 0.002) * 1000) / 1000;
+        T = Math.floor(T * .995 * 10000) / 10000;
         goodsM.forEach(m => fitMachine(m, s, T, s.method));
       }
       renderSettings(); renderEditor(); renderShopAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats();
       const t = totalsOf(draft);
-      toast('', '상품 머신 ' + goodsM.length + '개를 RTP ' + pct(T) + '로 맞춰 상품 예산 사용률 ' + pct(t.usage) + '예요. 강냉이 머신 ' + kernM.length + '개는 목표 RTP ' + s.targetRtp + '%로 맞췄어요. 저장해야 게임에 반영돼요.', true);
+      toast('', '상품 머신 ' + goodsM.length + '개를 예산에 맞췄어요. 상품 예산 사용률 ' + pct(t.usage) + '예요(강냉이 머신은 그대로). 저장해야 게임에 반영돼요.', true);
     } else if (id === 'ad-revert') {
       draft = clone(config); draftBase = JSON.stringify(draft); renderSettings(); renderEditor(); renderShopAdmin(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats();
     } else if (id === 'ad-reset') {
