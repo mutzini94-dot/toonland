@@ -2065,11 +2065,6 @@ img, svg, video { max-width: 100%; }
         </div>
       </div>
       <div class="ad-actions">
-        <label class="sr" for="ad-method">맞추는 방식</label>
-        <select class="input" id="ad-method">
-          <option value="reward">강냉이 보상 크기 조절</option>
-          <option value="price">입장료 조절</option>
-        </select>
         <button class="btn-ghost" id="ad-fit-all" type="button">강냉이 머신에 목표 RTP 적용</button>
       </div>
     </div>
@@ -2468,7 +2463,7 @@ img, svg, video { max-width: 100%; }
   // qty = 준비 수량(예산 = 수량 × 원가)
   const PZ = (pid, name, cost, w, qty) => ({ pid, g: cost >= 100000 ? 'S' : cost >= 20000 ? 'A' : cost >= 5000 ? 'B' : 'C', name, kind: 'product', val: 0, cost, w, qty, img: 'sample:' + pid });
   const DEFAULT_CONFIG = {
-    settings: { kernelValue: 1, targetRtp: 85, method: 'reward' },
+    settings: { kernelValue: 1, targetRtp: 85 },
     machines: [
       { id: 'pop', zone: 'coin', name: '팝콘 머신', mode: 'prob', cost: 100, demand: 5000000, top: '강냉이 1,000개',
         prizes: [K_('S', 1000, 2), K_('A', 300, 8), K_('B', 120, 15), K_('C', 60, 30), K_('C', 30, 45)] },
@@ -2518,7 +2513,7 @@ img, svg, video { max-width: 100%; }
   function applyConfig(c) {
     // 조각·조각 교환소는 삭제됨. 예산은 직접 입력하지 않고 상품 수량 × 원가로 계산한다
     delete c.shop; delete c.settings.budget; delete c.settings.pieceValue; delete c.settings.pieceAuto;
-    if (c.settings.method !== 'price') c.settings.method = 'reward';
+    delete c.settings.method;   // 맞추는 방식 선택은 삭제됨(확률형은 입장료로 맞춤)
     // 예전 C등급 조각 보상은 강냉이(입장료의 20%)로 바꾼다
     c.machines.forEach(m => (m.prizes || []).forEach(p => { if (p.kind === 'piece') { const v = Math.max(10, Math.round((Number(m.cost) || 0) * .2 / 10) * 10); p.kind = 'kernel'; p.val = v; p.cost = 0; p.name = '강냉이 ' + v.toLocaleString('ko-KR') + '개'; } }));
     c.settings.kernelValue = 1;   // 강냉이는 원가가 없어 환산하지 않는다(내부 계산용 1 고정)
@@ -4555,7 +4550,6 @@ img, svg, video { max-width: 100%; }
     const s = draft.settings;
     $('ad-rtp').value = s.targetRtp;
     $('ad-rtp-range').value = s.targetRtp;
-    $('ad-method').value = s.method;
   }
 
   function renderKpis(t) {
@@ -5032,7 +5026,6 @@ img, svg, video { max-width: 100%; }
   });
   adminEl.addEventListener('change', e => {
     const el = e.target;
-    if (el.id === 'ad-method') { draft.settings.method = el.value; renderStats(); return; }
     if (el.tagName === 'SELECT' && el.dataset.f) {
       const p = selMachine().prizes[Number(el.dataset.p)];
       p[el.dataset.f] = el.value;
@@ -5050,7 +5043,7 @@ img, svg, video { max-width: 100%; }
     const fit = e.target.closest('[data-fit]');
     if (fit) {
       const m = draft.machines.find(x => x.id === fit.dataset.fit);
-      const msg = fitMachine(m, draft.settings, target(), draft.settings.method);
+      const msg = fitMachine(m, draft.settings, target(), 'price');
       if (m.id === sel) renderEditor();
       renderStats();
       const e2 = econ(m, draft.settings);
@@ -5068,7 +5061,7 @@ img, svg, video { max-width: 100%; }
       renderEditor(); renderStats();
     } else if (id === 'ad-fit-all') {
       const km = draft.machines.filter(m => !isGoods(m) && econ(m, draft.settings).hasKern);
-      km.forEach(m => fitMachine(m, draft.settings, target(), draft.settings.method));
+      km.forEach(m => fitMachine(m, draft.settings, target(), 'price'));
       renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderStats();
       toast('', '강냉이 머신 ' + km.length + '개를 목표 RTP ' + draft.settings.targetRtp + '%에 맞췄어요. 저장해야 게임에 반영돼요.', true);
     } else if (id === 'ad-revert') {
