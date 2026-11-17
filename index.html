@@ -5353,9 +5353,14 @@ img, svg, video { max-width: 100%; }
     // 물고기가 걸리면 낚싯대 끝이 아래로 휘고 떨린다
     const pull = FS.phase === 'reel' ? (FS.heavy ? 70 : 46) : FS.phase === 'bite' ? 30 : FS.phase === 'jump' ? 20 : 4;
     const jit = FS.phase === 'reel' ? (Math.random() - .5) * (FS.heavy ? 14 : 8) : FS.phase === 'bite' ? (Math.random() - .5) * 6 : 0;
-    const tip = { x: g.tip.x + pull * .35 + jit, y: g.tip.y + pull + jit * .5 };
+    // 던지기 스윙: FS.swing(도)만큼 낚싯대를 손 기준으로 돌리고, FS.whip 만큼 반대로 휘게 한다
+    const sw = (FS.swing || 0) * Math.PI / 180, cs = Math.cos(sw), sn = Math.sin(sw);
+    const bx = g.tip.x - g.hand.x, by = g.tip.y - g.hand.y;
+    const base = { x: g.hand.x + bx * cs - by * sn, y: g.hand.y + bx * sn + by * cs };
+    const tip = { x: base.x + pull * .35 + jit, y: base.y + pull + jit * .5 };
     FS.tip = tip;
-    const cx = (g.hand.x + tip.x) / 2 + pull * .5 + 10, cy = (g.hand.y + tip.y) / 2 - 28 + pull * .2;
+    const wh = FS.whip || 0;
+    const cx = (g.hand.x + tip.x) / 2 + pull * .5 + 10 + wh * 1.4, cy = (g.hand.y + tip.y) / 2 - 28 + pull * .2 - wh * .5;
     const A = g.hand, C = { x: cx, y: cy }, Bp = tip;
     const at = t => ({ x: (1 - t) * (1 - t) * A.x + 2 * (1 - t) * t * C.x + t * t * Bp.x, y: (1 - t) * (1 - t) * A.y + 2 * (1 - t) * t * C.y + t * t * Bp.y });
     const nrm = t => { const dx = 2 * (1 - t) * (C.x - A.x) + 2 * t * (Bp.x - C.x), dy = 2 * (1 - t) * (C.y - A.y) + 2 * t * (Bp.y - C.y), l = Math.hypot(dx, dy) || 1; return { x: -dy / l, y: dx / l }; };
@@ -5431,7 +5436,7 @@ img, svg, video { max-width: 100%; }
     } else { line.style.display = 'none'; bob.hidden = true; }
     const cr = fsEl('fs-crank'); if (cr) cr.style.transform = 'rotate(' + (FS.crank || 0) + 'deg)';
   }
-  function fsInit() { FS.bob = null; FS.heavy = false; fsDraw(); requestAnimationFrame(fsDraw); setTimeout(fsDraw, 150); fsSchoolPlan(); }
+  function fsInit() { FS.bob = null; FS.heavy = false; FS.swing = 0; FS.whip = 0; fsDraw(); requestAnimationFrame(fsDraw); setTimeout(fsDraw, 150); fsSchoolPlan(); }
   function fsSchoolPlan() {
     clearTimeout(FS.schoolT);
     FS.schoolT = setTimeout(() => {
@@ -5476,20 +5481,31 @@ img, svg, video { max-width: 100%; }
     const f = F[fi], u = Math.pow(Math.random(), 1.8), size = f.max ? Math.round(f.min + (f.max - f.min) * u) : 0;
     FS.cur = { m, f, size, bait: FS.bait, cost: bait.cost, junk: f.id === 'can' ? Math.floor(Math.random() * FS_JUNK.length) : 0, school: FS.school };
     FS.heavy = f.g === 'A' || f.g === 'S';
-    fsSet('cast'); SFX.whoosh();
+    fsSet('cast');
     fsMsg(FS.school ? '<b>물고기 떼 보너스!</b> 떼 한가운데로 던졌어요' : '휙~ 낚싯대를 던졌어요');
     const hands = fsEl('fs-hands'); if (hands) restart(hands, 'cast');
-    const from = Object.assign({}, FS.tip || g.tip), to = { x: g.W * (.36 + Math.random() * .26), y: g.H * (.5 + Math.random() * .08) }, t0 = performance.now(), dur = 750;
+    const to = { x: g.W * (.36 + Math.random() * .26), y: g.H * (.5 + Math.random() * .08) };
     FS.home = to;
-    const fly = now => {
-      const t = Math.min(1, (now - t0) / dur);
-      FS.bob = { x: from.x + (to.x - from.x) * t, y: from.y + (to.y - from.y) * t - Math.sin(t * Math.PI) * 110 };
+    const ez = x => x * x * (3 - 2 * x), s0 = performance.now();
+    let released = false, from = null, f0 = 0;
+    const BACK = 34, FWD = -16;
+    const swing = now => {
+      if (!fsEl('fs-stage')) return;
+      const e = now - s0;
+      // 1) 뒤로 젖히기 0~280ms  2) 앞으로 휘두르기 280~440ms  3) 낭창거림 440~1100ms
+      if (e < 280) { const u = ez(e / 280); FS.swing = BACK * u; FS.whip = -18 * u; }
+      else if (e < 440) { const u = (e - 280) / 160; FS.swing = BACK + (FWD - BACK) * (u * u); FS.whip = 34 * Math.sin(u * Math.PI / 2); }
+      else { const u = Math.min(1, (e - 440) / 660), d = Math.exp(-5 * u); FS.swing = FWD * d * Math.cos(u * Math.PI * 2.5); FS.whip = 34 * d * Math.cos(u * Math.PI * 3.2); }
+      if (!released && e >= 395) { released = true; SFX.whoosh(); from = Object.assign({}, FS.tip || g.tip); f0 = now; }
+      if (released) {
+        const t = Math.min(1, (now - f0) / 760);
+        FS.bob = { x: from.x + (to.x - from.x) * t, y: from.y + (to.y - from.y) * t - Math.sin(t * Math.PI) * 120 };
+        if (t >= 1) { FS.swing = 0; FS.whip = 0; fsDraw(); fsRipple(to.x, to.y, true); SFX.splat(); fsWait(); return; }
+      } else FS.bob = null;
       fsDraw();
-      if (t < 1) { FS.raf = requestAnimationFrame(fly); return; }
-      fsRipple(to.x, to.y, true); SFX.splat();
-      fsWait();
+      FS.raf = requestAnimationFrame(swing);
     };
-    FS.raf = requestAnimationFrame(fly);
+    FS.raf = requestAnimationFrame(swing);
   }
   function fsWait() {
     const fast = FS.cur && FS.cur.school;
