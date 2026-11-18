@@ -1221,113 +1221,143 @@ svg.lt-kico.lt-tic { width: 22px; height: 22px; margin: 0 8px 0 2px; }
 .br-stage .br-winshout { top: 74%; }
 @media (max-width: 640px) { .br-rk { transform: rotate(-90deg) scale(1.05); } .br-slot small { font-size: 10px; } }
 @media (prefers-reduced-motion: reduce) { .br-fly, .br-fog, .br-rays, .br-slot.next { animation: none; } }
-/* ===== 폭탄 해체반 ===== */
+/* ===== 폭탄 해체반 (열린 해체 가방) ===== */
 .bd-panel { grid-column: 1 / -1; overflow-x: clip; }
-.bd-cab { position: relative; width: min(470px, 100%); padding: 14px 16px 16px; border-radius: 30px 30px 22px 22px; background: linear-gradient(180deg, #3A424A, #22282E 45%, #14181C); box-shadow: inset 0 0 0 3px #FFD43B, inset 0 0 0 7px #111418, inset 0 0 0 8px rgba(255,212,59,.35), 0 10px 0 #08090B, 0 22px 36px rgba(0,0,0,.4); }
-.bd-cab::before { content: ""; position: absolute; inset: 7px; border-radius: 24px 24px 16px 16px; pointer-events: none; background: repeating-linear-gradient(-45deg, rgba(255,212,59,.07) 0 10px, transparent 10px 20px); }
-.bd-cab.shake { animation: pk-shake .45s; }
-.bd-marquee { background: linear-gradient(180deg, #FFE066, #FAB005 60%, #E67700); box-shadow: inset 0 0 0 2px #5C3D00, inset 0 2px 0 rgba(255,255,255,.7); }
-.bd-marquee b { font-family: 'Arial Black', Arial, sans-serif; letter-spacing: .1em; font-size: 21px; color: #212529; text-shadow: 0 2px 0 rgba(255,255,255,.55); }
-.bd-marquee small { color: #5C3D00; }
-.bd-stage { position: relative; height: 360px; overflow: hidden; border-radius: 18px; isolation: isolate; box-shadow: inset 0 0 0 3px #08090B; }
-.bd-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(70% 60% at 50% 55%, #2B3A33, #141C18 70%, #0A0F0C); }
-.bd-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(120,255,170,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(120,255,170,.06) 1px, transparent 1px); background-size: 22px 22px; }
-.bd-tape { position: absolute; left: -10%; right: -10%; height: 22px; background: repeating-linear-gradient(-45deg, #FFD43B 0 16px, #212529 16px 32px); box-shadow: 0 3px 8px rgba(0,0,0,.5); opacity: .9; }
-.bd-tape.t1 { top: 6%; transform: rotate(-4deg); } .bd-tape.t2 { bottom: 5%; transform: rotate(3deg); }
-.bd-spot { position: absolute; left: 50%; top: 56%; width: 380px; height: 300px; margin: -150px -190px; background: radial-gradient(closest-side, rgba(255,250,220,.22), transparent); }
-.bd-stage.live .bd-spot { animation: bd-spot 1s ease-in-out infinite; }
-@keyframes bd-spot { 50% { opacity: .65; } }
-.bd-stage.beat .bd-dev { animation: bd-beat .25s ease-out; }
-@keyframes bd-beat { 40% { scale: 1.02; } }
-.bd-stage.quake { animation: bd-quake .6s linear; }
-@keyframes bd-quake { 10%, 50%, 90% { transform: translate(-5px, 2px); } 30%, 70% { transform: translate(5px, -3px); } }
-.bd-stage.bd-flash::after { content: ""; position: absolute; inset: 0; z-index: 140; background: radial-gradient(circle at 50% 55%, #FFFFFF, rgba(255,160,60,.75) 40%, rgba(255,60,40,.3) 70%, transparent); animation: bd-flash .7s ease-out forwards; pointer-events: none; }
-@keyframes bd-flash { from { opacity: 1; } to { opacity: 0; } }
-.bd-stage.boomed .bd-bg { background: radial-gradient(70% 60% at 50% 55%, #4A2A1A, #1A0F0A 70%, #0A0604); transition: background .6s; }
-.bd-stage.saved .bd-bg { background: radial-gradient(70% 60% at 50% 55%, #2B5A3A, #11241A 70%, #08120C); transition: background .6s; }
-.bd-hud { position: absolute; left: 8px; right: 8px; top: 12px; z-index: 6; display: flex; justify-content: space-between; gap: 8px; font-size: 12px; font-weight: 700; color: #D3F9D8; }
-.bd-hud > span { padding: 4px 9px; border-radius: 999px; background: rgba(0,0,0,.55); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); }
-.bd-hud b { color: #FFE066; font-size: 14px; }
-.bd-mult { position: absolute; left: 50%; top: 6px; z-index: 6; translate: -50% 0; padding: 4px 18px 6px; border-radius: 14px; background: linear-gradient(180deg, rgba(20,24,28,.92), rgba(8,9,11,.92)); box-shadow: inset 0 0 0 2px #FFD43B, 0 6px 14px rgba(0,0,0,.4); text-align: center; line-height: 1.05; }
-.bd-mult small { display: block; font-size: 10.5px; font-weight: 700; color: #FFD43B; }
-.bd-mult b { font-family: 'Arial Black', Arial, sans-serif; font-size: 26px; color: #FFFFFF; text-shadow: 0 2px 0 #7A0D12, 0 0 10px rgba(255,200,80,.5); }
-.bd-mult.bd-drop { animation: bd-mdrop .5s ease-out; }
-@keyframes bd-mdrop { 30% { transform: translateY(4px) scale(.92); filter: brightness(.7); } }
-.bd-bomb { position: absolute; left: 50%; bottom: 22px; z-index: 3; width: 330px; max-width: 94%; translate: -50% 0; }
-.bd-bomb.arm { animation: bd-arm .5s cubic-bezier(.2,1.5,.4,1); }
-@keyframes bd-arm { from { transform: translateY(30px) scale(.9); opacity: 0; } }
-.bd-bomb.tense .bd-dev { animation: bd-tense .12s linear infinite; }
-@keyframes bd-tense { 25% { transform: rotate(-.6deg) translateX(-1px); } 75% { transform: rotate(.6deg) translateX(1px); } }
-.bd-bomb.charred .bd-svg { filter: brightness(.45) sepia(.6) contrast(1.2); transition: filter .5s .2s; }
-.bd-dev { position: relative; aspect-ratio: 300 / 220; filter: drop-shadow(0 14px 14px rgba(0,0,0,.55)); }
-.bd-svg { display: block; width: 100%; height: 100%; overflow: visible; }
-.bd-hit { stroke: transparent; stroke-width: 22; fill: none; stroke-linecap: round; }
+.bd-cab { width: min(560px, 100%); }
+.bd-room { position: relative; width: min(560px, 100%); padding: 50px 14px 14px; border-radius: 22px; overflow: hidden; isolation: isolate; box-shadow: 0 14px 30px rgba(20,12,4,.35), inset 0 0 0 1px rgba(255,255,255,.06); }
+.bd-bg { position: absolute; inset: 0; z-index: -1; background: radial-gradient(80% 60% at 30% 20%, #5A4632, #2E241A 55%, #17120C); }
+.bd-shelf { position: absolute; left: 0; right: 0; top: 18%; height: 34%; background: repeating-linear-gradient(90deg, transparent 0 46px, rgba(0,0,0,.25) 46px 50px), linear-gradient(180deg, transparent 0 46%, rgba(0,0,0,.35) 46% 50%, transparent 50% 96%, rgba(0,0,0,.35) 96%); filter: blur(3px); opacity: .7; }
+.bd-bokeh { position: absolute; inset: 0; background: radial-gradient(10px 10px at 12% 22%, rgba(255,190,110,.7), transparent), radial-gradient(14px 14px at 86% 16%, rgba(255,220,150,.55), transparent), radial-gradient(8px 8px at 70% 30%, rgba(140,200,255,.5), transparent), radial-gradient(12px 12px at 22% 64%, rgba(255,170,90,.45), transparent), radial-gradient(9px 9px at 92% 58%, rgba(255,210,140,.5), transparent); filter: blur(2px); }
+.bd-lampglow { position: absolute; left: -10%; top: -20%; width: 70%; height: 70%; background: radial-gradient(closest-side, rgba(255,190,100,.35), transparent); animation: bd-lampg 4s ease-in-out infinite; }
+@keyframes bd-lampg { 50% { opacity: .7; } }
+.bd-desk { position: absolute; left: 0; right: 0; bottom: 0; height: 26%; background: linear-gradient(180deg, #5C3A1E, #3B2412); box-shadow: inset 0 10px 18px rgba(0,0,0,.5); }
+.bd-desk::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(0,0,0,.08) 0 3px, transparent 3px 9px); }
+.bd-title { position: absolute; left: 12px; top: 10px; z-index: 5; display: flex; align-items: center; gap: 10px; padding: 6px 14px; border-radius: 10px; background: linear-gradient(180deg, rgba(30,46,48,.95), rgba(16,26,28,.95)); box-shadow: inset 0 0 0 1.5px #8A6A2E, 0 4px 10px rgba(0,0,0,.4); color: #F1F3F5; }
+.bd-title b { font-size: 16px; font-weight: 900; letter-spacing: .02em; }
+.bd-title span { padding-left: 10px; border-left: 1px solid rgba(255,255,255,.25); font-size: 12px; font-weight: 700; color: #C9D6D6; }
+.bd-title .kernel { width: 12px; height: 12px; vertical-align: -2px; }
+.bd-case { position: relative; container-type: inline-size; width: min(460px, 100%); aspect-ratio: 460 / 440; margin: 0 auto; filter: drop-shadow(0 18px 18px rgba(0,0,0,.55)); }
+.bd-case.arm { animation: bd-arm .55s cubic-bezier(.2,1.4,.4,1); }
+@keyframes bd-arm { from { transform: translateY(24px) scale(.94); opacity: .3; } }
+.bd-case.tense { animation: bd-tense .12s linear infinite; }
+@keyframes bd-tense { 25% { transform: rotate(-.35deg) translateX(-1px); } 75% { transform: rotate(.35deg) translateX(1px); } }
+.bd-case.charred .bd-case-svg, .bd-case.charred .bd-spools { filter: brightness(.5) sepia(.5) contrast(1.15); transition: filter .5s .2s; }
+.bd-case-svg, .bd-wsvg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: visible; }
+.bd-wires-wrap { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.bd-wsvg { pointer-events: none; filter: drop-shadow(0 2px 1px rgba(0,0,0,.35)); }
+.bd-hit { stroke: transparent; stroke-width: 18; fill: none; stroke-linecap: round; pointer-events: stroke; }
 .bd-wire { outline: none; }
 .bd-wire.live { cursor: pointer; }
-.bd-wire.live .bd-whole { animation: bd-wglow 1.8s ease-in-out infinite; }
-@keyframes bd-wglow { 50% { filter: drop-shadow(0 0 3px rgba(255,255,255,.55)); } }
-.bd-wire.live:hover .bd-whole, .bd-wire.live:focus-visible .bd-whole { filter: drop-shadow(0 0 5px #FFFFFF) drop-shadow(0 0 2px #FFE066); animation: none; }
-.bd-half { transform-box: view-box; transition: transform .45s cubic-bezier(.2,1.4,.4,1); }
+.bd-wire.live:hover .bd-whole, .bd-wire.live:focus-visible .bd-whole { filter: drop-shadow(0 0 4px #FFFFFF) drop-shadow(0 0 2px #FFE066); }
 .bd-half.a { animation: bd-ha .45s cubic-bezier(.2,1.4,.4,1) forwards; }
 .bd-half.b { animation: bd-hb .45s cubic-bezier(.2,1.4,.4,1) forwards; }
 .bd-half.done { animation-duration: 0s; }
-@keyframes bd-ha { to { transform: translate(-3px, -7px); } }
-@keyframes bd-hb { to { transform: translate(3px, 7px); } }
-.bd-wire.cut { opacity: .9; }
-.bd-wire.rN.cut .bd-half, .bd-wire.rN .bd-whole { opacity: .55; }
-.bd-wire.rD .bd-whole, .bd-wire.rD .bd-half { filter: drop-shadow(0 0 5px #51CF66) drop-shadow(0 0 2px #FFFFFF); }
-.bd-wire.rB .bd-whole, .bd-wire.rB .bd-half { filter: drop-shadow(0 0 5px #FF4D4F); }
+@keyframes bd-ha { to { transform: translate(-2px, -6px); } }
+@keyframes bd-hb { to { transform: translate(2px, 8px); } }
+.bd-wire.rN .bd-half, .bd-wire.rN .bd-whole, .bd-wire.rN .bd-plug { opacity: .5; }
+.bd-wire.rD .bd-whole, .bd-wire.rD .bd-half { filter: drop-shadow(0 0 4px #51CF66) drop-shadow(0 0 2px #FFFFFF); }
+.bd-wire.rB .bd-whole, .bd-wire.rB .bd-half { filter: drop-shadow(0 0 4px #FF4D4F); }
 .bd-spark { animation: bd-spark .5s ease-out forwards; transform-box: fill-box; transform-origin: center; }
 @keyframes bd-spark { from { transform: scale(.3); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
-.bd-led { fill: #FF4D4F; filter: drop-shadow(0 0 4px #FF4D4F); animation: bd-led 1s steps(2) infinite; }
-@keyframes bd-led { 50% { fill: #5C0A0E; filter: none; } }
-.bd-led.ok { animation: bd-ledok .6s steps(2) 2; }
-@keyframes bd-ledok { 50% { fill: #51CF66; filter: drop-shadow(0 0 5px #51CF66); } }
-.bd-led.win { fill: #51CF66; filter: drop-shadow(0 0 6px #51CF66); animation: none; }
-.bd-lcd { position: absolute; left: 32.7%; top: 10.5%; width: 34.6%; height: 13.6%; display: grid; place-items: center; font-family: 'Courier New', Consolas, monospace; font-weight: 900; font-size: clamp(16px, 5.6vw, 23px); letter-spacing: .06em; color: #FF4D4F; text-shadow: 0 0 6px rgba(255,77,79,.85), 0 0 14px rgba(255,77,79,.4); pointer-events: none; }
+.bd-spools { position: absolute; inset: 0; z-index: 2; }
+.bd-spool { position: absolute; aspect-ratio: 1; translate: -50% -50%; padding: 0; border: 0; border-radius: 50%; background: none; cursor: pointer; transition: transform .2s, filter .3s; }
+.bd-spool svg { display: block; width: 100%; height: 100%; filter: drop-shadow(0 4px 4px rgba(0,0,0,.55)); }
+.bd-spool:disabled { cursor: default; }
+.bd-room.live .bd-spool:not(:disabled) { animation: bd-spin 6s linear infinite; }
+.bd-room.live .bd-spool:not(:disabled):hover, .bd-spool:not(:disabled):focus-visible { transform: scale(1.08); filter: drop-shadow(0 0 6px rgba(255,255,255,.7)); }
+@keyframes bd-spin { to { rotate: 360deg; } }
+.bd-spool.cut { filter: grayscale(.85) brightness(.55); }
+.bd-spool.rD { filter: drop-shadow(0 0 8px #51CF66); }
+.bd-spool.rB { filter: drop-shadow(0 0 8px #FF4D4F) saturate(1.2); }
+.bd-lcd { position: absolute; left: 22.39%; top: 10.91%; width: 19.13%; height: 7.27%; z-index: 2; display: grid; place-items: center; font-family: 'Courier New', Consolas, monospace; font-weight: 900; font-size: 4.6cqw; letter-spacing: .04em; color: #FF4D4F; text-shadow: 0 0 6px rgba(255,77,79,.85), 0 0 14px rgba(255,77,79,.4); pointer-events: none; }
 .bd-lcd.hot { animation: bd-hot .5s steps(2) infinite; }
 @keyframes bd-hot { 50% { color: #FFE066; text-shadow: 0 0 8px rgba(255,224,102,.9); } }
 .bd-lcd.wait { color: #FFE066; animation: bd-hot .33s steps(2) infinite; }
 .bd-lcd.safe { color: #69DB7C; text-shadow: 0 0 8px rgba(105,219,124,.85); }
 .bd-lcd.win { color: #69DB7C; text-shadow: 0 0 10px rgba(105,219,124,.95); animation: bd-win 1s ease-in-out 3; }
-@keyframes bd-win { 50% { transform: scale(1.12); } }
+@keyframes bd-win { 50% { transform: scale(1.1); } }
 .bd-lcd.boom { color: #FFFFFF; text-shadow: 0 0 12px #FF922B; animation: bd-hot .12s steps(2) 8; }
-.bd-tags { position: absolute; left: 0; right: 0; top: 86%; height: 0; pointer-events: none; }
-.bd-tag { position: absolute; translate: -50% 0; padding: 2px 6px; border-radius: 6px; font-size: 10.5px; font-weight: 800; white-space: nowrap; animation: bd-tag .4s cubic-bezier(.2,1.6,.4,1) both; }
-.bd-tag.rD { background: #2B8A3E; color: #FFFFFF; box-shadow: 0 0 0 2px #FFFFFF, 0 0 12px #51CF66; z-index: 2; }
-.bd-tag.rB { background: #C92A2A; color: #FFFFFF; box-shadow: 0 0 0 2px #FFFFFF; z-index: 2; }
-.bd-tag.rN { background: rgba(0,0,0,.6); color: #ADB5BD; font-size: 9.5px; }
+.bd-led { position: absolute; left: 44.6%; top: 12.8%; width: 3.6%; aspect-ratio: 1; z-index: 2; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #FFB3B3, #FF2D2D 50%, #8A0A0A); box-shadow: 0 0 10px #FF2D2D, inset 0 -2px 3px rgba(0,0,0,.4); animation: bd-led 1s steps(2) infinite; }
+@keyframes bd-led { 50% { background: radial-gradient(circle at 35% 30%, #7A3A3A, #4A0A0A); box-shadow: inset 0 -2px 3px rgba(0,0,0,.4); } }
+.bd-led.ok { animation: bd-ledok .6s steps(2) 2; }
+@keyframes bd-ledok { 50% { background: radial-gradient(circle at 35% 30%, #D3F9D8, #40C057 50%, #1B5E20); box-shadow: 0 0 10px #51CF66; } }
+.bd-led.win { animation: none; background: radial-gradient(circle at 35% 30%, #D3F9D8, #40C057 50%, #1B5E20); box-shadow: 0 0 12px #51CF66; }
+.bd-log { position: absolute; left: 57.83%; top: 6.82%; width: 33.04%; height: 37.27%; z-index: 2; display: flex; flex-direction: column; gap: .3cqw; padding: 1.4cqw 1.8cqw 1.2cqw; color: #B2F2BB; font-size: 2.5cqw; font-weight: 700; overflow: hidden; }
+.bd-lh { font-size: 3.2cqw; font-weight: 900; color: #E6FCF5; letter-spacing: .04em; }
+.bd-lt, .bd-lr { display: grid; grid-template-columns: 1fr 1.5fr 1.2fr; align-items: center; text-align: center; }
+.bd-lt { padding: .5cqw 0; border-radius: 1cqw; background: rgba(92,224,160,.12); color: #8CE99A; font-size: 2.2cqw; }
+.bd-lr { padding: .2cqw 0; border-radius: 1cqw; }
+.bd-lr b { color: #FFE066; font-size: 2.9cqw; }
+.bd-lr.past { opacity: .35; text-decoration: line-through; }
+.bd-lr.next { background: rgba(255,224,102,.18); box-shadow: inset 0 0 0 1px #FFD43B; }
+.bd-lr.won { background: rgba(81,207,102,.3); box-shadow: inset 0 0 0 1px #69DB7C; }
+.bd-lcut { display: flex; flex-wrap: wrap; gap: .8cqw; align-items: center; min-height: 3.6cqw; margin-top: auto; padding-top: .6cqw; border-top: 1px dashed rgba(140,233,154,.3); }
+.bd-lcut small { font-size: 2.1cqw; color: #8CE99A; margin-right: .4cqw; }
+.bd-lcut em { font-style: normal; color: rgba(178,242,187,.5); font-size: 2.2cqw; }
+.bd-lcut i { position: relative; width: 3.4cqw; height: 3.4cqw; border-radius: 50%; background: var(--c); box-shadow: inset 0 -2px 2px rgba(0,0,0,.35); }
+.bd-lcut i::after { position: absolute; inset: 0; display: grid; place-items: center; font-size: 2.2cqw; font-weight: 900; font-style: normal; color: #FFFFFF; text-shadow: 0 0 2px #000000; }
+.bd-lcut i.rN::after { content: "✓"; } .bd-lcut i.rD::after { content: "★"; } .bd-lcut i.rB::after { content: "✕"; }
+.bd-lf { font-size: 2cqw; color: rgba(178,242,187,.6); text-align: center; }
+.bd-tags { position: absolute; left: 0; right: 0; top: 71.6%; height: 0; z-index: 4; pointer-events: none; }
+.bd-tag { position: absolute; translate: -50% 0; padding: .3cqw 1.2cqw; border-radius: 1.2cqw; font-size: 2.4cqw; font-weight: 800; white-space: nowrap; animation: bd-tag .4s cubic-bezier(.2,1.6,.4,1) both; }
+.bd-tag.rD { background: #2B8A3E; color: #FFFFFF; box-shadow: 0 0 0 2px #FFFFFF, 0 0 12px #51CF66; }
+.bd-tag.rB { background: #C92A2A; color: #FFFFFF; box-shadow: 0 0 0 2px #FFFFFF; }
+.bd-tag.rN { background: rgba(0,0,0,.7); color: #ADB5BD; }
 @keyframes bd-tag { from { transform: translateY(-6px) scale(.5); opacity: 0; } }
-.bd-pliers { position: absolute; z-index: 5; width: 54px; height: 54px; translate: -20% -80%; opacity: 0; pointer-events: none; transition: opacity .15s; filter: drop-shadow(0 4px 4px rgba(0,0,0,.5)); }
+.bd-ctrl { position: absolute; left: 7.4%; right: 7.4%; top: 86.6%; height: 7.3%; z-index: 4; display: flex; align-items: center; gap: 2cqw; }
+.bd-time { flex: 1.5 1 0; display: flex; align-items: center; gap: 1.4cqw; height: 100%; padding: 0 1.6cqw; border-radius: 1.6cqw; background: #0B140E; box-shadow: inset 0 0 0 1px #3A4A3E; }
+.bd-seg { flex: 1; display: flex; gap: .5cqw; height: 46%; }
+.bd-seg i { flex: 1; border-radius: .5cqw; background: #1F2A22; }
+.bd-seg i.g { background: linear-gradient(180deg, #8CE99A, #2F9E44); box-shadow: 0 0 4px rgba(81,207,102,.6); }
+.bd-seg i.y { background: linear-gradient(180deg, #FFE066, #F59F00); box-shadow: 0 0 4px rgba(250,176,5,.6); }
+.bd-seg i.r { background: linear-gradient(180deg, #FFA8A8, #E03131); box-shadow: 0 0 5px rgba(224,49,49,.7); }
+.bd-time b { min-width: 7cqw; font-family: 'Courier New', Consolas, monospace; font-size: 2.8cqw; color: #E6FCF5; text-align: right; }
+.bd-multp { flex: 1 1 0; display: flex; align-items: center; justify-content: center; gap: 1.2cqw; height: 100%; border-radius: 1.6cqw; background: linear-gradient(180deg, #23302A, #121A16); box-shadow: inset 0 0 0 1px #8A6A2E; }
+.bd-multp small { font-size: 2.2cqw; font-weight: 700; color: #C9D6D6; }
+.bd-multp b { font-family: 'Arial Black', Arial, sans-serif; font-size: 3.6cqw; color: #FFE066; text-shadow: 0 1px 0 #7A3E00; }
+.bd-multp.bd-drop { animation: bd-mdrop .5s ease-out; }
+@keyframes bd-mdrop { 30% { transform: translateY(2px) scale(.94); filter: brightness(.7); } }
+.bd-lamp { flex: 0 0 auto; width: 7.4cqw; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #FFFFFF, #E9E2CF 55%, #A39B85); box-shadow: 0 0 0 .8cqw #2A2620, 0 0 0 1.1cqw #8A6A2E, inset 0 -3px 4px rgba(0,0,0,.25); }
+.bd-lamp.win { background: radial-gradient(circle at 35% 30%, #EBFBEE, #51CF66 55%, #1B5E20); box-shadow: 0 0 0 .8cqw #2A2620, 0 0 0 1.1cqw #8A6A2E, 0 0 18px #51CF66; }
+.bd-lamp.boom { background: radial-gradient(circle at 35% 30%, #FFE3E3, #FA5252 55%, #7A0D12); box-shadow: 0 0 0 .8cqw #2A2620, 0 0 0 1.1cqw #8A6A2E, 0 0 18px #FA5252; }
+.bd-red { flex: 0 0 auto; width: 11.4cqw; aspect-ratio: 1; margin-left: .6cqw; padding: 0; border: 0; border-radius: 50%; cursor: pointer; background: radial-gradient(circle at 35% 28%, #FFB3B3, #F03E3E 45%, #8A0A0A); box-shadow: 0 0 0 1cqw #2A2620, 0 0 0 1.4cqw #8A6A2E, 0 .9cqw 0 1.4cqw #4A3208, inset 0 -4px 6px rgba(0,0,0,.35); transition: transform .1s; }
+.bd-red span { font-family: 'Arial Black', Arial, sans-serif; font-size: 2cqw; color: #FFFFFF; text-shadow: 0 1px 0 #7A0D12; letter-spacing: .04em; }
+.bd-red:not(:disabled):hover { filter: brightness(1.08); }
+.bd-red:not(:disabled):active { transform: translateY(.6cqw); }
+.bd-red:disabled { cursor: default; filter: saturate(.6) brightness(.85); }
+.bd-pliers { position: absolute; z-index: 6; width: 12cqw; aspect-ratio: 1; translate: -20% -80%; opacity: 0; pointer-events: none; transition: opacity .15s; filter: drop-shadow(0 4px 4px rgba(0,0,0,.5)); }
 .bd-pliers.show { opacity: 1; animation: bd-plin .3s ease-out; }
 @keyframes bd-plin { from { transform: translate(30px, -30px) rotate(20deg); } }
 .bd-pliers svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .bd-jaw { transform-box: view-box; transform-origin: 30px 30px; transition: transform .12s ease-in; }
 .bd-pliers .bd-jaw.a { transform: rotate(-10deg); } .bd-pliers .bd-jaw.b { transform: rotate(10deg); }
 .bd-pliers.snip .bd-jaw.a, .bd-pliers.snip .bd-jaw.b { transform: rotate(0); }
-.bd-boom { position: absolute; left: 50%; top: 56%; z-index: 145; width: 300px; height: 300px; margin: -150px; pointer-events: none; animation: bd-boom 1.4s cubic-bezier(.1,.9,.3,1) forwards; }
+.bd-hint { width: fit-content; max-width: 100%; margin: 10px auto 0; padding: 6px 16px; border-radius: 999px; background: rgba(10,14,16,.75); box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); color: #E9ECEF; font-size: 12px; font-weight: 700; text-align: center; }
+.bd-hint b { color: #8CE99A; }
+.bd-room.beat .bd-case { animation: bd-beat .25s ease-out; }
+@keyframes bd-beat { 40% { scale: 1.012; } }
+.bd-room.quake { animation: bd-quake .6s linear; }
+@keyframes bd-quake { 10%, 50%, 90% { transform: translate(-5px, 2px); } 30%, 70% { transform: translate(5px, -3px); } }
+.bd-room.bd-flash::after { content: ""; position: absolute; inset: 0; z-index: 140; background: radial-gradient(circle at 35% 30%, #FFFFFF, rgba(255,160,60,.75) 40%, rgba(255,60,40,.3) 70%, transparent); animation: bd-flash .7s ease-out forwards; pointer-events: none; }
+@keyframes bd-flash { from { opacity: 1; } to { opacity: 0; } }
+.bd-room.saved .bd-bg { background: radial-gradient(80% 60% at 30% 20%, #3E6A4A, #1E3326 55%, #0E1A12); transition: background .6s; }
+.bd-room.boomed .bd-bg { background: radial-gradient(80% 60% at 30% 20%, #6A2E1A, #2E140A 55%, #140804); transition: background .6s; }
+.bd-boom { position: absolute; left: 35%; top: 30%; z-index: 145; width: 280px; height: 280px; margin: -140px; pointer-events: none; animation: bd-boom 1.4s cubic-bezier(.1,.9,.3,1) forwards; }
 .bd-boom svg { display: block; width: 100%; height: 100%; }
 @keyframes bd-boom { 0% { transform: scale(.1) rotate(-20deg); opacity: 1; } 30% { transform: scale(1.2) rotate(6deg); opacity: 1; } 70% { opacity: 1; } 100% { transform: scale(1.35) rotate(10deg); opacity: 0; } }
 .bd-smoke { position: absolute; inset: 0; z-index: 7; pointer-events: none; }
-.bd-smoke i { position: absolute; left: 50%; top: 58%; width: 70px; height: 70px; border-radius: 50%; background: radial-gradient(circle at 40% 40%, rgba(120,120,120,.75), rgba(40,40,40,.4) 60%, transparent 70%); animation: bd-smoke 2.6s ease-out forwards; }
+.bd-smoke i { position: absolute; left: 35%; top: 34%; width: 70px; height: 70px; border-radius: 50%; background: radial-gradient(circle at 40% 40%, rgba(120,120,120,.75), rgba(40,40,40,.4) 60%, transparent 70%); animation: bd-smoke 2.6s ease-out forwards; }
 .bd-smoke i:nth-child(1) { margin-left: -90px; animation-delay: .1s; } .bd-smoke i:nth-child(2) { margin-left: -40px; animation-delay: .2s; } .bd-smoke i:nth-child(3) { margin-left: 10px; animation-delay: .15s; } .bd-smoke i:nth-child(4) { margin-left: 50px; animation-delay: .3s; }
 .bd-smoke i:nth-child(5) { margin-left: -70px; animation-delay: .45s; } .bd-smoke i:nth-child(6) { margin-left: 20px; animation-delay: .55s; } .bd-smoke i:nth-child(7) { margin-left: -20px; animation-delay: .7s; }
-@keyframes bd-smoke { 0% { transform: translateY(10px) scale(.4); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(-170px) scale(2.2); opacity: 0; } }
-.bd-stage .wl-shout { top: 40%; z-index: 150; }
-.bd-ladder { display: flex; gap: 6px; justify-content: center; margin: 10px 0 0; padding: 8px; border-radius: 14px; background: rgba(0,0,0,.35); box-shadow: inset 0 0 0 1px rgba(255,212,59,.25); }
-.bd-step { flex: 1 1 0; max-width: 84px; padding: 5px 4px; border-radius: 10px; background: rgba(255,255,255,.05); color: #FFE066; font-size: 13px; font-weight: 900; text-align: center; line-height: 1.15; transition: background .25s, opacity .25s; }
-.bd-step small { display: block; font-size: 10px; font-weight: 700; color: rgba(255,236,170,.65); }
-.bd-step.past { opacity: .35; text-decoration: line-through; }
-.bd-step.next { background: linear-gradient(180deg, #FFF3BF, #FFD43B); color: #7A0D12; box-shadow: 0 0 0 2px #FFFFFF, 0 0 12px rgba(255,212,59,.6); }
-.bd-step.next small { color: #7A3E00; }
-.bd-step.won { background: linear-gradient(180deg, #69DB7C, #2B8A3E); color: #FFFFFF; box-shadow: 0 0 0 2px #FFFFFF, 0 0 14px rgba(81,207,102,.7); }
-.bd-step.won small { color: #EBFBEE; }
-.bd-btns { display: grid; gap: 10px; }
+@keyframes bd-smoke { 0% { transform: translateY(10px) scale(.4); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(-150px) scale(2.2); opacity: 0; } }
+.bd-room .wl-shout { top: 46%; z-index: 150; }
+.bd-status { width: min(560px, 100%); margin-top: 10px; }
+.bd-btns { display: grid; gap: 10px; width: min(560px, 100%); margin-top: 10px; }
 .sl-btn.bd-go { background: linear-gradient(180deg, #FF6B6B, #C92A2A); color: #FFFFFF; box-shadow: 0 6px 0 #7A0D12; }
 .sl-btn.bd-go:disabled { background: #6C7A8C; color: #D7DDE8; box-shadow: 0 6px 0 #3E4A5C; }
-.sl-btn.bd-go.playing:disabled { background: linear-gradient(180deg, #2B3A33, #141C18); color: #8CE99A; box-shadow: 0 6px 0 #08090B, inset 0 0 0 1.5px rgba(140,233,154,.4); }
-@media (max-width: 640px) { .bd-stage { height: 330px; } .bd-bomb.tense .bd-dev { animation: none; } }
-@media (prefers-reduced-motion: reduce) { .bd-bomb.tense .bd-dev, .bd-wire.live .bd-whole, .bd-stage.live .bd-spot, .bd-led, .bd-lcd.hot, .bd-lcd.wait { animation: none; } }
+.sl-btn.bd-go.playing:disabled { background: linear-gradient(180deg, #23302A, #121A16); color: #8CE99A; box-shadow: 0 6px 0 #08090B, inset 0 0 0 1.5px rgba(140,233,154,.4); }
+@media (max-width: 640px) { .bd-room { padding: 46px 8px 10px; } .bd-title b { font-size: 14px; } .bd-case.tense { animation: none; } .bd-hint { font-size: 11px; } }
+@media (prefers-reduced-motion: reduce) { .bd-case.tense, .bd-room.live .bd-spool:not(:disabled), .bd-led, .bd-lcd.hot, .bd-lcd.wait, .bd-lampglow { animation: none; } }
 /* ===== 냥냥 레이스 ===== */
 .rc-panel { grid-column: 1 / -1; }
 .rc-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
@@ -7366,10 +7396,11 @@ img, svg, video { max-width: 100%; }
   // 몇 번째에 해체했는지(j)에 따라 배수가 다르다(빨리 해체할수록 큼). 역할은 입장하는 순간 무작위로 정해진다.
   // P(j번째에 해체) = Π_{i<j−1}(D−i)/(W−i) × 1/(W−j+1), D = W−2. 성공 확률은 항상 50%. RTP = Σ P(j) × 배수(j)
   // 선마다 제한시간이 있고, 시간이 끝나면 남은 선 중 하나가 무작위로 잘린다(확률 동일).
-  const BD_COL = [['#FF4D4F', '#A8071A'], ['#4D9DFF', '#0B4AA8'], ['#FFD43B', '#B07A00'], ['#51CF66', '#1B7A2E'], ['#F8F9FA', '#868E96'], ['#495057', '#111111'], ['#B57BFF', '#5F2DB0']];
-  const BD_NAME = ['빨간', '파란', '노란', '초록', '흰', '검은', '보라'];
+  // 화면: 열린 해체 가방 — 뚜껑(폭탄 모듈·해체 기록 화면·색 단자) / 받침(전선 릴·제어판)
+  const BD_COL = [['#FF4D4F', '#A8071A'], ['#4D9DFF', '#0B4AA8'], ['#FFD43B', '#B07A00'], ['#51CF66', '#1B7A2E'], ['#FF922B', '#A84300'], ['#B57BFF', '#5F2DB0'], ['#F8F9FA', '#868E96']];
+  const BD_NAME = ['빨간', '파란', '노란', '초록', '주황', '보라', '흰'];
   const BD_DEFM = [2, 1.6, 1.3, 1.1, 1, 1];
-  const BDF = { on: false, busy: false, W: 5, roles: [], cut: [], cuts: 0, perm: [], tEnd: 0, left: 0, raf: 0, over: false, lastWin: 0, ls: -1, sec: 10 };
+  const BDF = { on: false, busy: false, W: 5, roles: [], cut: [], cuts: 0, perm: [], tEnd: 0, tTot: 10, raf: 0, over: false, lastWin: 0, ls: -1, sec: 10, log: [] };
   const bombMachine = () => machines.find(m => m.mode === 'bomb');
   const bdEl = id => document.getElementById(id);
   const bdW = m => Math.max(4, Math.min(7, Math.round(num(m && m.wires) || 5)));
@@ -7384,69 +7415,109 @@ img, svg, video { max-width: 100%; }
   }
   const bdX = x => '×' + (+x).toFixed(2);
 
-  // ----- 폭탄 그림(직접 그린 에셋): 다이너마이트 묶음 + 금속 패널 + 단자 + LCD 틀
-  const BD_VB = [300, 220], BD_TY = 90, BD_BY = 178;
-  const bdTopX = (W, i) => 84 + (132 * i) / (W - 1);
+  // ----- 가방 좌표계(460×440). 단자(뚜껑) → 릴(받침)
+  const BD_CW = 460, BD_CH = 440, BD_JY = 170, BD_SY = 276, BD_PY = 346;
+  const bdJX = (W, i) => 44 + (208 * i) / (W - 1);
+  const bdSX = (W, p) => 56 + (348 * p) / (W - 1);
+  const bdSpoolR = W => Math.min(31, (348 / (W - 1)) / 2 - 4);
   function bdWirePath(W, i, p) {
-    const x1 = bdTopX(W, i), x2 = bdTopX(W, p), sag = 10 + (i % 3) * 6, mx = (x1 + x2) / 2;
-    return [[x1, BD_TY], [x1 + (mx - x1) * .2 + (i % 2 ? 14 : -14), BD_TY + 34 + sag], [x2 - (x2 - mx) * .2 + (i % 2 ? -14 : 14), BD_BY - 30 + sag * .4], [x2, BD_BY]];
+    const x1 = bdJX(W, i), x2 = bdSX(W, p), s = (i % 3) * 8;
+    return [[x1, BD_JY + 8], [x1 + (i % 2 ? 10 : -10), BD_JY + 70 + s], [x2 + (x2 > x1 ? -30 : 30), BD_SY - 62 + s * .5], [x2, BD_SY]];
   }
-  const bdD = P => 'M' + P[0].join(' ') + ' C' + P.slice(1).map(q => q.map(v => v.toFixed(1)).join(' ')).join(' ');
+  const bdD = P => 'M' + P[0].map(v => v.toFixed(1)).join(' ') + ' C' + P.slice(1).map(q => q.map(v => v.toFixed(1)).join(' ')).join(' ');
   function bdSplit(P, t) {
     const L = (a, b) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
     const a = L(P[0], P[1]), b = L(P[1], P[2]), c = L(P[2], P[3]), d = L(a, b), e = L(b, c), f = L(d, e);
     return [[P[0], a, d, f], [f, e, c, P[3]]];
   }
   const BD_DEFS = '<defs>' +
-    '<linearGradient id="bdStick" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7A0D12"/><stop offset=".3" stop-color="#E03131"/><stop offset=".45" stop-color="#FF8787"/><stop offset=".6" stop-color="#C92A2A"/><stop offset="1" stop-color="#5C0A0E"/></linearGradient>' +
-    '<linearGradient id="bdTape" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#495057"/><stop offset=".5" stop-color="#212529"/><stop offset="1" stop-color="#000000"/></linearGradient>' +
-    '<linearGradient id="bdPanel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5C6670"/><stop offset=".5" stop-color="#3A424A"/><stop offset="1" stop-color="#22282E"/></linearGradient>' +
-    '<linearGradient id="bdTerm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF1B8"/><stop offset=".5" stop-color="#D4A23A"/><stop offset="1" stop-color="#7A5A12"/></linearGradient>' +
-    '<radialGradient id="bdScrew" cx=".35" cy=".35" r=".7"><stop offset="0" stop-color="#F8F9FA"/><stop offset=".6" stop-color="#868E96"/><stop offset="1" stop-color="#343A40"/></radialGradient>' +
-    '<linearGradient id="bdLcd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0E1A12"/><stop offset="1" stop-color="#06100A"/></linearGradient></defs>';
-  function bdBombSVG(W, perm) {
-    const sticks = [40, 84, 128, 172, 216].map(x => '<rect x="' + x + '" y="10" width="44" height="204" rx="20" fill="url(#bdStick)" stroke="#3A0507" stroke-width="2"/><ellipse cx="' + (x + 22) + '" cy="18" rx="16" ry="5" fill="#FFA8A8" opacity=".35"/>').join('');
-    const tape = y => '<rect x="34" y="' + y + '" width="232" height="16" rx="3" fill="url(#bdTape)"/><path d="M34 ' + (y + 3) + ' H266" stroke="#FFFFFF" stroke-opacity=".15" stroke-width="2"/>';
-    const screws = [[70, 72], [230, 72], [70, 190], [230, 190]].map(([x, y]) => '<circle cx="' + x + '" cy="' + y + '" r="4.5" fill="url(#bdScrew)"/><path d="M' + (x - 2.6) + ' ' + y + ' h5.2" stroke="#343A40" stroke-width="1.2"/>').join('');
-    const terms = (y) => Array.from({ length: W }, (_, i) => '<circle cx="' + bdTopX(W, i).toFixed(1) + '" cy="' + y + '" r="5.4" fill="url(#bdScrew)" stroke="#5C4300" stroke-width="1"/>').join('');
-    const wires = Array.from({ length: W }, (_, i) => {
-      const P = bdWirePath(W, i, perm[i]), c = BD_COL[i];
-      return '<g class="bd-wire" data-bdw="' + i + '" role="button" tabindex="0" aria-label="' + BD_NAME[i] + ' 선 자르기"><path class="bd-hit" d="' + bdD(P) + '"/><g class="bd-whole"><path d="' + bdD(P) + '" stroke="#000000" stroke-opacity=".35" stroke-width="9" fill="none" stroke-linecap="round" transform="translate(1.5 3)"/><path d="' + bdD(P) + '" stroke="' + c[1] + '" stroke-width="8" fill="none" stroke-linecap="round"/><path d="' + bdD(P) + '" stroke="' + c[0] + '" stroke-width="5.4" fill="none" stroke-linecap="round"/><path d="' + bdD(P) + '" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="1.6" fill="none" stroke-linecap="round" transform="translate(-1.2 -1)"/></g></g>';
-    }).join('');
-    return '<svg class="bd-svg" viewBox="0 0 ' + BD_VB[0] + ' ' + BD_VB[1] + '" aria-hidden="false">' + BD_DEFS + sticks + tape(28) + tape(196) +
-      '<rect x="58" y="60" width="184" height="142" rx="14" fill="url(#bdPanel)" stroke="#111418" stroke-width="2.4"/><rect x="62" y="64" width="176" height="134" rx="11" fill="none" stroke="#FFFFFF" stroke-opacity=".12" stroke-width="1.4"/>' +
-      '<rect x="92" y="18" width="116" height="40" rx="8" fill="#22282E" stroke="#111418" stroke-width="2.4"/><rect x="98" y="23" width="104" height="30" rx="4" fill="url(#bdLcd)" stroke="#000000" stroke-width="1"/>' +
-      '<rect x="72" y="' + (BD_TY - 6) + '" width="156" height="12" rx="4" fill="url(#bdTerm)" stroke="#5C4300" stroke-width="1"/><rect x="72" y="' + (BD_BY - 6) + '" width="156" height="12" rx="4" fill="url(#bdTerm)" stroke="#5C4300" stroke-width="1"/>' +
-      terms(BD_TY) + terms(BD_BY) + screws +
-      '<circle id="bd-led" class="bd-led" cx="226" cy="74" r="5.2"/>' +
-      '<g id="bd-wires">' + wires + '</g><g id="bd-fx"></g></svg>';
+    '<linearGradient id="bdTeal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3C8A8E"/><stop offset=".45" stop-color="#25676B"/><stop offset="1" stop-color="#163F43"/></linearGradient>' +
+    '<linearGradient id="bdTealE" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000000" stop-opacity=".35"/><stop offset=".08" stop-color="#000000" stop-opacity="0"/><stop offset=".92" stop-color="#000000" stop-opacity="0"/><stop offset="1" stop-color="#000000" stop-opacity=".4"/></linearGradient>' +
+    '<linearGradient id="bdBrass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE8A3"/><stop offset=".45" stop-color="#C9963A"/><stop offset="1" stop-color="#6E4A12"/></linearGradient>' +
+    '<radialGradient id="bdBrassR" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#FFF3C4"/><stop offset=".5" stop-color="#C9963A"/><stop offset="1" stop-color="#5C3D0A"/></radialGradient>' +
+    '<linearGradient id="bdFelt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#262B2F"/><stop offset="1" stop-color="#15181B"/></linearGradient>' +
+    '<linearGradient id="bdOlive" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8D9A5B"/><stop offset=".5" stop-color="#66713C"/><stop offset="1" stop-color="#434A25"/></linearGradient>' +
+    '<linearGradient id="bdSlot" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3A4046"/><stop offset="1" stop-color="#1E2226"/></linearGradient>' +
+    '<pattern id="bdHaz" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="16" fill="#FFC21A"/><rect x="8" width="8" height="16" fill="#1A1A1A"/></pattern>' +
+    '<radialGradient id="bdScrew" cx=".35" cy=".35" r=".7"><stop offset="0" stop-color="#F8F9FA"/><stop offset=".6" stop-color="#868E96"/><stop offset="1" stop-color="#343A40"/></radialGradient></defs>';
+  function bdCaseSVG(W) {
+    const screw = (x, y, r) => '<circle cx="' + x + '" cy="' + y + '" r="' + (r || 3.4) + '" fill="url(#bdScrew)"/><path d="M' + (x - 2) + ' ' + y + ' h4" stroke="#343A40" stroke-width="1"/>';
+    const corner = (x, y) => '<rect x="' + x + '" y="' + y + '" width="26" height="26" rx="6" fill="url(#bdBrass)" stroke="#4A3208" stroke-width="1.4"/>' + screw(x + 13, y + 13, 3);
+    const slot = (x, y, w, h) => '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="9" fill="url(#bdSlot)" stroke="#0B0D0F" stroke-width="2"/><rect x="' + (x + 3) + '" y="' + (y + 3) + '" width="' + (w - 6) + '" height="' + (h - 6) + '" rx="7" fill="#111316" stroke="#FFFFFF" stroke-opacity=".06"/>';
+    const sw = 348 / (W - 1), fw = Math.min(78, sw - 6);
+    const jacks = Array.from({ length: W }, (_, i) => { const x = bdJX(W, i); return '<circle cx="' + x + '" cy="' + BD_JY + '" r="14" fill="url(#bdBrassR)" stroke="#4A3208" stroke-width="1.6"/><circle cx="' + x + '" cy="' + BD_JY + '" r="9" fill="' + BD_COL[i][1] + '"/><circle cx="' + x + '" cy="' + BD_JY + '" r="7" fill="' + BD_COL[i][0] + '"/><circle cx="' + (x - 2.4) + '" cy="' + (BD_JY - 2.6) + '" r="2.2" fill="#FFFFFF" opacity=".6"/>'; }).join('');
+    const slots1 = Array.from({ length: W }, (_, p) => slot(bdSX(W, p) - fw / 2, BD_SY - 36, fw, 72)).join('');
+    const slots2 = Array.from({ length: W }, (_, p) => { const x = bdSX(W, p); return slot(x - fw / 2, BD_PY - 30, fw, 60) + '<circle cx="' + x + '" cy="' + BD_PY + '" r="' + Math.min(22, fw / 2 - 8) + '" fill="#1A1D20" stroke="#3A4046" stroke-width="3"/><rect x="' + (x - 4) + '" y="' + (BD_PY - 12) + '" width="8" height="18" rx="3" fill="url(#bdBrass)"/><ellipse cx="' + x + '" cy="' + (BD_PY - 12) + '" rx="4" ry="2" fill="#FFF3C4"/>'; }).join('');
+    return '<svg class="bd-case-svg" viewBox="0 0 ' + BD_CW + ' ' + BD_CH + '" aria-hidden="true">' + BD_DEFS +
+      // 뚜껑
+      '<rect x="12" y="4" width="436" height="214" rx="20" fill="url(#bdTeal)" stroke="#0B2426" stroke-width="3"/><rect x="12" y="4" width="436" height="214" rx="20" fill="url(#bdTealE)"/>' +
+      '<rect x="28" y="18" width="404" height="188" rx="12" fill="url(#bdFelt)" stroke="#0B0D0F" stroke-width="2"/><rect x="28" y="18" width="404" height="188" rx="12" fill="none" stroke="#000000" stroke-opacity=".5" stroke-width="6" transform="translate(0 2)"/>' +
+      corner(12, 4) + corner(422, 4) +
+      // 폭탄 모듈(올리브 상자 + 고정쇠 + 경고 띠 + LCD 틀)
+      '<rect x="40" y="28" width="22" height="112" rx="5" fill="#3B4048" stroke="#16191D" stroke-width="1.4"/><rect x="232" y="28" width="22" height="112" rx="5" fill="#3B4048" stroke="#16191D" stroke-width="1.4"/>' + screw(51, 42) + screw(51, 126) + screw(243, 42) + screw(243, 126) +
+      '<rect x="56" y="32" width="182" height="104" rx="10" fill="url(#bdOlive)" stroke="#262B14" stroke-width="2.4"/><rect x="60" y="36" width="174" height="96" rx="8" fill="none" stroke="#C9D38F" stroke-opacity=".3" stroke-width="1.4"/>' +
+      '<rect x="56" y="98" width="182" height="20" fill="url(#bdHaz)" stroke="#262B14" stroke-width="1.6"/><rect x="118" y="94" width="58" height="28" rx="5" fill="#4A5230" stroke="#262B14" stroke-width="2"/><rect x="124" y="104" width="46" height="8" rx="3" fill="#2A2F18"/>' +
+      '<rect x="98" y="44" width="98" height="40" rx="6" fill="#2A2F18" stroke="#16190B" stroke-width="2"/><rect x="103" y="48" width="88" height="32" rx="3" fill="#0B140E"/>' +
+      '<circle cx="213" cy="64" r="11" fill="#2A2F18"/>' +
+      // 해체 기록 화면 틀
+      '<rect x="262" y="26" width="160" height="172" rx="9" fill="#0E1A16" stroke="#0B0D0F" stroke-width="2.4"/><rect x="266" y="30" width="152" height="164" rx="6" fill="none" stroke="#5CE0A0" stroke-opacity=".18" stroke-width="1.2"/>' +
+      jacks +
+      // 경첩
+      '<rect x="18" y="214" width="424" height="12" fill="#123437"/><rect x="40" y="208" width="44" height="22" rx="4" fill="url(#bdBrass)" stroke="#4A3208" stroke-width="1.4"/><rect x="376" y="208" width="44" height="22" rx="4" fill="url(#bdBrass)" stroke="#4A3208" stroke-width="1.4"/><path d="M40 219 H84 M376 219 H420" stroke="#4A3208" stroke-width="1.4"/>' +
+      // 받침
+      '<rect x="8" y="224" width="444" height="210" rx="20" fill="url(#bdTeal)" stroke="#0B2426" stroke-width="3"/><rect x="8" y="224" width="444" height="210" rx="20" fill="url(#bdTealE)"/>' +
+      '<rect x="22" y="236" width="416" height="182" rx="12" fill="url(#bdFelt)" stroke="#0B0D0F" stroke-width="2"/>' +
+      slots1 + slots2 +
+      '<rect x="30" y="380" width="400" height="34" rx="9" fill="#1C1A16" stroke="#8A6A2E" stroke-width="2"/>' +
+      corner(8, 408) + corner(426, 408) +
+      '<rect x="138" y="428" width="40" height="12" rx="3" fill="url(#bdBrass)" stroke="#4A3208"/><rect x="282" y="428" width="40" height="12" rx="3" fill="url(#bdBrass)" stroke="#4A3208"/></svg>';
   }
-  const BD_PLIERS = '<svg viewBox="0 0 60 60" aria-hidden="true"><g class="bd-jaw a"><path d="M30 30 L8 6 L14 4 L32 26 Z" fill="#ADB5BD" stroke="#343A40" stroke-width="1.6"/><path d="M30 30 L52 56 L44 58 L26 34 Z" fill="#E03131" stroke="#7A0D12" stroke-width="1.6"/></g><g class="bd-jaw b"><path d="M30 30 L4 12 L6 6 L33 27 Z" fill="#CED4DA" stroke="#343A40" stroke-width="1.6"/><path d="M30 30 L56 48 L54 56 L27 33 Z" fill="#FF6B6B" stroke="#7A0D12" stroke-width="1.6"/></g><circle cx="30" cy="30" r="3.4" fill="url(#bdScrew)" stroke="#343A40"/></svg>';
+  function bdSpoolSVG(i, r) {
+    const c = BD_COL[i], rings = Array.from({ length: 5 }, (_, k) => '<circle cx="0" cy="0" r="' + (r * (.42 + k * .1)).toFixed(1) + '" fill="none" stroke="' + (k % 2 ? c[1] : c[0]) + '" stroke-width="' + (r * .1).toFixed(1) + '"/>').join('');
+    const spokes = [0, 90, 45, 135].slice(0, 4).map(a => '<rect x="' + (-r * .9).toFixed(1) + '" y="-2.2" width="' + (r * 1.8).toFixed(1) + '" height="4.4" rx="2" fill="url(#bdBrass)" transform="rotate(' + (a + 22) + ')" opacity=".85"/>').join('');
+    return '<svg viewBox="' + (-r - 3) + ' ' + (-r - 3) + ' ' + (2 * r + 6) + ' ' + (2 * r + 6) + '" aria-hidden="true"><circle r="' + (r + 1.5) + '" fill="#2A2E33" stroke="#0B0D0F" stroke-width="2"/>' + rings + '<circle r="' + (r * .34).toFixed(1) + '" fill="#2A2E33"/>' + spokes + '<circle r="' + (r * .2).toFixed(1) + '" fill="url(#bdBrassR)" stroke="#4A3208"/></svg>';
+  }
+  function bdWiresSVG(W, perm) {
+    return '<svg class="bd-wsvg" viewBox="0 0 ' + BD_CW + ' ' + BD_CH + '"><g id="bd-wires">' + Array.from({ length: W }, (_, i) => {
+      const P = bdWirePath(W, i, perm[i]), c = BD_COL[i], d = bdD(P);
+      return '<g class="bd-wire" data-bdw="' + i + '" role="button" tabindex="0" aria-label="' + BD_NAME[i] + ' 선 자르기"><path class="bd-hit" d="' + d + '"/><g class="bd-whole"><path d="' + d + '" stroke="#000000" stroke-opacity=".4" stroke-width="7" fill="none" stroke-linecap="round" transform="translate(2 4)"/><path d="' + d + '" stroke="' + c[1] + '" stroke-width="5.6" fill="none" stroke-linecap="round"/><path d="' + d + '" stroke="' + c[0] + '" stroke-width="3.6" fill="none" stroke-linecap="round"/><path d="' + d + '" stroke="#FFFFFF" stroke-opacity=".5" stroke-width="1.1" fill="none" stroke-linecap="round" transform="translate(-.8 -.8)"/></g>' +
+        '<circle class="bd-plug" cx="' + P[3][0].toFixed(1) + '" cy="' + P[3][1].toFixed(1) + '" r="4.6" fill="' + c[0] + '" stroke="' + c[1] + '" stroke-width="1.6"/></g>';
+    }).join('') + '</g><g id="bd-fx"></g></svg>';
+  }
+  const BD_PLIERS = '<svg viewBox="0 0 60 60" aria-hidden="true"><g class="bd-jaw a"><path d="M30 30 L8 6 L14 4 L32 26 Z" fill="#ADB5BD" stroke="#343A40" stroke-width="1.6"/><path d="M30 30 L52 56 L44 58 L26 34 Z" fill="#E03131" stroke="#7A0D12" stroke-width="1.6"/></g><g class="bd-jaw b"><path d="M30 30 L4 12 L6 6 L33 27 Z" fill="#CED4DA" stroke="#343A40" stroke-width="1.6"/><path d="M30 30 L56 48 L54 56 L27 33 Z" fill="#FF6B6B" stroke="#7A0D12" stroke-width="1.6"/></g><circle cx="30" cy="30" r="3.4" fill="#ADB5BD" stroke="#343A40"/></svg>';
   const BD_BOOM = '<svg viewBox="0 0 200 200" aria-hidden="true"><defs><radialGradient id="bdBoomG" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".3" stop-color="#FFF3BF"/><stop offset=".55" stop-color="#FFA94D"/><stop offset=".8" stop-color="#F03E3E"/><stop offset="1" stop-color="#7A0D12"/></radialGradient></defs>' +
     '<path d="' + 'M' + Array.from({ length: 24 }, (_, i) => { const a = i / 24 * Math.PI * 2, r = i % 2 ? 58 : 96 - (i % 4) * 8; return (100 + Math.cos(a) * r).toFixed(1) + ' ' + (100 + Math.sin(a) * r).toFixed(1); }).join(' L') + ' Z" fill="url(#bdBoomG)" stroke="#7A0D12" stroke-width="3" stroke-linejoin="round"/>' +
     '<text x="100" y="114" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-size="40" font-weight="900" fill="#FFFFFF" stroke="#7A0D12" stroke-width="3" paint-order="stroke">쾅!</text></svg>';
+  const bdPc = (v, tot) => (v / tot * 100).toFixed(3) + '%';
 
   function bombFloorHTML() {
     const m = bombMachine(); if (!m) return '';
     bdSync(m);
     const c = num(m.cost), W = bdW(m), M = bdMults(m);
-    if (!BDF.on && !BDF.over) { BDF.W = W; BDF.perm = Array.from({ length: W }, (_, i) => i); }
+    if (!BDF.on && !BDF.over) { BDF.W = W; BDF.perm = Array.from({ length: W }, (_, i) => i); BDF.tTot = bdSec(m); }
     const rows = M.map((x, i) => '<tr><td>' + (i + 1) + '번째 선에서 해체</td><td class="num">' + slPctTxt(bdP(m, i + 1)) + '</td><td class="num">' + bdX(x) + '</td><td class="num">' + fmt(Math.floor(c * x)) + '개</td></tr>').join('');
-    return '<section class="bd-panel" aria-labelledby="bd-h"><div class="rc-wrap">' +
-      '<div class="bd-cab" id="bd-cab">' +
-        '<div class="sl-marquee bd-marquee"><span class="sl-bulbs" aria-hidden="true">' + '<i></i>'.repeat(13) + '</span><b>BOMB SQUAD</b><small>해체 선을 찾아 잘라라! 빠를수록 보상 UP</small></div>' +
-        '<div class="bd-stage" id="bd-stage">' +
-          '<div class="bd-bg" aria-hidden="true"><i class="bd-grid"></i><i class="bd-tape t1"></i><i class="bd-tape t2"></i><i class="bd-spot"></i></div>' +
-          '<div class="bd-hud"><span>자른 선 <b class="num" id="bd-k">0</b>/<span class="num">' + (W - 1) + '</span></span><span>남은 선 <b class="num" id="bd-n">' + W + '</b></span></div>' +
-          '<div class="bd-mult" id="bd-mult"><small id="bd-ml">지금 해체하면</small><b class="num" id="bd-x">' + bdX(M[0]) + '</b></div>' +
-          '<div class="bd-bomb" id="bd-bomb"><div class="bd-dev" id="bd-dev">' + bdBombSVG(BDF.W, BDF.perm) +
-            '<div class="bd-lcd num" id="bd-lcd">00:' + String(bdSec(m)).padStart(2, '0') + '.0</div><div class="bd-tags" id="bd-tags"></div><i class="bd-pliers" id="bd-pliers">' + BD_PLIERS + '</i></div></div>' +
-          '<div class="bd-smoke" id="bd-smoke" aria-hidden="true"></div>' +
+    const r = bdSpoolR(BDF.W);
+    const spools = Array.from({ length: BDF.W }, (_, i) => { const p = BDF.perm[i], x = bdSX(BDF.W, p); return '<button type="button" class="bd-spool" data-bdw="' + i + '" style="left:' + bdPc(x, BD_CW) + ';top:' + bdPc(BD_SY, BD_CH) + ';width:' + bdPc(2 * r + 6, BD_CW) + '" aria-label="' + BD_NAME[i] + ' 선 자르기">' + bdSpoolSVG(i, r) + '</button>'; }).join('');
+    return '<section class="bd-panel" aria-labelledby="bd-h"><div class="rc-wrap"><div class="bd-cab" id="bd-cab">' +
+      '<div class="bd-room" id="bd-stage">' +
+        '<div class="bd-bg" aria-hidden="true"><i class="bd-shelf"></i><i class="bd-bokeh"></i><i class="bd-lampglow"></i><i class="bd-desk"></i></div>' +
+        '<div class="bd-title"><b>폭탄 해체반</b><span>입장 ' + K + fmt(c) + ' · 선 ' + BDF.W + '개</span></div>' +
+        '<div class="bd-case" id="bd-case">' + bdCaseSVG(BDF.W) +
+          '<div class="bd-lcd num" id="bd-lcd">00:' + String(bdSec(m)).padStart(2, '0') + '.0</div><i class="bd-led" id="bd-led"></i>' +
+          '<div class="bd-log" id="bd-log"></div>' +
+          '<div class="bd-spools" id="bd-spools">' + spools + '</div>' +
+          '<div class="bd-wires-wrap" id="bd-wwrap">' + bdWiresSVG(BDF.W, BDF.perm) + '</div>' +
+          '<div class="bd-tags" id="bd-tags"></div>' +
+          '<div class="bd-ctrl"><div class="bd-time"><span class="bd-seg" id="bd-seg">' + '<i></i>'.repeat(10) + '</span><b class="num" id="bd-tsec">' + bdSec(m) + '.0s</b></div>' +
+            '<div class="bd-multp" id="bd-mult"><small id="bd-ml">지금 해체</small><b class="num" id="bd-x">' + bdX(M[0]) + '</b></div>' +
+            '<i class="bd-lamp" id="bd-lamp" aria-hidden="true"></i><button type="button" class="bd-red" id="bd-red" aria-label="해체 시작"><span>START</span></button></div>' +
+          '<i class="bd-pliers" id="bd-pliers">' + BD_PLIERS + '</i>' +
         '</div>' +
-        '<div class="bd-ladder" id="bd-ladder" aria-label="몇 번째에 해체하면 받는 배수"></div>' +
-        '<div class="sl-status" id="bd-status" aria-live="polite"></div>' +
-        '<div class="bd-btns"><button class="sl-btn bd-go" type="button" id="bd-go">해체 시작 <span class="num">' + K + fmt(c) + '</span></button></div>' +
+        '<div class="bd-hint">릴이나 전선을 눌러 자르기 · 폭발 선보다 <b>해체 선</b>을 먼저!</div>' +
+        '<div class="bd-smoke" id="bd-smoke" aria-hidden="true"></div>' +
       '</div>' +
+      '<div class="sl-status bd-status" id="bd-status" aria-live="polite"></div>' +
+      '<div class="bd-btns"><button class="sl-btn bd-go" type="button" id="bd-go">해체 시작 <span class="num">' + K + fmt(c) + '</span></button></div></div>' +
       '<aside class="cn-info"><h3 id="bd-h">' + m.name + ' <small class="qmeta">입장 ' + K + fmt(c) + '</small></h3>' +
         '<p>폭탄에 선이 <b>' + W + '개</b> 있어요. <b>해체 선 1개</b>, <b>폭발 선 1개</b>, 나머지는 빈 선이에요. 선을 하나씩 잘라 폭발 선보다 <b>해체 선을 먼저</b> 자르면 성공! <b>빨리 해체할수록</b> 배수가 커요.</p>' +
         '<ul><li>빈 선을 자르면 계속 진행하고, 다음 선의 제한시간은 2초씩 줄어요(최소 4초).</li><li>선마다 제한시간 ' + bdSec(m) + '초. 시간이 끝나면 남은 선 중 하나가 무작위로 잘려요.</li><li>선의 역할은 입장하는 순간 무작위로 정해지고, 어느 선을 고르든 확률은 같아요. 성공 확률은 50%예요.</li><li>평균 환원(RTP)은 ' + pct(bdRtp(m)) + '예요.</li></ul>' +
@@ -7458,35 +7529,47 @@ img, svg, video { max-width: 100%; }
     const m = bombMachine(); if (!m) return;
     BDF.cut.forEach(i => bdCutVisual(i, true));
     if (BDF.over) bdReveal();
-    bdUI();
+    bdUI(); bdBar(BDF.on ? Math.max(0, (BDF.tEnd - performance.now()) / 1000) : BDF.tTot);
     if (BDF.on && !BDF.busy) bdLoop();
   }
   function bdUI() {
     const m = bombMachine(); if (!m || !bdEl('bd-go')) return;
     const c = num(m.cost), M = bdMults(m), W = BDF.W, k = BDF.cuts;
-    bdEl('bd-k').textContent = k; bdEl('bd-n').textContent = W - BDF.cut.length;
     const x = M[Math.min(k, M.length - 1)];
-    bdEl('bd-ml').textContent = BDF.over ? (BDF.lastWin ? '해체 보상' : '폭발') : '지금 해체하면';
+    bdEl('bd-ml').textContent = BDF.over ? (BDF.lastWin ? '해체 보상' : '폭발') : '지금 해체';
     bdEl('bd-x').textContent = BDF.over ? (BDF.lastWin ? '+' + fmt(BDF.lastWin) : '0') : bdX(x);
-    const go = bdEl('bd-go');
-    go.disabled = BDF.busy || BDF.on;
+    const go = bdEl('bd-go'), red = bdEl('bd-red');
+    go.disabled = BDF.busy || BDF.on; red.disabled = go.disabled;
     go.classList.toggle('playing', BDF.on);
-    go.innerHTML = BDF.on ? '자를 선을 골라 주세요 <span class="num">' + BD_NAME.slice(0, W).filter((_, i) => !BDF.cut.includes(i)).length + '개 남음</span>' : (BDF.over ? '다시 하기 ' : '해체 시작 ') + '<span class="num">' + K + fmt(c) + '</span>';
-    document.querySelectorAll('.bd-wire').forEach(g => { const i = Number(g.dataset.bdw); g.classList.toggle('live', BDF.on && !BDF.busy && !BDF.cut.includes(i)); g.setAttribute('aria-disabled', BDF.on && !BDF.busy && !BDF.cut.includes(i) ? 'false' : 'true'); });
-    const st = bdEl('bd-stage'); st.classList.toggle('live', BDF.on);
-    const lad = bdEl('bd-ladder');
-    if (lad) lad.innerHTML = M.map((v, i) => '<span class="bd-step' + (BDF.on && i === k ? ' next' : '') + (i < k ? ' past' : '') + (BDF.over && BDF.lastWin && i === k ? ' won' : '') + '"><small>' + (i + 1) + '번째</small>' + bdX(v) + '</span>').join('');
+    const left = W - BDF.cut.length;
+    go.innerHTML = BDF.on ? '자를 선을 골라 주세요 <span class="num">' + left + '개 남음</span>' : (BDF.over ? '다시 하기 ' : '해체 시작 ') + '<span class="num">' + K + fmt(c) + '</span>';
+    red.querySelector('span').textContent = BDF.on ? 'ARMED' : BDF.over ? 'AGAIN' : 'START';
+    const live = i => BDF.on && !BDF.busy && !BDF.cut.includes(i);
+    document.querySelectorAll('.bd-wire').forEach(g => { const i = Number(g.dataset.bdw); g.classList.toggle('live', live(i)); g.setAttribute('aria-disabled', live(i) ? 'false' : 'true'); });
+    document.querySelectorAll('.bd-spool').forEach(b => { const i = Number(b.dataset.bdw); b.disabled = !live(i); b.classList.toggle('cut', BDF.cut.includes(i)); });
+    bdEl('bd-stage').classList.toggle('live', BDF.on);
+    // 해체 기록 화면: 순서별 배수 + 자른 선 기록
+    const log = bdEl('bd-log');
+    if (log) log.innerHTML = '<div class="bd-lh">해체 기록</div><div class="bd-lt"><span>순서</span><span>배수</span><span>확률</span></div>' +
+      M.map((v, i) => '<div class="bd-lr' + (BDF.on && i === k ? ' next' : '') + (i < k ? ' past' : '') + (BDF.over && BDF.lastWin && i === k ? ' won' : '') + '"><span>' + (i + 1) + '</span><b>' + bdX(v) + '</b><span>' + Math.round(bdP(m, i + 1) * 100) + '%</span></div>').join('') +
+      '<div class="bd-lcut"><small>자른 선</small>' + (BDF.log.length ? BDF.log.map(e => '<i style="--c:' + BD_COL[e.i][0] + '" class="r' + e.r + '"></i>').join('') : '<em>아직 없음</em>') + '</div>';
     const s = bdEl('bd-status');
     if (s && !BDF.on && !BDF.over) s.innerHTML = '선 <b>' + W + '개</b> 중 해체 선은 단 하나! 폭발 선보다 먼저 찾아 잘라 보세요';
   }
   function bdLcd(txt, cls) { const l = bdEl('bd-lcd'); if (!l) return; l.textContent = txt; l.className = 'bd-lcd num' + (cls ? ' ' + cls : ''); }
+  function bdBar(left) {
+    const seg = bdEl('bd-seg'), t = bdEl('bd-tsec'); if (!seg) return;
+    const n = Math.ceil(Math.max(0, left) / BDF.tTot * 10), cls = left < 3 ? 'r' : left < BDF.tTot * .5 ? 'y' : 'g';
+    [...seg.children].forEach((e, i) => { e.className = i < n ? cls : ''; });
+    if (t) t.textContent = Math.max(0, left).toFixed(1) + 's';
+  }
   const bdFmt = sec => { const s = Math.max(0, sec); return '00:' + String(Math.floor(s)).padStart(2, '0') + '.' + Math.floor((s % 1) * 10); };
   function bdLoop() {
     cancelAnimationFrame(BDF.raf);
-    const tick = now => {
+    const tick = () => {
       if (!bdEl('bd-lcd') || !BDF.on || BDF.busy) return;
       const left = (BDF.tEnd - performance.now()) / 1000;
-      bdLcd(bdFmt(left), left < 3 ? 'hot' : '');
+      bdLcd(bdFmt(left), left < 3 ? 'hot' : ''); bdBar(left);
       const sec = Math.ceil(left);
       if (left < 3 && sec !== BDF.ls && sec > 0) { BDF.ls = sec; SFX.tick(true); }
       if (left <= 0) { bdTimeout(); return; }
@@ -7494,25 +7577,22 @@ img, svg, video { max-width: 100%; }
     };
     BDF.raf = requestAnimationFrame(tick);
   }
-  function bdArm(sec) { BDF.tEnd = performance.now() + sec * 1000; BDF.ls = -1; bdLoop(); }
+  function bdArm(sec) { BDF.tTot = sec; BDF.tEnd = performance.now() + sec * 1000; BDF.ls = -1; bdLoop(); }
   function bdStart() {
     const m = bombMachine(); if (!m || BDF.on || BDF.busy) return;
     const c = num(m.cost);
     if (state.balance < c) { toast('', '강냉이가 부족해요. 체험용 강냉이를 충전해 보세요.', true); return; }
     state.balance -= c; renderHUD(true);
     bdSync(m);
-    const W = BDF.W = bdW(m); BDF.sec = bdSec(m);
+    const W = bdW(m); BDF.sec = bdSec(m);
     const roles = ['D', 'B', ...Array(W - 2).fill('N')];
     for (let i = roles.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [roles[i], roles[j]] = [roles[j], roles[i]]; }
     const perm = Array.from({ length: W }, (_, i) => i);
     for (let i = perm.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [perm[i], perm[j]] = [perm[j], perm[i]]; }
-    Object.assign(BDF, { roles, perm, cut: [], cuts: 0, over: false, lastWin: 0, on: true, busy: false });
-    // 선 배치를 새로 그린다
-    const dev = bdEl('bd-dev'); if (dev) { const old = dev.querySelector('.bd-svg'); if (old) old.outerHTML = bdBombSVG(W, perm); }
-    const bomb = bdEl('bd-bomb'); if (bomb) { bomb.className = 'bd-bomb'; restart(bomb, 'arm'); }
-    const tags = bdEl('bd-tags'); if (tags) tags.innerHTML = '';
-    const sm = bdEl('bd-smoke'); if (sm) sm.innerHTML = '';
-    bdEl('bd-stage').classList.remove('boomed', 'saved');
+    Object.assign(BDF, { W, roles, perm, cut: [], cuts: 0, over: false, lastWin: 0, on: true, busy: false, log: [] });
+    // 가방을 새 배치로 다시 그린다(선 개수가 바뀌었을 수도 있음)
+    $('floor').innerHTML = bombFloorHTML();
+    const cs = bdEl('bd-case'); if (cs) restart(cs, 'arm');
     SFX.ready ? SFX.ready() : SFX.whoosh();
     const s = bdEl('bd-status'); if (s) s.innerHTML = '타이머 작동! 해체 선이라고 생각하는 선을 눌러 잘라 주세요';
     bdUI(); bdArm(BDF.sec);
@@ -7524,14 +7604,14 @@ img, svg, video { max-width: 100%; }
     const s = bdEl('bd-status'); if (s) s.innerHTML = '시간 초과! <b>' + BD_NAME[i] + ' 선</b>이 저절로 잘려요…';
     bdCut(i, true);
   }
-  function bdPt(i, t) { const P = bdWirePath(BDF.W, i, BDF.perm[i]), h = bdSplit(P, t); return h[0][3]; }
+  function bdPt(i, t) { const P = bdWirePath(BDF.W, i, BDF.perm[i]); return bdSplit(P, t)[0][3]; }
   function bdCutVisual(i, instant) {
-    const g = document.querySelector('.bd-wire[data-bdw="' + i + '"]'); if (!g) return;
-    if (g.classList.contains('cut')) return;
+    const g = document.querySelector('.bd-wire[data-bdw="' + i + '"]'); if (!g || g.classList.contains('cut')) return;
     const P = bdWirePath(BDF.W, i, BDF.perm[i]), [A, B] = bdSplit(P, .5), c = BD_COL[i];
-    const half = (Q, cls) => '<g class="bd-half ' + cls + (instant ? ' done' : '') + '"><path d="' + bdD(Q) + '" stroke="' + c[1] + '" stroke-width="8" fill="none" stroke-linecap="round"/><path d="' + bdD(Q) + '" stroke="' + c[0] + '" stroke-width="5.4" fill="none" stroke-linecap="round"/><circle cx="' + (cls === 'a' ? Q[3][0] : Q[0][0]).toFixed(1) + '" cy="' + (cls === 'a' ? Q[3][1] : Q[0][1]).toFixed(1) + '" r="2.6" fill="#E8A85A" stroke="#8A5A00" stroke-width="1"/></g>';
+    const half = (Q, cls) => '<g class="bd-half ' + cls + (instant ? ' done' : '') + '"><path d="' + bdD(Q) + '" stroke="' + c[1] + '" stroke-width="5.6" fill="none" stroke-linecap="round"/><path d="' + bdD(Q) + '" stroke="' + c[0] + '" stroke-width="3.6" fill="none" stroke-linecap="round"/><circle cx="' + (cls === 'a' ? Q[3][0] : Q[0][0]).toFixed(1) + '" cy="' + (cls === 'a' ? Q[3][1] : Q[0][1]).toFixed(1) + '" r="2" fill="#E8A85A" stroke="#8A5A00" stroke-width=".8"/></g>';
     g.querySelector('.bd-whole').outerHTML = half(A, 'a') + half(B, 'b');
     g.classList.add('cut');
+    const sp = document.querySelector('.bd-spool[data-bdw="' + i + '"]'); if (sp) sp.classList.add('cut');
   }
   function bdCut(i, auto) {
     const m = bombMachine(); if (!m || !BDF.on || BDF.busy || BDF.cut.includes(i)) return;
@@ -7540,23 +7620,23 @@ img, svg, video { max-width: 100%; }
     const leftSec = Math.max(0, (BDF.tEnd - performance.now()) / 1000);
     bdUI();
     const pt = bdPt(i, .5), pl = bdEl('bd-pliers'), s = bdEl('bd-status');
-    if (pl) { pl.style.left = (pt[0] / BD_VB[0] * 100) + '%'; pl.style.top = (pt[1] / BD_VB[1] * 100) + '%'; pl.className = 'bd-pliers show'; }
+    if (pl) { pl.style.left = bdPc(pt[0], BD_CW); pl.style.top = bdPc(pt[1], BD_CH); pl.className = 'bd-pliers show'; }
     if (s && !auto) s.innerHTML = '<b>' + BD_NAME[i] + ' 선</b>을 자릅니다…';
     setTimeout(() => {
       if (!bdEl('bd-stage')) { BDF.busy = false; return; }
       if (pl) pl.className = 'bd-pliers show snip';
       SFX.snap(); bdCutVisual(i, false);
-      const fx = bdEl('bd-fx'); if (fx) { fx.insertAdjacentHTML('beforeend', '<g class="bd-spark" transform="translate(' + pt[0].toFixed(1) + ' ' + pt[1].toFixed(1) + ')">' + Array.from({ length: 8 }, (_, k) => '<path d="M0 0 L' + (Math.cos(k * .785) * 14).toFixed(1) + ' ' + (Math.sin(k * .785) * 14).toFixed(1) + '" stroke="#FFE066" stroke-width="2" stroke-linecap="round"/>').join('') + '</g>'); setTimeout(() => { const sp = fx.querySelector('.bd-spark'); if (sp) sp.remove(); }, 500); }
-      // 긴장: LCD가 멈추고 점멸, 폭탄이 떨린다
-      bdLcd('- - - -', 'wait'); const bomb = bdEl('bd-bomb'); if (bomb) bomb.classList.add('tense');
+      const fx = bdEl('bd-fx'); if (fx) { fx.insertAdjacentHTML('beforeend', '<g class="bd-spark" transform="translate(' + pt[0].toFixed(1) + ' ' + pt[1].toFixed(1) + ')">' + Array.from({ length: 8 }, (_, k) => '<path d="M0 0 L' + (Math.cos(k * .785) * 12).toFixed(1) + ' ' + (Math.sin(k * .785) * 12).toFixed(1) + '" stroke="#FFE066" stroke-width="2" stroke-linecap="round"/>').join('') + '</g>'); setTimeout(() => { const sp = fx.querySelector('.bd-spark'); if (sp) sp.remove(); }, 500); }
+      bdLcd('- - - -', 'wait'); const cs = bdEl('bd-case'); if (cs) cs.classList.add('tense');
       const st = bdEl('bd-stage');
-      let n = 0; const beat = setInterval(() => { if (!bdEl('bd-stage')) return clearInterval(beat); SFX.thud(); if (st) restart(st, 'beat'); n++; }, 330);
+      const beat = setInterval(() => { if (!bdEl('bd-stage')) return clearInterval(beat); SFX.thud(); if (st) restart(st, 'beat'); }, 330);
       setTimeout(() => {
         clearInterval(beat);
         if (pl) pl.className = 'bd-pliers';
-        if (bomb) bomb.classList.remove('tense');
+        if (cs) cs.classList.remove('tense');
         if (!bdEl('bd-stage')) { BDF.busy = false; return; }
         const r = BDF.roles[i];
+        BDF.log.push({ i, r });
         if (r === 'D') bdWin(m, i, leftSec);
         else if (r === 'B') bdBoom(m, i);
         else bdSafe(m, i);
@@ -7577,8 +7657,9 @@ img, svg, video { max-width: 100%; }
   }
   function bdReveal() {
     const tags = bdEl('bd-tags'); if (!tags) return;
-    tags.innerHTML = BDF.roles.map((r, i) => { const x = bdTopX(BDF.W, BDF.perm[i]); return '<span class="bd-tag r' + r + '" style="left:' + (x / BD_VB[0] * 100).toFixed(2) + '%">' + (r === 'D' ? '해체' : r === 'B' ? '폭발' : '빈 선') + '</span>'; }).join('');
+    tags.innerHTML = BDF.roles.map((r, i) => '<span class="bd-tag r' + r + '" style="left:' + bdPc(bdSX(BDF.W, BDF.perm[i]), BD_CW) + '">' + (r === 'D' ? '해체' : r === 'B' ? '폭발' : '빈 선') + '</span>').join('');
     document.querySelectorAll('.bd-wire').forEach(g => g.classList.add('r' + BDF.roles[Number(g.dataset.bdw)]));
+    document.querySelectorAll('.bd-spool').forEach(b => b.classList.add('r' + BDF.roles[Number(b.dataset.bdw)]));
   }
   function bdWin(m, i, leftSec) {
     const c = num(m.cost), j = BDF.cuts + 1, x = bdMults(m)[BDF.cuts], got = Math.floor(c * x);
@@ -7588,31 +7669,30 @@ img, svg, video { max-width: 100%; }
     recordResult(p, m);
     if (j === 1) { state.feed.unshift({ g: 'A', item: '강냉이 ' + fmt(got) + '개', who: '나 · 폭탄 해체반 원샷 해체' }); renderFeed(true); }
     saveMe(); renderHUD(true);
-    const st = bdEl('bd-stage'), s = bdEl('bd-status'), led = bdEl('bd-led');
-    bdLcd(bdFmt(leftSec), 'win'); if (led) led.classList.add('win');
+    const st = bdEl('bd-stage'), s = bdEl('bd-status'), led = bdEl('bd-led'), lamp = bdEl('bd-lamp');
+    bdLcd(bdFmt(leftSec), 'win'); if (led) led.classList.add('win'); if (lamp) lamp.classList.add('win');
     st.classList.add('saved');
     bdReveal();
     const sh = document.createElement('div'); sh.className = 'wl-shout win t-' + (j === 1 ? 'top' : 'hi'); sh.innerHTML = (j === 1 ? '원샷 해체!!' : '해체 성공!') + '<small>' + j + '번째 선 · ' + bdX(x) + ' · 강냉이 ' + fmt(got) + '개</small>';
     st.appendChild(sh); setTimeout(() => sh.remove(), 2200);
     if (s) s.innerHTML = '<b>' + BD_NAME[i] + ' 선</b>이 해체 선! ' + (Math.floor(leftSec * 10) / 10).toFixed(1) + '초 남기고 해체 성공 · <b>' + bdX(x) + '</b> → 강냉이 <b>+' + fmt(got) + '</b>';
-    SFX.land(j === 1 ? 'top' : 'hi'); if (j === 1) SFX.fanfare(); restart(bdEl('bd-cab'), 'shake');
-    const r = st.getBoundingClientRect(); floatFx(); burst(['#51CF66', '#FFFFFF', '#FFD43B', '#4D9DFF'], j === 1 ? 120 : 70, j === 1 ? 12 : 10, r.left + r.width / 2, r.top + r.height * .5);
+    SFX.land(j === 1 ? 'top' : 'hi'); if (j === 1) SFX.fanfare();
+    const r = st.getBoundingClientRect(); floatFx(); burst(['#51CF66', '#FFFFFF', '#FFD43B', '#4D9DFF'], j === 1 ? 120 : 70, j === 1 ? 12 : 10, r.left + r.width / 2, r.top + r.height * .4);
     rain(['#51CF66', '#FFD43B', '#FFFFFF', '#4D9DFF'], j === 1 ? 160 : 80);
     bdUI();
   }
   function bdBoom(m, i) {
-    const st = bdEl('bd-stage'), s = bdEl('bd-status'), cab = bdEl('bd-cab'), bomb = bdEl('bd-bomb'), k = BDF.cuts;
+    const st = bdEl('bd-stage'), s = bdEl('bd-status'), cs = bdEl('bd-case'), k = BDF.cuts, lamp = bdEl('bd-lamp');
     BDF.on = false; BDF.over = true; BDF.busy = true; BDF.lastWin = 0;
     const left = BDF.roles.map((_, x) => x).filter(x => !BDF.cut.includes(x)), near = left.length === 1;
     SFX.boom(); setTimeout(() => SFX.boom(), 160);
-    bdLcd('88:88.8', 'boom');
+    bdLcd('88:88.8', 'boom'); if (lamp) lamp.classList.add('boom');
     st.classList.add('boomed'); restart(st, 'bd-flash'); restart(st, 'quake');
-    if (bomb) bomb.classList.add('charred');
-    if (cab) restart(cab, 'shake');
+    if (cs) cs.classList.add('charred');
     const bm = document.createElement('div'); bm.className = 'bd-boom'; bm.innerHTML = BD_BOOM; st.appendChild(bm); setTimeout(() => bm.remove(), 1400);
     const sm = bdEl('bd-smoke'); if (sm) sm.innerHTML = '<i></i>'.repeat(7);
     const r = st.getBoundingClientRect();
-    burst(['#FF922B', '#F03E3E', '#FFE066', '#343A40'], 70, 12, r.left + r.width / 2, r.top + r.height * .55);
+    burst(['#FF922B', '#F03E3E', '#FFE066', '#343A40'], 70, 12, r.left + r.width * .35, r.top + r.height * .3);
     bdReveal();
     setTimeout(() => {
       const sh = document.createElement('div'); sh.className = 'wl-shout lose' + (near ? ' near' : ''); sh.innerHTML = (near ? '아깝다!!' : '폭발…') + '<small>' + (near ? '남은 하나가 해체 선이었어요' : BD_NAME[i] + ' 선이 폭발 선이었어요') + '</small>';
@@ -7625,8 +7705,8 @@ img, svg, video { max-width: 100%; }
   }
   $('floor').addEventListener('click', e => {
     if (state.tab !== 'bomb') return;
-    const w = e.target.closest('.bd-wire'); if (w) { if (BDF.on && !BDF.busy) bdCut(Number(w.dataset.bdw)); return; }
-    if (e.target.closest('#bd-go')) bdStart();
+    const w = e.target.closest('.bd-wire, .bd-spool'); if (w) { if (BDF.on && !BDF.busy) bdCut(Number(w.dataset.bdw)); return; }
+    if (e.target.closest('#bd-go, #bd-red')) bdStart();
   });
   $('floor').addEventListener('keydown', e => {
     if (state.tab !== 'bomb' || (e.key !== 'Enter' && e.key !== ' ')) return;
