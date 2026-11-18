@@ -1185,6 +1185,42 @@ svg.lt-kico.lt-tic { width: 22px; height: 22px; margin: 0 8px 0 2px; }
 .sl-btn.br-cash:disabled, .sl-btn.br-go:disabled { background: #6C7A8C; color: #D7DDE8; box-shadow: 0 6px 0 #3E4A5C; }
 @media (max-width: 640px) { .br-stage { height: 340px; } .br-wrap { transform: scale(.92); } .br-wrap.tense .br-body { animation: none; } }
 @media (prefers-reduced-motion: reduce) { .br-wrap.tense .br-body, .br-head.peek, .br-stage.hot .br-danger, .br-stage.live .br-hole:not(:disabled) .br-slit, .br-sky::before, .br-sea::before, .br-lamp { animation: none; } }
+/* 해적 통 룰렛 v116: 칼 거치대 · 보물상자 · 난간 · 안개 · 반딧불 */
+.br-mult em { display: block; margin-top: 2px; font-style: normal; font-size: 11.5px; font-weight: 800; color: #FFE066; }
+.br-mult em .kernel { width: 11px; height: 11px; vertical-align: -1px; }
+.br-rail { position: absolute; left: 0; bottom: 34%; width: 100%; height: 30px; opacity: .9; }
+.br-fog { position: absolute; left: -10%; right: -10%; top: 58%; height: 14%; background: radial-gradient(50% 50% at 30% 50%, rgba(200,215,255,.18), transparent 70%), radial-gradient(40% 50% at 75% 50%, rgba(200,215,255,.14), transparent 70%); animation: br-fog 14s ease-in-out infinite alternate; }
+@keyframes br-fog { to { transform: translateX(6%); } }
+.br-rays { position: absolute; right: 2%; top: 4%; width: 140px; height: 140px; background: conic-gradient(from 200deg, transparent, rgba(255,240,190,.12) 20deg, transparent 40deg, rgba(255,240,190,.08) 70deg, transparent 90deg); border-radius: 50%; filter: blur(2px); animation: br-rays 18s linear infinite; }
+@keyframes br-rays { to { transform: rotate(360deg); } }
+.br-fly { position: absolute; bottom: 20%; width: 4px; height: 4px; border-radius: 50%; background: #FFE8A3; box-shadow: 0 0 8px 2px rgba(255,214,120,.7); opacity: 0; animation: br-fly 7s linear infinite; }
+.br-fly:nth-child(9) { left: 12%; animation-delay: 0s; } .br-fly:nth-child(10) { left: 26%; animation-delay: -1.6s; animation-duration: 8s; } .br-fly:nth-child(11) { left: 38%; animation-delay: -3.2s; } .br-fly:nth-child(12) { left: 62%; animation-delay: -.8s; animation-duration: 9s; }
+.br-fly:nth-child(13) { left: 74%; animation-delay: -4.4s; } .br-fly:nth-child(14) { left: 86%; animation-delay: -2.4s; animation-duration: 6s; } .br-fly:nth-child(15) { left: 50%; animation-delay: -5.6s; } .br-fly:nth-child(16) { left: 6%; animation-delay: -6.2s; animation-duration: 10s; }
+@keyframes br-fly { 0% { transform: translate(0, 0); opacity: 0; } 15% { opacity: .9; } 50% { transform: translate(14px, -90px); } 85% { opacity: .7; } 100% { transform: translate(-8px, -180px); opacity: 0; } }
+.br-rack { display: flex; justify-content: center; gap: 6px; margin: 10px 0 0; padding: 8px 8px 6px; border-radius: 14px; background: linear-gradient(180deg, #3B1F0E, #2A160A); box-shadow: inset 0 0 0 1px rgba(240,201,119,.35), inset 0 6px 10px rgba(0,0,0,.45); }
+.br-slot { flex: 1 1 0; max-width: 78px; display: grid; justify-items: center; gap: 2px; padding: 6px 4px 4px; border-radius: 10px; background: rgba(255,255,255,.04); transition: background .25s, transform .25s; }
+.br-rk { display: block; width: 100%; max-width: 64px; height: 20px; transform: rotate(-90deg) scale(1.15); transform-origin: 50% 50%; margin: 24px 0 22px; filter: drop-shadow(0 2px 2px rgba(0,0,0,.5)); transition: opacity .3s, filter .3s; }
+.br-rk svg { display: block; width: 100%; height: 100%; }
+.br-slot small { font-size: 11px; font-weight: 800; color: rgba(255,232,163,.75); }
+.br-slot.next { background: rgba(255,224,102,.16); box-shadow: inset 0 0 0 2px #FFD43B, 0 0 12px rgba(255,212,59,.45); animation: br-nextslot 1.2s ease-in-out infinite; }
+.br-slot.next small { color: #FFE066; }
+@keyframes br-nextslot { 50% { transform: translateY(-2px); } }
+.br-slot.going .br-rk, .br-slot.done .br-rk { opacity: .28; filter: grayscale(.6); }
+.br-slot.done { background: rgba(64,192,87,.22); box-shadow: inset 0 0 0 1.5px #40C057; }
+.br-slot.done small { color: #8CE99A; }
+.br-slot.done small::before { content: "✓ "; }
+.br-slot.fail { background: rgba(224,49,49,.28); box-shadow: inset 0 0 0 1.5px #FF6B6B; }
+.br-slot.fail small { color: #FFA8A8; }
+.br-slot.fail .br-rk { opacity: .35; filter: grayscale(1); }
+.br-slot.pop { animation: br-slotpop .45s cubic-bezier(.2,1.6,.4,1); }
+@keyframes br-slotpop { 40% { transform: scale(1.15); } }
+.sl-btn.br-go.playing:disabled { background: linear-gradient(180deg, #5C3A1E, #3B1F0E); color: #F0C977; box-shadow: 0 6px 0 #1A0D05, inset 0 0 0 1.5px rgba(240,201,119,.4); }
+.br-chest { position: absolute; left: 50%; top: 22%; z-index: 145; width: 170px; height: 146px; margin-left: -85px; pointer-events: none; animation: br-chest 2.6s cubic-bezier(.2,1.4,.4,1) forwards; }
+.br-chest svg { display: block; width: 100%; height: 100%; filter: drop-shadow(0 8px 12px rgba(0,0,0,.45)); }
+@keyframes br-chest { 0% { transform: translateY(40px) scale(.2); opacity: 0; } 18% { transform: translateY(-6px) scale(1.1); opacity: 1; } 28% { transform: scale(1); } 80% { opacity: 1; } 100% { transform: translateY(-20px) scale(1.04); opacity: 0; } }
+.br-stage .br-winshout { top: 74%; }
+@media (max-width: 640px) { .br-rk { transform: rotate(-90deg) scale(1.05); } .br-slot small { font-size: 10px; } }
+@media (prefers-reduced-motion: reduce) { .br-fly, .br-fog, .br-rays, .br-slot.next { animation: none; } }
 /* ===== 냥냥 레이스 ===== */
 .rc-panel { grid-column: 1 / -1; }
 .rc-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
@@ -2855,7 +2891,7 @@ img, svg, video { max-width: 100%; }
   <p class="ad-invalid" id="ad-invalid" hidden></p>
 
   <div class="ad-layout">
-  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="archery"><span class="gnb-dot" data-addot="archery"></span><span class="gnb-text"><b>깡통 사격</b><small>캔별 상품 보상표</small></span></button><button type="button" class="gnb-item" data-adpage="slot"><span class="gnb-dot" data-addot="slot"></span><span class="gnb-text"><b>캐릭터 슬롯</b><small>캐릭터별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="gslot"><span class="gnb-dot" data-addot="gslot"></span><span class="gnb-text"><b>상품 슬롯</b><small>상품별 비중·준비 수량</small></span></button><button type="button" class="gnb-item" data-adpage="race"><span class="gnb-dot" data-addot="race"></span><span class="gnb-text"><b>냥냥 레이스</b><small>우승 비중·배당</small></span></button><button type="button" class="gnb-item" data-adpage="fish"><span class="gnb-dot" data-addot="fish"></span><span class="gnb-text"><b>냥 낚시터</b><small>입장권·물고기 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="wheel"><span class="gnb-dot" data-addot="wheel"></span><span class="gnb-text"><b>럭키 룰렛</b><small>그림별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="pusher"><span class="gnb-dot" data-addot="pusher"></span><span class="gnb-text"><b>코인 푸셔</b><small>낙하 개수별 확률</small></span></button><button type="button" class="gnb-item" data-adpage="pirate"><span class="gnb-dot" data-addot="pirate"></span><span class="gnb-text"><b>해적 통 룰렛</b><small>구멍·해적 수·RTP</small></span></button></div></nav>
+  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="archery"><span class="gnb-dot" data-addot="archery"></span><span class="gnb-text"><b>깡통 사격</b><small>캔별 상품 보상표</small></span></button><button type="button" class="gnb-item" data-adpage="slot"><span class="gnb-dot" data-addot="slot"></span><span class="gnb-text"><b>캐릭터 슬롯</b><small>캐릭터별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="gslot"><span class="gnb-dot" data-addot="gslot"></span><span class="gnb-text"><b>상품 슬롯</b><small>상품별 비중·준비 수량</small></span></button><button type="button" class="gnb-item" data-adpage="race"><span class="gnb-dot" data-addot="race"></span><span class="gnb-text"><b>냥냥 레이스</b><small>우승 비중·배당</small></span></button><button type="button" class="gnb-item" data-adpage="fish"><span class="gnb-dot" data-addot="fish"></span><span class="gnb-text"><b>냥 낚시터</b><small>입장권·물고기 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="wheel"><span class="gnb-dot" data-addot="wheel"></span><span class="gnb-text"><b>럭키 룰렛</b><small>그림별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="pusher"><span class="gnb-dot" data-addot="pusher"></span><span class="gnb-text"><b>코인 푸셔</b><small>낙하 개수별 확률</small></span></button><button type="button" class="gnb-item" data-adpage="pirate"><span class="gnb-dot" data-addot="pirate"></span><span class="gnb-text"><b>해적 통 룰렛</b><small>구멍·해적·칼 수·RTP</small></span></button></div></nav>
   <div class="ad-main">
   <div class="ad-page" data-page="overview">
 
@@ -2955,7 +2991,7 @@ img, svg, video { max-width: 100%; }
   <div class="ad-page" data-page="pirate" hidden>
   <div class="panel ad-block" id="br-admin">
     <h2>해적 통 룰렛 관리 <span class="tag" id="br-sum"></span></h2>
-    <p class="hub-note">입장하면 구멍 N개 중 T개에 해적이 숨고, 칼을 꽂아 살아남을 때마다 배수가 올라요. <b>칼 k개 성공 배수 = 목표 RTP × C(N,k) ÷ C(N−T,k)</b>(소수 둘째 자리 내림)라서, 어느 단계에서 멈추든 환원율이 목표 RTP 이하로 거의 같아요. 아래 RTP는 가장 높은 단계 기준이에요.</p>
+    <p class="hub-note">입장하면 구멍 N개 중 T개에 해적이 숨어요. 칼을 정해진 개수만큼 <b>모두 꽂고 버텨야만</b> 보상을 받고, 중간에 멈출 수 없어요. <b>성공 확률 = C(N−T, 칼 수) ÷ C(N, 칼 수)</b>, <b>보상 배수 = 목표 RTP ÷ 성공 확률</b>(소수 둘째 자리 내림)로 자동 계산돼요.</p>
     <div class="fields" id="br-fields"></div>
     <div class="table-wrap"><table class="ad-table" id="br-t"></table></div>
     <div class="ed-foot"><div class="pa-calc" id="br-calc"></div></div>
@@ -3394,9 +3430,9 @@ img, svg, video { max-width: 100%; }
       { id: 'pusher', zone: 'pusher', mode: 'pusher', name: '코인 푸셔', cost: 10, demand: 800000, top: '잭팟 코인 100개',
         probs: [68.85, 15, 8, 4, 2.5, 1.2, 0.4, 0.05],
         prizes: [W('C', '낙하 없음', 'kernel', 0, 0, 68.85), W('C', '코인 1개 낙하', 'kernel', 10, 0, 15), W('B', '코인 2개 낙하', 'kernel', 20, 0, 8), W('B', '코인 3개 낙하', 'kernel', 30, 0, 4), W('A', '코인 5개 낙하', 'kernel', 50, 0, 2.5), W('A', '코인 10개 낙하', 'kernel', 100, 0, 1.2), W('S', '코인 30개 낙하', 'kernel', 300, 0, 0.4), W('S', '코인 100개 낙하', 'kernel', 1000, 0, 0.05)] },
-      // 해적 통 룰렛: 구멍 N개 중 T개가 해적. 칼 k개 성공 배수 = RTP × C(N,k)/C(N−T,k). 언제든 받기(멈추는 단계와 무관하게 환원율 일정)
-      { id: 'pirate', zone: 'pirate', mode: 'pirate', name: '해적 통 룰렛', cost: 50, demand: 600000, holes: 12, traps: 2, rtp: 85, top: '완벽 생존',
-        prizes: [W('C', '칼 1개 성공', 'kernel', 51, 0, 1)] },
+      // 해적 통 룰렛: 구멍 N개 중 T개가 해적. 칼 need개를 모두 버텨야 보상. 배수 = 목표 RTP ÷ 성공 확률
+      { id: 'pirate', zone: 'pirate', mode: 'pirate', name: '해적 통 룰렛', cost: 50, demand: 600000, holes: 12, traps: 2, need: 5, rtp: 85, top: '칼 5개 버티기 ×2.67',
+        prizes: [W('A', '칼 5개 버티기 성공 ×2.67', 'kernel', 133, 0, 1)] },
       // 팝콘 대포: 게이지 등급(퍼펙트·좋아요·보통)별 확률표로 거리 구간 결정. 배수 공통, 등급별 RTP 동일(B 방식)
       { id: 'cannon', zone: 'cannon', mode: 'cannon', cv: 2, name: '팝콘 대포', cost: 100, demand: 800000, mults: [0.2, 0.5, 1, 2, 4, 10],
         probs: { perfect: [0, 0, 90.2, 7, 2, 0.8], good: [0, 0, 96, 3.5, 0.5, 0], normal: [45, 30, 10, 10, 4, 1] }, top: '800m 이상 ×10 · 강냉이 1,000개',
@@ -3442,6 +3478,8 @@ img, svg, video { max-width: 100%; }
     c.machines = c.machines.filter(m => m.mode !== 'pack' && m.mode !== 'bingo');
     // 머니 휠은 삭제된 게임(예전 설정에 남아 있으면 뺀다)
     c.machines = c.machines.filter(m => m.mode !== 'mwheel');
+    // 해적 통 룰렛: 예전(중간 받기) 설정에는 꽂아야 할 칼 수가 없다 → 5개
+    c.machines.forEach(m => { if (m.mode === 'pirate' && m.need == null) m.need = 5; });
     // 뽑기판·팝콘 핀볼은 삭제된 게임
     c.machines = c.machines.filter(m => m.mode !== 'board' && m.mode !== 'plinko' && m.mode !== 'farm');
     delete c.farm;   // 팝콘 농장은 삭제된 게임
@@ -3471,7 +3509,7 @@ img, svg, video { max-width: 100%; }
   const WALLET_KEY = 'tooneland-wallet-v1';
   const WALLET = (() => { try { const w = JSON.parse(localStorage.getItem(WALLET_KEY)); if (w && typeof w.bal === 'number' && Array.isArray(w.log)) return w; } catch (e) { /* 저장소 없음 */ } return { bal: 12340, log: [{ t: Date.now(), d: 0, after: 12340, why: '시작 잔액 (목업)' }] }; })();
   let ledgerWhy = '', walletT = 0;
-  const GAME_WHY = { puzzle: ['직소 퍼즐 카드 뽑기', '직소 퍼즐 보상'], runner: ['냥치 런 입장', '냥치 런 점수 받기'], cannon: ['팝콘 대포 발사', '팝콘 대포 착지 보상'], slot: ['캐릭터 슬롯 돌리기', '캐릭터 슬롯 당첨'], gslot: ['상품 슬롯 돌리기', '상품 슬롯 당첨'], race: ['냥냥 레이스 응원', '냥냥 레이스 적중'], fish: ['냥 낚시터 입장', '냥 낚시터 조과'], wheel: ['럭키 룰렛 돌리기', '럭키 룰렛 당첨'], scratch: ['럭키 스크래치 구매', '럭키 스크래치 당첨'], pusher: ['코인 푸셔 코인 넣기', '코인 푸셔 낙하'], pirate: ['해적 통 룰렛 입장', '해적 통 룰렛 받기'], archery: ['깡통 사격 입장(탄 구매)', '깡통 사격 명중 상품'] };
+  const GAME_WHY = { puzzle: ['직소 퍼즐 카드 뽑기', '직소 퍼즐 보상'], runner: ['냥치 런 입장', '냥치 런 점수 받기'], cannon: ['팝콘 대포 발사', '팝콘 대포 착지 보상'], slot: ['캐릭터 슬롯 돌리기', '캐릭터 슬롯 당첨'], gslot: ['상품 슬롯 돌리기', '상품 슬롯 당첨'], race: ['냥냥 레이스 응원', '냥냥 레이스 적중'], fish: ['냥 낚시터 입장', '냥 낚시터 조과'], wheel: ['럭키 룰렛 돌리기', '럭키 룰렛 당첨'], scratch: ['럭키 스크래치 구매', '럭키 스크래치 당첨'], pusher: ['코인 푸셔 코인 넣기', '코인 푸셔 낙하'], pirate: ['해적 통 룰렛 입장', '해적 통 룰렛 보물 획득'], archery: ['깡통 사격 입장(탄 구매)', '깡통 사격 명중 상품'] };
   function ledgerReason(d) {
     if (ledgerWhy) return ledgerWhy;
     if (typeof current !== 'undefined' && current) return current.name + (d < 0 ? ' 뽑기' : ' 당첨');
@@ -3567,7 +3605,7 @@ img, svg, video { max-width: 100%; }
 
   function renderZones() {
     const COPY = {
-      pirate: ['칼을 꽂아 버티는 해적 통 룰렛', '통 구멍에 칼을 하나씩 꽂을 때마다 배수가 올라가요. 해적이 튀어나오기 전에 멈추고 받으면 입장료 × 배수만큼 강냉이를 받아요.'],
+      pirate: ['칼을 꽂아 버티는 해적 통 룰렛', '통 구멍에 칼을 하나씩 꽂아요. 해적이 튀어나오지 않고 칼 5개를 모두 버티면 보물(입장료 × 배수)을 받아요.'],
       pusher: ['코인을 밀어 떨어뜨리는 코인 푸셔', '강냉이 코인을 넣으면 밀판이 코인 더미를 밀어요. 앞쪽 가장자리로 떨어진 코인만큼 강냉이를 받아요. 가끔 와르르 쏟아지는 대량 낙하도 있어요.'],
       scratch: ['은박을 긁어 같은 그림 3개를 찾는 럭키 스크래치', '회차마다 정해진 장수만 발행하는 한정 복권이에요. 남은 복권과 상품 수량을 실시간으로 공개하고, 같은 그림 3개가 나오면 그 상품을 받아요.'],
       wheel: ['3겹 휠이 차례로 멈추는 럭키 룰렛', '안쪽 → 가운데 → 바깥 휠이 차례로 멈춰요. 위쪽 창에 같은 그림 3개가 모이면 그 그림의 배수만큼 강냉이를 받아요.'],
@@ -6892,16 +6930,18 @@ img, svg, video { max-width: 100%; }
   const brN = m => Math.max(6, Math.min(24, Math.round(num(m && m.holes) || 12)));
   const brT = m => Math.max(1, Math.min(3, Math.min(brN(m) - 2, Math.round(num(m && m.traps) || 2))));
   const brR = m => Math.max(.5, Math.min(.99, (num(m && m.rtp) || 85) / 100));
-  // k개 성공 시 배수(내림)와 그때까지 살아남을 확률
-  function brMult(m, k) { if (k < 1) return 0; const N = brN(m), T = brT(m); let x = brR(m); for (let i = 0; i < k; i++) x *= (N - i) / (N - T - i); return Math.floor(x * 100 + 1e-9) / 100; }
+  // 칼 need개를 모두 버텨야만 보상. 성공 확률 P = Π(N−T−i)/(N−i), 보상 배수 = 목표 RTP ÷ P (소수 둘째 자리 내림)
+  const brNeed = m => Math.max(1, Math.min(brN(m) - brT(m), Math.round(num(m && m.need) || 5)));
+  const brMax = m => brNeed(m);
   function brAlive(m, k) { const N = brN(m), T = brT(m); let p = 1; for (let i = 0; i < k; i++) p *= (N - T - i) / (N - i); return p; }
-  const brMax = m => brN(m) - brT(m);
-  // 운영 지표: 어느 단계에서 멈추든 가장 높은 환원율(최악의 경우)
-  const brRtp = m => { let best = 0; for (let k = 1; k <= brMax(m); k++) best = Math.max(best, brMult(m, k) * brAlive(m, k)); return best; };
+  const brStepP = (m, i) => (brN(m) - brT(m) - i) / (brN(m) - i);
+  const brWinP = m => brAlive(m, brNeed(m));
+  function brMult(m) { const p = brWinP(m); return p > 0 ? Math.floor(brR(m) / p * 100 + 1e-9) / 100 : 0; }
+  const brRtp = m => brMult(m) * brWinP(m);
   function brSync(m) {
-    const c = num(m.cost);
-    m.prizes = Array.from({ length: brMax(m) }, (_, i) => { const k = i + 1, x = brMult(m, k); return { g: x >= 10 ? 'S' : x >= 3 ? 'A' : x >= 1.5 ? 'B' : 'C', name: '칼 ' + k + '개 성공 ×' + x, kind: 'kernel', val: Math.floor(c * x), cost: 0, w: 1 }; });
-    m.top = '완벽 생존 ×' + brMult(m, brMax(m));
+    const c = num(m.cost), x = brMult(m), n = brNeed(m);
+    m.prizes = [{ g: x >= 10 ? 'S' : x >= 3 ? 'A' : 'B', name: '칼 ' + n + '개 버티기 성공 ×' + x, kind: 'kernel', val: Math.floor(c * x), cost: 0, w: 1 }];
+    m.top = '칼 ' + n + '개 버티기 ×' + x;
   }
   const brTxt = x => '×' + (x >= 100 ? Math.round(x) : x >= 10 ? +x.toFixed(1) : x.toFixed(2));
 
@@ -6954,6 +6994,8 @@ img, svg, video { max-width: 100%; }
       '<linearGradient id="brHoopX" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000000" stop-opacity=".45"/><stop offset=".3" stop-color="#000000" stop-opacity="0"/><stop offset=".75" stop-color="#000000" stop-opacity="0"/><stop offset="1" stop-color="#000000" stop-opacity=".5"/></linearGradient>' +
       '<radialGradient id="brRiv" cx=".35" cy=".35" r=".7"><stop offset="0" stop-color="#FFF8DB"/><stop offset=".6" stop-color="#B8901F"/><stop offset="1" stop-color="#4A3500"/></radialGradient>' +
       '<radialGradient id="brIn" cx=".5" cy=".3" r=".75"><stop offset="0" stop-color="#1A0B03"/><stop offset=".7" stop-color="#0A0401"/><stop offset="1" stop-color="#2E160A"/></radialGradient>' +
+      '<linearGradient id="brRimL" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFB45A" stop-opacity=".55"/><stop offset=".14" stop-color="#FFB45A" stop-opacity="0"/><stop offset=".86" stop-color="#A9C4FF" stop-opacity="0"/><stop offset="1" stop-color="#A9C4FF" stop-opacity=".45"/></linearGradient>' +
+      '<filter id="brGrain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9 .018" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 .12  0 0 0 0 .05  0 0 0 0 .01  0 0 0 -1.6 1.15"/></filter>' +
       '<linearGradient id="brRim" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5E3016"/><stop offset=".4" stop-color="#D08A4C"/><stop offset="1" stop-color="#5E3016"/></linearGradient>' +
       '<clipPath id="brClip"><path d="' + body + '"/></clipPath></defs>';
     const back = '<svg class="br-barrel-back" viewBox="0 0 ' + BR_W + ' ' + BR_H + '" preserveAspectRatio="none" aria-hidden="true">' + defs +
@@ -6962,7 +7004,7 @@ img, svg, video { max-width: 100%; }
     const front = '<svg class="br-barrel" viewBox="0 0 ' + BR_W + ' ' + BR_H + '" preserveAspectRatio="none" aria-hidden="true">' +
       '<path d="' + body + '" fill="url(#brWood)"/>' +
       '<g clip-path="url(#brClip)">' + staves.map(d => '<path d="' + d + '" stroke="#2B1508" stroke-opacity=".5" stroke-width="1.4" fill="none"/><path d="' + d + '" stroke="#FFD8A8" stroke-opacity=".14" stroke-width="1" fill="none" transform="translate(1.6 0)"/>').join('') +
-        '<rect width="' + BR_W + '" height="' + BR_H + '" fill="url(#brVert)"/><rect width="' + BR_W + '" height="' + BR_H + '" fill="url(#brShine)"/>' +
+        '<rect width="' + BR_W + '" height="' + BR_H + '" fill="url(#brVert)"/><rect width="' + BR_W + '" height="' + BR_H + '" filter="url(#brGrain)" opacity=".55"/><rect width="' + BR_W + '" height="' + BR_H + '" fill="url(#brShine)"/><rect width="' + BR_W + '" height="' + BR_H + '" fill="url(#brRimL)"/>' +
         '<path d="' + hoop(32, 44) + '" fill="url(#brHoop)"/><path d="' + hoop(32, 44) + '" fill="url(#brHoopX)"/>' +
         '<path d="' + hoop(150, 162) + '" fill="url(#brHoop)"/><path d="' + hoop(150, 162) + '" fill="url(#brHoopX)"/>' +
         rivets(38) + rivets(156) + '</g>' +
@@ -7007,30 +7049,41 @@ img, svg, video { max-width: 100%; }
     svg.innerHTML = BR_SDEFS + list.map(x => brSwordG(x.p, x.n, BRL.anim && BRL.anim.h === x.h ? BRL.anim.o : 0)).join('');
   }
 
+  // 칼 거치대 아이콘(남은 칼) · 갑판 난간 · 보물상자(성공 연출)
+  const brRackSword = i => { const c = BR_SC[i % 4]; return '<svg viewBox="0 0 64 20" aria-hidden="true"><path d="M2 10 L26 7.6 L26 12.4 Z" fill="#DEE2E6" stroke="#868E96" stroke-width="1"/><path d="M6 10 H24" stroke="#FFFFFF" stroke-width="1" opacity=".8"/><rect x="26" y="2" width="5" height="16" rx="2.4" fill="' + c[1] + '" stroke="' + c[2] + '" stroke-width="1.2"/><rect x="31" y="6.6" width="20" height="6.8" rx="3.4" fill="' + c[1] + '" stroke="' + c[2] + '" stroke-width="1.2"/><path d="M33 8.6 H49" stroke="' + c[0] + '" stroke-width="1.6" stroke-linecap="round"/><circle cx="55.5" cy="10" r="5" fill="url(#brRk' + (i % 4) + ')" stroke="' + c[2] + '" stroke-width="1.2"/><defs><radialGradient id="brRk' + (i % 4) + '" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".35" stop-color="' + c[0] + '"/><stop offset="1" stop-color="' + c[2] + '"/></radialGradient></defs></svg>'; };
+  const BR_RAIL = '<svg class="br-rail" viewBox="0 0 480 40" preserveAspectRatio="none" aria-hidden="true">' +
+    Array.from({ length: 13 }, (_, i) => '<rect x="' + (i * 40 - 3) + '" y="6" width="6" height="34" rx="2" fill="#4A2A14" stroke="#2A160A" stroke-width="1"/><circle cx="' + (i * 40) + '" cy="6" r="4" fill="#C98A22"/>').join('') +
+    Array.from({ length: 12 }, (_, i) => '<path d="M' + (i * 40) + ' 9 Q' + (i * 40 + 20) + ' 20 ' + (i * 40 + 40) + ' 9" stroke="#C9A36A" stroke-width="2.4" fill="none"/><path d="M' + (i * 40) + ' 9 Q' + (i * 40 + 20) + ' 20 ' + (i * 40 + 40) + ' 9" stroke="#6B4A1E" stroke-width="2.4" stroke-dasharray="2 3" fill="none"/>').join('') + '</svg>';
+  const BR_CHEST = '<svg viewBox="0 0 140 120" aria-hidden="true"><defs><radialGradient id="brCg" cx=".5" cy=".55" r=".55"><stop offset="0" stop-color="#FFF8D6"/><stop offset=".45" stop-color="#FFD43B" stop-opacity=".85"/><stop offset="1" stop-color="#FFD43B" stop-opacity="0"/></radialGradient><linearGradient id="brCw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B86E36"/><stop offset="1" stop-color="#5E3016"/></linearGradient></defs>' +
+    '<circle cx="70" cy="56" r="56" fill="url(#brCg)"/>' +
+    '<path d="M24 44 Q70 4 116 44 L112 54 Q70 22 28 54 Z" fill="url(#brCw)" stroke="#2B1508" stroke-width="2.4"/><path d="M62 18 h16 v30 h-16 z" fill="#E2B54A" stroke="#5C4300" stroke-width="2"/>' +
+    '<ellipse cx="70" cy="62" rx="44" ry="9" fill="#FFD43B" stroke="#8A5A00" stroke-width="2"/>' + [[52, 58], [64, 55], [78, 57], [88, 60], [58, 64], [72, 63], [84, 65]].map(([x, y]) => '<ellipse cx="' + x + '" cy="' + y + '" rx="7" ry="3.6" fill="#FFE066" stroke="#B07A00" stroke-width="1.2"/>').join('') +
+    '<path d="M26 62 H114 L110 108 Q70 114 30 108 Z" fill="url(#brCw)" stroke="#2B1508" stroke-width="2.4"/><path d="M27 74 H113 M29 96 H111" stroke="#E2B54A" stroke-width="6"/><path d="M62 70 h16 v18 l-8 6 l-8 -6 z" fill="#FFE066" stroke="#5C4300" stroke-width="2"/><circle cx="70" cy="80" r="2.6" fill="#5C4300"/></svg>';
+
   function pirateFloorHTML() {
     const m = pirateMachine(); if (!m) return '';
     brSync(m);
-    const c = num(m.cost), N = brN(m), T = brT(m), mx = brMax(m), B = brBarrelSVG();
-    const rows = Array.from({ length: mx }, (_, i) => i + 1).filter(k => k <= 3 || k % 2 === 0 || k === mx).map(k => '<tr><td>칼 ' + k + '개' + (k === mx ? ' (완벽 생존)' : '') + '</td><td class="num">' + slPctTxt(brAlive(m, k)) + '</td><td class="num">' + brTxt(brMult(m, k)) + '</td><td class="num">' + fmt(Math.floor(c * brMult(m, k))) + '개</td></tr>').join('');
+    const c = num(m.cost), N = brN(m), T = brT(m), n = brNeed(m), x = brMult(m), B = brBarrelSVG();
+    const rows = Array.from({ length: n }, (_, i) => '<tr><td>' + (i + 1) + '번째 칼</td><td class="num">' + Math.round(brStepP(m, i) * 1000) / 10 + '%</td><td class="num">' + slPctTxt(brAlive(m, i + 1)) + '</td></tr>').join('');
     return '<section class="br-panel" aria-labelledby="br-h"><div class="rc-wrap">' +
       '<div class="br-cab" id="br-cab">' +
-        '<div class="sl-marquee br-marquee"><span class="sl-bulbs" aria-hidden="true">' + '<i></i>'.repeat(13) + '</span><b>PIRATE BARREL</b><small>칼을 꽂아 버틸수록 배수가 올라요!</small></div>' +
+        '<div class="sl-marquee br-marquee"><span class="sl-bulbs" aria-hidden="true">' + '<i></i>'.repeat(13) + '</span><b>PIRATE BARREL</b><small>칼 ' + n + '개를 모두 꽂고 버티면 보물 획득!</small></div>' +
         '<div class="br-stage" id="br-stage">' +
-          '<div class="br-sky" aria-hidden="true"><i class="br-moon"></i><i class="br-sea"></i><i class="br-deck"></i><i class="br-lamp l"></i><i class="br-lamp r"></i></div>' +
-          '<div class="br-hud"><span>칼 <b class="num" id="br-k">0</b>/<span class="num">' + mx + '</span></span><span>다음 생존 <b class="num" id="br-odds">-</b></span></div>' +
-          '<div class="br-mult" id="br-mult"><small>현재 배수</small><b class="num" id="br-x">×0</b></div>' +
+          '<div class="br-sky" aria-hidden="true"><i class="br-moon"></i><i class="br-rays"></i><i class="br-sea"></i><i class="br-fog"></i>' + BR_RAIL + '<i class="br-deck"></i><i class="br-lamp l"></i><i class="br-lamp r"></i>' + '<i class="br-fly"></i>'.repeat(8) + '</div>' +
+          '<div class="br-hud"><span>칼 <b class="num" id="br-k">0</b>/<span class="num">' + n + '</span></span><span>다음 생존 <b class="num" id="br-odds">-</b></span></div>' +
+          '<div class="br-mult" id="br-mult"><small>' + n + '개 버티면</small><b class="num" id="br-x">' + brTxt(x) + '</b><em class="num" id="br-xv">' + K + fmt(Math.floor(c * x)) + '</em></div>' +
           '<div class="br-wrap" id="br-wrap"><i class="br-shadow"></i><div class="br-body">' + B.back + '<div class="br-head" id="br-head">' + brHeadSVG('idle') + '</div>' + B.front +
             '<div class="br-holes" id="br-holes"></div><svg class="br-swords" id="br-swords" viewBox="0 0 ' + BR_W + ' ' + BR_H + '" preserveAspectRatio="none" aria-hidden="true"></svg></div></div>' +
           '<div class="br-danger" aria-hidden="true"></div>' +
         '</div>' +
-        '<div class="br-ladder" id="br-ladder" aria-label="단계별 배수"></div>' +
+        '<div class="br-rack" id="br-rack" aria-label="남은 칼"></div>' +
         '<div class="sl-status" id="br-status" aria-live="polite"></div>' +
-        '<div class="br-btns"><button class="sl-btn br-go" type="button" id="br-go">게임 시작 <span class="num">' + K + fmt(c) + '</span></button><button class="sl-btn br-cash" type="button" id="br-cash" disabled>받기</button></div>' +
+        '<div class="br-btns"><button class="sl-btn br-go" type="button" id="br-go">게임 시작 <span class="num">' + K + fmt(c) + '</span></button></div>' +
       '</div>' +
       '<aside class="cn-info"><h3 id="br-h">' + m.name + ' <small class="qmeta">입장 ' + K + fmt(c) + '</small></h3>' +
-        '<p>입장하면 통 구멍 <b>' + N + '개</b> 중 <b>' + T + '개</b>에 해적이 숨어요. 구멍을 골라 칼을 꽂을 때마다 <b>배수가 올라가고</b>, 언제든 <b>[받기]</b>로 멈춰 입장료 × 배수만큼 강냉이를 받아요.</p>' +
-        '<ul><li>해적이 숨은 구멍에 꽂으면 해적이 튀어나와 그 판은 끝나요(0개).</li><li>칼 1개 이상 꽂아야 받을 수 있어요. 해적 구멍만 남으면(칼 ' + mx + '개) 자동으로 <b>완벽 생존</b> 보상을 받아요.</li><li>해적 위치는 입장하는 순간 무작위로 정해지고, 어느 구멍을 고르든 확률은 같아요.</li><li>어디서 멈추든 평균 환원(RTP)은 최대 ' + pct(brRtp(m)) + '예요.</li></ul>' +
-        '<div class="cn-table-wrap"><table class="cn-table sl-paytable"><thead><tr><th>성공한 칼</th><th>도달 확률</th><th>배수</th><th>받는 강냉이</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
+        '<p>입장하면 통 구멍 <b>' + N + '개</b> 중 <b>' + T + '개</b>에 해적이 숨어요. 칼 <b>' + n + '개를 모두 꽂을 때까지</b> 해적이 튀어나오지 않으면 입장료의 <b>' + brTxt(x) + '</b>(강냉이 ' + fmt(Math.floor(c * x)) + '개)를 받아요.</p>' +
+        '<ul><li>중간에 멈추고 받을 수는 없어요. ' + n + '개를 다 버텨야만 보상이 있어요.</li><li>해적이 숨은 구멍에 꽂으면 해적이 튀어나와 그 판은 끝나요(0개).</li><li>해적 위치는 입장하는 순간 무작위로 정해지고, 어느 구멍을 고르든 확률은 같아요.</li><li>성공 확률 ' + slPctTxt(brWinP(m)) + ' · 평균 환원(RTP) ' + pct(brRtp(m)) + '예요.</li></ul>' +
+        '<div class="cn-table-wrap"><table class="cn-table sl-paytable"><thead><tr><th>단계</th><th>이번 칼 생존</th><th>여기까지 버틸 확률</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
       '</aside></div></section>';
   }
   function brInit() {
@@ -7046,27 +7099,26 @@ img, svg, video { max-width: 100%; }
   }
   function brUI() {
     const m = pirateMachine(); if (!m || !brEl('br-go')) return;
-    const c = num(m.cost), mx = brMax(m), k = BRL.k, x = brMult(m, k);
+    const c = num(m.cost), n = brNeed(m), k = BRL.k, x = brMult(m);
     brEl('br-k').textContent = k;
     const left = BRL.N - k, odds = BRL.on && left > 0 ? (left - BRL.T) / left : null;
     brEl('br-odds').textContent = odds == null ? '-' : Math.round(odds * 100) + '%';
-    brEl('br-x').textContent = BRL.on ? brTxt(x) : BRL.over && BRL.lastWin ? '+' + fmt(BRL.lastWin) : '×0';
+    brEl('br-x').textContent = BRL.over && BRL.lastWin ? '+' + fmt(BRL.lastWin) : brTxt(x);
     const st = brEl('br-stage'); st.classList.toggle('hot', !!(BRL.on && odds != null && odds < .75)); st.classList.toggle('live', BRL.on); st.classList.toggle('br-over', BRL.over && !BRL.lastWin);
-    const go = brEl('br-go'), cash = brEl('br-cash');
-    go.hidden = BRL.on; cash.hidden = !BRL.on;
-    go.innerHTML = (BRL.over ? '다시 하기 ' : '게임 시작 ') + '<span class="num">' + K + fmt(c) + '</span>';
-    go.disabled = BRL.busy;
-    cash.disabled = BRL.busy || k < 1;
-    cash.innerHTML = k < 1 ? '칼을 1개 이상 꽂아 주세요' : '받기 ' + brTxt(x) + ' <span class="num">' + K + fmt(Math.floor(c * x)) + '</span>';
+    const go = brEl('br-go');
+    go.disabled = BRL.busy || BRL.on;
+    go.innerHTML = BRL.on ? '구멍을 골라 칼을 꽂아 주세요 <span class="num">남은 칼 ' + (n - k) + '개</span>' : (BRL.over ? '다시 하기 ' : '게임 시작 ') + '<span class="num">' + K + fmt(c) + '</span>';
+    go.classList.toggle('playing', BRL.on);
     brEl('br-holes').querySelectorAll('.br-hole').forEach(b => { b.disabled = !BRL.on || BRL.busy || b.classList.contains('used'); });
-    const lad = brEl('br-ladder');
-    if (lad) {
-      lad.innerHTML = Array.from({ length: mx }, (_, i) => i + 1).map(n => '<span class="br-step' + (n <= k ? ' done' : '') + (n === k + 1 && BRL.on ? ' next' : '') + (n === mx ? ' top' : '') + '"><small>' + n + '</small>' + brTxt(brMult(m, n)) + '</span>').join('');
-      const cur = lad.querySelector('.next') || [...lad.querySelectorAll('.done')].pop();
-      if (cur) lad.scrollLeft = Math.max(0, cur.offsetLeft - lad.clientWidth / 2 + cur.offsetWidth / 2);
-    }
+    // 칼 거치대: 꽂은 칼(성공) / 지금 꽂는 칼 / 남은 칼 / 해적에 걸린 칼
+    const rack = brEl('br-rack');
+    if (rack) rack.innerHTML = Array.from({ length: n }, (_, i) => {
+      const used = i < BRL.picks.length, fail = BRL.over && !BRL.lastWin && i === BRL.picks.length - 1, done = i < k;
+      const cls = fail ? ' fail' : done ? ' done' : used ? ' going' : BRL.on && i === k ? ' next' : '';
+      return '<span class="br-slot' + cls + '"><i class="br-rk">' + brRackSword(i) + '</i><small>' + (fail ? '해적!' : done ? '성공' : Math.round(brStepP(m, i) * 100) + '%') + '</small></span>';
+    }).join('');
     const s = brEl('br-status');
-    if (s && !BRL.on && !BRL.over) s.innerHTML = '입장하면 해적이 통 속 구멍 <b>' + BRL.T + '곳</b>에 숨어요. 칼을 꽂아 버텨 보세요!';
+    if (s && !BRL.on && !BRL.over) s.innerHTML = '해적이 통 속 구멍 <b>' + BRL.T + '곳</b>에 숨어요. 칼 <b>' + n + '개</b>를 모두 버티면 <b>' + brTxt(x) + '</b>!';
   }
   function brStart() {
     const m = pirateMachine(); if (!m || BRL.on || BRL.busy) return;
@@ -7132,17 +7184,17 @@ img, svg, video { max-width: 100%; }
   }
   function brSafe(m) {
     BRL.k++; BRL.busy = false;
-    const head = brEl('br-head'), s = brEl('br-status'), mx = brMax(m), x = brMult(m, BRL.k);
+    const head = brEl('br-head'), s = brEl('br-status'), n = brNeed(m);
     if (head) { head.innerHTML = brHeadSVG('idle'); restart(head, 'phew'); }
-    SFX.star(Math.min(3, 1 + Math.floor(BRL.k / 4)));
-    const mb = brEl('br-mult'); if (mb) restart(mb, 'bump');
-    if (BRL.k >= mx) { brUI(); if (s) s.innerHTML = '해적 구멍만 남았어요! <b>완벽 생존</b>'; setTimeout(() => brCash(true), 700); return; }
-    const left = BRL.N - BRL.k, odds = (left - BRL.T) / left;
-    if (s) s.innerHTML = '휴, 살았다! 지금 받으면 <b>' + brTxt(x) + '</b> · 다음 칼 생존 확률 <b>' + Math.round(odds * 100) + '%</b>';
+    SFX.star(Math.min(3, 1 + Math.floor(BRL.k / 2)));
+    if (BRL.k >= n) { brUI(); if (s) s.innerHTML = '칼 <b>' + n + '개</b>를 모두 버텼어요!'; setTimeout(() => brCash(true), 650); return; }
+    const left = BRL.N - BRL.k, odds = (left - BRL.T) / left, rem = n - BRL.k;
+    if (s) s.innerHTML = '휴, 살았다! 남은 칼 <b>' + rem + '개</b> · 다음 칼 생존 확률 <b>' + Math.round(odds * 100) + '%</b>' + (rem === 1 ? ' · <b>마지막 한 개!</b>' : '');
     brUI();
+    const rk = brEl('br-rack') && brEl('br-rack').children[BRL.k - 1]; if (rk) restart(rk, 'pop');
   }
   function brPop(m, h) {
-    const st = brEl('br-stage'), head = brEl('br-head'), s = brEl('br-status'), cab = brEl('br-cab'), k = BRL.k;
+    const st = brEl('br-stage'), head = brEl('br-head'), s = brEl('br-status'), cab = brEl('br-cab'), k = BRL.k, n = brNeed(m);
     BRL.on = false; BRL.over = true; BRL.busy = true; BRL.lastWin = 0;
     SFX.boing(); setTimeout(() => SFX.boom(), 120);
     if (head) { head.innerHTML = brHeadSVG('laugh'); head.className = 'br-head pop'; }
@@ -7151,44 +7203,40 @@ img, svg, video { max-width: 100%; }
     const r = (st || document.body).getBoundingClientRect();
     burst(['#E8394A', '#FFFFFF', '#CDEFFB', '#FFB3C6'], 50, 9, r.left + r.width / 2, r.top + r.height * .32);
     BRL.traps.forEach((t, i) => setTimeout(() => { const b = brEl('br-holes') && brEl('br-holes').querySelector('[data-brh="' + t + '"]'); if (b) b.classList.add('trap'); }, 300 + i * 200));
-    const near = k > 0 && brMult(m, k + 1) >= 3;
-    const sh = document.createElement('div'); sh.className = 'wl-shout lose' + (near ? ' near' : ''); sh.innerHTML = '펑! 해적 출현' + '<small>' + (k ? '칼 ' + k + '개 성공 뒤 ' + (h + 1) + '번 구멍에서 걸렸어요' : '첫 칼에 걸렸어요') + '</small>';
+    const near = n - k <= 2 && k > 0;
+    const sh = document.createElement('div'); sh.className = 'wl-shout lose' + (near ? ' near' : ''); sh.innerHTML = (near && k === n - 1 ? '마지막에 펑!' : '펑! 해적 출현') + '<small>' + (k ? (k + 1) + '번째 칼에서 걸렸어요' : '첫 칼에 걸렸어요') + '</small>';
     if (st) { st.appendChild(sh); setTimeout(() => sh.remove(), 1900); }
-    if (s) s.innerHTML = k ? '아깝다! <b>' + brTxt(brMult(m, k)) + '</b>에서 받았다면 강냉이 ' + fmt(Math.floor(num(m.cost) * brMult(m, k))) + '개였어요' : '해적이 바로 튀어나왔어요… 다시 도전해 볼까요?';
-    recordResult({ g: 'C', name: '해적 통 룰렛 해적 출현 (칼 ' + k + '개)', kind: 'kernel', val: 0 }, m); saveMe();
+    if (s) s.innerHTML = k === n - 1 ? '아깝다! <b>한 개만 더</b> 버티면 보물이었어요' : k ? '칼 ' + k + '개까지 버텼어요… 다시 도전해 볼까요?' : '해적이 바로 튀어나왔어요… 다시 도전해 볼까요?';
+    recordResult({ g: 'C', name: '해적 통 룰렛 해적 출현 (칼 ' + k + '/' + n + ')', kind: 'kernel', val: 0 }, m); saveMe();
     setTimeout(() => { SFX.lose(); BRL.busy = false; brUI(); }, 900);
     brUI();
   }
-  function brCash(perfect) {
-    const m = pirateMachine(); if (!m || !BRL.on || BRL.busy || BRL.k < 1) return;
-    const c = num(m.cost), k = BRL.k, x = brMult(m, k), got = Math.floor(c * x);
+  function brCash() {
+    const m = pirateMachine(); if (!m || !BRL.on || BRL.busy || BRL.k < brNeed(m)) return;
+    const c = num(m.cost), n = brNeed(m), x = brMult(m), got = Math.floor(c * x);
     BRL.on = false; BRL.over = true; BRL.lastWin = got;
     state.balance += got;
-    const tier = perfect || x >= 10 ? 'top' : x >= 3 ? 'hi' : 'lo';
-    const p = { g: x >= 10 ? 'S' : x >= 3 ? 'A' : x >= 1.5 ? 'B' : 'C', name: '해적 통 룰렛 칼 ' + k + '개 ' + brTxt(x) + ' · ' + fmt(got) + '개', kind: 'kernel', val: got };
+    const p = { g: x >= 10 ? 'S' : x >= 3 ? 'A' : 'B', name: '해적 통 룰렛 칼 ' + n + '개 버티기 성공 ' + brTxt(x) + ' · ' + fmt(got) + '개', kind: 'kernel', val: got };
     recordResult(p, m);
-    if (tier !== 'lo') { state.feed.unshift({ g: p.g, item: '강냉이 ' + fmt(got) + '개', who: '나 · 해적 통 룰렛 ' + (perfect ? '완벽 생존' : brTxt(x)) }); renderFeed(true); }
+    state.feed.unshift({ g: p.g, item: '강냉이 ' + fmt(got) + '개', who: '나 · 해적 통 룰렛 ' + n + '개 버티기' }); renderFeed(true);
     saveMe(); renderHUD(true);
     const st = brEl('br-stage'), head = brEl('br-head'), s = brEl('br-status');
     if (head) { head.innerHTML = brHeadSVG('sweat'); head.className = 'br-head sink'; }
     BRL.traps.forEach(t => { const b = brEl('br-holes') && brEl('br-holes').querySelector('[data-brh="' + t + '"]'); if (b) b.classList.add('trap', 'calm'); });
-    const pop = document.createElement('div'); pop.className = 'ps-float br-float t-' + tier; pop.innerHTML = '+' + fmt(got); if (st) { st.appendChild(pop); setTimeout(() => pop.remove(), 1200); }
-    if (s) s.innerHTML = (perfect ? '<b>완벽 생존!</b> ' : '무사히 탈출! ') + '칼 ' + k + '개 · <b>' + brTxt(x) + '</b> → 강냉이 <b>+' + fmt(got) + '</b>';
-    if (tier === 'lo') { SFX.coin(); }
-    else {
-      SFX.land(tier); if (perfect) SFX.fanfare(); restart(brEl('br-cab'), 'shake');
-      const sh = document.createElement('div'); sh.className = 'wl-shout win t-' + (tier === 'top' ? 'top' : 'hi'); sh.innerHTML = (perfect ? '완벽 생존!!' : tier === 'top' ? '대탈출!!' : '탈출 성공!') + '<small>' + brTxt(x) + ' · 강냉이 ' + fmt(got) + '개</small>';
-      if (st) { st.appendChild(sh); setTimeout(() => sh.remove(), 2000); }
-      const r = (st || document.body).getBoundingClientRect(); floatFx(); burst(['#FFD43B', '#FFFFFF', '#E8394A', '#FAB005'], tier === 'top' ? 130 : 70, tier === 'top' ? 13 : 10, r.left + r.width / 2, r.top + r.height * .5);
-      rain(['#FFD43B', '#FAB005', '#FFF3BF', '#E8394A'], tier === 'top' ? 180 : 90);
+    if (st) {
+      const ch = document.createElement('div'); ch.className = 'br-chest'; ch.innerHTML = BR_CHEST; st.appendChild(ch); setTimeout(() => ch.remove(), 2600);
+      const sh = document.createElement('div'); sh.className = 'wl-shout win t-top br-winshout'; sh.innerHTML = '보물 획득!!<small>칼 ' + n + '개 생존 · ' + brTxt(x) + ' · 강냉이 ' + fmt(got) + '개</small>'; st.appendChild(sh); setTimeout(() => sh.remove(), 2400);
     }
+    if (s) s.innerHTML = '<b>보물 획득!</b> 칼 ' + n + '개를 모두 버텼어요 · <b>' + brTxt(x) + '</b> → 강냉이 <b>+' + fmt(got) + '</b>';
+    SFX.land('top'); SFX.fanfare(); restart(brEl('br-cab'), 'shake');
+    const r = (st || document.body).getBoundingClientRect(); floatFx(); burst(['#FFD43B', '#FFFFFF', '#E8394A', '#FAB005'], 130, 13, r.left + r.width / 2, r.top + r.height * .5);
+    rain(['#FFD43B', '#FAB005', '#FFF3BF', '#E8394A'], 160);
     brUI();
   }
   $('floor').addEventListener('click', e => {
     if (state.tab !== 'pirate') return;
     const h = e.target.closest('[data-brh]'); if (h && !h.disabled) { brPick(Number(h.dataset.brh)); return; }
-    if (e.target.closest('#br-go')) { brStart(); return; }
-    if (e.target.closest('#br-cash')) brCash(false);
+    if (e.target.closest('#br-go')) brStart();
   });
 
   // =====================================================================
@@ -7847,6 +7895,7 @@ img, svg, video { max-width: 100%; }
       if (!(num(m.cost) >= 1)) errs.push('해적 통 룰렛: 입장료는 1 이상이어야 해요.');
       if (!(num(m.holes) >= 6 && num(m.holes) <= 24)) errs.push('해적 통 룰렛: 구멍 수는 6~24개예요.');
       if (!(num(m.traps) >= 1 && num(m.traps) <= 3 && num(m.traps) <= num(m.holes) - 2)) errs.push('해적 통 룰렛: 해적 구멍은 1~3개(구멍 수 − 2 이하)예요.');
+      if (!(num(m.need) >= 1 && num(m.need) <= num(m.holes) - num(m.traps))) errs.push('해적 통 룰렛: 꽂아야 할 칼은 1개 이상, 구멍 수 − 해적 구멍 이하예요.');
       if (!(num(m.rtp) >= 50 && num(m.rtp) <= 99)) errs.push('해적 통 룰렛: 목표 RTP는 50~99%예요.');
     });
     draft.machines.filter(m => m.mode === 'puzzle').forEach(m => m.prizes.forEach(p => { if (p.kind === 'product' && !(num(p.cost) > 0)) errs.push('직소 퍼즐: ' + p.name + '의 원가를 입력해 주세요.'); }));
@@ -8541,16 +8590,16 @@ img, svg, video { max-width: 100%; }
   function renderPirateAdmin() {
     const m = brDraft(); if (!m || !brEl('br-fields')) return;
     const f = (id, label, key, unit, min, max, step) => '<div class="field"><label for="' + id + '">' + label + '</label><div class="input-unit"><input class="input num" id="' + id + '" type="number" min="' + min + '"' + (max != null ? ' max="' + max + '"' : '') + ' step="' + step + '" data-brf="' + key + '" value="' + num(m[key]) + '"><span>' + unit + '</span></div></div>';
-    $('br-fields').innerHTML = f('bra-cost', '입장료', 'cost', '강냉이', 1, null, 1) + f('bra-holes', '구멍 수', 'holes', '개', 6, 24, 1) + f('bra-traps', '해적 구멍', 'traps', '개', 1, 3, 1) + f('bra-rtp', '목표 RTP', 'rtp', '%', 50, 99, .5) + f('bra-demand', '월 예상 강냉이 소진', 'demand', '강냉이', 0, null, 1);
+    $('br-fields').innerHTML = f('bra-cost', '입장료', 'cost', '강냉이', 1, null, 1) + f('bra-holes', '구멍 수', 'holes', '개', 6, 24, 1) + f('bra-traps', '해적 구멍', 'traps', '개', 1, 3, 1) + f('bra-need', '꽂아야 할 칼', 'need', '개', 1, 22, 1) + f('bra-rtp', '목표 RTP', 'rtp', '%', 50, 99, .5) + f('bra-demand', '월 예상 강냉이 소진', 'demand', '강냉이', 0, null, 1);
     renderPirateCalc();
   }
   function renderPirateCalc() {
     const m = brDraft(); if (!m || !brEl('br-calc')) return;
-    const c = num(m.cost), mx = brMax(m), r = brRtp(m), st = statusOf(r, target());
-    $('br-t').innerHTML = '<thead><tr><th>성공한 칼</th><th class="r">도달 확률</th><th class="r">배수</th><th class="r">받는 강냉이</th><th class="r">이 단계에서 멈출 때 RTP</th></tr></thead><tbody>' +
-      Array.from({ length: mx }, (_, i) => i + 1).map(k => '<tr><td>칼 ' + k + '개' + (k === mx ? ' (완벽 생존)' : '') + '</td><td class="r num">' + slPctTxt(brAlive(m, k)) + '</td><td class="r num">' + brTxt(brMult(m, k)) + '</td><td class="r num">' + fmt(Math.floor(c * brMult(m, k))) + '개</td><td class="r num">' + pct(brMult(m, k) * brAlive(m, k)) + '</td></tr>').join('') + '</tbody>';
-    $('br-sum').textContent = 'RTP 최대 ' + pct(r);
-    $('br-calc').innerHTML = '<span>최고 배수 <b>' + brTxt(brMult(m, mx)) + '</b> (확률 ' + slPctTxt(brAlive(m, mx)) + ')</span><span>RTP 최대 <b>' + pct(r) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>';
+    const c = num(m.cost), n = brNeed(m), x = brMult(m), P = brWinP(m), r = brRtp(m), st = statusOf(r, target());
+    $('br-t').innerHTML = '<thead><tr><th>단계</th><th class="r">이번 칼 생존</th><th class="r">여기까지 버틸 확률</th></tr></thead><tbody>' +
+      Array.from({ length: n }, (_, i) => '<tr><td>' + (i + 1) + '번째 칼' + (i === n - 1 ? ' (성공 → ' + brTxt(x) + ' · ' + fmt(Math.floor(c * x)) + '개)' : '') + '</td><td class="r num">' + Math.round(brStepP(m, i) * 1000) / 10 + '%</td><td class="r num">' + slPctTxt(brAlive(m, i + 1)) + '</td></tr>').join('') + '</tbody>';
+    $('br-sum').textContent = 'RTP ' + pct(r);
+    $('br-calc').innerHTML = '<span>성공 확률 <b>' + slPctTxt(P) + '</b> · 보상 <b>' + brTxt(x) + '</b> (강냉이 ' + fmt(Math.floor(c * x)) + '개)</span><span>RTP <b>' + pct(r) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>';
   }
   function pirateAdminInput(el) {
     const m = brDraft(); if (!m) return false;
@@ -8868,7 +8917,7 @@ img, svg, video { max-width: 100%; }
     { id: 'wheel', name: '럭키 룰렛', sub: '3겹 휠', ic: '#D6336C', fc: '#A61E4D', badge: 'N', desc: '안쪽·가운데·바깥 휠에 같은 그림 3개! 세븐 3개면 ×450이에요.' },
     { id: 'scratch', name: '럭키 스크래치', sub: '한정 복권', ic: '#E8590C', fc: '#D9480F', badge: 'N', desc: '은박을 긁어 같은 그림 3개! 치킨 기프티콘이 2장 숨어 있어요.' },
     { id: 'pusher', name: '코인 푸셔', sub: '코인 밀어내기', ic: '#1C7ED6', fc: '#1864AB', badge: 'N', desc: '코인을 떨어뜨려 밀어내요. 와르르 쏟아지면 대박!' },
-    { id: 'pirate', name: '해적 통 룰렛', sub: '칼 꽂기 버티기', ic: '#C92A2A', fc: '#7A1010', badge: 'N', desc: '칼을 꽂을수록 배수 UP! 해적이 튀어나오기 전에 받으세요.' }
+    { id: 'pirate', name: '해적 통 룰렛', sub: '칼 꽂기 버티기', ic: '#C92A2A', fc: '#7A1010', badge: 'N', desc: '칼 5개를 모두 꽂고 버티면 보물 획득! 해적이 튀어나오면 끝.' }
   ];
   const LG_DOCK = [
     { id: 'hall', name: '명예의 전당', ic: '#E67700' },
@@ -8926,7 +8975,7 @@ img, svg, video { max-width: 100%; }
     if (AR.active && location.hash !== '#archery') { history.replaceState(null, '', '#archery'); toast('', '사격이 끝난 뒤에 이동할 수 있어요.', true); return; }
     if (slEl('sl-modal') && !slEl('sl-modal').hidden) slCloseWin(false);
     if (['cast', 'wait', 'bite', 'reel', 'jump'].includes(FS.phase) && location.hash !== '#fish') { history.replaceState(null, '', '#fish'); toast('', '낚시가 끝난 뒤에 이동할 수 있어요.', true); return; }
-    if ((BRL.on || BRL.busy) && location.hash !== '#pirate') { history.replaceState(null, '', '#pirate'); toast('', '진행 중인 판을 마무리(받기)한 뒤 이동할 수 있어요.', true); return; }
+    if ((BRL.on || BRL.busy) && location.hash !== '#pirate') { history.replaceState(null, '', '#pirate'); toast('', '진행 중인 판이 끝난 뒤 이동할 수 있어요.', true); return; }
     if ((PUSH.queue || PUSH.busy) && location.hash !== '#pusher') { history.replaceState(null, '', '#pusher'); toast('', '코인이 다 떨어진 뒤에 이동할 수 있어요.', true); return; }
     if (LT.card && !LT.card.done && location.hash !== '#scratch') { history.replaceState(null, '', '#scratch'); toast('', '긁던 복권을 다 긁은 뒤에 이동할 수 있어요.', true); return; }
     if (WL.spinning && location.hash !== '#wheel') { history.replaceState(null, '', '#wheel'); toast('', '휠이 멈춘 뒤에 이동할 수 있어요.', true); return; }
