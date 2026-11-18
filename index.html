@@ -968,6 +968,71 @@ button.stat { font: inherit; color: inherit; cursor: pointer; }
 .wl-chip.c0 { left: -2%; } .wl-chip.c1 { left: 11%; } .wl-chip.c2 { right: -2%; }
 @keyframes wl-chip { from { transform: scale(0) rotate(-20deg); } }
 @media (max-width: 420px) { .wl-chip { width: 38px; } .wl-chip svg { width: 24px; height: 24px; } .wl-super b { font-size: 26px; } }
+/* ===== 럭키 스크래치 ===== */
+.lt-panel { grid-column: 1 / -1; overflow-x: clip; }
+.lt-stage { width: min(380px, 100%); perspective: 900px; }
+.lt-ticket { position: relative; padding: 14px 16px 12px; border-radius: 20px; background: radial-gradient(120% 80% at 50% 0%, #FFE066, #FAB005 40%, #E8590C 100%); box-shadow: inset 0 0 0 3px #FFF3BF, inset 0 0 0 7px #C2410C, 0 14px 30px rgba(120,40,0,.35); color: #4A1D00; }
+.lt-ticket::before, .lt-ticket::after { content: ""; position: absolute; top: 50%; width: 22px; height: 22px; margin-top: -11px; border-radius: 50%; background: var(--surface-2, #F1F3F5); }
+.lt-ticket::before { left: -11px; } .lt-ticket::after { right: -11px; }
+.lt-ticket.enter { animation: sc-enter .6s cubic-bezier(.2,1.3,.4,1); }
+@keyframes sc-enter { from { transform: translateY(40px) rotateX(35deg) scale(.85); opacity: 0; } }
+.lt-ticket.shake { animation: pk-shake .45s; }
+.lt-top { display: flex; align-items: baseline; justify-content: space-between; }
+.lt-top b { font-family: 'Arial Black', Arial, sans-serif; font-size: 22px; letter-spacing: .04em; background: linear-gradient(180deg, #FFFFFF, #FFF3BF 50%, #FFD43B); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-stroke: 1px #8A1C1C; filter: drop-shadow(0 2px 0 #8A1C1C); }
+@media (max-width: 420px) { .lt-top b { font-size: 17px; letter-spacing: .02em; } }
+.lt-top span { white-space: nowrap; padding: 2px 10px; border-radius: 999px; background: #C2410C; color: #FFFFFF; font-size: 12px; font-weight: 900; }
+.lt-rule { margin: 4px 0 10px; font-size: 13px; font-weight: 800; color: #7A2E00; }
+.lt-rule b { color: #C92A2A; }
+.lt-area { position: relative; aspect-ratio: 1 / 1; border-radius: 14px; overflow: hidden; background: #FFF9DB; box-shadow: inset 0 0 0 3px #FFFFFF, 0 0 0 3px #C2410C; }
+.lt-grid { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); }
+.lt-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border: 1px dashed rgba(194,65,12,.25); }
+.lt-cell svg { width: 58%; height: 58%; }
+.lt-cell b { font-size: 12px; font-weight: 900; color: #7A2E00; }
+.lt-cell b.x { font-size: 26px; color: #CED4DA; }
+.lt-cell.rev svg { animation: sc-pop .35s cubic-bezier(.2,1.6,.4,1); }
+@keyframes sc-pop { from { transform: scale(.4); } }
+.lt-cell.pair { background: radial-gradient(circle, rgba(255,212,59,.55), transparent 70%); animation: sc-pair .5s ease-in-out infinite alternate; }
+@keyframes sc-pair { to { background-color: rgba(255,236,153,.6); } }
+.lt-cell.hit { background: radial-gradient(circle, rgba(255,224,102,.95), rgba(255,169,77,.5) 70%); animation: sc-hit .45s ease-in-out infinite alternate; }
+.lt-cell.hit svg { animation: sc-hitsvg .45s ease-in-out infinite alternate; }
+@keyframes sc-hit { to { box-shadow: inset 0 0 0 3px #FFFFFF, inset 0 0 18px #FFD43B; } }
+@keyframes sc-hitsvg { to { transform: scale(1.15) rotate(-6deg); } }
+.lt-foil { position: absolute; inset: 0; z-index: 2; cursor: grab; touch-action: none; transition: opacity .6s; }
+.lt-foil:active { cursor: grabbing; }
+.lt-foil.gone { opacity: 0; pointer-events: none; }
+.lt-flake { position: absolute; z-index: 3; width: 4px; height: 3px; background: #ADB5BD; border-radius: 1px; pointer-events: none; animation: sc-flake .7s ease-in forwards; }
+@keyframes sc-flake { to { transform: translate(var(--dx), 34px) rotate(180deg); opacity: 0; } }
+.lt-buy-hint { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; font-size: 15px; font-weight: 800; color: #B07A00; background: repeating-linear-gradient(45deg, #FFF3BF 0 14px, #FFEC99 14px 28px); }
+.lt-foot { display: flex; justify-content: space-between; margin-top: 8px; font-size: 11.5px; font-weight: 900; color: #7A2E00; letter-spacing: .06em; }
+.lt-ticket.lost .lt-area { filter: grayscale(.7) brightness(.95); transition: filter .6s; }
+.lt-ticket.won { animation: sc-won 1.2s ease-in-out 2; }
+@keyframes sc-won { 50% { box-shadow: inset 0 0 0 3px #FFFFFF, inset 0 0 0 7px #C2410C, 0 0 40px 12px rgba(255,212,59,.85); } }
+.lt-stamp { position: absolute; left: 50%; top: 52%; z-index: 4; translate: -50% -50%; padding: 6px 22px; border: 4px solid currentColor; border-radius: 14px; background: rgba(255,255,255,.92); font-size: 34px; font-weight: 900; line-height: 1.05; text-align: center; white-space: nowrap; pointer-events: none; opacity: 0; transform: rotate(-8deg); }
+.lt-stamp small { display: block; margin-top: 2px; font-size: 13px; font-weight: 800; color: #495057; }
+.lt-stamp.show { animation: sc-stamp 2.2s cubic-bezier(.2,1.4,.4,1) forwards; }
+.lt-stamp.win { color: #E03131; }
+.lt-stamp.lose { color: #868E96; }
+.lt-stamp.lose.show { animation: sc-stamp 2.6s cubic-bezier(.2,1.4,.4,1) forwards, sc-sad .45s ease-in-out .5s 2; }
+.lt-stamp.tease { color: #E8590C; font-size: 24px; top: 8%; translate: -50% 0; background: rgba(255,255,255,.95); }
+.lt-stamp.tease.show { animation: sc-tease 1.6s ease-out forwards; }
+@keyframes sc-stamp { 0% { transform: scale(3) rotate(-20deg); opacity: 0; } 12% { transform: scale(.92) rotate(-8deg); opacity: 1; } 20% { transform: scale(1) rotate(-8deg); } 80% { opacity: 1; } 100% { transform: scale(1) rotate(-8deg); opacity: .0; } }
+@keyframes sc-sad { 25% { translate: calc(-50% - 6px) -50%; } 75% { translate: calc(-50% + 6px) -50%; } }
+@keyframes sc-tease { 0% { transform: scale(.4) rotate(-6deg); opacity: 0; } 15% { transform: scale(1.1) rotate(-6deg); opacity: 1; } 25% { transform: scale(1) rotate(-6deg); } 80% { opacity: 1; } 100% { opacity: 0; } }
+.lt-board { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: stretch; max-width: 380px; }
+.lt-buy { background: linear-gradient(180deg, #FF922B, #E8590C); box-shadow: 0 6px 0 #A33F00; }
+.lt-buy:active:not(:disabled) { box-shadow: 0 3px 0 #A33F00; }
+.lt-auto { padding: 0 14px; border: 2px solid var(--panel-line); border-radius: 16px; background: var(--panel); color: var(--text); font: inherit; font-size: 13.5px; font-weight: 800; cursor: pointer; }
+.lt-auto:disabled { opacity: .45; cursor: not-allowed; }
+.lt-series { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: center; margin: 4px 0 10px; font-size: 13px; color: var(--text-2); }
+.lt-series i { grid-column: 1 / -1; height: 8px; border-radius: 999px; background: var(--panel-line); overflow: hidden; }
+.lt-series i b { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #FAB005, #E8590C); }
+.lt-tic { width: 24px; height: 24px; margin-right: 6px; vertical-align: middle; }
+.lt-tic.x { display: inline-block; width: 24px; text-align: center; color: #ADB5BD; font-weight: 900; }
+.sl-paytable tr.zero td { opacity: .45; text-decoration: line-through; }
+.lt-m-art { position: relative; width: 210px; height: 78px; margin: 4px auto; animation: sl-m-art 1s cubic-bezier(.2,1.6,.4,1) .15s both; }
+.lt-m-art svg { width: 100%; height: 100%; overflow: visible; }
+.sl-m-btns [data-ltx="close"] { background: #F1F3F5; color: #343A40; }
+.sl-m-btns [data-ltx="again"] { background: linear-gradient(180deg, #FF922B, #E8590C); color: #FFFFFF; box-shadow: 0 4px 0 #A33F00; }
 /* ===== 냥냥 레이스 ===== */
 .rc-panel { grid-column: 1 / -1; }
 .rc-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
@@ -2595,6 +2660,7 @@ img, svg, video { max-width: 100%; }
     <button type="button" role="tab" data-gtab="race" aria-selected="false" style="--gtc:#2F9E44"><span class="gt-dot"></span>냥냥 레이스 <small class="gt-new">NEW</small></button>
     <button type="button" role="tab" data-gtab="fish" aria-selected="false" style="--gtc:#1971C2"><span class="gt-dot"></span>냥 낚시터 <small class="gt-new">NEW</small></button>
     <button type="button" role="tab" data-gtab="wheel" aria-selected="false" style="--gtc:#D6336C"><span class="gt-dot"></span>럭키 룰렛 <small class="gt-new">NEW</small></button>
+    <button type="button" role="tab" data-gtab="scratch" aria-selected="false" style="--gtc:#E8590C"><span class="gt-dot"></span>럭키 스크래치 <small class="gt-new">NEW</small></button>
   </div>
   </div>
 
@@ -3084,6 +3150,7 @@ img, svg, video { max-width: 100%; }
     { id: 'race', name: '냥냥 레이스', cost: 100, color: '#2F9E44', tab: 'race' },
     { id: 'fish', name: '냥 낚시터', cost: 100, color: '#1971C2', tab: 'fish' },
     { id: 'wheel', name: '럭키 룰렛', cost: 100, color: '#D6336C', tab: 'wheel' },
+    { id: 'scratch', name: '럭키 스크래치', cost: 300, color: '#E8590C', tab: 'scratch' },
     { id: 'gold', name: '골드존', cost: 2000, color: 'var(--t-gold)' },
     { id: 'creator', name: '크리에이터존', cost: 3000, color: 'var(--t-creator)' },
     { id: 'legend', name: '레전드존', cost: 10000, color: 'var(--t-legend)' }
@@ -3146,6 +3213,9 @@ img, svg, video { max-width: 100%; }
       { id: 'wheel', zone: 'wheel', mode: 'wheel', name: '럭키 룰렛', cost: 100, demand: 800000, top: '세븐 3개 ×450',
         syms: [{ id: 'seven', w: 5, mult: 450 }, { id: 'bar', w: 9, mult: 110 }, { id: 'bell', w: 13, mult: 55 }, { id: 'grape', w: 18, mult: 26 }, { id: 'lemon', w: 25, mult: 13 }, { id: 'cherry', w: 30, mult: 9 }],
         prizes: [W('S', '세븐 3개 ×450', 'kernel', 45000, 0, 0.0125), W('S', 'BAR 3개 ×110', 'kernel', 11000, 0, 0.0729), W('A', '황금 종 3개 ×55', 'kernel', 5500, 0, 0.2197), W('A', '포도 3개 ×26', 'kernel', 2600, 0, 0.5832), W('B', '레몬 3개 ×13', 'kernel', 1300, 0, 1.5625), W('C', '체리 3개 ×9', 'kernel', 900, 0, 2.7)] },
+      // 럭키 스크래치: 회차당 2,000장 발행하는 한정 복권(한정 머신 구조). 기프티콘 예산 + 강냉이 상품 RTP
+      { id: 'scratch', zone: 'scratch', mode: 'scratch', name: '럭키 스크래치', cost: 300, demand: 1200000, top: '치킨 기프티콘',
+        prizes: [P('S', '치킨 기프티콘', 'product', 0, 22000, 2, 2), P('A', '스타벅스 라떼 기프티콘', 'product', 0, 5000, 20, 20), P('B', '강냉이 1,500개', 'kernel', 1500, 0, 60, 60), P('B', '강냉이 600개', 'kernel', 600, 0, 200, 200), P('C', '강냉이 300개', 'kernel', 300, 0, 500, 500), P('C', '꽝', 'kernel', 0, 0, 1218, 1218)] },
       // 팝콘 대포: 게이지 등급(퍼펙트·좋아요·보통)별 확률표로 거리 구간 결정. 배수 공통, 등급별 RTP 동일(B 방식)
       { id: 'cannon', zone: 'cannon', mode: 'cannon', cv: 2, name: '팝콘 대포', cost: 100, demand: 800000, mults: [0.2, 0.5, 1, 2, 4, 10],
         probs: { perfect: [0, 0, 90.2, 7, 2, 0.8], good: [0, 0, 96, 3.5, 0.5, 0], normal: [45, 30, 10, 10, 4, 1] }, top: '800m 이상 ×10 · 강냉이 1,000개',
@@ -3218,7 +3288,7 @@ img, svg, video { max-width: 100%; }
   const WALLET_KEY = 'tooneland-wallet-v1';
   const WALLET = (() => { try { const w = JSON.parse(localStorage.getItem(WALLET_KEY)); if (w && typeof w.bal === 'number' && Array.isArray(w.log)) return w; } catch (e) { /* 저장소 없음 */ } return { bal: 12340, log: [{ t: Date.now(), d: 0, after: 12340, why: '시작 잔액 (목업)' }] }; })();
   let ledgerWhy = '', walletT = 0;
-  const GAME_WHY = { puzzle: ['직소 퍼즐 카드 뽑기', '직소 퍼즐 보상'], runner: ['냥치 런 입장', '냥치 런 점수 받기'], cannon: ['팝콘 대포 발사', '팝콘 대포 착지 보상'], slot: ['캐릭터 슬롯 돌리기', '캐릭터 슬롯 당첨'], gslot: ['상품 슬롯 돌리기', '상품 슬롯 당첨'], race: ['냥냥 레이스 응원', '냥냥 레이스 적중'], fish: ['냥 낚시터 입장', '냥 낚시터 조과'], wheel: ['럭키 룰렛 돌리기', '럭키 룰렛 당첨'], archery: ['깡통 사격 입장(탄 구매)', '깡통 사격 명중 상품'] };
+  const GAME_WHY = { puzzle: ['직소 퍼즐 카드 뽑기', '직소 퍼즐 보상'], runner: ['냥치 런 입장', '냥치 런 점수 받기'], cannon: ['팝콘 대포 발사', '팝콘 대포 착지 보상'], slot: ['캐릭터 슬롯 돌리기', '캐릭터 슬롯 당첨'], gslot: ['상품 슬롯 돌리기', '상품 슬롯 당첨'], race: ['냥냥 레이스 응원', '냥냥 레이스 적중'], fish: ['냥 낚시터 입장', '냥 낚시터 조과'], wheel: ['럭키 룰렛 돌리기', '럭키 룰렛 당첨'], scratch: ['럭키 스크래치 구매', '럭키 스크래치 당첨'], archery: ['깡통 사격 입장(탄 구매)', '깡통 사격 명중 상품'] };
   function ledgerReason(d) {
     if (ledgerWhy) return ledgerWhy;
     if (typeof current !== 'undefined' && current) return current.name + (d < 0 ? ' 뽑기' : ' 당첨');
@@ -3314,6 +3384,7 @@ img, svg, video { max-width: 100%; }
 
   function renderZones() {
     const COPY = {
+      scratch: ['은박을 긁어 같은 그림 3개를 찾는 럭키 스크래치', '회차마다 정해진 장수만 발행하는 한정 복권이에요. 남은 복권과 상품 수량을 실시간으로 공개하고, 같은 그림 3개가 나오면 그 상품을 받아요.'],
       wheel: ['3겹 휠이 차례로 멈추는 럭키 룰렛', '안쪽 → 가운데 → 바깥 휠이 차례로 멈춰요. 위쪽 창에 같은 그림 3개가 모이면 그 그림의 배수만큼 강냉이를 받아요.'],
       fish: ['찌가 쑥 잠길 때 챔질하는 냥 낚시터', '낚싯대를 던지고 찌가 잠기는 순간 [챔질!]을 누르면 물고기를 낚아요. 물고기마다 배수만큼 강냉이를 받고, 처음 낚은 물고기는 도감에 올라가요.'],
       race: ['캐릭터 5마리가 달리는 냥냥 레이스', '응원할 캐릭터를 고르고 1등 또는 3위 안을 맞히면 배당만큼 강냉이를 받아요. 우승 확률이 낮은 캐릭터일수록 배당이 커요.'],
@@ -3372,10 +3443,11 @@ img, svg, video { max-width: 100%; }
     if (state.tab === 'race') { $('floor').innerHTML = raceFloorHTML(); rcInit(); return; }
     if (state.tab === 'fish') { $('floor').innerHTML = fishFloorHTML(); fsInit(); return; }
     if (state.tab === 'wheel') { $('floor').innerHTML = wheelFloorHTML(); wlInit(); return; }
+    if (state.tab === 'scratch') { $('floor').innerHTML = scratchFloorHTML(); ltInit(); return; }
     const order = id => zones.findIndex(z => z.id === id);
     const list = state.tab !== 'gacha'
       ? machines.filter(m => m.mode === state.tab)
-      : machines.filter(m => !['board', 'puzzle', 'farm', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel'].includes(m.mode) && (state.zone === 'all' || m.zone === state.zone)).sort((a, b) => order(a.zone) - order(b.zone));
+      : machines.filter(m => !['board', 'puzzle', 'farm', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'scratch'].includes(m.mode) && (state.zone === 'all' || m.zone === state.zone)).sort((a, b) => order(a.zone) - order(b.zone));
     $('floor').innerHTML = list.map(m => m.mode === 'board' ? boardCardHTML(m) : machineHTML(m, 'button')).join('');
   }
   function renderHUD(bump) {
@@ -6184,6 +6256,228 @@ img, svg, video { max-width: 100%; }
     if (wlEl('wl-modal') && !wlEl('wl-modal').hidden) return;
     e.preventDefault(); wlSpin();
   });
+  // =====================================================================
+  // 럭키 스크래치: 회차마다 정해진 장수를 발행하는 한정 복권(가챠 한정 머신과 같은 구조: 상품별 발행·남은 수량).
+  // 1장 사면 남은 복권 중에서 하나가 정해지고(남은 수량 비례), 은박을 긁어 3×3 칸 중 같은 그림 3개가 나오면 그 상품.
+  // 상품 예산 = 기프티콘 수량 × 원가, 강냉이 RTP = 강냉이 상품 지급 ÷ (발행 장수 × 가격). 관리자 '가챠 머신' 편집에서 수량을 바꾼다.
+  const LT = { card: null, raf: 0 };
+  const scratchMachine = () => machines.find(m => m.mode === 'scratch');
+  const ltEl = id => document.getElementById(id);
+  // 상품 순서대로 그림(치킨·커피·금자루·팝콘통·팝콘), 꽝(강냉이 0)은 그림 없음
+  function ltIcon(i, s) {
+    const k = (s || 44) / 44, g = b => '<g transform="scale(' + k.toFixed(3) + ')">' + b + '</g>';
+    switch (i % 5) {
+      case 0: return g('<path d="M-4 6 L12 20" stroke="#F1F3F5" stroke-width="6" stroke-linecap="round"/><circle cx="13" cy="21" r="4" fill="#F1F3F5"/><circle cx="16" cy="18" r="4" fill="#F1F3F5"/><path d="M-14 -4 C-18 -16 -4 -22 4 -14 C10 -8 8 4 -2 8 C-8 10 -12 4 -14 -4 Z" fill="#D9822B" stroke="#8A4B14" stroke-width="2"/><path d="M-10 -8 C-8 -14 -2 -16 2 -12" stroke="#FFC078" stroke-width="3" fill="none" stroke-linecap="round"/>');
+      case 1: return g('<path d="M-11 -10 H11 L8 18 H-8 Z" fill="#FFFFFF" stroke="#2B8A3E" stroke-width="2"/><rect x="-13" y="-15" width="26" height="6" rx="2" fill="#2B8A3E"/><circle cx="0" cy="4" r="6" fill="#2B8A3E"/><path d="M-3 4 h6" stroke="#FFFFFF" stroke-width="1.5"/><path d="M2 -15 v-5" stroke="#868E96" stroke-width="2"/>');
+      case 2: return g('<path d="M-14 18 C-18 4 -12 -6 -6 -10 L-9 -16 H9 L6 -10 C12 -6 18 4 14 18 Z" fill="#FCC419" stroke="#B07A00" stroke-width="2"/><path d="M-8 -11 H8" stroke="#8A6414" stroke-width="3"/><text y="10" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="12" fill="#8A4B14">₩</text>');
+      case 3: return g('<path d="M-13 -6 H13 L9 19 H-9 Z" fill="#FFFFFF" stroke="#C92A2A" stroke-width="2"/><path d="M-6 -6 L-4 19 M2 -6 L1 19 M9 -6 L6 19" stroke="#FA5252" stroke-width="4"/>' + [[-9, -9], [-2, -13], [6, -10], [11, -6], [0, -6]].map(([x, y]) => '<circle cx="' + x + '" cy="' + y + '" r="5" fill="#FFF9DB" stroke="#F0D9A8"/>').join(''));
+      default: return g('<g fill="#FFFDF5" stroke="#F0C04A" stroke-width="1.6"><circle cx="-6" cy="-3" r="8"/><circle cx="7" cy="-4" r="8"/><circle cx="0" cy="-11" r="7.5"/><circle cx="-3" cy="6" r="8.5"/><circle cx="7" cy="6" r="8"/></g><ellipse cx="9" cy="12" rx="4" ry="3" fill="#F2B630"/>');
+    }
+  }
+  const ltWinners = m => m.prizes.map((p, i) => ({ p, i })).filter(x => !(x.p.kind === 'kernel' && !num(x.p.val)));
+  const ltLabel = p => p.kind === 'kernel' ? fmt(num(p.val)) : String(p.name).replace(/ ?기프티콘/, '').split(' ')[0];
+  // 3×3 그림 배치: 당첨이면 그 그림 3개 + 나머지는 그림마다 2개 이하, 꽝이면 모두 2개 이하(아까운 짝이 생기게)
+  function ltGrid(m, winIdx) {
+    const W = ltWinners(m).map(x => x.i), others = W.filter(i => i !== winIdx), cells = [];
+    if (winIdx != null) cells.push(winIdx, winIdx, winIdx);
+    // 나머지 그림은 각 2장씩 섞은 더미에서 필요한 만큼(그래서 같은 그림이 3개가 되지 않는다)
+    const pool = others.flatMap(c => [c, c]);
+    for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
+    while (cells.length < 9) cells.push(pool.length ? pool.pop() : -1);
+    for (let i = cells.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [cells[i], cells[j]] = [cells[j], cells[i]]; }
+    return cells;
+  }
+  function ltLeftTotal(m) { return m.prizes.reduce((a, p) => a + num(p.left), 0); }
+  function ltTotal(m) { return m.prizes.reduce((a, p) => a + num(p.total), 0); }
+  function ltCardHTML(m) {
+    const c = LT.card;
+    const cells = c ? c.grid.map((g, i) => '<div class="lt-cell' + (c.rev.has(i) ? ' rev' : '') + (c.done && c.win != null && g === c.win ? ' hit' : '') + '" data-c="' + i + '">' + (g >= 0 ? '<svg viewBox="-24 -24 48 48" aria-hidden="true">' + ltIcon(g, 40) + '</svg><b>' + slEsc(ltLabel(m.prizes[g])) + '</b>' : '<b class="x">✕</b>') + '</div>').join('') : '';
+    return '<div class="lt-ticket' + (c ? '' : ' empty') + (c && c.done ? (c.win != null ? ' won' : ' lost') : '') + '" id="lt-ticket">' +
+      '<div class="lt-top"><b>LUCKY SCRATCH</b><span>1장 ' + K + fmt(num(m.cost)) + '</span></div>' +
+      '<p class="lt-rule">같은 그림 <b>3개</b>가 나오면 그 상품을 드려요!</p>' +
+      '<div class="lt-area" id="lt-area">' + (c ? '<div class="lt-grid">' + cells + '</div><canvas class="lt-foil" id="lt-foil"></canvas>' : '<div class="lt-buy-hint">복권을 사면<br>여기를 긁을 수 있어요</div>') + '</div>' +
+      '<div class="lt-foot"><span class="num">No. ' + (c ? String(c.no).padStart(4, '0') : '----') + '</span><span>' + (c && c.done ? (c.win != null ? '당첨' : '꽝') : c ? '긁는 중' : '') + '</span></div>' +
+      '<div class="lt-stamp" id="lt-stamp"></div>' +
+    '</div>';
+  }
+  function ltBoardHTML(m) {
+    const left = ltLeftTotal(m), busy = LT.card && !LT.card.done;
+    return '<button class="sl-btn lt-buy" type="button" data-lt="buy"' + (busy || !left ? ' disabled' : '') + '>' + (left ? (LT.card ? '새 복권 사기' : '복권 사기') : '이번 회차 매진') + ' <span class="num">1장 ' + K + fmt(num(m.cost)) + '</span></button>' +
+      '<button class="lt-auto" type="button" data-lt="auto"' + (busy ? '' : ' disabled') + '>한 번에 긁기</button>';
+  }
+  function ltTableHTML(m) {
+    const tot = ltTotal(m), left = ltLeftTotal(m);
+    const rows = m.prizes.map((p, i) => { const blank = p.kind === 'kernel' && !num(p.val); return '<tr' + (num(p.left) === 0 ? ' class="zero"' : '') + '><td>' + (blank ? '<span class="lt-tic x">✕</span>' : '<svg class="lt-tic" viewBox="-24 -24 48 48" aria-hidden="true">' + ltIcon(i, 40) + '</svg>') + slEsc(p.name) + '</td><td class="num">' + fmt(num(p.left)) + ' / ' + fmt(num(p.total)) + '</td><td class="num">' + (left ? slPctTxt(num(p.left) / left) : '-') + '</td></tr>'; }).join('');
+    return '<div class="lt-series"><span>이번 회차 남은 복권</span><b class="num">' + fmt(left) + ' / ' + fmt(tot) + '장</b><i><b style="width:' + (tot ? (left / tot * 100).toFixed(1) : 0) + '%"></b></i></div>' +
+      '<div class="cn-table-wrap"><table class="cn-table sl-paytable"><thead><tr><th>상품</th><th>남은 / 발행</th><th>지금 확률</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+  }
+  function scratchFloorHTML() {
+    const m = scratchMachine(); if (!m) return '';
+    return '<section class="lt-panel" aria-labelledby="lt-h"><div class="rc-wrap">' +
+      '<div class="lt-stage" id="lt-stage">' + ltCardHTML(m) + '</div>' +
+      '<div class="rc-board lt-board" id="lt-board">' + ltBoardHTML(m) + '</div>' +
+      '<aside class="cn-info"><h3 id="lt-h">' + m.name + ' <small class="qmeta">1장 ' + K + fmt(num(m.cost)) + '</small></h3>' +
+        '<p>회차마다 정해진 장수만 발행하는 <b>한정 복권</b>이에요. 은박을 손가락이나 마우스로 긁어서 <b>같은 그림 3개</b>가 나오면 그 상품을 받아요.</p>' +
+        '<ul><li>당첨은 산 순간 남은 복권 중에서 정해져요. 남은 수량을 실시간으로 공개해요.</li><li>기프티콘은 보관함으로, 강냉이는 바로 지갑으로 들어가요.</li><li>그림 2개는 자주 나와요. 3개가 모여야 당첨이에요.</li><li>[한 번에 긁기]로 한꺼번에 열 수도 있어요.</li></ul>' +
+        '<div id="lt-table">' + ltTableHTML(m) + '</div>' +
+      '</aside></div></section>';
+  }
+  function ltRender() {
+    const m = scratchMachine(); if (!m) return;
+    const st = ltEl('lt-stage'); if (st) st.innerHTML = ltCardHTML(m);
+    const bd = ltEl('lt-board'); if (bd) bd.innerHTML = ltBoardHTML(m);
+    const tb = ltEl('lt-table'); if (tb) tb.innerHTML = ltTableHTML(m);
+    ltInit();
+  }
+  // 은박: 금속 그라데이션 + 반짝이 글자. 이미 긁힌 칸은 지운 채로 다시 그린다
+  function ltInit() {
+    const cv = ltEl('lt-foil'), area = ltEl('lt-area'), c = LT.card; if (!cv || !area || !c) return;
+    const W = area.clientWidth, H = area.clientHeight, d = Math.min(2, devicePixelRatio || 1);
+    if (!W || !H) { requestAnimationFrame(ltInit); return; }
+    cv.width = W * d; cv.height = H * d; cv.style.width = W + 'px'; cv.style.height = H + 'px';
+    const x = cv.getContext('2d'); x.setTransform(d, 0, 0, d, 0, 0);
+    if (c.done) { x.clearRect(0, 0, W, H); cv.style.display = 'none'; return; }
+    const gr = x.createLinearGradient(0, 0, W, H);
+    gr.addColorStop(0, '#C9CED6'); gr.addColorStop(.3, '#F1F3F5'); gr.addColorStop(.5, '#ADB5BD'); gr.addColorStop(.7, '#E9ECEF'); gr.addColorStop(1, '#9AA3AE');
+    x.fillStyle = gr; x.fillRect(0, 0, W, H);
+    x.globalAlpha = .18; x.fillStyle = '#FFFFFF';
+    for (let i = 0; i < 220; i++) x.fillRect(Math.random() * W, Math.random() * H, 1.5, 1.5);
+    x.globalAlpha = .55; x.fillStyle = '#868E96'; x.font = '900 13px Arial Black, Arial, sans-serif'; x.textAlign = 'center';
+    for (let r = 0; r < 6; r++) for (let q = 0; q < 3; q++) x.fillText('SCRATCH ★', (q + .5) * W / 3 + (r % 2 ? 18 : -18), (r + .7) * H / 6);
+    x.globalAlpha = 1;
+    // 이미 긁은 칸
+    x.globalCompositeOperation = 'destination-out';
+    c.rev.forEach(i => { const cx = (i % 3) * W / 3, cy = Math.floor(i / 3) * H / 3; x.fillRect(cx, cy, W / 3, H / 3); });
+    x.globalCompositeOperation = 'source-over';
+    c.W = W; c.H = H; c.d = d;
+  }
+  let ltLastSnd = 0, ltDown = false, ltLastPt = null;
+  function ltScratchAt(px, py) {
+    const cv = ltEl('lt-foil'), c = LT.card; if (!cv || !c || c.done) return;
+    const x = cv.getContext('2d'), r = Math.max(14, c.W * .055);
+    x.globalCompositeOperation = 'destination-out';
+    x.lineCap = 'round'; x.lineJoin = 'round'; x.lineWidth = r * 2;
+    x.beginPath(); if (ltLastPt) x.moveTo(ltLastPt[0], ltLastPt[1]); else x.moveTo(px, py); x.lineTo(px + .1, py + .1); x.stroke();
+    x.globalCompositeOperation = 'source-over';
+    ltLastPt = [px, py];
+    const now = performance.now();
+    if (now - ltLastSnd > 110) { ltLastSnd = now; SFX.flip(); ltFlake(px, py); }
+    ltCheck();
+  }
+  function ltFlake(px, py) {
+    const area = ltEl('lt-area'); if (!area) return;
+    for (let i = 0; i < 3; i++) { const f = document.createElement('i'); f.className = 'lt-flake'; f.style.left = px + 'px'; f.style.top = py + 'px'; f.style.setProperty('--dx', ((Math.random() - .5) * 40).toFixed(0) + 'px'); area.appendChild(f); setTimeout(() => f.remove(), 700); }
+  }
+  // 칸마다 은박이 얼마나 지워졌는지 확인 → 45% 넘으면 그 칸 공개
+  let ltCheckT = 0;
+  function ltCheck(force) {
+    const now = performance.now(); if (!force && now - ltCheckT < 120) return; ltCheckT = now;
+    const cv = ltEl('lt-foil'), c = LT.card; if (!cv || !c || c.done) return;
+    const x = cv.getContext('2d'), w = cv.width, h = cv.height, img = x.getImageData(0, 0, w, h).data;
+    for (let i = 0; i < 9; i++) {
+      if (c.rev.has(i)) continue;
+      const x0 = (i % 3) * w / 3, y0 = Math.floor(i / 3) * h / 3; let clear = 0, n = 0;
+      for (let yy = 0; yy < 8; yy++) for (let xx = 0; xx < 8; xx++) { const sx = Math.floor(x0 + (xx + .5) * w / 24), sy = Math.floor(y0 + (yy + .5) * h / 24); n++; if (img[(sy * w + sx) * 4 + 3] < 40) clear++; }
+      if (clear / n > .45) ltReveal(i);
+    }
+  }
+  function ltReveal(i) {
+    const c = LT.card; if (!c || c.rev.has(i)) return;
+    c.rev.add(i);
+    const cell = document.querySelector('.lt-cell[data-c="' + i + '"]'); if (cell) cell.classList.add('rev');
+    // 칸 전체 은박을 걷어낸다
+    const cv = ltEl('lt-foil'); if (cv && c.W) { const x = cv.getContext('2d'); x.globalCompositeOperation = 'destination-out'; x.fillRect((i % 3) * c.W / 3, Math.floor(i / 3) * c.H / 3, c.W / 3, c.H / 3); x.globalCompositeOperation = 'source-over'; }
+    SFX.snap();
+    // 같은 그림 2개가 보이면 '하나만 더!' 긴장
+    const g = c.grid[i];
+    if (g >= 0) {
+      const seen = [...c.rev].filter(j => c.grid[j] === g).length;
+      if (seen === 2 && !c.tease) { c.tease = true; const st = ltEl('lt-stamp'); if (st) { st.className = 'lt-stamp tease'; st.innerHTML = '하나만 더!'; restart(st, 'show'); } SFX.ready(); document.querySelectorAll('.lt-cell').forEach(el => { if (c.rev.has(+el.dataset.c) && c.grid[+el.dataset.c] === g) el.classList.add('pair'); }); }
+      if (seen === 3 && c.win === g) { ltFinish(); return; }
+    }
+    if (c.rev.size >= 9) ltFinish();
+    else if (c.rev.size >= 7 && c.win == null) ltFinish();
+  }
+  function ltBuy() {
+    const m = scratchMachine(); if (!m || (LT.card && !LT.card.done)) return;
+    if (!ltLeftTotal(m)) { toast('', '이번 회차 복권이 모두 팔렸어요. 관리자에서 새 회차를 발행해 주세요.', true); return; }
+    if (state.balance < num(m.cost)) { toast('', '강냉이가 부족해요. 체험용 강냉이를 충전해 보세요.', true); return; }
+    state.balance -= num(m.cost); renderHUD(true);
+    const p = pick(m)[0], idx = m.prizes.indexOf(p), blank = p.kind === 'kernel' && !num(p.val);
+    LT.card = { no: ltTotal(m) - ltLeftTotal(m), p, win: blank ? null : idx, grid: ltGrid(m, blank ? null : idx), rev: new Set(), done: false };
+    SFX.card();
+    ltRender();
+    const t = ltEl('lt-ticket'); if (t) restart(t, 'enter');
+  }
+  function ltAuto() {
+    const c = LT.card; if (!c || c.done) return;
+    const order = [0, 1, 2, 5, 4, 3, 6, 7, 8].filter(i => !c.rev.has(i));
+    order.forEach((i, k) => setTimeout(() => { if (LT.card === c && !c.done) ltReveal(i); }, 140 * k));
+  }
+  function ltFinish() {
+    const m = scratchMachine(), c = LT.card; if (!m || !c || c.done) return;
+    c.done = true;
+    for (let i = 0; i < 9; i++) c.rev.add(i);
+    const cv = ltEl('lt-foil'); if (cv) cv.classList.add('gone');
+    const p = c.p, t = ltEl('lt-ticket'), st = ltEl('lt-stamp');
+    document.querySelectorAll('.lt-cell').forEach(el => { el.classList.add('rev'); el.classList.remove('pair'); if (c.win != null && c.grid[+el.dataset.c] === c.win) el.classList.add('hit'); });
+    if (c.win != null) {
+      const goods = p.kind === 'product', tier = p.g === 'S' ? 'top' : p.g === 'A' ? 'hi' : 'mid';
+      if (goods) { state.inventory.push({ id: nextInv++, name: p.name, from: m.name, status: 'kept' }); renderInv(); }
+      else state.balance += num(p.val);
+      recordResult(p, m);
+      if (p.g === 'S' || p.g === 'A') { state.feed.unshift({ g: p.g, item: p.name, who: '나 · 럭키 스크래치' }); renderFeed(true); toast('방송 오버레이 미리보기', '나님이 투네랜드 스크래치에서 ' + p.name + ' 당첨!'); }
+      saveMe(); renderHUD(true);
+      if (t) t.classList.add('won');
+      if (st) { st.className = 'lt-stamp win'; st.innerHTML = '당첨!<small>' + slEsc(p.name) + '</small>'; restart(st, 'show'); }
+      SFX.land(tier);
+      const r = (t || document.body).getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      floatFx(); burst(['#FFE066', '#FF8FB1', '#74C0FC', '#FFFFFF'], tier === 'top' ? 130 : tier === 'hi' ? 80 : 40, tier === 'top' ? 13 : 9, cx, cy);
+      if (tier !== 'mid') rain(['#FFC64E', '#FF8FB1', '#7CD992', '#74C0FC', '#FFFFFF'], tier === 'top' ? 180 : 90);
+      if (tier === 'top' && t) restart(t, 'shake');
+      setTimeout(() => ltShowWin(m, p, c.win, tier), 1000);
+    } else {
+      recordResult({ g: 'C', name: '럭키 스크래치 꽝', kind: 'kernel', val: 0 }, m); saveMe();
+      if (t) t.classList.add('lost');
+      if (st) { st.className = 'lt-stamp lose'; st.innerHTML = '꽝<small>다음 복권을 노려 보세요</small>'; restart(st, 'show'); }
+      SFX.lose();
+    }
+    const bd = ltEl('lt-board'); if (bd) bd.innerHTML = ltBoardHTML(m);
+    const tb = ltEl('lt-table'); if (tb) tb.innerHTML = ltTableHTML(m);
+    const ft = document.querySelector('.lt-foot span:last-child'); if (ft) ft.textContent = c.win != null ? '당첨' : '꽝';
+  }
+  function ltShowWin(m, p, i, tier) {
+    let el = ltEl('lt-modal');
+    if (!el) {
+      el = document.createElement('div'); el.id = 'lt-modal'; el.className = 'sl-modal'; el.hidden = true;
+      el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-labelledby', 'lt-m-title');
+      document.body.appendChild(el);
+      el.addEventListener('click', e => { const b = e.target.closest('[data-ltx]'); if (b) { ltCloseWin(b.dataset.ltx === 'again'); return; } if (e.target === el) ltCloseWin(false); });
+    }
+    const goods = p.kind === 'product';
+    const sparks = [[12, 18], [84, 14], [8, 52], [90, 46], [22, 70], [78, 72]].map(([a, b], k) => '<i class="sl-m-spark" style="left:' + a + '%;top:' + b + '%;animation-delay:' + (k * .23).toFixed(2) + 's"></i>').join('');
+    el.innerHTML = '<div class="sl-m-card' + (tier === 'top' ? ' top' : '') + '" style="--mc:#FFF3BF;--mi:#E8590C"><div class="sl-m-rays" aria-hidden="true"></div>' + sparks +
+      '<div class="sl-m-label">' + (tier === 'top' ? '대박 당첨!' : tier === 'hi' ? '당첨!' : '당첨') + '</div>' +
+      '<div class="lt-m-art"><svg viewBox="-70 -26 140 52" aria-hidden="true">' + [-44, 0, 44].map(dx => '<g transform="translate(' + dx + ' 0)"><circle r="22" fill="#FFFFFF" stroke="#F59F00" stroke-width="2.5"/>' + ltIcon(i, 36) + '</g>').join('') + '</svg></div>' +
+      '<h3 id="lt-m-title">' + slEsc(p.name) + '</h3>' +
+      '<p class="sl-m-win">' + (goods ? '<span class="chip" style="background:#E8590C">' + fmt(num(p.cost)) + '원 상당</span>보관함에 넣어 드렸어요' : '강냉이를 받았어요<b class="num">' + K + fmt(num(p.val)) + '개</b>') + '</p>' +
+      '<div class="sl-m-btns"><button type="button" data-ltx="close">확인</button><button type="button" data-ltx="again">한 장 더 <small class="num">' + fmt(num(m.cost)) + '</small></button></div></div>';
+    el.hidden = false;
+    const b = el.querySelector('[data-ltx="again"]'); if (b) b.focus();
+  }
+  function ltCloseWin(again) { const el = ltEl('lt-modal'); if (!el || el.hidden) return; el.hidden = true; el.innerHTML = ''; if (again) ltBuy(); }
+  document.addEventListener('keydown', e => { const el = ltEl('lt-modal'); if (el && !el.hidden && e.key === 'Escape') { e.preventDefault(); ltCloseWin(false); } });
+  // 긁기 입력: 누른 채로 움직이면 긁힌다(마우스·손가락 모두)
+  const ltPt = e => { const cv = ltEl('lt-foil'); const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  $('floor').addEventListener('pointerdown', e => { if (state.tab !== 'scratch' || !e.target.closest('#lt-foil')) return; e.preventDefault(); ltDown = true; ltLastPt = null; e.target.setPointerCapture && e.target.setPointerCapture(e.pointerId); const [x, y] = ltPt(e); ltScratchAt(x, y); });
+  $('floor').addEventListener('pointermove', e => { if (!ltDown || state.tab !== 'scratch' || !ltEl('lt-foil')) return; const [x, y] = ltPt(e); ltScratchAt(x, y); });
+  addEventListener('pointerup', () => { if (ltDown) { ltDown = false; ltLastPt = null; ltCheck(true); } });
+  $('floor').addEventListener('click', e => {
+    if (state.tab !== 'scratch') return;
+    const b = e.target.closest('[data-lt]'); if (!b || b.disabled) return;
+    if (b.dataset.lt === 'buy') ltBuy(); else if (b.dataset.lt === 'auto') ltAuto();
+  });
+  addEventListener('resize', () => { if (state.tab === 'scratch' && ltEl('lt-foil')) ltInit(); });
 
   // =====================================================================
   // 깡통 사격: 서부 사격장 건물의 구멍 6개에서 캔이 2개씩 2초 동안 나왔다 들어간다(10초 동안 5번).
@@ -6852,7 +7146,7 @@ img, svg, video { max-width: 100%; }
       const e = econ(m, s), st = mSt(m, e);
       return '<tr style="--c:' + zoneOf(m.zone).color + '">' +
         '<td><span class="mname"><i></i>' + m.name + '</span></td>' +
-        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'archery' ? '깡통 사격' : m.mode === 'slot' ? '캐릭터 슬롯' : m.mode === 'gslot' ? '상품 슬롯' : m.mode === 'race' ? '냥냥 레이스' : m.mode === 'fish' ? '냥 낚시터' : m.mode === 'wheel' ? '럭키 룰렛' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
+        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'archery' ? '깡통 사격' : m.mode === 'slot' ? '캐릭터 슬롯' : m.mode === 'gslot' ? '상품 슬롯' : m.mode === 'race' ? '냥냥 레이스' : m.mode === 'fish' ? '냥 낚시터' : m.mode === 'wheel' ? '럭키 룰렛' : m.mode === 'scratch' ? '스크래치 복권' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
         '<td class="r">' + fmt(num(m.cost)) + '</td>' +
         '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'cannon' || m.mode === 'archery' ? '약 ' + fmt(Math.round(e.runs)) + '발' : m.mode === 'runner' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'slot' || m.mode === 'gslot' || m.mode === 'wheel' ? '약 ' + fmt(Math.round(e.runs)) + '회' : m.mode === 'race' ? '약 ' + fmt(Math.round(e.runs)) + '판(최소 기준)' : m.mode === 'fish' ? '약 ' + fmt(Math.round(e.runs)) + '번' : m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
         '<td class="r">' + (e.hasGoods ? won(e.goods) + '<span class="ed-left">상품 ' + fmt(e.goodsN) + '개</span>' : '<span class="qmeta">상품 없음</span>') + '</td>' +
@@ -7750,6 +8044,11 @@ img, svg, video { max-width: 100%; }
       [0, 30, 60, 90, 120, 150].map(a => '<path d="M50 54 L50 20" stroke="#FFD43B" stroke-width="1.2" transform="rotate(' + a + ' 50 54)"/><path d="M50 54 L50 20" stroke="#FFD43B" stroke-width="1.2" transform="rotate(' + (a + 180) + ' 50 54)"/>').join('') +
       '<circle cx="50" cy="54" r="10" fill="#FAB005" stroke="#8A6414" stroke-width="1.5"/><text x="50" y="58.5" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="12" fill="#C92A2A">7</text>' +
       '<path d="M50 22 L44 10 H56 Z" fill="#FA5252" stroke="#FFFFFF" stroke-width="1.5"/></svg>',
+    scratch: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgsc1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD43B"/><stop offset="1" stop-color="#E8590C"/></linearGradient><linearGradient id="lgsc2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#DEE2E6"/><stop offset=".5" stop-color="#F8F9FA"/><stop offset="1" stop-color="#ADB5BD"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgsc1)"/>' +
+      '<g transform="rotate(-8 50 50)"><rect x="16" y="22" width="68" height="56" rx="8" fill="#FFF9DB" stroke="#C2410C" stroke-width="3"/><rect x="24" y="34" width="52" height="36" rx="5" fill="url(#lgsc2)"/>' +
+      '<path d="M26 60 C34 44 44 64 52 48 C58 38 66 52 74 42 L74 70 H26Z" fill="#FFF3BF"/><text x="44" y="64" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="14" fill="#E03131">777</text>' +
+      '<text x="50" y="31" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="8" fill="#C2410C">SCRATCH</text></g>' +
+      '<circle cx="76" cy="74" r="11" fill="#FAB005" stroke="#8A6414" stroke-width="2.5"/><circle cx="76" cy="74" r="6" fill="none" stroke="#FFF3BF" stroke-width="1.5"/></svg>',
     hall: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgu5" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD43B"/><stop offset="1" stop-color="#E67700"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgu5)"/>' +
       '<path d="M34 24h32v14a16 16 0 0 1-32 0z" fill="#FFFFFF"/><path d="M34 29h-7a8 8 0 0 0 9 13M66 29h7a8 8 0 0 1-9 13" stroke="#FFFFFF" stroke-width="4" fill="none"/><rect x="46" y="53" width="8" height="11" fill="#FFFFFF"/><rect x="35" y="64" width="30" height="9" rx="2.5" fill="#FFFFFF"/>' +
       '<path d="M50 29l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.2 2.7 1-5.7-4.1-4 5.7-.8z" fill="#F59F00"/></svg>'
@@ -7764,7 +8063,8 @@ img, svg, video { max-width: 100%; }
     { id: 'gslot', name: '상품 슬롯', sub: '상품 3단 맞추기', ic: '#1C7ED6', fc: '#1864AB', badge: 'N', desc: '상품 그림 3칸을 한 상품으로 맞추면 그 상품을 받아요!' },
     { id: 'race', name: '냥냥 레이스', sub: '1등 맞히기', ic: '#2F9E44', fc: '#2B8A3E', badge: 'N', desc: '캐릭터 5마리가 달려요. 1등이나 3위 안을 맞히면 배당만큼!' },
     { id: 'fish', name: '냥 낚시터', sub: '챔질 타이밍', ic: '#1971C2', fc: '#1864AB', badge: 'N', desc: '찌가 쑥 잠길 때 챔질! 황금 잉어를 낚으면 ×30이에요.' },
-    { id: 'wheel', name: '럭키 룰렛', sub: '3겹 휠', ic: '#D6336C', fc: '#A61E4D', badge: 'N', desc: '안쪽·가운데·바깥 휠에 같은 그림 3개! 세븐 3개면 ×450이에요.' }
+    { id: 'wheel', name: '럭키 룰렛', sub: '3겹 휠', ic: '#D6336C', fc: '#A61E4D', badge: 'N', desc: '안쪽·가운데·바깥 휠에 같은 그림 3개! 세븐 3개면 ×450이에요.' },
+    { id: 'scratch', name: '럭키 스크래치', sub: '한정 복권', ic: '#E8590C', fc: '#D9480F', badge: 'N', desc: '은박을 긁어 같은 그림 3개! 치킨 기프티콘이 2장 숨어 있어요.' }
   ];
   const LG_DOCK = [
     { id: 'hall', name: '명예의 전당', ic: '#E67700' },
@@ -7822,12 +8122,13 @@ img, svg, video { max-width: 100%; }
     if (AR.active && location.hash !== '#archery') { history.replaceState(null, '', '#archery'); toast('', '사격이 끝난 뒤에 이동할 수 있어요.', true); return; }
     if (slEl('sl-modal') && !slEl('sl-modal').hidden) slCloseWin(false);
     if (['cast', 'wait', 'bite', 'reel', 'jump'].includes(FS.phase) && location.hash !== '#fish') { history.replaceState(null, '', '#fish'); toast('', '낚시가 끝난 뒤에 이동할 수 있어요.', true); return; }
+    if (LT.card && !LT.card.done && location.hash !== '#scratch') { history.replaceState(null, '', '#scratch'); toast('', '긁던 복권을 다 긁은 뒤에 이동할 수 있어요.', true); return; }
     if (WL.spinning && location.hash !== '#wheel') { history.replaceState(null, '', '#wheel'); toast('', '휠이 멈춘 뒤에 이동할 수 있어요.', true); return; }
     if (RC.running && location.hash !== '#race') { history.replaceState(null, '', '#race'); toast('', '경주가 끝난 뒤에 이동할 수 있어요.', true); return; }
     if (SL.spinning && location.hash !== '#' + SL.tab) { history.replaceState(null, '', '#' + SL.tab); toast('', '릴이 멈춘 뒤에 이동할 수 있어요.', true); return; }
     if (CN.flying && location.hash !== '#cannon') { history.replaceState(null, '', '#cannon'); toast('', '팝콘이 착지한 뒤에 이동할 수 있어요.', true); return; }
     if (RN.active && location.hash !== '#runner') { history.replaceState(null, '', '#runner'); toast('', '냥치 런이 끝난 뒤에 이동할 수 있어요.', true); return; }
-    const tab = ({ '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#runner': 'runner', '#cannon': 'cannon', '#archery': 'archery', '#slot': 'slot', '#gslot': 'gslot', '#race': 'race', '#fish': 'fish', '#wheel': 'wheel' })[location.hash] || 'gacha';
+    const tab = ({ '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#runner': 'runner', '#cannon': 'cannon', '#archery': 'archery', '#slot': 'slot', '#gslot': 'gslot', '#race': 'race', '#fish': 'fish', '#wheel': 'wheel', '#scratch': 'scratch' })[location.hash] || 'gacha';
     if (!admin && !shop && !lounge && tab !== state.tab) {
       if (!$('modal').hidden) { if (busy) return; closeModal(); }
       state.tab = tab; renderZones(); renderFloor();
