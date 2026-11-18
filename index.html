@@ -1051,47 +1051,52 @@ button.stat { font: inherit; color: inherit; cursor: pointer; }
 .lt-cell.hit svg.lt-kico { animation: lt-khitsvg .45s ease-in-out infinite alternate; }
 svg.lt-kico.lt-tic { width: 22px; height: 22px; margin: 0 8px 0 2px; }
 .lt-m-cell svg.lt-kico { width: 36px; height: 36px; }
-/* ===== 머니 휠 ===== */
-.mw-panel { grid-column: 1 / -1; overflow-x: clip; }
-.mw-stage { position: relative; width: min(480px, 100%); padding: 12px 10px 8px; border-radius: 26px; background: radial-gradient(110% 70% at 50% 0%, #2F9E44, #0B3B17 60%, #062A10); box-shadow: inset 0 0 0 4px #FFD43B, inset 0 0 0 8px #5C3D0A, 0 12px 26px rgba(0,40,10,.35); isolation: isolate; }
-.mw-stage.shake { animation: pk-shake .45s; }
-.mw-aura { position: absolute; left: 50%; top: 47%; z-index: -1; width: 92%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; background: repeating-conic-gradient(rgba(255,224,102,.18) 0 5deg, transparent 5deg 15deg); animation: wl-aura 30s linear infinite; }
-.mw-stage.spin .mw-aura { animation-duration: 5s; }
-.mw-svg { display: block; width: 100%; height: auto; overflow: visible; filter: drop-shadow(0 10px 16px rgba(0,0,0,.45)); transition: transform 2s cubic-bezier(.3,.1,.2,1); transform-origin: 50% 8%; }
-.mw-stage.focus .mw-svg { transform: scale(1.06); }
-.mw-wheel.fast { filter: blur(1.2px); }
-.mw-flap { transform-box: fill-box; transform-origin: 50% 0%; }
-.mw-flap.flick { animation: wl-flick .14s ease-out; }
-.mw-hl { fill: rgba(255,255,255,.25); stroke: #FFFFFF; stroke-width: 3; animation: mw-hl .3s steps(2) 6; pointer-events: none; }
-@keyframes mw-hl { 50% { fill: rgba(255,255,255,.05); } }
-.mw-stage.lost .mw-svg { filter: drop-shadow(0 10px 16px rgba(0,0,0,.45)) saturate(.6); transition: filter .4s; }
-.mw-hub { animation: wl-hub 3s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
-.mw-status { margin: 4px auto 2px; padding: 7px 12px; max-width: 92%; border-radius: 999px; background: rgba(0,0,0,.4); color: #FFFFFF; font-size: 13.5px; font-weight: 800; text-align: center; }
-.mw-mine { margin-left: 4px; padding: 1px 8px; border-radius: 999px; background: #FFD43B; color: #5C3D00; font-size: 11.5px; }
-.mw-stage .sl-flash { border-radius: 26px; }
-.mw-board { max-width: 480px; }
-.mw-chips { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 13px; font-weight: 800; color: var(--muted); }
-.mw-chip { width: 54px; height: 54px; border: 0; border-radius: 50%; background: radial-gradient(circle, #FFFFFF 0 36%, #E03131 37% 62%, #FFFFFF 63% 70%, #E03131 71%); color: #8F1D1D; font: inherit; font-size: 12.5px; font-weight: 900; cursor: pointer; box-shadow: 0 3px 0 #8F1D1D; }
-.mw-chip:nth-of-type(2) { background: radial-gradient(circle, #FFFFFF 0 36%, #1C7ED6 37% 62%, #FFFFFF 63% 70%, #1C7ED6 71%); color: #0B3B66; box-shadow: 0 3px 0 #0B3B66; }
-.mw-chip:nth-of-type(3) { background: radial-gradient(circle, #FFFFFF 0 36%, #212529 37% 62%, #FFD43B 63% 70%, #212529 71%); color: #212529; box-shadow: 0 3px 0 #000000; }
-.mw-chip[aria-pressed="true"] { transform: translateY(-4px); outline: 3px solid #FFD43B; outline-offset: 2px; }
-.mw-spots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-.mw-spot { position: relative; display: flex; flex-direction: column; align-items: center; padding: 10px 4px 8px; border: 0; border-radius: 14px; background: linear-gradient(180deg, var(--c0), var(--c1)); color: var(--c2); font: inherit; cursor: pointer; box-shadow: inset 0 0 0 2px rgba(255,255,255,.6), 0 4px 0 rgba(0,0,0,.25); }
-.mw-spot b { font-family: 'Arial Black', Arial, sans-serif; font-size: 26px; line-height: 1; color: #FFFFFF; -webkit-text-stroke: 1px rgba(0,0,0,.35); text-shadow: 0 2px 0 rgba(0,0,0,.25); }
-.mw-spot small { margin-top: 3px; font-size: 11.5px; font-weight: 900; color: #FFFFFF; text-shadow: 0 1px 0 rgba(0,0,0,.35); }
-.mw-spot.last { box-shadow: inset 0 0 0 3px #FFFFFF, 0 0 0 3px #FFD43B, 0 4px 0 rgba(0,0,0,.25); }
-.mw-spot.bump { animation: mw-bump .25s ease-out; }
-@keyframes mw-bump { 40% { transform: scale(1.06); } }
-.mw-spot:disabled { cursor: not-allowed; opacity: .75; }
-.mw-stack { position: absolute; right: -4px; top: -8px; padding: 2px 7px; border-radius: 999px; background: #FFFFFF; color: #212529; font-size: 11.5px; font-weight: 900; box-shadow: 0 2px 4px rgba(0,0,0,.25); }
-.mw-sum { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 12px 0 10px; font-size: 13.5px; color: var(--text-2); }
-.mw-clear { padding: 6px 12px; border: 1px solid var(--panel-line); border-radius: 999px; background: var(--panel); color: var(--text); font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer; }
-.mw-clear:disabled { opacity: .45; cursor: not-allowed; }
-.sl-btn.mw-go { background: linear-gradient(180deg, #51CF66, #2B8A3E); box-shadow: 0 6px 0 #1B5E2A; }
-.sl-btn.mw-go:active:not(:disabled) { box-shadow: 0 3px 0 #1B5E2A; }
-.mw-hist { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin-top: 10px; font-size: 12px; color: var(--muted); }
-.mw-hist i { min-width: 22px; height: 22px; padding: 0 4px; border-radius: 6px; background: var(--c1); color: #FFFFFF; font-style: normal; font-size: 11.5px; font-weight: 900; line-height: 22px; text-align: center; }
-.mw-dot { display: inline-block; width: 12px; height: 12px; margin-right: 6px; border-radius: 3px; vertical-align: -1px; }
+/* ===== 코인 푸셔 ===== */
+.ps-panel { grid-column: 1 / -1; overflow-x: clip; }
+.ps-cab { position: relative; width: min(470px, 100%); padding: 14px 16px 16px; border-radius: 30px 30px 22px 22px; background: radial-gradient(120% 70% at 50% 0%, #4DABF7, #1864AB 50%, #0B2E55); box-shadow: inset 0 0 0 4px #FFD43B, inset 0 0 0 8px #0B3B66, 0 10px 0 #071E38, 0 18px 30px rgba(10,30,60,.35); }
+.ps-cab.shake { animation: pk-shake .45s; }
+.ps-marquee { background: linear-gradient(180deg, #FFEC99, #FAB005); }
+.ps-marquee b { font-family: 'Arial Black', Arial, sans-serif; letter-spacing: .06em; font-size: 21px; }
+.ps-stage { position: relative; height: 340px; overflow: hidden; border-radius: 18px; background: linear-gradient(180deg, #0B2E55 0%, #123F73 26%, #0B2E55 100%); box-shadow: inset 0 0 0 3px #000000, inset 0 10px 24px rgba(0,0,0,.5); }
+.ps-stage.quake { animation: ps-quake .6s linear; }
+@keyframes ps-quake { 10%, 50%, 90% { transform: translate(-4px, 2px); } 30%, 70% { transform: translate(4px, -2px); } }
+.ps-back { position: absolute; left: 0; right: 0; top: 0; height: 24%; background: repeating-linear-gradient(90deg, #1C7ED6 0 18px, #1971C2 18px 36px); box-shadow: inset 0 -6px 10px rgba(0,0,0,.35); }
+.ps-back::after { content: ""; position: absolute; left: 10%; right: 10%; top: 12px; height: 8px; border-radius: 4px; background: #0B2E55; box-shadow: inset 0 2px 3px rgba(0,0,0,.6); }
+.ps-dropper { position: absolute; top: 2px; width: 46px; height: 34px; margin-left: -23px; border-radius: 8px 8px 14px 14px; background: linear-gradient(180deg, #FFE066, #E0A800); box-shadow: 0 3px 0 #8A6414, inset 0 0 0 2px #FFF3BF; text-align: center; font-size: 13px; line-height: 30px; color: #8A1C1C; font-style: normal; font-weight: 900; z-index: 3; }
+.ps-dropper span { display: inline-block; animation: ps-arrow .8s ease-in-out infinite; }
+@keyframes ps-arrow { 50% { transform: translateY(4px); } }
+.ps-tray { position: absolute; inset: 0; }
+.ps-tray::before { content: ""; position: absolute; left: 0; right: 0; top: 24%; bottom: 20%; clip-path: polygon(18% 0, 82% 0, 98% 100%, 2% 100%); background: linear-gradient(180deg, #2F6FB0, #4D8FD1 60%, #6AA8E6); box-shadow: inset 0 0 0 2px #FFD43B; }
+.ps-plate { position: absolute; left: 17%; right: 17%; top: 20%; height: 9%; border-radius: 6px 6px 3px 3px; background: linear-gradient(180deg, #DEE2E6, #868E96); box-shadow: 0 6px 8px rgba(0,0,0,.35), inset 0 2px 0 #FFFFFF; z-index: 8; }
+.ps-plate::after { content: "PUSH"; position: absolute; inset: 0; display: grid; place-items: center; font-size: 10px; font-weight: 900; letter-spacing: .3em; color: #495057; }
+.ps-edge { position: absolute; left: 1%; right: 1%; top: 79%; height: 6px; border-radius: 3px; background: linear-gradient(180deg, #FFE066, #B07A00); z-index: 120; box-shadow: 0 3px 6px rgba(0,0,0,.4); }
+.ps-coin { position: absolute; display: block; translate: -50% -50%; transition: left .5s ease, top .5s ease, width .5s, height .5s; filter: drop-shadow(0 2px 1px rgba(0,0,0,.45)); }
+.ps-coin svg { display: block; width: 100%; height: 100%; }
+.ps-coin.fall { top: 14px !important; transition: none; animation: ps-fall .56s cubic-bezier(.5,0,.8,.6) forwards; }
+@keyframes ps-fall { from { transform: translateY(0) scale(.7); } to { transform: translateY(var(--fy, 92px)) scale(1); } }
+.ps-coin.land { animation: ps-land .3s ease-out; }
+@keyframes ps-land { 40% { transform: scale(1.2, .8); } }
+.ps-coin.drop { animation: ps-drop .7s ease-in forwards; }
+@keyframes ps-drop { 20% { transform: translateY(-6px) rotate(20deg); } 100% { transform: translateY(90px) rotate(240deg); opacity: 0; } }
+.ps-bin { position: absolute; left: 50%; bottom: 6px; z-index: 130; display: flex; align-items: baseline; gap: 6px; padding: 6px 16px; translate: -50% 0; border-radius: 999px; background: rgba(0,0,0,.55); color: #FFE066; font-size: 12px; font-weight: 800; box-shadow: inset 0 0 0 2px #FFD43B; }
+.ps-bin b { font-size: 20px; color: #FFFFFF; }
+.ps-bin.bump { animation: mw-bump2 .2s ease-out; }
+@keyframes mw-bump2 { 50% { transform: scale(1.08); } }
+.ps-float { position: absolute; left: 50%; top: 62%; z-index: 140; translate: -50% 0; font-size: 26px; font-weight: 900; color: #FFE066; text-shadow: 0 3px 0 #7A3E00, 0 0 12px rgba(255,200,40,.8); pointer-events: none; animation: ps-float 1.2s ease-out forwards; }
+.ps-float.t-lo { font-size: 20px; }
+.ps-float.t-hi, .ps-float.t-top { font-size: 34px; }
+@keyframes ps-float { 0% { transform: translateY(10px) scale(.6); opacity: 0; } 20% { transform: translateY(0) scale(1.1); opacity: 1; } 100% { transform: translateY(-50px); opacity: 0; } }
+.ps-wave { position: absolute; left: 0; right: 0; top: 30%; height: 50%; z-index: 125; background: linear-gradient(180deg, transparent, rgba(255,224,102,.55), transparent); animation: ps-wave 1.4s ease-out forwards; pointer-events: none; }
+@keyframes ps-wave { from { transform: translateY(-40%); opacity: 0; } 30% { opacity: 1; } to { transform: translateY(50%); opacity: 0; } }
+.ps-stage .wl-shout { top: 46%; z-index: 150; }
+.ps-plate.shove { animation: ps-shove .5s ease-out; }
+@keyframes ps-shove { 40% { margin-top: 10px; } }
+.ps-btns { display: grid; grid-template-columns: 1.4fr 1fr; gap: 10px; }
+.sl-btn.ps-drop { background: linear-gradient(180deg, #FFD43B, #F59F00); color: #5C3D00; box-shadow: 0 6px 0 #A86E00; }
+.sl-btn.ps-ten { background: linear-gradient(180deg, #4DABF7, #1C7ED6); color: #FFFFFF; box-shadow: 0 6px 0 #0B3B66; }
+.sl-btn.ps-drop:disabled { background: #6C7A8C; color: #D7DDE8; box-shadow: 0 6px 0 #3E4A5C; }
+.ps-meter { display: flex; justify-content: space-between; margin-top: 10px; padding: 6px 10px; border-radius: 12px; background: rgba(0,0,0,.3); color: #D0EBFF; font-size: 12.5px; font-weight: 700; }
+.ps-meter b { color: #FFE066; }
 /* ===== 냥냥 레이스 ===== */
 .rc-panel { grid-column: 1 / -1; }
 .rc-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
@@ -2720,7 +2725,7 @@ img, svg, video { max-width: 100%; }
     <button type="button" role="tab" data-gtab="fish" aria-selected="false" style="--gtc:#1971C2"><span class="gt-dot"></span>냥 낚시터 <small class="gt-new">NEW</small></button>
     <button type="button" role="tab" data-gtab="wheel" aria-selected="false" style="--gtc:#D6336C"><span class="gt-dot"></span>럭키 룰렛 <small class="gt-new">NEW</small></button>
     <button type="button" role="tab" data-gtab="scratch" aria-selected="false" style="--gtc:#E8590C"><span class="gt-dot"></span>럭키 스크래치 <small class="gt-new">NEW</small></button>
-    <button type="button" role="tab" data-gtab="mwheel" aria-selected="false" style="--gtc:#2F9E44"><span class="gt-dot"></span>머니 휠 <small class="gt-new">NEW</small></button>
+    <button type="button" role="tab" data-gtab="pusher" aria-selected="false" style="--gtc:#1C7ED6"><span class="gt-dot"></span>코인 푸셔 <small class="gt-new">NEW</small></button>
   </div>
   </div>
 
@@ -2761,7 +2766,7 @@ img, svg, video { max-width: 100%; }
   <p class="ad-invalid" id="ad-invalid" hidden></p>
 
   <div class="ad-layout">
-  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="archery"><span class="gnb-dot" data-addot="archery"></span><span class="gnb-text"><b>깡통 사격</b><small>캔별 상품 보상표</small></span></button><button type="button" class="gnb-item" data-adpage="slot"><span class="gnb-dot" data-addot="slot"></span><span class="gnb-text"><b>캐릭터 슬롯</b><small>캐릭터별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="gslot"><span class="gnb-dot" data-addot="gslot"></span><span class="gnb-text"><b>상품 슬롯</b><small>상품별 비중·준비 수량</small></span></button><button type="button" class="gnb-item" data-adpage="race"><span class="gnb-dot" data-addot="race"></span><span class="gnb-text"><b>냥냥 레이스</b><small>우승 비중·배당</small></span></button><button type="button" class="gnb-item" data-adpage="fish"><span class="gnb-dot" data-addot="fish"></span><span class="gnb-text"><b>냥 낚시터</b><small>입장권·물고기 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="wheel"><span class="gnb-dot" data-addot="wheel"></span><span class="gnb-text"><b>럭키 룰렛</b><small>그림별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="mwheel"><span class="gnb-dot" data-addot="mwheel"></span><span class="gnb-text"><b>머니 휠</b><small>숫자별 칸 수</small></span></button></div></nav>
+  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="archery"><span class="gnb-dot" data-addot="archery"></span><span class="gnb-text"><b>깡통 사격</b><small>캔별 상품 보상표</small></span></button><button type="button" class="gnb-item" data-adpage="slot"><span class="gnb-dot" data-addot="slot"></span><span class="gnb-text"><b>캐릭터 슬롯</b><small>캐릭터별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="gslot"><span class="gnb-dot" data-addot="gslot"></span><span class="gnb-text"><b>상품 슬롯</b><small>상품별 비중·준비 수량</small></span></button><button type="button" class="gnb-item" data-adpage="race"><span class="gnb-dot" data-addot="race"></span><span class="gnb-text"><b>냥냥 레이스</b><small>우승 비중·배당</small></span></button><button type="button" class="gnb-item" data-adpage="fish"><span class="gnb-dot" data-addot="fish"></span><span class="gnb-text"><b>냥 낚시터</b><small>입장권·물고기 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="wheel"><span class="gnb-dot" data-addot="wheel"></span><span class="gnb-text"><b>럭키 룰렛</b><small>그림별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="pusher"><span class="gnb-dot" data-addot="pusher"></span><span class="gnb-text"><b>코인 푸셔</b><small>낙하 개수별 확률</small></span></button></div></nav>
   <div class="ad-main">
   <div class="ad-page" data-page="overview">
 
@@ -2849,13 +2854,13 @@ img, svg, video { max-width: 100%; }
     <div class="ed-foot"><div class="pa-calc" id="wl-calc"></div></div>
   </div>
   </div>
-  <div class="ad-page" data-page="mwheel" hidden>
-  <div class="panel ad-block" id="mw-admin">
-    <h2>머니 휠 관리 <span class="tag" id="mw-sum"></span></h2>
-    <p class="hub-note">바퀴의 모든 칸은 같은 확률로 멈춰요. 숫자 칸에 건 칩은 <b>건 강냉이 × (숫자 + 1)</b>을 돌려받고, ★꽝 칸에 멈추면 모든 칩을 잃어요. 숫자별 <b>RTP = 칸 수 ÷ 전체 칸 수 × (숫자 + 1)</b>이에요. 손님이 가장 유리한 숫자만 골라도 넘지 않도록 <b>최대 RTP</b>로 상태를 봐요. 칸 수는 직접 정해요.</p>
-    <div class="fields" id="mw-fields"></div>
-    <div class="table-wrap"><table class="ad-table" id="mw-t"></table></div>
-    <div class="ed-foot"><div class="pa-calc" id="mw-calc"></div></div>
+  <div class="ad-page" data-page="pusher" hidden>
+  <div class="panel ad-block" id="ps-admin">
+    <h2>코인 푸셔 관리 <span class="tag" id="ps-sum"></span></h2>
+    <p class="hub-note">코인 1개를 넣을 때마다 떨어지는 코인 개수가 아래 확률표로 정해지고, 떨어진 코인 1개 = 코인 1개 값만큼 강냉이를 줘요. 판 위 움직임은 결과에 맞춘 연출이에요. <b>RTP = Σ(확률 × 떨어지는 개수)</b>예요. 확률은 직접 정해요(합 100%).</p>
+    <div class="fields" id="ps-fields"></div>
+    <div class="table-wrap"><table class="ad-table" id="ps-t"></table></div>
+    <div class="ed-foot"><div class="pa-calc" id="ps-calc"></div></div>
   </div>
   </div>
   <div class="ad-page" data-page="archery" hidden>
@@ -3220,7 +3225,7 @@ img, svg, video { max-width: 100%; }
     { id: 'fish', name: '냥 낚시터', cost: 100, color: '#1971C2', tab: 'fish' },
     { id: 'wheel', name: '럭키 룰렛', cost: 100, color: '#D6336C', tab: 'wheel' },
     { id: 'scratch', name: '럭키 스크래치', cost: 300, color: '#E8590C', tab: 'scratch' },
-    { id: 'mwheel', name: '머니 휠', cost: 100, color: '#2F9E44', tab: 'mwheel' },
+    { id: 'pusher', name: '코인 푸셔', cost: 10, color: '#1C7ED6', tab: 'pusher' },
     { id: 'gold', name: '골드존', cost: 2000, color: 'var(--t-gold)' },
     { id: 'creator', name: '크리에이터존', cost: 3000, color: 'var(--t-creator)' },
     { id: 'legend', name: '레전드존', cost: 10000, color: 'var(--t-legend)' }
@@ -3286,10 +3291,10 @@ img, svg, video { max-width: 100%; }
       // 럭키 스크래치: 회차당 2,000장 발행하는 한정 복권(한정 머신 구조). 기프티콘 예산 + 강냉이 상품 RTP
       { id: 'scratch', zone: 'scratch', mode: 'scratch', name: '럭키 스크래치', cost: 300, demand: 1200000, top: '순살 치킨 + 콜라 세트',
         prizes: [Object.assign(P('S', '순살 치킨 + 콜라 세트', 'product', 0, 22000, 2, 2), { pid: 'chicken' }), Object.assign(P('A', '스타벅스 카페 라떼', 'product', 0, 5000, 20, 20), { pid: 'sblatte' }), P('B', '강냉이 1,500개', 'kernel', 1500, 0, 60, 60), P('B', '강냉이 600개', 'kernel', 600, 0, 200, 200), P('C', '강냉이 300개', 'kernel', 300, 0, 500, 500), P('C', '꽝', 'kernel', 0, 0, 1218, 1218)] },
-      // 머니 휠: 54칸(1·2·5·10·20·40 + 꽝 2). 숫자에 칩, 적중 시 건 강냉이 × (숫자+1). RTP(숫자별) = 칸 수 ÷ 54 × (숫자+1), 최대값으로 관리
-      { id: 'mwheel', zone: 'mwheel', mode: 'mwheel', name: '머니 휠', cost: 100, maxBet: 5000, demand: 800000, top: '숫자 40 적중 ×41', blank: 2,
-        cats: [{ v: 1, n: 23 }, { v: 2, n: 15 }, { v: 5, n: 7 }, { v: 10, n: 4 }, { v: 20, n: 2 }, { v: 40, n: 1 }],
-        prizes: [W('C', '숫자 1 적중 ×2', 'kernel', 200, 0, 42.593), W('B', '숫자 2 적중 ×3', 'kernel', 300, 0, 27.778), W('B', '숫자 5 적중 ×6', 'kernel', 600, 0, 12.963), W('A', '숫자 10 적중 ×11', 'kernel', 1100, 0, 7.407), W('S', '숫자 20 적중 ×21', 'kernel', 2100, 0, 3.704), W('S', '숫자 40 적중 ×41', 'kernel', 4100, 0, 1.852)] },
+      // 코인 푸셔: 코인 1개(강냉이 10) 넣을 때마다 떨어지는 코인 수를 확률표로. 떨어진 코인 1개 = 강냉이 10. RTP = Σ 확률 × 개수
+      { id: 'pusher', zone: 'pusher', mode: 'pusher', name: '코인 푸셔', cost: 10, demand: 800000, top: '잭팟 코인 100개',
+        probs: [68.85, 15, 8, 4, 2.5, 1.2, 0.4, 0.05],
+        prizes: [W('C', '낙하 없음', 'kernel', 0, 0, 68.85), W('C', '코인 1개 낙하', 'kernel', 10, 0, 15), W('B', '코인 2개 낙하', 'kernel', 20, 0, 8), W('B', '코인 3개 낙하', 'kernel', 30, 0, 4), W('A', '코인 5개 낙하', 'kernel', 50, 0, 2.5), W('A', '코인 10개 낙하', 'kernel', 100, 0, 1.2), W('S', '코인 30개 낙하', 'kernel', 300, 0, 0.4), W('S', '코인 100개 낙하', 'kernel', 1000, 0, 0.05)] },
       // 팝콘 대포: 게이지 등급(퍼펙트·좋아요·보통)별 확률표로 거리 구간 결정. 배수 공통, 등급별 RTP 동일(B 방식)
       { id: 'cannon', zone: 'cannon', mode: 'cannon', cv: 2, name: '팝콘 대포', cost: 100, demand: 800000, mults: [0.2, 0.5, 1, 2, 4, 10],
         probs: { perfect: [0, 0, 90.2, 7, 2, 0.8], good: [0, 0, 96, 3.5, 0.5, 0], normal: [45, 30, 10, 10, 4, 1] }, top: '800m 이상 ×10 · 강냉이 1,000개',
@@ -3333,6 +3338,8 @@ img, svg, video { max-width: 100%; }
     c.machines.filter(m => m.mode === 'puzzle').forEach(m => m.prizes.forEach((p, i) => { if (!p.pid) p.pid = 'p' + i + '-' + String(p.name).length; }));
     // 예전 한정 카드팩·빙고 카드팩은 직소 퍼즐로 바뀌었다
     c.machines = c.machines.filter(m => m.mode !== 'pack' && m.mode !== 'bingo');
+    // 머니 휠은 삭제된 게임(예전 설정에 남아 있으면 뺀다)
+    c.machines = c.machines.filter(m => m.mode !== 'mwheel');
     // 뽑기판·팝콘 핀볼은 삭제된 게임
     c.machines = c.machines.filter(m => m.mode !== 'board' && m.mode !== 'plinko' && m.mode !== 'farm');
     delete c.farm;   // 팝콘 농장은 삭제된 게임
@@ -3362,7 +3369,7 @@ img, svg, video { max-width: 100%; }
   const WALLET_KEY = 'tooneland-wallet-v1';
   const WALLET = (() => { try { const w = JSON.parse(localStorage.getItem(WALLET_KEY)); if (w && typeof w.bal === 'number' && Array.isArray(w.log)) return w; } catch (e) { /* 저장소 없음 */ } return { bal: 12340, log: [{ t: Date.now(), d: 0, after: 12340, why: '시작 잔액 (목업)' }] }; })();
   let ledgerWhy = '', walletT = 0;
-  const GAME_WHY = { puzzle: ['직소 퍼즐 카드 뽑기', '직소 퍼즐 보상'], runner: ['냥치 런 입장', '냥치 런 점수 받기'], cannon: ['팝콘 대포 발사', '팝콘 대포 착지 보상'], slot: ['캐릭터 슬롯 돌리기', '캐릭터 슬롯 당첨'], gslot: ['상품 슬롯 돌리기', '상품 슬롯 당첨'], race: ['냥냥 레이스 응원', '냥냥 레이스 적중'], fish: ['냥 낚시터 입장', '냥 낚시터 조과'], wheel: ['럭키 룰렛 돌리기', '럭키 룰렛 당첨'], scratch: ['럭키 스크래치 구매', '럭키 스크래치 당첨'], mwheel: ['머니 휠 칩 걸기', '머니 휠 적중'], archery: ['깡통 사격 입장(탄 구매)', '깡통 사격 명중 상품'] };
+  const GAME_WHY = { puzzle: ['직소 퍼즐 카드 뽑기', '직소 퍼즐 보상'], runner: ['냥치 런 입장', '냥치 런 점수 받기'], cannon: ['팝콘 대포 발사', '팝콘 대포 착지 보상'], slot: ['캐릭터 슬롯 돌리기', '캐릭터 슬롯 당첨'], gslot: ['상품 슬롯 돌리기', '상품 슬롯 당첨'], race: ['냥냥 레이스 응원', '냥냥 레이스 적중'], fish: ['냥 낚시터 입장', '냥 낚시터 조과'], wheel: ['럭키 룰렛 돌리기', '럭키 룰렛 당첨'], scratch: ['럭키 스크래치 구매', '럭키 스크래치 당첨'], pusher: ['코인 푸셔 코인 넣기', '코인 푸셔 낙하'], archery: ['깡통 사격 입장(탄 구매)', '깡통 사격 명중 상품'] };
   function ledgerReason(d) {
     if (ledgerWhy) return ledgerWhy;
     if (typeof current !== 'undefined' && current) return current.name + (d < 0 ? ' 뽑기' : ' 당첨');
@@ -3458,7 +3465,7 @@ img, svg, video { max-width: 100%; }
 
   function renderZones() {
     const COPY = {
-      mwheel: ['숫자에 칩을 거는 머니 휠', '큰 바퀴의 숫자 칸에 강냉이 칩을 걸고 돌려요. 멈춘 칸의 숫자에 건 칩은 건 강냉이 × (숫자 + 1)로 돌려받아요.'],
+      pusher: ['코인을 밀어 떨어뜨리는 코인 푸셔', '강냉이 코인을 넣으면 밀판이 코인 더미를 밀어요. 앞쪽 가장자리로 떨어진 코인만큼 강냉이를 받아요. 가끔 와르르 쏟아지는 대량 낙하도 있어요.'],
       scratch: ['은박을 긁어 같은 그림 3개를 찾는 럭키 스크래치', '회차마다 정해진 장수만 발행하는 한정 복권이에요. 남은 복권과 상품 수량을 실시간으로 공개하고, 같은 그림 3개가 나오면 그 상품을 받아요.'],
       wheel: ['3겹 휠이 차례로 멈추는 럭키 룰렛', '안쪽 → 가운데 → 바깥 휠이 차례로 멈춰요. 위쪽 창에 같은 그림 3개가 모이면 그 그림의 배수만큼 강냉이를 받아요.'],
       fish: ['찌가 쑥 잠길 때 챔질하는 냥 낚시터', '낚싯대를 던지고 찌가 잠기는 순간 [챔질!]을 누르면 물고기를 낚아요. 물고기마다 배수만큼 강냉이를 받고, 처음 낚은 물고기는 도감에 올라가요.'],
@@ -3519,11 +3526,11 @@ img, svg, video { max-width: 100%; }
     if (state.tab === 'fish') { $('floor').innerHTML = fishFloorHTML(); fsInit(); return; }
     if (state.tab === 'wheel') { $('floor').innerHTML = wheelFloorHTML(); wlInit(); return; }
     if (state.tab === 'scratch') { $('floor').innerHTML = scratchFloorHTML(); ltInit(); return; }
-    if (state.tab === 'mwheel') { $('floor').innerHTML = mwheelFloorHTML(); mwInit(); return; }
+    if (state.tab === 'pusher') { $('floor').innerHTML = pusherFloorHTML(); psInit(); return; }
     const order = id => zones.findIndex(z => z.id === id);
     const list = state.tab !== 'gacha'
       ? machines.filter(m => m.mode === state.tab)
-      : machines.filter(m => !['board', 'puzzle', 'farm', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'mwheel', 'scratch'].includes(m.mode) && (state.zone === 'all' || m.zone === state.zone)).sort((a, b) => order(a.zone) - order(b.zone));
+      : machines.filter(m => !['board', 'puzzle', 'farm', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pusher', 'scratch'].includes(m.mode) && (state.zone === 'all' || m.zone === state.zone)).sort((a, b) => order(a.zone) - order(b.zone));
     $('floor').innerHTML = list.map(m => m.mode === 'board' ? boardCardHTML(m) : machineHTML(m, 'button')).join('');
   }
   function renderHUD(bump) {
@@ -6616,181 +6623,160 @@ img, svg, video { max-width: 100%; }
   });
   addEventListener('resize', () => { if (state.tab === 'scratch' && ltEl('lt-foil')) ltInit(); });
   // =====================================================================
-  // 머니 휠(빅 식스 방식): 큰 바퀴 하나에 숫자 칸(1·2·5·10·20·40)과 꽝 칸. 원하는 숫자에 강냉이 칩을 여러 곳 걸 수 있다.
-  // 바퀴가 멈춘 칸의 숫자에 건 칩만 '건 강냉이 × (숫자 + 1)'을 돌려받는다(나머지 칩은 잃음). 결과는 모든 칸이 같은 확률.
-  // RTP(숫자별) = 그 숫자 칸 수 ÷ 전체 칸 수 × (숫자 + 1). 손님이 가장 유리한 숫자만 골라도 넘지 않도록 최대값으로 관리한다
-  const MW_DEF = { cats: [{ v: 1, n: 23 }, { v: 2, n: 15 }, { v: 5, n: 7 }, { v: 10, n: 4 }, { v: 20, n: 2 }, { v: 40, n: 1 }], blank: 2 };
-  const MW_COL = { 1: ['#FFE066', '#E0A800', '#5C4300'], 2: ['#74C0FC', '#1C7ED6', '#0B3B66'], 5: ['#B197FC', '#7048E8', '#2B0F7A'], 10: ['#8CE99A', '#2F9E44', '#0B3B17'], 20: ['#FFA94D', '#E8590C', '#5A1F00'], 40: ['#FF8787', '#E03131', '#5C0B0B'], 0: ['#495057', '#212529', '#F8F9FA'] };
-  const MW = { spinning: false, rot: 0, chip: 100, bets: {}, last: null, hist: [] };
-  const mwheelMachine = () => machines.find(m => m.mode === 'mwheel');
-  const mwEl = id => document.getElementById(id);
-  const mwCats = m => MW_DEF.cats.map(d => { const c = m && Array.isArray(m.cats) ? m.cats.find(x => x.v === d.v) || {} : {}; return { v: d.v, n: c.n == null ? d.n : Math.max(0, Math.round(Number(c.n) || 0)) }; });
-  const mwBlank = m => m && m.blank != null ? Math.max(0, Math.round(Number(m.blank) || 0)) : MW_DEF.blank;
-  const mwN = m => mwCats(m).reduce((a, c) => a + c.n, 0) + mwBlank(m);
-  const mwRtps = m => { const N = mwN(m); return mwCats(m).map(c => ({ v: c.v, n: c.n, p: N ? c.n / N : 0, rtp: N ? c.n / N * (c.v + 1) : 0 })); };
-  const mwMaxRtp = m => Math.max(0, ...mwRtps(m).map(x => x.rtp));
-  const mwChips = m => { const c = num(m.cost) || 100; return [c, c * 5, c * 10]; };
-  function mwSync(m) {
-    const R = mwRtps(m);
-    m.cats = R.map(x => ({ v: x.v, n: x.n })); m.blank = mwBlank(m);
-    m.prizes = R.map(x => ({ g: x.v >= 20 ? 'S' : x.v >= 10 ? 'A' : x.v >= 2 ? 'B' : 'C', name: '숫자 ' + x.v + ' 적중 ×' + (x.v + 1), kind: 'kernel', val: Math.round(num(m.cost) * (x.v + 1)), cost: 0, w: +(x.p * 100).toFixed(3) }));
-    m.top = '숫자 40 적중 ×41';
+  // 코인 푸셔: 강냉이 코인을 떨어뜨리면 앞뒤로 움직이는 밀판이 판 위의 코인 더미를 밀어, 앞 가장자리로 떨어진 코인만큼 받는다.
+  // 몇 개가 떨어질지는 코인을 넣는 순간 확률표로 정해지고(물리처럼 보이는 연출), 떨어진 코인 1개 = 넣는 코인 1개 값.
+  // RTP = Σ(확률 × 떨어지는 개수). 가끔 '대량 낙하'(30개)·'잭팟'(100개)
+  const PS_K = [0, 1, 2, 3, 5, 10, 30, 100];
+  const PS_DEF = [68.85, 15, 8, 4, 2.5, 1.2, 0.4, 0.05];
+  const PUSH = { busy: 0, coins: [], t0: performance.now(), raf: 0, queue: 0, won: 0, played: 0 };
+  const pusherMachine = () => machines.find(m => m.mode === 'pusher');
+  const psEl = id => document.getElementById(id);
+  const psProbs = m => PS_DEF.map((d, i) => { const v = m && Array.isArray(m.probs) ? m.probs[i] : null; return v == null ? d : Math.max(0, Number(v) || 0); });
+  const psRtp = m => { const P = psProbs(m), t = P.reduce((a, b) => a + b, 0); return t ? P.reduce((a, p, i) => a + p / t * PS_K[i], 0) : 0; };
+  function psSync(m) {
+    const P = psProbs(m); m.probs = P.slice();
+    m.prizes = PS_K.map((k, i) => ({ g: k >= 30 ? 'S' : k >= 5 ? 'A' : k >= 2 ? 'B' : 'C', name: k ? '코인 ' + k + '개 낙하' : '낙하 없음', kind: 'kernel', val: k * num(m.cost), cost: 0, w: P[i] }));
+    m.top = '잭팟 코인 100개';
   }
-  // 바퀴 칸 배치: 칸 수 비율대로 고르게 섞는다(같은 설정이면 항상 같은 배치). 꽝은 서로 반대편에
-  function mwLayout(m) {
-    const C = mwCats(m), B = mwBlank(m), N = mwN(m), out = [], placed = {};
-    const items = C.map(c => ({ v: c.v, n: c.n })).concat(B ? [{ v: 0, n: B }] : []);
-    for (let i = 0; i < N; i++) {
-      let best = null, bs = -1e9;
-      items.forEach(it => { if ((placed[it.v] || 0) >= it.n) return; const sc = (i + 1) * it.n / N - (placed[it.v] || 0) + (it.v ? 0 : .001); if (sc > bs) { bs = sc; best = it; } });
-      out.push(best.v); placed[best.v] = (placed[best.v] || 0) + 1;
+  // 판(쟁반) 좌표 → 화면: 뒤(d=0)는 좁고 위, 앞(d=1)은 넓고 아래(원근)
+  const psScr = (x, d) => ({ l: 50 + (x - .5) * (64 + 30 * d), t: 30 + d * 44, s: 22 + d * 16 });
+  const PS_COIN = '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9.3" fill="#E8A317" stroke="#8A5A00" stroke-width="1.2"/><circle cx="10" cy="10" r="6.6" fill="#FFD43B" stroke="#C99A2E" stroke-width="1"/><use href="#k" x="5" y="5" width="10" height="10" style="color:#B07A00"/></svg>';
+  function psCoinEl(x, d) { const e = document.createElement('i'); e.className = 'ps-coin'; e.innerHTML = PS_COIN; psPlace(e, x, d); return e; }
+  function psPlace(e, x, d) { const p = psScr(x, d); e.style.left = p.l + '%'; e.style.top = p.t + '%'; e.style.width = p.s + 'px'; e.style.height = (p.s * .62) + 'px'; e.style.zIndex = Math.round(10 + d * 100); }
+  function psFill(n) {
+    const tray = psEl('ps-tray'); if (!tray) return;
+    while (PUSH.coins.length < n) {
+      const c = { x: .08 + Math.random() * .84, d: .18 + Math.random() * .72 };
+      c.el = psCoinEl(c.x, c.d); tray.appendChild(c.el); PUSH.coins.push(c);
     }
-    return out;
   }
-  const mwPt = (r, a) => { const t = a * Math.PI / 180; return [r * Math.sin(t), -r * Math.cos(t)]; };
-  function mwWheelSVG(m) {
-    const L = mwLayout(m), N = L.length, step = 360 / N;
-    let segs = '', pegs = '', labels = '';
-    L.forEach((v, i) => {
-      const a0 = i * step - step / 2, a1 = a0 + step, [x0, y0] = mwPt(200, a0), [x1, y1] = mwPt(200, a1), [x2, y2] = mwPt(70, a1), [x3, y3] = mwPt(70, a0), c = MW_COL[v];
-      segs += '<path d="M' + x0.toFixed(1) + ' ' + y0.toFixed(1) + ' A200 200 0 0 1 ' + x1.toFixed(1) + ' ' + y1.toFixed(1) + ' L' + x2.toFixed(1) + ' ' + y2.toFixed(1) + ' A70 70 0 0 0 ' + x3.toFixed(1) + ' ' + y3.toFixed(1) + 'Z" fill="url(#mwG' + v + ')" stroke="#2B1A00" stroke-width=".8"/>';
-      const [px, py] = mwPt(203, a0); pegs += '<circle cx="' + px.toFixed(1) + '" cy="' + py.toFixed(1) + '" r="3.2" fill="url(#mwPeg)"/>';
-      labels += '<g transform="rotate(' + (i * step).toFixed(2) + ')"><text y="-168" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="' + (v >= 10 ? 15 : 17) + '" fill="' + c[2] + '" stroke="' + (v ? '#FFFFFF' : '#000000') + '" stroke-width="' + (v ? 2.6 : 0) + '" paint-order="stroke">' + (v || '★') + '</text>' +
-        (v === 40 ? '<path d="M0 -146 l3 6 6.5 1 -4.7 4.6 1.1 6.5 -5.9 -3.1 -5.9 3.1 1.1 -6.5 -4.7 -4.6 6.5 -1z" fill="#FFE066" stroke="#8A1C1C" stroke-width="1"/>' : v === 0 ? '<text y="-140" text-anchor="middle" font-size="10" font-weight="900" fill="#ADB5BD">꽝</text>' : '') + '</g>';
-    });
-    let grads = '';
-    Object.keys(MW_COL).forEach(v => { const c = MW_COL[v]; grads += '<radialGradient id="mwG' + v + '" cx="0" cy="0" r="200" gradientUnits="userSpaceOnUse"><stop offset=".35" stop-color="' + c[1] + '"/><stop offset=".75" stop-color="' + c[0] + '"/><stop offset="1" stop-color="' + c[1] + '"/></radialGradient>'; });
-    return '<defs>' + grads +
-        '<radialGradient id="mwPeg" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".5" stop-color="#FFD43B"/><stop offset="1" stop-color="#8A6414"/></radialGradient>' +
-        '<radialGradient id="mwRim" cx="0" cy="0" r="218" gradientUnits="userSpaceOnUse"><stop offset=".92" stop-color="#5C3D0A"/><stop offset=".94" stop-color="#FFE066"/><stop offset=".97" stop-color="#B07A00"/><stop offset="1" stop-color="#3B2600"/></radialGradient>' +
-        '<radialGradient id="mwHub" cx=".38" cy=".3" r=".8"><stop offset="0" stop-color="#FFF9DB"/><stop offset=".5" stop-color="#FAB005"/><stop offset="1" stop-color="#8A5A00"/></radialGradient>' +
-        '<radialGradient id="mwSheen" cx=".3" cy=".2" r=".6"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".3"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>' +
-        '<filter id="mwGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>' +
-      '<circle r="218" fill="url(#mwRim)"/>' +
-      '<g id="mw-wheel" class="mw-wheel" transform="rotate(' + MW.rot.toFixed(2) + ')">' + segs + labels + pegs + '<circle r="70" fill="none" stroke="#FFD43B" stroke-width="3"/></g>' +
-      '<circle r="200" fill="url(#mwSheen)" pointer-events="none"/>' +
-      '<g class="mw-hub"><circle r="64" fill="#3B2600"/><circle r="58" fill="url(#mwHub)"/><circle r="48" fill="none" stroke="#FFF9DB" stroke-width="1.5" stroke-dasharray="3 4"/>' +
-        '<text y="-6" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="15" fill="#6B3A00">MONEY</text><text y="14" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="15" fill="#C92A2A">WHEEL</text></g>' +
-      // 위쪽 딱따기(플래퍼): 칸 사이 못을 지날 때 톡톡 튕긴다
-      '<g id="mw-flap" class="mw-flap"><path d="M0 -196 L-13 -228 Q0 -236 13 -228 Z" fill="#E03131" stroke="#FFF5F5" stroke-width="2.5" stroke-linejoin="round" filter="url(#mwGlow)"/><circle cy="-224" r="4" fill="#FFE3E3"/></g>';
-  }
-  function mwBoardHTML(m) {
-    const R = mwRtps(m), chips = mwChips(m), total = Object.values(MW.bets).reduce((a, b) => a + b, 0), dis = MW.spinning ? ' disabled' : '';
-    if (!chips.includes(MW.chip)) MW.chip = chips[0];
-    return '<div class="mw-chips" role="group" aria-label="칩 고르기"><span>칩</span>' + chips.map(c => '<button type="button" class="mw-chip" data-mw-chip="' + c + '" aria-pressed="' + (MW.chip === c) + '"' + dis + ' aria-label="칩 ' + fmt(c) + '">' + (c >= 1000 ? (c / 1000) + 'K' : fmt(c)) + '</button>').join('') + '</div>' +
-      '<div class="mw-spots">' + R.map(x => { const b = MW.bets[x.v] || 0, c = MW_COL[x.v]; return '<button type="button" class="mw-spot' + (MW.last === x.v ? ' last' : '') + '" data-mw-bet="' + x.v + '" style="--c0:' + c[0] + ';--c1:' + c[1] + ';--c2:' + c[2] + '"' + dis + '>' +
-        '<b class="num">' + x.v + '</b><small>×' + (x.v + 1) + ' · ' + Math.round(x.p * 1000) / 10 + '%</small>' + (b ? '<span class="mw-stack num">' + K + fmt(b) + '</span>' : '') + '</button>'; }).join('') + '</div>' +
-      '<div class="mw-sum"><span>건 강냉이 <b class="num">' + K + fmt(total) + '</b> / 최대 ' + fmt(num(m.maxBet) || 5000) + '</span><button type="button" class="mw-clear" data-mw="clear"' + (total && !MW.spinning ? '' : ' disabled') + '>모두 지우기</button></div>' +
-      '<button type="button" class="sl-btn mw-go" data-mw="spin"' + (total && !MW.spinning ? '' : ' disabled') + '>' + (MW.spinning ? '돌아가는 중…' : '휠 돌리기') + ' <span class="num">' + (total ? '강냉이 ' + fmt(total) + '개 걸기' : '숫자를 눌러 칩을 올려 주세요') + '</span></button>' +
-      (MW.hist.length ? '<div class="mw-hist"><span>최근 결과</span>' + MW.hist.map(v => '<i style="--c1:' + MW_COL[v][1] + '">' + (v || '★') + '</i>').join('') + '</div>' : '');
-  }
-  function mwheelFloorHTML() {
-    const m = mwheelMachine(); if (!m) return '';
-    mwSync(m);
-    const R = mwRtps(m), N = mwN(m);
-    const rows = R.slice().reverse().map(x => '<tr><td><span class="mw-dot" style="background:' + MW_COL[x.v][1] + '"></span>숫자 ' + x.v + '</td><td class="num">' + x.n + '칸</td><td class="num">' + (Math.round(x.p * 1000) / 10) + '%</td><td class="num">×' + (x.v + 1) + '</td><td class="num">' + pct(x.rtp) + '</td></tr>').join('');
-    return '<section class="mw-panel" aria-labelledby="mw-h"><div class="rc-wrap">' +
-      '<div class="mw-stage" id="mw-stage"><div class="mw-aura" aria-hidden="true"></div><svg class="mw-svg" id="mw-svg" viewBox="-226 -240 452 466" role="img" aria-label="머니 휠">' + mwWheelSVG(m) + '</svg>' +
-        '<div class="mw-status" id="mw-status" aria-live="polite">숫자에 칩을 올리고 휠을 돌려 보세요</div><div class="sl-flash" id="mw-flash"></div></div>' +
-      '<div class="rc-board mw-board" id="mw-board">' + mwBoardHTML(m) + '</div>' +
-      '<aside class="cn-info"><h3 id="mw-h">' + m.name + ' <small class="qmeta">칩 ' + K + fmt(num(m.cost)) + '부터</small></h3>' +
-        '<p>큰 바퀴의 <b>숫자 칸</b>에 강냉이 칩을 걸고 휠을 돌려요. 휠이 멈춘 칸의 숫자에 건 칩은 <b>건 강냉이 × (숫자 + 1)</b>로 돌려받아요.</p>' +
-        '<ul><li>여러 숫자에 동시에 걸 수 있어요. 맞힌 숫자만 받고 나머지 칩은 잃어요.</li><li>휠은 ' + N + '칸이고, 모든 칸이 같은 확률로 멈춰요. 숫자가 클수록 칸이 적어요.</li><li>★(꽝) 칸 ' + mwBlank(m) + '개에 멈추면 모든 칩을 잃어요.</li><li>숫자별 평균 환원(RTP)은 ' + pct(Math.min(...R.map(x => x.rtp))) + '~' + pct(mwMaxRtp(m)) + '예요.</li></ul>' +
-        '<div class="cn-table-wrap"><table class="cn-table sl-paytable"><thead><tr><th>숫자</th><th>칸 수</th><th>확률</th><th>돌려받기</th><th>RTP</th></tr></thead><tbody>' + rows +
-        '<tr><td><span class="mw-dot" style="background:#212529"></span>★ 꽝</td><td class="num">' + mwBlank(m) + '칸</td><td class="num">' + (N ? Math.round(mwBlank(m) / N * 1000) / 10 : 0) + '%</td><td class="num">-</td><td class="num">-</td></tr></tbody></table></div>' +
+  function pusherFloorHTML() {
+    const m = pusherMachine(); if (!m) return '';
+    psSync(m);
+    const P = psProbs(m), t = P.reduce((a, b) => a + b, 0), c = num(m.cost);
+    const rows = PS_K.map((k, i) => ({ k, p: P[i] / (t || 1) })).filter(x => x.k).reverse().map(x => '<tr><td>' + (x.k >= 100 ? '잭팟 ' : x.k >= 30 ? '대량 낙하 ' : '') + '코인 ' + x.k + '개</td><td class="num">' + slPctTxt(x.p) + '</td><td class="num">' + fmt(x.k * c) + '개</td></tr>').join('');
+    return '<section class="ps-panel" aria-labelledby="ps-h"><div class="rc-wrap">' +
+      '<div class="ps-cab" id="ps-cab">' +
+        '<div class="sl-marquee ps-marquee"><span class="sl-bulbs" aria-hidden="true">' + '<i></i>'.repeat(13) + '</span><b>COIN PUSHER</b><small>코인을 떨어뜨려 앞으로 밀어내요!</small></div>' +
+        '<div class="ps-stage" id="ps-stage">' +
+          '<div class="ps-back"><i class="ps-dropper" id="ps-dropper"><span>▼</span></i></div>' +
+          '<div class="ps-tray" id="ps-tray"><div class="ps-plate" id="ps-plate"></div><div class="ps-edge"></div></div>' +
+          '<div class="ps-bin" id="ps-bin"><span>받은 코인</span><b class="num" id="ps-got">0</b></div>' +
+          '<div class="ps-pop" id="ps-pop"></div>' +
+        '</div>' +
+        '<div class="sl-status" id="ps-status" aria-live="polite">위쪽 투입구가 좌우로 움직여요. 원하는 곳에서 코인을 넣어 보세요</div>' +
+        '<div class="ps-btns"><button class="sl-btn ps-drop" type="button" data-ps="1">코인 넣기 <span class="num">1개 ' + K + fmt(c) + '</span></button><button class="sl-btn ps-drop ps-ten" type="button" data-ps="10">10개 연속 <span class="num">' + K + fmt(c * 10) + '</span></button></div>' +
+        '<div class="ps-meter"><span>이번 판 넣은 코인 <b class="num" id="ps-in">0</b></span><span>받은 코인 <b class="num" id="ps-out">0</b></span></div>' +
+      '</div>' +
+      '<aside class="cn-info"><h3 id="ps-h">' + m.name + ' <small class="qmeta">코인 1개 ' + K + fmt(c) + '</small></h3>' +
+        '<p>강냉이 코인을 넣으면 앞뒤로 움직이는 <b>밀판</b>이 판 위의 코인 더미를 밀어요. 앞쪽 가장자리로 <b>떨어진 코인만큼</b> 강냉이를 받아요(코인 1개 = 강냉이 ' + fmt(c) + '개).</p>' +
+        '<ul><li>몇 개가 떨어질지는 코인을 넣는 순간 아래 확률대로 정해지고, 판 위 움직임은 그에 맞춘 연출이에요.</li><li>가끔 코인이 와르르 쏟아지는 <b>대량 낙하</b>와 <b>잭팟</b>이 있어요.</li><li>[10개 연속]으로 한 번에 10개를 차례로 넣을 수 있어요.</li><li>평균 환원(RTP)은 ' + pct(psRtp(m)) + '예요.</li></ul>' +
+        '<div class="cn-table-wrap"><table class="cn-table sl-paytable"><thead><tr><th>떨어지는 코인</th><th>확률</th><th>받는 강냉이</th></tr></thead><tbody>' + rows +
+        '<tr><td>떨어지지 않음</td><td class="num">' + slPctTxt(P[0] / (t || 1)) + '</td><td class="num">0개</td></tr></tbody></table></div>' +
       '</aside></div></section>';
   }
-  function mwRenderBoard() { const m = mwheelMachine(), b = mwEl('mw-board'); if (m && b) b.innerHTML = mwBoardHTML(m); }
-  function mwInit() {}
-  const mwEase = (t, a, c) => { const F = x => (1 - Math.exp(-a * x)) / a + c * (x - x * x / 2); return F(t) / F(1); };
-  let mwTickT = 0;
-  function mwSpin() {
-    const m = mwheelMachine(); if (!m || MW.spinning || !mwEl('mw-svg')) return;
-    const total = Object.values(MW.bets).reduce((a, b) => a + b, 0); if (!total) return;
-    if (state.balance < total) { toast('', '강냉이가 부족해요. 칩을 줄이거나 체험용 강냉이를 충전해 보세요.', true); return; }
-    state.balance -= total; renderHUD(true);
-    MW.spinning = true; mwRenderBoard();
-    const st = mwEl('mw-stage'), status = mwEl('mw-status');
-    st.classList.remove('won', 'lost'); st.classList.add('spin');
-    st.querySelectorAll('.mw-hl').forEach(x => x.remove());
-    SFX.crank(); setTimeout(() => SFX.roll(), 160);
-    if (status) status.textContent = '휠이 돌아가요…';
-    const L = mwLayout(m), N = L.length, step = 360 / N, idx = Math.floor(Math.random() * N), v = L[idx];
-    const cur = MW.rot, delta = (((-idx * step - cur) % 360) + 360) % 360, fin = cur + delta + 360 * 6;
-    const myBet = MW.bets[v] || 0, dur = 7600 + (myBet && v >= 10 ? 1800 : 0), t0 = performance.now();
-    let lastSeg = null, lastR = cur, lastNow = 0, slowSaid = false;
-    const g = mwEl('mw-wheel');
-    const frame = now => {
-      const gg = mwEl('mw-wheel'); if (!gg) { MW.spinning = false; return; }
-      const t = Math.min(1, (now - t0) / dur), r = cur + (fin - cur) * mwEase(t, 5.5, .1);
-      gg.setAttribute('transform', 'rotate(' + r.toFixed(2) + ')');
-      const speed = lastNow ? Math.abs(r - lastR) / Math.max(1, now - lastNow) : 0; lastR = r; lastNow = now;
-      gg.classList.toggle('fast', speed > .5);
-      // 딱따기: 칸 경계를 지날 때마다 튕김(느릴 때 소리)
-      const seg = Math.floor(((((-r) % 360) + 360) % 360 + step / 2) / step) % N;
-      if (lastSeg !== null && seg !== lastSeg) { const fl = mwEl('mw-flap'); if (fl) restart(fl, 'flick'); if (speed < .4 && now - mwTickT > 50) { mwTickT = now; SFX.flip(); } }
-      lastSeg = seg;
-      // 거의 멈출 때: 지금 화살표 아래 칸에 칩이 있으면 두근두근
-      if (t > .7 && !slowSaid) { slowSaid = true; st.classList.add('focus'); if (status) status.textContent = '멈춰요… 멈춰요…'; }
-      if (t > .7 && status) { const under = L[seg]; status.innerHTML = '지금 화살표 아래: <b style="color:' + MW_COL[under][0] + '">' + (under || '★ 꽝') + '</b>' + (MW.bets[under] ? ' <span class="mw-mine">내 칩 ' + fmt(MW.bets[under]) + '</span>' : ''); }
-      if (t < 1) { requestAnimationFrame(frame); return; }
-      MW.rot = fin % 360; gg.setAttribute('transform', 'rotate(' + MW.rot.toFixed(2) + ')'); gg.classList.remove('fast');
-      st.classList.remove('spin', 'focus'); SFX.snap();
-      mwResult(m, v, total);
+  function psInit() {
+    PUSH.coins = []; psFill(42);
+    cancelAnimationFrame(PUSH.raf);
+    const loop = now => {
+      const dr = psEl('ps-dropper'), pl = psEl('ps-plate'); if (!dr) return;
+      const t = (now - PUSH.t0) / 1000;
+      dr.style.left = (50 + Math.sin(t * 1.7) * 30) + '%';
+      if (pl) pl.style.transform = 'translateY(' + (Math.sin(t * 2.6) * 7).toFixed(2) + '%)';
+      PUSH.raf = requestAnimationFrame(loop);
     };
-    requestAnimationFrame(frame);
+    PUSH.raf = requestAnimationFrame(loop);
+    psMeter();
   }
-  function mwResult(m, v, total) {
-    const st = mwEl('mw-stage'), status = mwEl('mw-status'), bet = MW.bets[v] || 0, got = bet * (v + 1);
-    MW.last = v; MW.hist.unshift(v); MW.hist = MW.hist.slice(0, 10);
-    // 멈춘 칸 강조(바퀴 위쪽 고정 하이라이트)
-    const svg = mwEl('mw-svg'); if (svg) { const N = mwN(m), step = 360 / N, [x0, y0] = mwPt(204, -step / 2), [x1, y1] = mwPt(204, step / 2), [x2, y2] = mwPt(66, step / 2), [x3, y3] = mwPt(66, -step / 2); const hl = document.createElementNS('http://www.w3.org/2000/svg', 'path'); hl.setAttribute('class', 'mw-hl'); hl.setAttribute('d', 'M' + x0 + ' ' + y0 + ' A204 204 0 0 1 ' + x1 + ' ' + y1 + ' L' + x2 + ' ' + y2 + ' A66 66 0 0 0 ' + x3 + ' ' + y3 + 'Z'); svg.insertBefore(hl, mwEl('mw-flap')); }
-    const done = () => { MW.spinning = false; mwRenderBoard(); };
-    if (got > 0) {
-      state.balance += got;
-      const tier = v >= 20 ? 'top' : v >= 5 ? 'hi' : 'mid';
-      const p = { g: v >= 20 ? 'S' : v >= 10 ? 'A' : v >= 2 ? 'B' : 'C', name: '머니 휠 ' + v + ' 적중 ×' + (v + 1) + ' · ' + fmt(got) + '개', kind: 'kernel', val: got };
+  function psMeter() { const a = psEl('ps-in'), b = psEl('ps-out'); if (a) a.textContent = fmt(PUSH.played); if (b) b.textContent = fmt(PUSH.won); }
+  function psPick(m) { const P = psProbs(m), t = P.reduce((a, b) => a + b, 0); let r = Math.random() * t; for (let i = 0; i < P.length; i++) { r -= P[i]; if (r < 0) return PS_K[i]; } return 0; }
+  // 코인 1개: 투입구 위치에서 떨어져 판 뒤쪽에 착지 → 밀판이 밀면 앞쪽 코인 k개가 떨어진다
+  function psDrop() {
+    const m = pusherMachine(), tray = psEl('ps-tray'), dr = psEl('ps-dropper'); if (!m || !tray || !dr) return false;
+    const c = num(m.cost);
+    if (state.balance < c) { toast('', '강냉이가 부족해요. 체험용 강냉이를 충전해 보세요.', true); return false; }
+    state.balance -= c; renderHUD(true); PUSH.played++; psMeter();
+    const k = psPick(m);
+    const x = Math.max(.08, Math.min(.92, (parseFloat(dr.style.left) - 50) / 64 + .5));
+    PUSH.busy++;
+    const coin = { x, d: .06 }; coin.el = psCoinEl(x, .06); coin.el.style.setProperty('--fy', (tray.clientHeight * psScr(x, .06).t / 100 - 14).toFixed(0) + 'px'); coin.el.classList.add('fall'); tray.appendChild(coin.el);
+    SFX.coin();
+    setTimeout(() => {
+      if (!psEl('ps-tray')) { PUSH.busy = 0; return; }
+      coin.el.classList.remove('fall'); coin.el.classList.add('land'); PUSH.coins.push(coin); SFX.flip();
+      // 착지한 코인 주변이 살짝 밀린다
+      PUSH.coins.forEach(o => { if (o !== coin && Math.abs(o.x - x) < .15 && o.d < .5) { o.d = Math.min(.96, o.d + .02); psPlace(o.el, o.x, o.d); } });
+      setTimeout(() => psPush(m, k), 520);
+    }, 560);
+    return true;
+  }
+  function psPush(m, k) {
+    const tray = psEl('ps-tray'), st = psEl('ps-stage'); if (!tray) { PUSH.busy = 0; return; }
+    const plate = psEl('ps-plate'); if (plate) restart(plate, 'shove');
+    // 전체가 조금씩 앞으로 밀린다
+    PUSH.coins.forEach(o => { o.d = Math.min(.97, o.d + .015 + Math.random() * .015); psPlace(o.el, o.x, o.d); });
+    if (!k) { setTimeout(() => psSettle(m, 0), 300); return; }
+    // 앞에서부터 k개를 떨어뜨린다(부족하면 뒤에서 새로 채운 코인도 함께 쏟아지는 연출)
+    psFill(Math.max(42, k + 12));
+    const front = PUSH.coins.slice().sort((a, b) => b.d - a.d).slice(0, k);
+    const big = k >= 30;
+    if (big && st) { restart(st, 'quake'); const w = document.createElement('div'); w.className = 'ps-wave'; st.appendChild(w); setTimeout(() => w.remove(), 1400); }
+    front.forEach((o, i) => {
+      setTimeout(() => {
+        o.d = 1.02; psPlace(o.el, o.x, o.d); o.el.classList.add('drop');
+        if (i % (big ? 4 : 1) === 0) SFX.coin();
+        setTimeout(() => { o.el.remove(); }, 700);
+        psBinBump();
+      }, i * (big ? 28 : 110));
+    });
+    PUSH.coins = PUSH.coins.filter(o => !front.includes(o));
+    setTimeout(() => psSettle(m, k), k * (big ? 28 : 110) + 650);
+  }
+  function psBinBump() { const b = psEl('ps-bin'); if (b) restart(b, 'bump'); }
+  function psSettle(m, k) {
+    const c = num(m.cost), got = k * c, st = psEl('ps-stage'), status = psEl('ps-status');
+    PUSH.busy = Math.max(0, PUSH.busy - 1);
+    psFill(42);
+    if (k) {
+      state.balance += got; PUSH.won += k; psMeter();
+      const tier = k >= 100 ? 'top' : k >= 30 ? 'hi' : k >= 5 ? 'mid' : 'lo';
+      const p = { g: k >= 30 ? 'S' : k >= 5 ? 'A' : k >= 2 ? 'B' : 'C', name: '코인 푸셔 ' + k + '개 낙하 · ' + fmt(got) + '개', kind: 'kernel', val: got };
       recordResult(p, m);
-      if (got >= 2000) { state.feed.unshift({ g: p.g, item: '강냉이 ' + fmt(got) + '개', who: '나 · 머니 휠 ' + v }); renderFeed(true); }
+      if (k >= 30) { state.feed.unshift({ g: p.g, item: '강냉이 ' + fmt(got) + '개', who: '나 · 코인 푸셔 ' + (k >= 100 ? '잭팟' : '대량 낙하') }); renderFeed(true); }
       saveMe(); renderHUD(true);
-      st.classList.add('won'); SFX.land(tier); restart(mwEl('mw-flash'), 'on');
-      const sh = document.createElement('div'); sh.className = 'wl-shout win t-' + tier; sh.innerHTML = (tier === 'top' ? 'JACKPOT!!' : tier === 'hi' ? 'BIG WIN!' : 'WIN!') + '<small>' + v + ' 적중 · 강냉이 ' + fmt(got) + '개</small>'; st.appendChild(sh); setTimeout(() => sh.remove(), 2000);
-      const r = st.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height * .45;
-      floatFx(); burst([MW_COL[v][1], MW_COL[v][0], '#FFFFFF', '#FFE066'], tier === 'top' ? 140 : tier === 'hi' ? 80 : 40, tier === 'top' ? 13 : 9, cx, cy);
-      if (tier !== 'mid') rain([MW_COL[v][1], '#FFC64E', '#FF8FB1', '#FFFFFF'], tier === 'top' ? 180 : 90);
-      if (tier === 'top') restart(st, 'shake');
-      if (status) status.innerHTML = '<b>' + v + '</b> 적중! 강냉이 <b>' + fmt(got) + '개</b>를 돌려받았어요' + (got - total > 0 ? ' (+' + fmt(got - total) + ')' : '');
-      setTimeout(done, 900);
+      const g = psEl('ps-got'); if (g) g.textContent = fmt(PUSH.won);
+      const pop = document.createElement('div'); pop.className = 'ps-float t-' + tier; pop.innerHTML = '+' + fmt(got); if (st) { st.appendChild(pop); setTimeout(() => pop.remove(), 1200); }
+      if (status) status.innerHTML = '코인 <b>' + k + '개</b>가 떨어졌어요! 강냉이 <b>+' + fmt(got) + '</b>';
+      if (tier === 'hi' || tier === 'top') {
+        SFX.land(tier); restart(psEl('ps-cab'), 'shake');
+        const sh = document.createElement('div'); sh.className = 'wl-shout win t-' + (tier === 'top' ? 'top' : 'hi'); sh.innerHTML = (tier === 'top' ? 'JACKPOT!!' : '대량 낙하!') + '<small>코인 ' + k + '개 · 강냉이 ' + fmt(got) + '개</small>'; if (st) { st.appendChild(sh); setTimeout(() => sh.remove(), 2000); }
+        const r = (st || document.body).getBoundingClientRect(); floatFx(); burst(['#FFD43B', '#FFFFFF', '#FAB005'], tier === 'top' ? 130 : 70, tier === 'top' ? 13 : 10, r.left + r.width / 2, r.top + r.height * .7);
+        rain(['#FFD43B', '#FAB005', '#FFF3BF', '#FFFFFF'], tier === 'top' ? 180 : 90);
+      } else if (tier === 'mid') SFX.star(2);
     } else {
-      recordResult({ g: 'C', name: '머니 휠 미적중', kind: 'kernel', val: 0 }, m); saveMe();
-      st.classList.add('lost'); SFX.lose();
-      const sh = document.createElement('div'); sh.className = 'wl-shout lose'; sh.innerHTML = (v ? v + '에 멈췄어요' : '★ 꽝') + '<small>' + (v ? '이번엔 칩이 없었어요' : '모든 칩을 잃었어요') + '</small>'; st.appendChild(sh); setTimeout(() => sh.remove(), 1400);
-      if (status) status.innerHTML = (v ? '<b>' + v + '</b>에 멈췄어요. 다음엔 ' + v + '에도 걸어 볼까요?' : '<b>★ 꽝</b>에 멈췄어요');
-      setTimeout(done, 400);
+      recordResult({ g: 'C', name: '코인 푸셔 낙하 없음', kind: 'kernel', val: 0 }, m); saveMe();
+      if (status && !PUSH.queue) status.textContent = '아슬아슬하게 버텼어요… 한 번 더 밀어 볼까요?';
     }
+    psButtons();
   }
-  $('floor').addEventListener('click', e => {
-    if (state.tab !== 'mwheel' || MW.spinning) return;
-    const m = mwheelMachine(); if (!m) return;
-    const ch = e.target.closest('[data-mw-chip]'), bt = e.target.closest('[data-mw-bet]'), ac = e.target.closest('[data-mw]');
-    if (ch) { MW.chip = Number(ch.dataset.mwChip); mwRenderBoard(); return; }
-    if (bt) {
-      const v = Number(bt.dataset.mwBet), total = Object.values(MW.bets).reduce((a, b) => a + b, 0), max = num(m.maxBet) || 5000;
-      if (total + MW.chip > max) { toast('', '한 번에 최대 ' + fmt(max) + '개까지 걸 수 있어요.', true); return; }
-      MW.bets[v] = (MW.bets[v] || 0) + MW.chip; SFX.coin(); mwRenderBoard();
-      const sp = document.querySelector('[data-mw-bet="' + v + '"]'); if (sp) restart(sp, 'bump');
-      return;
-    }
-    if (ac && ac.dataset.mw === 'clear') { MW.bets = {}; mwRenderBoard(); return; }
-    if (ac && ac.dataset.mw === 'spin' && !ac.disabled) mwSpin();
-  });
-  // 오른쪽 클릭으로 그 숫자의 칩 하나 빼기
-  $('floor').addEventListener('contextmenu', e => { const bt = e.target.closest('[data-mw-bet]'); if (!bt || state.tab !== 'mwheel' || MW.spinning) return; e.preventDefault(); const v = Number(bt.dataset.mwBet); MW.bets[v] = Math.max(0, (MW.bets[v] || 0) - MW.chip); if (!MW.bets[v]) delete MW.bets[v]; mwRenderBoard(); });
+  function psButtons() { document.querySelectorAll('[data-ps]').forEach(b => { b.disabled = PUSH.queue > 0; }); }
+  function psRun(n) {
+    if (PUSH.queue) return;
+    PUSH.queue = n; psButtons();
+    const one = () => {
+      if (!psEl('ps-tray') || PUSH.queue <= 0) { PUSH.queue = 0; psButtons(); return; }
+      if (!psDrop()) { PUSH.queue = 0; psButtons(); return; }
+      PUSH.queue--;
+      if (PUSH.queue > 0) setTimeout(one, 650); else setTimeout(psButtons, 1700);
+    };
+    one();
+  }
+  $('floor').addEventListener('click', e => { const b = e.target.closest('[data-ps]'); if (!b || b.disabled || state.tab !== 'pusher') return; psRun(Number(b.dataset.ps)); });
   document.addEventListener('keydown', e => {
-    if (state.tab !== 'mwheel' || e.key !== ' ' || e.repeat) return;
+    if (state.tab !== 'pusher' || e.key !== ' ' || e.repeat) return;
     if (e.target.closest && e.target.closest('input, textarea, select, button, [contenteditable]')) return;
     if (!$('app') || $('app').hidden || $('app').classList.contains('in-lounge')) return;
-    e.preventDefault(); mwSpin();
+    e.preventDefault(); psRun(1);
   });
 
   // =====================================================================
@@ -7247,7 +7233,7 @@ img, svg, video { max-width: 100%; }
   const goodsQty = (m, p) => m.mode === 'puzzle' || m.mode === 'gslot' || isProb(m) ? num(p.qty) : num(p.total);
   // RTP = 강냉이로 돌려준 양 ÷ 받은 강냉이 (강냉이 전용. 100% − RTP = 강냉이 소진)
   // 상품 예산 = 머신에 넣은 상품 수량 × 원가 합계 (직접 정하지 않고 수량으로 조절)
-  const NO_PRIZE_GAMES = ['runner', 'cannon', 'archery', 'slot', 'race', 'fish', 'wheel', 'mwheel'];
+  const NO_PRIZE_GAMES = ['runner', 'cannon', 'archery', 'slot', 'race', 'fish', 'wheel', 'pusher'];
   function econ(m, s) {
     if (m.mode === 'gslot') gsSync(m);
     const e = econCore(m, s);
@@ -7265,8 +7251,8 @@ img, svg, video { max-width: 100%; }
       const rev = num(m.cost) * s.kernelValue, rtp = arRtp(m);
       return { rev, pay: rev * rtp, rtp, mRev, mPay: mRev * rtp, wsum: 100, runs: num(m.cost) ? num(m.demand) / num(m.cost) : 0 };
     }
-    if (m.mode === 'mwheel') {
-      const rev = num(m.cost) * s.kernelValue, rtp = mwMaxRtp(m);
+    if (m.mode === 'pusher') {
+      const rev = num(m.cost) * s.kernelValue, rtp = psRtp(m);
       return { rev, pay: rev * rtp, rtp, mRev, mPay: mRev * rtp, wsum: 100, runs: num(m.cost) ? num(m.demand) / num(m.cost) : 0 };
     }
     if (m.mode === 'wheel') {
@@ -7357,7 +7343,7 @@ img, svg, video { max-width: 100%; }
     if (m.mode === 'race') return '배당은 직접 정해요';
     if (m.mode === 'fish') return '배수·확률은 직접 정해요';
     if (m.mode === 'wheel') return '배수는 직접 정해요';
-    if (m.mode === 'mwheel') return '칸 수는 직접 정해요';
+    if (m.mode === 'pusher') return '확률은 직접 정해요';
     if (isProb(m)) {
       if (method === 'price' || !e.rtp) return byPrice(e.pay);
       const f = T / e.rtp;
@@ -7391,7 +7377,7 @@ img, svg, video { max-width: 100%; }
       const e = econ(m, draft.settings);
       if (!num(m.cost)) errs.push(m.name + ': 입장료를 입력해 주세요.');
       if (isProb(m) && Math.abs(e.wsum - 100) > 0.01) errs.push(m.name + ': 확률 합계가 ' + fmt(+e.wsum.toFixed(2)) + '%예요. 100%로 맞춰 주세요.');
-      if (!isProb(m) && !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'mwheel'].includes(m.mode) && !e.N) errs.push(m.name + ': 캡슐 수량이 0개예요.');   // 냥치 런·팝콘 대포는 캡슐이 없는 게임
+      if (!isProb(m) && !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pusher'].includes(m.mode) && !e.N) errs.push(m.name + ': 캡슐 수량이 0개예요.');   // 냥치 런·팝콘 대포는 캡슐이 없는 게임
       if (m.prizes.some(p => !String(p.name).trim())) errs.push(m.name + ': 이름이 비어 있는 상품이 있어요.');
     });
     draft.machines.filter(m => m.mode === 'archery').forEach(m => {
@@ -7436,10 +7422,9 @@ img, svg, video { max-width: 100%; }
       if (!(num(m.cost) >= 10)) errs.push('럭키 룰렛: 1회 금액은 10 이상이어야 해요.');
       if (!(wlSyms(m).reduce((a, x) => a + x.w, 0) > 0)) errs.push('럭키 룰렛: 출현 비중 합이 0이에요.');
     });
-    draft.machines.filter(m => m.mode === 'mwheel').forEach(m => {
-      if (!(num(m.cost) >= 10)) errs.push('머니 휠: 최소 칩은 10 이상이어야 해요.');
-      if (!(num(m.maxBet) >= num(m.cost))) errs.push('머니 휠: 최대 걸기는 최소 칩보다 커야 해요.');
-      if (!(mwN(m) >= 6)) errs.push('머니 휠: 바퀴 칸은 6칸 이상이어야 해요.');
+    draft.machines.filter(m => m.mode === 'pusher').forEach(m => {
+      if (!(num(m.cost) >= 1)) errs.push('코인 푸셔: 코인 1개 값은 1 이상이어야 해요.');
+      if (Math.abs(psProbs(m).reduce((a, b) => a + b, 0) - 100) > .05) errs.push('코인 푸셔: 확률 합이 100%가 아니에요.');
     });
     draft.machines.filter(m => m.mode === 'puzzle').forEach(m => m.prizes.forEach(p => { if (p.kind === 'product' && !(num(p.cost) > 0)) errs.push('직소 퍼즐: ' + p.name + '의 원가를 입력해 주세요.'); }));
     return errs;
@@ -7470,21 +7455,21 @@ img, svg, video { max-width: 100%; }
       const e = econ(m, s), st = mSt(m, e);
       return '<tr style="--c:' + zoneOf(m.zone).color + '">' +
         '<td><span class="mname"><i></i>' + m.name + '</span></td>' +
-        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'archery' ? '깡통 사격' : m.mode === 'slot' ? '캐릭터 슬롯' : m.mode === 'gslot' ? '상품 슬롯' : m.mode === 'race' ? '냥냥 레이스' : m.mode === 'fish' ? '냥 낚시터' : m.mode === 'wheel' ? '럭키 룰렛' : m.mode === 'mwheel' ? '머니 휠' : m.mode === 'scratch' ? '스크래치 복권' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
+        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'archery' ? '깡통 사격' : m.mode === 'slot' ? '캐릭터 슬롯' : m.mode === 'gslot' ? '상품 슬롯' : m.mode === 'race' ? '냥냥 레이스' : m.mode === 'fish' ? '냥 낚시터' : m.mode === 'wheel' ? '럭키 룰렛' : m.mode === 'pusher' ? '코인 푸셔' : m.mode === 'scratch' ? '스크래치 복권' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
         '<td class="r">' + fmt(num(m.cost)) + '</td>' +
-        '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'cannon' || m.mode === 'archery' ? '약 ' + fmt(Math.round(e.runs)) + '발' : m.mode === 'runner' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'slot' || m.mode === 'gslot' || m.mode === 'wheel' || m.mode === 'mwheel' ? '약 ' + fmt(Math.round(e.runs)) + '회' : m.mode === 'race' ? '약 ' + fmt(Math.round(e.runs)) + '판(최소 기준)' : m.mode === 'fish' ? '약 ' + fmt(Math.round(e.runs)) + '번' : m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
+        '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'cannon' || m.mode === 'archery' ? '약 ' + fmt(Math.round(e.runs)) + '발' : m.mode === 'runner' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'slot' || m.mode === 'gslot' || m.mode === 'wheel' ? '약 ' + fmt(Math.round(e.runs)) + '회' : m.mode === 'pusher' ? '약 ' + fmt(Math.round(e.runs)) + '개' : m.mode === 'race' ? '약 ' + fmt(Math.round(e.runs)) + '판(최소 기준)' : m.mode === 'fish' ? '약 ' + fmt(Math.round(e.runs)) + '번' : m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
         '<td class="r">' + (e.hasGoods ? won(e.goods) + '<span class="ed-left">상품 ' + fmt(e.goodsN) + '개</span>' : '<span class="qmeta">상품 없음</span>') + '</td>' +
         (e.hasGoods ? '<td>' + (e.hasKern ? '<b class="num">' + pct(e.rtp) + '</b> <span class="qmeta">강냉이 보상분 (참고)</span>' : '<span class="qmeta">강냉이 보상 없음</span>') + '</td>' :
         '<td><div class="rtpcell"><div class="rtpbar"><i style="width:' + Math.min(100, e.rtp / 1.5 * 100).toFixed(1) + '%;--st:var(--' + st.cls + ')"></i><b style="left:' + Math.min(100, T / 1.5 * 100).toFixed(1) + '%"></b></div><span>' + pct(e.rtp) + '</span></div></td>' ) +
         '<td><span class="status ' + st.cls + '">' + st.label + '</span></td>' +
-        '<td>' + (e.hasGoods || m.mode === 'runner' || m.mode === 'slot' || m.mode === 'race' || m.mode === 'fish' || m.mode === 'wheel' || m.mode === 'mwheel' ? '' : '<button class="btn-xs" type="button" data-fit="' + m.id + '">목표로 맞추기</button>') + '</td></tr>';
+        '<td>' + (e.hasGoods || m.mode === 'runner' || m.mode === 'slot' || m.mode === 'race' || m.mode === 'fish' || m.mode === 'wheel' || m.mode === 'pusher' ? '' : '<button class="btn-xs" type="button" data-fit="' + m.id + '">목표로 맞추기</button>') + '</td></tr>';
     }).join('');
     $('ad-compare').innerHTML = '<thead><tr><th>머신</th><th>방식</th><th class="r">입장료(강냉이)</th><th class="r">월 소진(강냉이)</th><th class="r">상품 예산 (수량 × 원가)</th><th>강냉이 RTP</th><th>상태</th><th></th></tr></thead><tbody>' + rows + '</tbody>';
   }
 
   function renderTabs() {
     const s = draft.settings;
-    $('ad-tabs').innerHTML = draft.machines.filter(m => !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'mwheel'].includes(m.mode)).map(m =>
+    $('ad-tabs').innerHTML = draft.machines.filter(m => !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pusher'].includes(m.mode)).map(m =>
       '<button class="ad-tab" type="button" role="tab" data-tab="' + m.id + '" aria-selected="' + (m.id === sel) + '" style="--c:' + zoneOf(m.zone).color + '"><i></i>' + m.name + ' <small>' + (econ(m, s).hasGoods ? won(econ(m, s).goods) : pct(econ(m, s).rtp)) + '</small></button>').join('');
   }
 
@@ -7618,7 +7603,7 @@ img, svg, video { max-width: 100%; }
         c2.drawImage(img, (S - w) / 2, (S - h) / 2, w, h);
         const m = pzDraft(); if (!m || !m.prizes[i]) return;
         m.prizes[i].img = cv.toDataURL('image/jpeg', 0.72);
-        renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderMwheelAdmin(); renderStats();
+        renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPusherAdmin(); renderStats();
       };
       img.src = fr.result;
     };
@@ -7632,7 +7617,7 @@ img, svg, video { max-width: 100%; }
     }
     if (el.id === 'pa-auto') {
       m.autoW = el.checked; if (m.autoW) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderMwheelAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPusherAdmin(); renderStats(); return true;
     }
     if (el.dataset.pi != null && el.dataset.k) {
       const p = m.prizes[Number(el.dataset.pi)], k = el.dataset.k;
@@ -7653,13 +7638,13 @@ img, svg, video { max-width: 100%; }
     if (e.target.id === 'pa-add') {
       m.prizes.push({ g: 'C', name: '새 상품', kind: 'product', val: 0, cost: 3000, w: 0, qty: 10, img: '', pid: 'p' + Date.now().toString(36) });
       if (m.autoW !== false) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderMwheelAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPusherAdmin(); renderStats(); return true;
     }
     const del = e.target.closest('[data-padel]');
     if (del) {
       m.prizes.splice(Number(del.dataset.padel), 1);
       if (m.autoW !== false) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderMwheelAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPusherAdmin(); renderStats(); return true;
     }
     return false;
   }
@@ -7694,7 +7679,7 @@ img, svg, video { max-width: 100%; }
     return false;
   }
   // ----- 관리자 좌측 메뉴: 기능별로 한 화면씩 -----
-  const AD_PAGES = ['overview', 'machines', 'puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'mwheel'];
+  const AD_PAGES = ['overview', 'machines', 'puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pusher'];
   let adPage = (() => { try { const v = localStorage.getItem('tooneland-ad-page'); return AD_PAGES.includes(v) ? v : 'overview'; } catch (e) { return 'overview'; } })();
   function adGo(page, keepScroll) {
     if (!AD_PAGES.includes(page)) page = 'overview';
@@ -7710,7 +7695,7 @@ img, svg, video { max-width: 100%; }
     const s = draft.settings, T = target(), R = { ok: 1, warn: 2, bad: 3 };
     const worst = list => list.reduce((w, m) => { const c = mSt(m, econ(m, s)).cls; return (R[c] || 0) > (R[w] || 0) ? c : w; }, '');
     const by = mode => draft.machines.filter(m => mode(m));
-    const map = { overview: worst(draft.machines), machines: worst(by(m => !['puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'mwheel'].includes(m.mode))), archery: worst(by(m => m.mode === 'archery')), puzzle: worst(by(m => m.mode === 'puzzle')), runner: worst(by(m => m.mode === 'runner')), cannon: worst(by(m => m.mode === 'cannon')), slot: worst(by(m => m.mode === 'slot')), gslot: worst(by(m => m.mode === 'gslot')), race: worst(by(m => m.mode === 'race')), fish: worst(by(m => m.mode === 'fish')), wheel: worst(by(m => m.mode === 'wheel')), mwheel: worst(by(m => m.mode === 'mwheel')) };
+    const map = { overview: worst(draft.machines), machines: worst(by(m => !['puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pusher'].includes(m.mode))), archery: worst(by(m => m.mode === 'archery')), puzzle: worst(by(m => m.mode === 'puzzle')), runner: worst(by(m => m.mode === 'runner')), cannon: worst(by(m => m.mode === 'cannon')), slot: worst(by(m => m.mode === 'slot')), gslot: worst(by(m => m.mode === 'gslot')), race: worst(by(m => m.mode === 'race')), fish: worst(by(m => m.mode === 'fish')), wheel: worst(by(m => m.mode === 'wheel')), pusher: worst(by(m => m.mode === 'pusher')) };
     document.querySelectorAll('#ad-gnb [data-addot]').forEach(d => { d.className = 'gnb-dot' + (map[d.dataset.addot] ? ' ' + map[d.dataset.addot] : ''); });
   }
   document.getElementById('ad-gnb').addEventListener('click', e => { const b = e.target.closest('[data-adpage]'); if (b) adGo(b.dataset.adpage); });
@@ -7795,7 +7780,7 @@ img, svg, video { max-width: 100%; }
     if (e.target.id !== 'ar-fit') return false;
     const m = arDraft(); if (!m) return true;
     const ok = arFitGrades(m, target());
-    renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderMwheelAdmin(); renderStats();
+    renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPusherAdmin(); renderStats();
     toast('', '깡통 사격: ' + (ok ? '캔별 확률을 목표 RTP ' + pct(target()) + '(' + arBullets(m) + '발 중 ' + arHits(m) + '발 명중 기준)에 맞췄어요' : '일부 캔은 확률만으로 맞출 수 없어요. 배수를 조정해 주세요'), true);
     return true;
   }
@@ -7883,7 +7868,7 @@ img, svg, video { max-width: 100%; }
     if (e.target.id !== 'cn-fit') return false;
     const m = cnDraft(); if (!m) return true;
     const ok = cnFitGrades(m, target());
-    renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderMwheelAdmin(); renderStats();
+    renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPusherAdmin(); renderStats();
     toast('', '팝콘 대포: ' + (ok ? '보통 확률을 조정해 전체 RTP를 ' + pct(target()) + '에 맞췄어요' : '보통 확률만으로 맞출 수 없어요. 퍼펙트·좋아요 확률이나 배수를 조정해 주세요'), true);
     return true;
   }
@@ -8095,41 +8080,42 @@ img, svg, video { max-width: 100%; }
     return true;
   }
 
-  // ----- 머니 휠 관리: 최소 칩·최대 걸기·꽝 칸 + 숫자별 칸 수 -----
-  const mwDraft = () => draft.machines.find(m => m.mode === 'mwheel');
-  function renderMwheelAdmin() {
-    const m = mwDraft(); if (!m || !mwEl('mw-fields')) return;
-    mwSync(m);
-    const fld = (id, label, key, unit, step, val) => '<div class="field"><label for="' + id + '">' + label + '</label><div class="input-unit"><input class="input num" id="' + id + '" type="number" min="0" step="' + step + '" data-mwf="' + key + '" value="' + val + '"><span>' + unit + '</span></div></div>';
-    $('mw-fields').innerHTML = fld('mw-cost', '최소 칩', 'cost', '강냉이', 10, num(m.cost)) + fld('mw-max', '한 번에 최대 걸기', 'maxBet', '강냉이', 100, num(m.maxBet)) + fld('mw-blank', '★ 꽝 칸 수', 'blank', '칸', 1, mwBlank(m)) + fld('mw-demand', '월 예상 강냉이 소진', 'demand', '강냉이', 1, num(m.demand));
-    $('mw-t').innerHTML = '<thead><tr><th>숫자</th><th class="w-num">칸 수</th><th class="r">확률</th><th class="r">돌려받기</th><th class="r">RTP</th></tr></thead><tbody>' +
-      mwCats(m).map(c => '<tr><td><span class="mw-dot" style="background:' + MW_COL[c.v][1] + '"></span>숫자 ' + c.v + '</td><td><div class="input-unit"><input class="input sm num" type="number" min="0" step="1" data-mwn="' + c.v + '" value="' + c.n + '" aria-label="숫자 ' + c.v + ' 칸 수"><span>칸</span></div></td><td class="r num" data-mwp="' + c.v + '"></td><td class="r num">×' + (c.v + 1) + '</td><td class="r num" data-mwr="' + c.v + '"></td></tr>').join('') +
-      '</tbody><tfoot><tr><td>전체</td><td class="r num" id="mw-n"></td><td colspan="3"></td></tr></tfoot>';
-    renderMwheelCalc();
+  // ----- 코인 푸셔 관리: 코인 값 + 낙하 개수별 확률 -----
+  const psDraft = () => draft.machines.find(m => m.mode === 'pusher');
+  function renderPusherAdmin() {
+    const m = psDraft(); if (!m || !psEl('ps-fields')) return;
+    psSync(m);
+    $('ps-fields').innerHTML = '<div class="field"><label for="ps-cost">코인 1개 값</label><div class="input-unit"><input class="input num" id="ps-cost" type="number" min="1" step="1" data-psf="cost" value="' + num(m.cost) + '"><span>강냉이</span></div></div>' +
+      '<div class="field"><label for="ps-demand">월 예상 강냉이 소진</label><div class="input-unit"><input class="input num" id="ps-demand" type="number" min="0" data-psf="demand" value="' + num(m.demand) + '"><span>강냉이</span></div></div>';
+    const P = psProbs(m);
+    $('ps-t').innerHTML = '<thead><tr><th>떨어지는 코인</th><th class="w-num">확률</th><th class="r">받는 강냉이</th><th class="r">RTP 기여</th></tr></thead><tbody>' +
+      PS_K.map((k, i) => '<tr><td>' + (k ? '코인 ' + k + '개' : '낙하 없음') + '</td><td><div class="input-unit"><input class="input sm num" type="number" min="0" step="0.01" data-psp="' + i + '" value="' + P[i] + '" aria-label="코인 ' + k + '개 확률"><span>%</span></div></td><td class="r num">' + fmt(k * num(m.cost)) + '개</td><td class="r num" data-psr="' + i + '"></td></tr>').join('') +
+      '</tbody><tfoot><tr><td>합계</td><td class="r num" id="ps-psum"></td><td></td><td class="r num" id="ps-rtp"></td></tr></tfoot>';
+    renderPusherCalc();
   }
-  function renderMwheelCalc() {
-    const m = mwDraft(); if (!m || !mwEl('mw-calc')) return;
-    const R = mwRtps(m), T = target(), mx = mwMaxRtp(m), st = statusOf(mx, T);
-    R.forEach(x => { const p = document.querySelector('[data-mwp="' + x.v + '"]'), r = document.querySelector('[data-mwr="' + x.v + '"]'); if (p) p.textContent = (Math.round(x.p * 1000) / 10) + '%'; if (r) { r.textContent = pct(x.rtp); r.style.color = x.rtp > T + .005 ? '#E03131' : ''; } });
-    $('mw-n').textContent = mwN(m) + '칸';
-    $('mw-sum').textContent = '최대 RTP ' + pct(mx) + ' · ' + mwN(m) + '칸';
-    $('mw-calc').innerHTML = '<span>최대 RTP(가장 유리한 숫자) <b>' + pct(mx) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span><span>꽝 확률 <b>' + (mwN(m) ? Math.round(mwBlank(m) / mwN(m) * 1000) / 10 : 0) + '%</b></span><span class="qmeta">빨간 RTP는 목표(' + pct(T) + ')보다 높은 숫자예요.</span>';
+  function renderPusherCalc() {
+    const m = psDraft(); if (!m || !psEl('ps-calc')) return;
+    const P = psProbs(m), sum = P.reduce((a, b) => a + b, 0), r = psRtp(m), st = statusOf(r, target());
+    P.forEach((p, i) => { const el = document.querySelector('[data-psr="' + i + '"]'); if (el) el.textContent = pct(sum ? p / sum * PS_K[i] : 0); });
+    const ps = psEl('ps-psum'); ps.textContent = (+sum.toFixed(2)) + '%'; ps.style.color = Math.abs(sum - 100) > .05 ? '#E03131' : '';
+    $('ps-rtp').textContent = pct(r); $('ps-sum').textContent = 'RTP ' + pct(r);
+    $('ps-calc').innerHTML = '<span>코인 1개당 평균 낙하 <b>' + (Math.round(r * 100) / 100) + '개</b></span><span>RTP <b>' + pct(r) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>';
   }
-  function mwheelAdminInput(el) {
-    const m = mwDraft(); if (!m) return false;
+  function pusherAdminInput(el) {
+    const m = psDraft(); if (!m) return false;
     const d = el.dataset;
-    if (d.mwf == null && d.mwn == null) return false;
-    mwSync(m);
-    if (d.mwf) m[d.mwf] = Math.max(0, Math.round(num(el.value)));
-    if (d.mwn != null) { const c = m.cats.find(x => x.v === Number(d.mwn)); if (c) c.n = Math.max(0, Math.round(num(el.value))); }
-    mwSync(m); renderMwheelCalc(); renderStats();
+    if (d.psf == null && d.psp == null) return false;
+    psSync(m);
+    if (d.psf) m[d.psf] = Math.max(0, Math.round(num(el.value)));
+    if (d.psp != null) m.probs[Number(d.psp)] = Math.max(0, num(el.value));
+    psSync(m); renderPusherCalc(); renderStats();
     return true;
   }
 
   function openAdmin() {
     // 편집 중인 내용이 없으면 최신 설정(게임에서 줄어든 남은 수량 포함)으로 다시 시작
     if (!draft || JSON.stringify(draft) === draftBase) { draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); }
-    renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderMwheelAdmin(); renderStats(); adGo(adPage, true);
+    renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPusherAdmin(); renderStats(); adGo(adPage, true);
   }
 
   // ----- 관리자 이벤트 -----
@@ -8145,7 +8131,7 @@ img, svg, video { max-width: 100%; }
     if (raceAdminInput(e.target)) return;
     if (fishAdminInput(e.target)) return;
     if (wheelAdminInput(e.target)) return;
-    if (mwheelAdminInput(e.target)) return;
+    if (pusherAdminInput(e.target)) return;
     const el = e.target, s = draft.settings;
     if (el.id === 'ad-rtp' || el.id === 'ad-rtp-range') {
       s.targetRtp = num(el.value);
@@ -8196,17 +8182,17 @@ img, svg, video { max-width: 100%; }
         : { g: 'B', name: '새 상품', kind: 'product', val: 0, cost: 1000, total: 10, left: 10 });
       renderEditor(); renderStats();
     } else if (id === 'ad-fit-all') {
-      const km = draft.machines.filter(m => m.mode !== 'runner' && m.mode !== 'slot' && m.mode !== 'race' && m.mode !== 'fish' && m.mode !== 'wheel' && m.mode !== 'mwheel' && !isGoods(m) && econ(m, draft.settings).hasKern);
+      const km = draft.machines.filter(m => m.mode !== 'runner' && m.mode !== 'slot' && m.mode !== 'race' && m.mode !== 'fish' && m.mode !== 'wheel' && m.mode !== 'pusher' && !isGoods(m) && econ(m, draft.settings).hasKern);
       km.forEach(m => fitMachine(m, draft.settings, target(), 'price'));
-      renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderMwheelAdmin(); renderStats();
+      renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPusherAdmin(); renderStats();
       toast('', '강냉이 머신 ' + km.length + '개를 목표 RTP ' + draft.settings.targetRtp + '%에 맞췄어요. 저장해야 게임에 반영돼요.', true);
     } else if (id === 'ad-revert') {
-      draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderMwheelAdmin(); renderStats();
+      draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPusherAdmin(); renderStats();
     } else if (id === 'ad-reset') {
       const btn = $('ad-reset');
       if (Date.now() - resetArmed < 4000) {
         draft = clone(DEFAULT_CONFIG); resetArmed = 0; btn.textContent = '기본값으로';
-        renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderMwheelAdmin(); renderStats();
+        renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPusherAdmin(); renderStats();
         toast('', '기본값을 불러왔어요. 저장해야 게임에 반영돼요.', true);
       } else {
         resetArmed = Date.now(); btn.textContent = '한 번 더 누르면 초기화';
@@ -8217,7 +8203,7 @@ img, svg, video { max-width: 100%; }
     } else if (id === 'ad-load-remote') {
       if (sync.remote) { draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); }
       $('ad-remote').hidden = true;
-      renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderMwheelAdmin(); renderStats();
+      renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPusherAdmin(); renderStats();
     }
   });
 
@@ -8262,7 +8248,7 @@ img, svg, video { max-width: 100%; }
     if (!draft || JSON.stringify(draft) === draftBase) {
       draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft);
       $('ad-remote').hidden = true;
-      if (!$('admin').hidden) { renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderMwheelAdmin(); renderStats(); }
+      if (!$('admin').hidden) { renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPusherAdmin(); renderStats(); }
     } else if (!sync.saving) {
       $('ad-remote').hidden = false;
       if (!$('admin').hidden) renderStats();
@@ -8406,10 +8392,11 @@ img, svg, video { max-width: 100%; }
       '<path d="M26 60 C34 44 44 64 52 48 C58 38 66 52 74 42 L74 70 H26Z" fill="#FFF3BF"/><text x="44" y="64" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="14" fill="#E03131">777</text>' +
       '<text x="50" y="31" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="8" fill="#C2410C">SCRATCH</text></g>' +
       '<circle cx="76" cy="74" r="11" fill="#FAB005" stroke="#8A6414" stroke-width="2.5"/><circle cx="76" cy="74" r="6" fill="none" stroke="#FFF3BF" stroke-width="1.5"/></svg>',
-    mwheel: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgmw1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#40C057"/><stop offset="1" stop-color="#0B3B17"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgmw1)"/>' +
-      '<circle cx="50" cy="55" r="38" fill="#FFD43B"/>' + ['#FFE066', '#74C0FC', '#B197FC', '#8CE99A', '#FFA94D', '#FF8787', '#FFE066', '#74C0FC', '#FFE066', '#B197FC', '#74C0FC', '#212529'].map((c, i) => { const a0 = (i * 30 - 15) * Math.PI / 180, a1 = (i * 30 + 15) * Math.PI / 180; return '<path d="M50 55 L' + (50 + 35 * Math.sin(a0)).toFixed(1) + ' ' + (55 - 35 * Math.cos(a0)).toFixed(1) + ' A35 35 0 0 1 ' + (50 + 35 * Math.sin(a1)).toFixed(1) + ' ' + (55 - 35 * Math.cos(a1)).toFixed(1) + 'Z" fill="' + c + '" stroke="#5C3D0A" stroke-width=".8"/>'; }).join('') +
-      '<circle cx="50" cy="55" r="11" fill="#FAB005" stroke="#5C3D0A" stroke-width="2"/><text x="50" y="59" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="10" fill="#C92A2A">$</text>' +
-      '<path d="M50 22 L44 10 H56 Z" fill="#E03131" stroke="#FFFFFF" stroke-width="1.5"/></svg>',
+    pusher: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgps1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4DABF7"/><stop offset="1" stop-color="#0B2E55"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgps1)"/>' +
+      '<path d="M22 44 H78 L92 80 H8 Z" fill="#4D8FD1" stroke="#FFD43B" stroke-width="2"/><rect x="24" y="36" width="52" height="10" rx="3" fill="#CED4DA"/>' +
+      [[30, 56], [44, 52], [58, 58], [70, 54], [36, 66], [52, 68], [66, 70], [24, 74], [80, 74], [46, 76]].map(([x, y]) => '<ellipse cx="' + x + '" cy="' + y + '" rx="7" ry="4.2" fill="#FFD43B" stroke="#8A5A00" stroke-width="1.2"/>').join('') +
+      '<ellipse cx="50" cy="90" rx="7" ry="4.2" fill="#FFD43B" stroke="#8A5A00" stroke-width="1.2"/><ellipse cx="38" cy="94" rx="6" ry="3.6" fill="#FFD43B" stroke="#8A5A00" stroke-width="1.2"/>' +
+      '<path d="M44 10 h12 v10 h-12 z" fill="#FAB005"/><path d="M50 24 v8" stroke="#FFE066" stroke-width="3"/></svg>',
     hall: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgu5" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD43B"/><stop offset="1" stop-color="#E67700"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgu5)"/>' +
       '<path d="M34 24h32v14a16 16 0 0 1-32 0z" fill="#FFFFFF"/><path d="M34 29h-7a8 8 0 0 0 9 13M66 29h7a8 8 0 0 1-9 13" stroke="#FFFFFF" stroke-width="4" fill="none"/><rect x="46" y="53" width="8" height="11" fill="#FFFFFF"/><rect x="35" y="64" width="30" height="9" rx="2.5" fill="#FFFFFF"/>' +
       '<path d="M50 29l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.2 2.7 1-5.7-4.1-4 5.7-.8z" fill="#F59F00"/></svg>'
@@ -8426,7 +8413,7 @@ img, svg, video { max-width: 100%; }
     { id: 'fish', name: '냥 낚시터', sub: '챔질 타이밍', ic: '#1971C2', fc: '#1864AB', badge: 'N', desc: '찌가 쑥 잠길 때 챔질! 황금 잉어를 낚으면 ×30이에요.' },
     { id: 'wheel', name: '럭키 룰렛', sub: '3겹 휠', ic: '#D6336C', fc: '#A61E4D', badge: 'N', desc: '안쪽·가운데·바깥 휠에 같은 그림 3개! 세븐 3개면 ×450이에요.' },
     { id: 'scratch', name: '럭키 스크래치', sub: '한정 복권', ic: '#E8590C', fc: '#D9480F', badge: 'N', desc: '은박을 긁어 같은 그림 3개! 치킨 기프티콘이 2장 숨어 있어요.' },
-    { id: 'mwheel', name: '머니 휠', sub: '숫자에 걸기', ic: '#2F9E44', fc: '#2B8A3E', badge: 'N', desc: '숫자에 칩을 걸고 큰 바퀴를 돌려요. 40에 멈추면 ×41!' }
+    { id: 'pusher', name: '코인 푸셔', sub: '코인 밀어내기', ic: '#1C7ED6', fc: '#1864AB', badge: 'N', desc: '코인을 떨어뜨려 밀어내요. 와르르 쏟아지면 대박!' }
   ];
   const LG_DOCK = [
     { id: 'hall', name: '명예의 전당', ic: '#E67700' },
@@ -8484,14 +8471,14 @@ img, svg, video { max-width: 100%; }
     if (AR.active && location.hash !== '#archery') { history.replaceState(null, '', '#archery'); toast('', '사격이 끝난 뒤에 이동할 수 있어요.', true); return; }
     if (slEl('sl-modal') && !slEl('sl-modal').hidden) slCloseWin(false);
     if (['cast', 'wait', 'bite', 'reel', 'jump'].includes(FS.phase) && location.hash !== '#fish') { history.replaceState(null, '', '#fish'); toast('', '낚시가 끝난 뒤에 이동할 수 있어요.', true); return; }
-    if (MW.spinning && location.hash !== '#mwheel') { history.replaceState(null, '', '#mwheel'); toast('', '휠이 멈춘 뒤에 이동할 수 있어요.', true); return; }
+    if ((PUSH.queue || PUSH.busy) && location.hash !== '#pusher') { history.replaceState(null, '', '#pusher'); toast('', '코인이 다 떨어진 뒤에 이동할 수 있어요.', true); return; }
     if (LT.card && !LT.card.done && location.hash !== '#scratch') { history.replaceState(null, '', '#scratch'); toast('', '긁던 복권을 다 긁은 뒤에 이동할 수 있어요.', true); return; }
     if (WL.spinning && location.hash !== '#wheel') { history.replaceState(null, '', '#wheel'); toast('', '휠이 멈춘 뒤에 이동할 수 있어요.', true); return; }
     if (RC.running && location.hash !== '#race') { history.replaceState(null, '', '#race'); toast('', '경주가 끝난 뒤에 이동할 수 있어요.', true); return; }
     if (SL.spinning && location.hash !== '#' + SL.tab) { history.replaceState(null, '', '#' + SL.tab); toast('', '릴이 멈춘 뒤에 이동할 수 있어요.', true); return; }
     if (CN.flying && location.hash !== '#cannon') { history.replaceState(null, '', '#cannon'); toast('', '팝콘이 착지한 뒤에 이동할 수 있어요.', true); return; }
     if (RN.active && location.hash !== '#runner') { history.replaceState(null, '', '#runner'); toast('', '냥치 런이 끝난 뒤에 이동할 수 있어요.', true); return; }
-    const tab = ({ '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#runner': 'runner', '#cannon': 'cannon', '#archery': 'archery', '#slot': 'slot', '#gslot': 'gslot', '#race': 'race', '#fish': 'fish', '#wheel': 'wheel', '#scratch': 'scratch', '#mwheel': 'mwheel' })[location.hash] || 'gacha';
+    const tab = ({ '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#runner': 'runner', '#cannon': 'cannon', '#archery': 'archery', '#slot': 'slot', '#gslot': 'gslot', '#race': 'race', '#fish': 'fish', '#wheel': 'wheel', '#scratch': 'scratch', '#pusher': 'pusher' })[location.hash] || 'gacha';
     if (!admin && !shop && !lounge && tab !== state.tab) {
       if (!$('modal').hidden) { if (busy) return; closeModal(); }
       state.tab = tab; renderZones(); renderFloor();
