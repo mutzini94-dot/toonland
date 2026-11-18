@@ -974,8 +974,8 @@ button.stat { font: inherit; color: inherit; cursor: pointer; }
 .lt-ticket { position: relative; padding: 14px 16px 12px; border-radius: 20px; background: radial-gradient(120% 80% at 50% 0%, #FFE066, #FAB005 40%, #E8590C 100%); box-shadow: inset 0 0 0 3px #FFF3BF, inset 0 0 0 7px #C2410C, 0 14px 30px rgba(120,40,0,.35); color: #4A1D00; }
 .lt-ticket::before, .lt-ticket::after { content: ""; position: absolute; top: 50%; width: 22px; height: 22px; margin-top: -11px; border-radius: 50%; background: var(--surface-2, #F1F3F5); }
 .lt-ticket::before { left: -11px; } .lt-ticket::after { right: -11px; }
-.lt-ticket.enter { animation: sc-enter .6s cubic-bezier(.2,1.3,.4,1); }
-@keyframes sc-enter { from { transform: translateY(40px) rotateX(35deg) scale(.85); opacity: 0; } }
+.lt-ticket.enter { animation: lt-kenter .6s cubic-bezier(.2,1.3,.4,1); }
+@keyframes lt-kenter { from { transform: translateY(40px) rotateX(35deg) scale(.85); opacity: 0; } }
 .lt-ticket.shake { animation: pk-shake .45s; }
 .lt-top { display: flex; align-items: baseline; justify-content: space-between; }
 .lt-top b { font-family: 'Arial Black', Arial, sans-serif; font-size: 22px; letter-spacing: .04em; background: linear-gradient(180deg, #FFFFFF, #FFF3BF 50%, #FFD43B); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-stroke: 1px #8A1C1C; filter: drop-shadow(0 2px 0 #8A1C1C); }
@@ -989,19 +989,19 @@ button.stat { font: inherit; color: inherit; cursor: pointer; }
 .lt-cell svg { width: 58%; height: 58%; }
 .lt-cell b { font-size: 12px; font-weight: 900; color: #7A2E00; }
 .lt-cell b.x { font-size: 26px; color: #CED4DA; }
-.lt-cell.rev svg { animation: sc-pop .35s cubic-bezier(.2,1.6,.4,1); }
-@keyframes sc-pop { from { transform: scale(.4); } }
-.lt-cell.pair { background: radial-gradient(circle, rgba(255,212,59,.55), transparent 70%); animation: sc-pair .5s ease-in-out infinite alternate; }
-@keyframes sc-pair { to { background-color: rgba(255,236,153,.6); } }
-.lt-cell.hit { background: radial-gradient(circle, rgba(255,224,102,.95), rgba(255,169,77,.5) 70%); animation: sc-hit .45s ease-in-out infinite alternate; }
-.lt-cell.hit svg { animation: sc-hitsvg .45s ease-in-out infinite alternate; }
-@keyframes sc-hit { to { box-shadow: inset 0 0 0 3px #FFFFFF, inset 0 0 18px #FFD43B; } }
-@keyframes sc-hitsvg { to { transform: scale(1.15) rotate(-6deg); } }
+.lt-cell.rev svg { animation: lt-kpop .35s cubic-bezier(.2,1.6,.4,1); }
+@keyframes lt-kpop { from { transform: scale(.4); } }
+.lt-cell.pair { background: radial-gradient(circle, rgba(255,212,59,.55), transparent 70%); animation: lt-kpair .5s ease-in-out infinite alternate; }
+@keyframes lt-kpair { to { background-color: rgba(255,236,153,.6); } }
+.lt-cell.hit { background: radial-gradient(circle, rgba(255,224,102,.95), rgba(255,169,77,.5) 70%); animation: lt-khit .45s ease-in-out infinite alternate; }
+.lt-cell.hit svg { animation: lt-khitsvg .45s ease-in-out infinite alternate; }
+@keyframes lt-khit { to { box-shadow: inset 0 0 0 3px #FFFFFF, inset 0 0 18px #FFD43B; } }
+@keyframes lt-khitsvg { to { transform: scale(1.15) rotate(-6deg); } }
 .lt-foil { position: absolute; inset: 0; z-index: 2; cursor: grab; touch-action: none; transition: opacity .6s; }
 .lt-foil:active { cursor: grabbing; }
 .lt-foil.gone { opacity: 0; pointer-events: none; }
-.lt-flake { position: absolute; z-index: 3; width: 4px; height: 3px; background: #ADB5BD; border-radius: 1px; pointer-events: none; animation: sc-flake .7s ease-in forwards; }
-@keyframes sc-flake { to { transform: translate(var(--dx), 34px) rotate(180deg); opacity: 0; } }
+.lt-flake { position: absolute; z-index: 3; width: 4px; height: 3px; background: #ADB5BD; border-radius: 1px; pointer-events: none; animation: lt-kflake .7s ease-in forwards; }
+@keyframes lt-kflake { to { transform: translate(var(--dx), 34px) rotate(180deg); opacity: 0; } }
 .lt-buy-hint { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; font-size: 15px; font-weight: 800; color: #B07A00; background: repeating-linear-gradient(45deg, #FFF3BF 0 14px, #FFEC99 14px 28px); }
 .lt-foot { display: flex; justify-content: space-between; margin-top: 8px; font-size: 11.5px; font-weight: 900; color: #7A2E00; letter-spacing: .06em; }
 .lt-ticket.lost .lt-area { filter: grayscale(.7) brightness(.95); transition: filter .6s; }
@@ -1009,15 +1009,15 @@ button.stat { font: inherit; color: inherit; cursor: pointer; }
 @keyframes sc-won { 50% { box-shadow: inset 0 0 0 3px #FFFFFF, inset 0 0 0 7px #C2410C, 0 0 40px 12px rgba(255,212,59,.85); } }
 .lt-stamp { position: absolute; left: 50%; top: 52%; z-index: 4; translate: -50% -50%; padding: 6px 22px; border: 4px solid currentColor; border-radius: 14px; background: rgba(255,255,255,.92); font-size: 34px; font-weight: 900; line-height: 1.05; text-align: center; white-space: nowrap; pointer-events: none; opacity: 0; transform: rotate(-8deg); }
 .lt-stamp small { display: block; margin-top: 2px; font-size: 13px; font-weight: 800; color: #495057; }
-.lt-stamp.show { animation: sc-stamp 2.2s cubic-bezier(.2,1.4,.4,1) forwards; }
+.lt-stamp.show { animation: lt-kstamp 2.2s cubic-bezier(.2,1.4,.4,1) forwards; }
 .lt-stamp.win { color: #E03131; }
 .lt-stamp.lose { color: #868E96; }
-.lt-stamp.lose.show { animation: sc-stamp 2.6s cubic-bezier(.2,1.4,.4,1) forwards, sc-sad .45s ease-in-out .5s 2; }
+.lt-stamp.lose.show { animation: lt-kstamp 2.6s cubic-bezier(.2,1.4,.4,1) forwards, lt-ksad .45s ease-in-out .5s 2; }
 .lt-stamp.tease { color: #E8590C; font-size: 24px; top: 8%; translate: -50% 0; background: rgba(255,255,255,.95); }
-.lt-stamp.tease.show { animation: sc-tease 1.6s ease-out forwards; }
-@keyframes sc-stamp { 0% { transform: scale(3) rotate(-20deg); opacity: 0; } 12% { transform: scale(.92) rotate(-8deg); opacity: 1; } 20% { transform: scale(1) rotate(-8deg); } 80% { opacity: 1; } 100% { transform: scale(1) rotate(-8deg); opacity: .0; } }
-@keyframes sc-sad { 25% { translate: calc(-50% - 6px) -50%; } 75% { translate: calc(-50% + 6px) -50%; } }
-@keyframes sc-tease { 0% { transform: scale(.4) rotate(-6deg); opacity: 0; } 15% { transform: scale(1.1) rotate(-6deg); opacity: 1; } 25% { transform: scale(1) rotate(-6deg); } 80% { opacity: 1; } 100% { opacity: 0; } }
+.lt-stamp.tease.show { animation: lt-ktease 1.6s ease-out forwards; }
+@keyframes lt-kstamp { 0% { transform: scale(3) rotate(-20deg); opacity: 0; } 12% { transform: scale(.92) rotate(-8deg); opacity: 1; } 20% { transform: scale(1) rotate(-8deg); } 80% { opacity: 1; } 100% { transform: scale(1) rotate(-8deg); opacity: .0; } }
+@keyframes lt-ksad { 25% { translate: calc(-50% - 6px) -50%; } 75% { translate: calc(-50% + 6px) -50%; } }
+@keyframes lt-ktease { 0% { transform: scale(.4) rotate(-6deg); opacity: 0; } 15% { transform: scale(1.1) rotate(-6deg); opacity: 1; } 25% { transform: scale(1) rotate(-6deg); } 80% { opacity: 1; } 100% { opacity: 0; } }
 .lt-board { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: stretch; max-width: 380px; }
 .lt-buy { background: linear-gradient(180deg, #FF922B, #E8590C); box-shadow: 0 6px 0 #A33F00; }
 .lt-buy:active:not(:disabled) { box-shadow: 0 3px 0 #A33F00; }
@@ -1033,6 +1033,17 @@ button.stat { font: inherit; color: inherit; cursor: pointer; }
 .lt-m-art svg { width: 100%; height: 100%; overflow: visible; }
 .sl-m-btns [data-ltx="close"] { background: #F1F3F5; color: #343A40; }
 .sl-m-btns [data-ltx="again"] { background: linear-gradient(180deg, #FF922B, #E8590C); color: #FFFFFF; box-shadow: 0 4px 0 #A33F00; }
+/* 스크래치 기프티콘 = 직소 퍼즐 상품 사진 */
+.lt-photo { display: block; background-color: #FFFFFF; background-size: cover; background-position: center; border-radius: 10px; box-shadow: 0 0 0 2px #FFFFFF, 0 2px 6px rgba(0,0,0,.18); }
+.lt-cell .lt-photo.lt-cart { width: 58%; aspect-ratio: 1 / 1; }
+.lt-cell svg.lt-cart { width: 58%; height: 58%; }
+.lt-photo.lt-tic { display: inline-block; width: 26px; height: 26px; margin-right: 6px; vertical-align: middle; border-radius: 6px; }
+.lt-cell.rev .lt-photo { animation: lt-kpop .35s cubic-bezier(.2,1.6,.4,1); }
+.lt-cell.hit .lt-photo { animation: lt-khitsvg .45s ease-in-out infinite alternate; box-shadow: 0 0 0 3px #FFD43B, 0 0 14px rgba(255,212,59,.9); }
+.lt-m-row { display: flex; justify-content: center; gap: 10px; height: auto; }
+.lt-m-cell { display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 0 0 3px #F59F00; }
+.lt-m-cell .lt-photo { width: 46px; height: 46px; border-radius: 50%; box-shadow: none; }
+.lt-m-cell svg { width: 46px; height: 46px; }
 /* ===== 냥냥 레이스 ===== */
 .rc-panel { grid-column: 1 / -1; }
 .rc-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
@@ -3214,8 +3225,8 @@ img, svg, video { max-width: 100%; }
         syms: [{ id: 'seven', w: 5, mult: 450 }, { id: 'bar', w: 9, mult: 110 }, { id: 'bell', w: 13, mult: 55 }, { id: 'grape', w: 18, mult: 26 }, { id: 'lemon', w: 25, mult: 13 }, { id: 'cherry', w: 30, mult: 9 }],
         prizes: [W('S', '세븐 3개 ×450', 'kernel', 45000, 0, 0.0125), W('S', 'BAR 3개 ×110', 'kernel', 11000, 0, 0.0729), W('A', '황금 종 3개 ×55', 'kernel', 5500, 0, 0.2197), W('A', '포도 3개 ×26', 'kernel', 2600, 0, 0.5832), W('B', '레몬 3개 ×13', 'kernel', 1300, 0, 1.5625), W('C', '체리 3개 ×9', 'kernel', 900, 0, 2.7)] },
       // 럭키 스크래치: 회차당 2,000장 발행하는 한정 복권(한정 머신 구조). 기프티콘 예산 + 강냉이 상품 RTP
-      { id: 'scratch', zone: 'scratch', mode: 'scratch', name: '럭키 스크래치', cost: 300, demand: 1200000, top: '치킨 기프티콘',
-        prizes: [P('S', '치킨 기프티콘', 'product', 0, 22000, 2, 2), P('A', '스타벅스 라떼 기프티콘', 'product', 0, 5000, 20, 20), P('B', '강냉이 1,500개', 'kernel', 1500, 0, 60, 60), P('B', '강냉이 600개', 'kernel', 600, 0, 200, 200), P('C', '강냉이 300개', 'kernel', 300, 0, 500, 500), P('C', '꽝', 'kernel', 0, 0, 1218, 1218)] },
+      { id: 'scratch', zone: 'scratch', mode: 'scratch', name: '럭키 스크래치', cost: 300, demand: 1200000, top: '순살 치킨 + 콜라 세트',
+        prizes: [Object.assign(P('S', '순살 치킨 + 콜라 세트', 'product', 0, 22000, 2, 2), { pid: 'chicken' }), Object.assign(P('A', '스타벅스 카페 라떼', 'product', 0, 5000, 20, 20), { pid: 'sblatte' }), P('B', '강냉이 1,500개', 'kernel', 1500, 0, 60, 60), P('B', '강냉이 600개', 'kernel', 600, 0, 200, 200), P('C', '강냉이 300개', 'kernel', 300, 0, 500, 500), P('C', '꽝', 'kernel', 0, 0, 1218, 1218)] },
       // 팝콘 대포: 게이지 등급(퍼펙트·좋아요·보통)별 확률표로 거리 구간 결정. 배수 공통, 등급별 RTP 동일(B 방식)
       { id: 'cannon', zone: 'cannon', mode: 'cannon', cv: 2, name: '팝콘 대포', cost: 100, demand: 800000, mults: [0.2, 0.5, 1, 2, 4, 10],
         probs: { perfect: [0, 0, 90.2, 7, 2, 0.8], good: [0, 0, 96, 3.5, 0.5, 0], normal: [45, 30, 10, 10, 4, 1] }, top: '800m 이상 ×10 · 강냉이 1,000개',
@@ -6274,8 +6285,35 @@ img, svg, video { max-width: 100%; }
       default: return g('<g fill="#FFFDF5" stroke="#F0C04A" stroke-width="1.6"><circle cx="-6" cy="-3" r="8"/><circle cx="7" cy="-4" r="8"/><circle cx="0" cy="-11" r="7.5"/><circle cx="-3" cy="6" r="8.5"/><circle cx="7" cy="6" r="8"/></g><ellipse cx="9" cy="12" rx="4" ry="3" fill="#F2B630"/>');
     }
   }
+  // 기프티콘(상품)은 직소 퍼즐의 상품과 공유: 이름·원가·그림을 퍼즐 상품에서 가져온다(pid로 연결, 없으면 이름이 가장 비슷한 상품). 강냉이 상품은 그대로
+  function ltPzList(m) {
+    let d = null; try { d = draft; } catch (e) { /* 관리자 코드보다 먼저 불릴 때 */ }
+    const list = d && d.machines.includes(m) ? d.machines : (typeof config !== 'undefined' && config && config.machines.includes(m) ? config.machines : machines);
+    const pm = list.find(x => x.mode === 'puzzle');
+    return pm ? pm.prizes.filter(p => p.kind === 'product') : [];
+  }
+  function ltMatch(p, list) {
+    if (p.pid) { const z = list.find(x => x.pid === p.pid); if (z) return z; }
+    const words = String(p.name).replace(/기프티콘|세트|\+|&/g, ' ').split(/\s+/).filter(Boolean);
+    let best = null, score = 0;
+    list.forEach(z => { const zw = String(z.name).split(/\s+/); let sc = words.filter(w => zw.some(v => v.includes(w) || w.includes(v))).length * 2; if (num(z.cost) === num(p.cost)) sc += 1; if (sc > score) { score = sc; best = z; } });
+    return score >= 2 ? best : null;
+  }
+  function ltSync(m) {
+    if (!m || !Array.isArray(m.prizes)) return;
+    const list = ltPzList(m);
+    m.prizes.forEach(p => { if (p.kind !== 'product') return; const z = ltMatch(p, list); if (z) { p.pid = z.pid; p.name = z.name; p.cost = num(z.cost); } });
+  }
+  const ltPz = (m, p) => p.kind === 'product' ? ltPzList(m).find(z => z.pid === p.pid) || null : null;
+  const ltShort = name => { const w = String(name).split(/\s+/).filter(x => !/^[+&]$/.test(x)); let s = w[0] || ''; if (w[1] && (s + ' ' + w[1]).length <= 7) s += ' ' + w[1]; return s; };
+  // 칸·표·팝업 그림: 기프티콘은 퍼즐 상품 사진, 강냉이는 기존 아이콘
+  function ltArt(m, i, cls) {
+    const p = m.prizes[i], z = ltPz(m, p), src = z ? imgSrc(z) : '';
+    if (src) return '<i class="lt-photo ' + (cls || '') + '" style="background-image:url(' + src + ')" aria-hidden="true"></i>';
+    return '<svg class="' + (cls || '') + '" viewBox="-24 -24 48 48" aria-hidden="true">' + ltIcon(i, 40) + '</svg>';
+  }
   const ltWinners = m => m.prizes.map((p, i) => ({ p, i })).filter(x => !(x.p.kind === 'kernel' && !num(x.p.val)));
-  const ltLabel = p => p.kind === 'kernel' ? fmt(num(p.val)) : String(p.name).replace(/ ?기프티콘/, '').split(' ')[0];
+  const ltLabel = p => p.kind === 'kernel' ? fmt(num(p.val)) : ltShort(String(p.name).replace(/ ?기프티콘/, ''));
   // 3×3 그림 배치: 당첨이면 그 그림 3개 + 나머지는 그림마다 2개 이하, 꽝이면 모두 2개 이하(아까운 짝이 생기게)
   function ltGrid(m, winIdx) {
     const W = ltWinners(m).map(x => x.i), others = W.filter(i => i !== winIdx), cells = [];
@@ -6291,7 +6329,7 @@ img, svg, video { max-width: 100%; }
   function ltTotal(m) { return m.prizes.reduce((a, p) => a + num(p.total), 0); }
   function ltCardHTML(m) {
     const c = LT.card;
-    const cells = c ? c.grid.map((g, i) => '<div class="lt-cell' + (c.rev.has(i) ? ' rev' : '') + (c.done && c.win != null && g === c.win ? ' hit' : '') + '" data-c="' + i + '">' + (g >= 0 ? '<svg viewBox="-24 -24 48 48" aria-hidden="true">' + ltIcon(g, 40) + '</svg><b>' + slEsc(ltLabel(m.prizes[g])) + '</b>' : '<b class="x">✕</b>') + '</div>').join('') : '';
+    const cells = c ? c.grid.map((g, i) => '<div class="lt-cell' + (c.rev.has(i) ? ' rev' : '') + (c.done && c.win != null && g === c.win ? ' hit' : '') + '" data-c="' + i + '">' + (g >= 0 ? ltArt(m, g, 'lt-cart') + '<b>' + slEsc(ltLabel(m.prizes[g])) + '</b>' : '<b class="x">✕</b>') + '</div>').join('') : '';
     return '<div class="lt-ticket' + (c ? '' : ' empty') + (c && c.done ? (c.win != null ? ' won' : ' lost') : '') + '" id="lt-ticket">' +
       '<div class="lt-top"><b>LUCKY SCRATCH</b><span>1장 ' + K + fmt(num(m.cost)) + '</span></div>' +
       '<p class="lt-rule">같은 그림 <b>3개</b>가 나오면 그 상품을 드려요!</p>' +
@@ -6307,12 +6345,13 @@ img, svg, video { max-width: 100%; }
   }
   function ltTableHTML(m) {
     const tot = ltTotal(m), left = ltLeftTotal(m);
-    const rows = m.prizes.map((p, i) => { const blank = p.kind === 'kernel' && !num(p.val); return '<tr' + (num(p.left) === 0 ? ' class="zero"' : '') + '><td>' + (blank ? '<span class="lt-tic x">✕</span>' : '<svg class="lt-tic" viewBox="-24 -24 48 48" aria-hidden="true">' + ltIcon(i, 40) + '</svg>') + slEsc(p.name) + '</td><td class="num">' + fmt(num(p.left)) + ' / ' + fmt(num(p.total)) + '</td><td class="num">' + (left ? slPctTxt(num(p.left) / left) : '-') + '</td></tr>'; }).join('');
+    const rows = m.prizes.map((p, i) => { const blank = p.kind === 'kernel' && !num(p.val); return '<tr' + (num(p.left) === 0 ? ' class="zero"' : '') + '><td>' + (blank ? '<span class="lt-tic x">✕</span>' : ltArt(m, i, 'lt-tic')) + slEsc(p.name) + '</td><td class="num">' + fmt(num(p.left)) + ' / ' + fmt(num(p.total)) + '</td><td class="num">' + (left ? slPctTxt(num(p.left) / left) : '-') + '</td></tr>'; }).join('');
     return '<div class="lt-series"><span>이번 회차 남은 복권</span><b class="num">' + fmt(left) + ' / ' + fmt(tot) + '장</b><i><b style="width:' + (tot ? (left / tot * 100).toFixed(1) : 0) + '%"></b></i></div>' +
       '<div class="cn-table-wrap"><table class="cn-table sl-paytable"><thead><tr><th>상품</th><th>남은 / 발행</th><th>지금 확률</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
   }
   function scratchFloorHTML() {
     const m = scratchMachine(); if (!m) return '';
+    ltSync(m);
     return '<section class="lt-panel" aria-labelledby="lt-h"><div class="rc-wrap">' +
       '<div class="lt-stage" id="lt-stage">' + ltCardHTML(m) + '</div>' +
       '<div class="rc-board lt-board" id="lt-board">' + ltBoardHTML(m) + '</div>' +
@@ -6324,6 +6363,7 @@ img, svg, video { max-width: 100%; }
   }
   function ltRender() {
     const m = scratchMachine(); if (!m) return;
+    ltSync(m);
     const st = ltEl('lt-stage'); if (st) st.innerHTML = ltCardHTML(m);
     const bd = ltEl('lt-board'); if (bd) bd.innerHTML = ltBoardHTML(m);
     const tb = ltEl('lt-table'); if (tb) tb.innerHTML = ltTableHTML(m);
@@ -6400,6 +6440,7 @@ img, svg, video { max-width: 100%; }
   }
   function ltBuy() {
     const m = scratchMachine(); if (!m || (LT.card && !LT.card.done)) return;
+    ltSync(m);
     if (!ltLeftTotal(m)) { toast('', '이번 회차 복권이 모두 팔렸어요. 관리자에서 새 회차를 발행해 주세요.', true); return; }
     if (state.balance < num(m.cost)) { toast('', '강냉이가 부족해요. 체험용 강냉이를 충전해 보세요.', true); return; }
     state.balance -= num(m.cost); renderHUD(true);
@@ -6458,7 +6499,7 @@ img, svg, video { max-width: 100%; }
     const sparks = [[12, 18], [84, 14], [8, 52], [90, 46], [22, 70], [78, 72]].map(([a, b], k) => '<i class="sl-m-spark" style="left:' + a + '%;top:' + b + '%;animation-delay:' + (k * .23).toFixed(2) + 's"></i>').join('');
     el.innerHTML = '<div class="sl-m-card' + (tier === 'top' ? ' top' : '') + '" style="--mc:#FFF3BF;--mi:#E8590C"><div class="sl-m-rays" aria-hidden="true"></div>' + sparks +
       '<div class="sl-m-label">' + (tier === 'top' ? '대박 당첨!' : tier === 'hi' ? '당첨!' : '당첨') + '</div>' +
-      '<div class="lt-m-art"><svg viewBox="-70 -26 140 52" aria-hidden="true">' + [-44, 0, 44].map(dx => '<g transform="translate(' + dx + ' 0)"><circle r="22" fill="#FFFFFF" stroke="#F59F00" stroke-width="2.5"/>' + ltIcon(i, 36) + '</g>').join('') + '</svg></div>' +
+      '<div class="lt-m-art lt-m-row">' + [0, 1, 2].map(() => '<span class="lt-m-cell">' + ltArt(m, i, 'lt-m-pic') + '</span>').join('') + '</div>' +
       '<h3 id="lt-m-title">' + slEsc(p.name) + '</h3>' +
       '<p class="sl-m-win">' + (goods ? '<span class="chip" style="background:#E8590C">' + fmt(num(p.cost)) + '원 상당</span>보관함에 넣어 드렸어요' : '강냉이를 받았어요<b class="num">' + K + fmt(num(p.val)) + '개</b>') + '</p>' +
       '<div class="sl-m-btns"><button type="button" data-ltx="close">확인</button><button type="button" data-ltx="again">한 장 더 <small class="num">' + fmt(num(m.cost)) + '</small></button></div></div>';
@@ -7233,6 +7274,7 @@ img, svg, video { max-width: 100%; }
     const errs = validate();
     gsSyncAll(config);   // 상품 슬롯의 상품 목록은 직소 퍼즐에서 파생되므로 비교 전에 맞춘다
     config.machines.filter(m => m.mode === 'fish').forEach(fsSync);   // 예전 미끼 3종 설정은 단일 입장권으로
+    config.machines.filter(m => m.mode === 'scratch').forEach(ltSync); draft.machines.filter(m => m.mode === 'scratch').forEach(ltSync);   // 스크래치 기프티콘 = 직소 퍼즐 상품
     const dirty = JSON.stringify(draft) !== JSON.stringify(config);
     $('ad-dirty').hidden = !dirty;
     $('ad-save').disabled = !dirty || errs.length > 0 || sync.readOnly || sync.saving;
