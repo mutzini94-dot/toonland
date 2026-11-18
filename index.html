@@ -6312,7 +6312,7 @@ img, svg, video { max-width: 100%; }
     m.prizes.forEach(p => { if (p.kind !== 'product') return; const z = ltMatch(p, list); if (z) { p.pid = z.pid; p.name = z.name; p.cost = num(z.cost); } });
   }
   const ltPz = (m, p) => p.kind === 'product' ? ltPzList(m).find(z => z.pid === p.pid) || null : null;
-  const ltShort = name => { const w = String(name).split(/\s+/).filter(x => !/^[+&]$/.test(x)); let s = w[0] || ''; if (w[1] && (s + ' ' + w[1]).length <= 7) s += ' ' + w[1]; return s; };
+  const ltShort = name => { const w = String(name).split(/\s+/).filter(x => !/^[+&]$/.test(x)); let s = w[0] || ''; if (w[1] && (s + ' ' + w[1]).length <= 9) s += ' ' + w[1]; return s; };
   // 칸·표·팝업 그림: 기프티콘은 퍼즐 상품 사진, 강냉이는 기존 아이콘
   function ltArt(m, i, cls) {
     const p = m.prizes[i], z = ltPz(m, p), src = z ? imgSrc(z) : '';
@@ -6323,21 +6323,39 @@ img, svg, video { max-width: 100%; }
   const ltWinners = m => m.prizes.map((p, i) => ({ p, i })).filter(x => !(x.p.kind === 'kernel' && !num(x.p.val)));
   const ltLabel = p => p.kind === 'kernel' ? fmt(num(p.val)) : ltShort(String(p.name).replace(/ ?기프티콘/, ''));
   // 3×3 그림 배치: 당첨이면 그 그림 3개 + 나머지는 그림마다 2개 이하, 꽝이면 모두 2개 이하(아까운 짝이 생기게)
+  // 3×3 그림 배치. '보이는 모양' 기준으로 한 판에 같은 그림이 3개 이상 나오지 않게 한다(당첨 그림만 정확히 3개)
+  //  - 강냉이 상품(300·600·1,500)은 모두 같은 강냉이 아이콘이라 한 묶음으로 센다: 꽝·상품 당첨이면 강냉이 아이콘 최대 2칸,
+  //    강냉이가 당첨이면 그 금액 3칸 + 다른 강냉이 0칸
+  //  - 기프티콘은 상품마다 최대 2칸(당첨 상품은 3칸)
+  //  - 빈 칸은 상품 목록에 없는 직소 퍼즐 상품 사진(장식용, 각 최대 2칸)으로 채운다. 장식 그림은 당첨되지 않는다
+  //  - 장식 그림은 100번부터의 번호로 grid 에 넣고, 그림 정보는 card.decoys 에 둔다
   function ltGrid(m, winIdx) {
-    const W = ltWinners(m).map(x => x.i), others = W.filter(i => i !== winIdx), cells = [];
-    if (winIdx != null) cells.push(winIdx, winIdx, winIdx);
-    // 나머지 그림은 각 2장씩 섞은 더미에서 필요한 만큼(그래서 같은 그림이 3개가 되지 않는다)
-    const pool = others.flatMap(c => [c, c]);
+    const W = ltWinners(m).map(x => x.i), isK = i => m.prizes[i].kind === 'kernel';
+    const winK = winIdx != null && isK(winIdx);
+    const cells = winIdx != null ? [winIdx, winIdx, winIdx] : [];
+    const pool = [];
+    W.filter(i => i !== winIdx && !isK(i)).forEach(i => pool.push(i, i));          // 기프티콘: 상품마다 2장
+    if (!winK) {                                                                  // 강냉이 아이콘은 합쳐서 최대 2장
+      const ks = W.filter(i => i !== winIdx && isK(i));
+      for (let t = 0; t < 2 && ks.length; t++) pool.push(ks[Math.floor(Math.random() * ks.length)]);
+    }
+    const linked = new Set(m.prizes.map(p => p.pid).filter(Boolean));
+    // 같은 브랜드(첫 단어)가 상품에 있으면 헷갈리니 장식에서 뺀다(예: 스타벅스 라떼가 상품이면 스타벅스 케이크 제외)
+    const brands = new Set(m.prizes.filter(p => p.kind === 'product').map(p => String(p.name).split(/\s+/)[0]));
+    const decoys = ltPzList(m).filter(z => !linked.has(z.pid) && !brands.has(String(z.name).split(/\s+/)[0])).sort(() => Math.random() - .5).slice(0, 4);
+    decoys.forEach((_, k) => pool.push(100 + k, 100 + k));                         // 장식 그림: 각 2장
     for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
     while (cells.length < 9) cells.push(pool.length ? pool.pop() : -1);
     for (let i = cells.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [cells[i], cells[j]] = [cells[j], cells[i]]; }
-    return cells;
+    return { cells, decoys };
   }
+  // 한 판의 '보이는 모양' 검사(개발 확인용): 강냉이는 묶음, 나머지는 칸 번호별 개수
+  function ltLookCount(m, c) { const n = {}; c.grid.forEach(g => { const k = g >= 0 && g < 100 && m.prizes[g].kind === 'kernel' ? (g === c.win ? 'k' + g : 'K') : String(g); n[k] = (n[k] || 0) + 1; }); return n; }
   function ltLeftTotal(m) { return m.prizes.reduce((a, p) => a + num(p.left), 0); }
   function ltTotal(m) { return m.prizes.reduce((a, p) => a + num(p.total), 0); }
   function ltCardHTML(m) {
     const c = LT.card;
-    const cells = c ? c.grid.map((g, i) => '<div class="lt-cell' + (c.rev.has(i) ? ' rev' : '') + (c.done && c.win != null && g === c.win ? ' hit' : '') + '" data-c="' + i + '">' + (g >= 0 ? ltArt(m, g, 'lt-cart') + '<b>' + slEsc(ltLabel(m.prizes[g])) + '</b>' : '<b class="x">✕</b>') + '</div>').join('') : '';
+    const cells = c ? c.grid.map((g, i) => '<div class="lt-cell' + (c.rev.has(i) ? ' rev' : '') + (c.done && c.win != null && g === c.win ? ' hit' : '') + '" data-c="' + i + '">' + (g >= 100 && c.decoys && c.decoys[g - 100] ? '<i class="lt-photo lt-cart" style="background-image:url(' + imgSrc(c.decoys[g - 100]) + ')" aria-hidden="true"></i><b>' + slEsc(ltShort(c.decoys[g - 100].name)) + '</b>' : g >= 0 && g < 100 ? ltArt(m, g, 'lt-cart') + '<b>' + slEsc(ltLabel(m.prizes[g])) + '</b>' : '<b class="x">✕</b>') + '</div>').join('') : '';
     return '<div class="lt-ticket' + (c ? '' : ' empty') + (c && c.done ? (c.win != null ? ' won' : ' lost') : '') + '" id="lt-ticket">' +
       '<div class="lt-top"><b>LUCKY SCRATCH</b><span>1장 ' + K + fmt(num(m.cost)) + '</span></div>' +
       '<p class="lt-rule">같은 그림 <b>3개</b>가 나오면 그 상품을 드려요!</p>' +
@@ -6365,7 +6383,7 @@ img, svg, video { max-width: 100%; }
       '<div class="rc-board lt-board" id="lt-board">' + ltBoardHTML(m) + '</div>' +
       '<aside class="cn-info"><h3 id="lt-h">' + m.name + ' <small class="qmeta">1장 ' + K + fmt(num(m.cost)) + '</small></h3>' +
         '<p>회차마다 정해진 장수만 발행하는 <b>한정 복권</b>이에요. 은박을 손가락이나 마우스로 긁어서 <b>같은 그림 3개</b>가 나오면 그 상품을 받아요.</p>' +
-        '<ul><li>당첨은 산 순간 남은 복권 중에서 정해져요. 남은 수량을 실시간으로 공개해요.</li><li>기프티콘은 보관함으로, 강냉이는 바로 지갑으로 들어가요.</li><li>그림 2개는 자주 나와요. 3개가 모여야 당첨이에요.</li><li>[한 번에 긁기]로 한꺼번에 열 수도 있어요.</li></ul>' +
+        '<ul><li>당첨은 산 순간 남은 복권 중에서 정해져요. 남은 수량을 실시간으로 공개해요.</li><li>기프티콘은 보관함으로, 강냉이는 바로 지갑으로 들어가요.</li><li>그림 2개는 자주 나와요. 3개가 모여야 당첨이에요. 한 판에 같은 그림은 당첨 그림 3개 말고는 2개까지만 나와요.</li><li>아래 상품 목록에 없는 그림(다른 직소 퍼즐 상품 사진)은 칸을 채우는 장식이라 당첨되지 않아요.</li><li>[한 번에 긁기]로 한꺼번에 열 수도 있어요.</li></ul>' +
         '<div id="lt-table">' + ltTableHTML(m) + '</div>' +
       '</aside></div></section>';
   }
@@ -6438,7 +6456,7 @@ img, svg, video { max-width: 100%; }
     SFX.snap();
     // 같은 그림 2개가 보이면 '하나만 더!' 긴장
     const g = c.grid[i];
-    if (g >= 0) {
+    if (g >= 0 && g < 100) {
       const seen = [...c.rev].filter(j => c.grid[j] === g).length;
       // 같은 그림이 2개 보일 때마다(그림별로 한 번씩) '하나만 더!' — 이전엔 복권당 한 번만 떠서 두 번째 짝부터 안 나왔다
       if (seen === 2 && !(c.teased || (c.teased = new Set())).has(g)) {
@@ -6460,7 +6478,8 @@ img, svg, video { max-width: 100%; }
     if (state.balance < num(m.cost)) { toast('', '강냉이가 부족해요. 체험용 강냉이를 충전해 보세요.', true); return; }
     state.balance -= num(m.cost); renderHUD(true);
     const p = pick(m)[0], idx = m.prizes.indexOf(p), blank = p.kind === 'kernel' && !num(p.val);
-    LT.card = { no: ltTotal(m) - ltLeftTotal(m), p, win: blank ? null : idx, grid: ltGrid(m, blank ? null : idx), rev: new Set(), done: false };
+    const gd = ltGrid(m, blank ? null : idx);
+    LT.card = { no: ltTotal(m) - ltLeftTotal(m), p, win: blank ? null : idx, grid: gd.cells, decoys: gd.decoys, rev: new Set(), done: false };
     SFX.card();
     ltRender();
     const t = ltEl('lt-ticket'); if (t) restart(t, 'enter');
@@ -6496,10 +6515,10 @@ img, svg, video { max-width: 100%; }
       recordResult({ g: 'C', name: '럭키 스크래치 꽝', kind: 'kernel', val: 0 }, m); saveMe();
       if (t) t.classList.add('lost');
       // 같은 그림 2개짜리(아까운 짝)가 몇 쌍이었는지 알려 준다. 마지막 칸에서 짝이 맞은 경우도 여기서 보인다
-      const cntG = {}; c.grid.forEach(g => { if (g >= 0) cntG[g] = (cntG[g] || 0) + 1; });
+      const cntG = {}; c.grid.forEach(g => { if (g >= 0 && g < 100) cntG[g] = (cntG[g] || 0) + 1; });
       const pairs = Object.values(cntG).filter(v => v === 2).length;
       if (st) { st.className = 'lt-stamp lose'; st.innerHTML = '꽝<small>' + (pairs ? '아까워요! 2개짜리 ' + pairs + '쌍' : '다음 복권을 노려 보세요') + '</small>'; restart(st, 'show'); }
-      document.querySelectorAll('.lt-cell').forEach(el => { const g = c.grid[+el.dataset.c]; if (g >= 0 && cntG[g] === 2) el.classList.add('pair'); });
+      document.querySelectorAll('.lt-cell').forEach(el => { const g = c.grid[+el.dataset.c]; if (g >= 0 && g < 100 && cntG[g] === 2) el.classList.add('pair'); });
       SFX.lose();
     }
     const bd = ltEl('lt-board'); if (bd) bd.innerHTML = ltBoardHTML(m);
