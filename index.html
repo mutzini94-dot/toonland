@@ -6440,7 +6440,14 @@ img, svg, video { max-width: 100%; }
     const g = c.grid[i];
     if (g >= 0) {
       const seen = [...c.rev].filter(j => c.grid[j] === g).length;
-      if (seen === 2 && !c.tease) { c.tease = true; const st = ltEl('lt-stamp'); if (st) { st.className = 'lt-stamp tease'; st.innerHTML = '하나만 더!'; restart(st, 'show'); } SFX.ready(); document.querySelectorAll('.lt-cell').forEach(el => { if (c.rev.has(+el.dataset.c) && c.grid[+el.dataset.c] === g) el.classList.add('pair'); }); }
+      // 같은 그림이 2개 보일 때마다(그림별로 한 번씩) '하나만 더!' — 이전엔 복권당 한 번만 떠서 두 번째 짝부터 안 나왔다
+      if (seen === 2 && !(c.teased || (c.teased = new Set())).has(g)) {
+        c.teased.add(g);
+        const mm = scratchMachine(), nm = mm && mm.prizes[g] ? ltLabel(mm.prizes[g]) : '';
+        const st = ltEl('lt-stamp'); if (st) { st.className = 'lt-stamp tease'; st.innerHTML = '하나만 더!' + (nm ? '<small>' + slEsc(nm) + ' 2개</small>' : ''); restart(st, 'show'); }
+        SFX.ready();
+        document.querySelectorAll('.lt-cell').forEach(el => { if (c.rev.has(+el.dataset.c) && c.grid[+el.dataset.c] === g) { el.classList.add('pair'); restart(el, 'pair'); } });
+      }
       if (seen === 3 && c.win === g && !c.three) { c.three = true; const st2 = ltEl('lt-stamp'); if (st2) { st2.className = 'lt-stamp tease'; st2.innerHTML = '3개 모였다!? 끝까지 긁어 보세요'; restart(st2, 'show'); } SFX.star(3); }
     }
     if (c.rev.size >= 9) ltFinish();
@@ -6488,7 +6495,11 @@ img, svg, video { max-width: 100%; }
     } else {
       recordResult({ g: 'C', name: '럭키 스크래치 꽝', kind: 'kernel', val: 0 }, m); saveMe();
       if (t) t.classList.add('lost');
-      if (st) { st.className = 'lt-stamp lose'; st.innerHTML = '꽝<small>다음 복권을 노려 보세요</small>'; restart(st, 'show'); }
+      // 같은 그림 2개짜리(아까운 짝)가 몇 쌍이었는지 알려 준다. 마지막 칸에서 짝이 맞은 경우도 여기서 보인다
+      const cntG = {}; c.grid.forEach(g => { if (g >= 0) cntG[g] = (cntG[g] || 0) + 1; });
+      const pairs = Object.values(cntG).filter(v => v === 2).length;
+      if (st) { st.className = 'lt-stamp lose'; st.innerHTML = '꽝<small>' + (pairs ? '아까워요! 2개짜리 ' + pairs + '쌍' : '다음 복권을 노려 보세요') + '</small>'; restart(st, 'show'); }
+      document.querySelectorAll('.lt-cell').forEach(el => { const g = c.grid[+el.dataset.c]; if (g >= 0 && cntG[g] === 2) el.classList.add('pair'); });
       SFX.lose();
     }
     const bd = ltEl('lt-board'); if (bd) bd.innerHTML = ltBoardHTML(m);
