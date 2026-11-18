@@ -911,6 +911,39 @@ button.stat { font: inherit; color: inherit; cursor: pointer; }
 @keyframes wl-rays { to { transform: rotate(360deg); } }
 .wl-cab.spin .wl-hubrays { animation-duration: 3s; }
 .wl-cab.won .wl-dim { opacity: .35; }
+/* 럭키 룰렛 결과 연출 */
+.wl-shout { position: absolute; left: 50%; top: 50%; z-index: 6; translate: -50% -50%; text-align: center; white-space: nowrap; pointer-events: none; font-family: 'Arial Black', Arial, sans-serif; font-weight: 900; line-height: 1; }
+.wl-shout small { display: block; margin-top: 6px; font-family: inherit; font-size: 14px; letter-spacing: 0; }
+.wl-shout.win { font-size: 46px; letter-spacing: .02em; background: linear-gradient(180deg, #FFFFFF, #FFE066 45%, #F59F00 70%, #FFF3BF); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-stroke: 2px #7A2E00; filter: drop-shadow(0 4px 0 #7A2E00) drop-shadow(0 0 18px rgba(255,200,40,.9)); animation: wl-shout-in 2s cubic-bezier(.2,1.5,.4,1) forwards; }
+.wl-shout.win small { color: #FFFFFF; -webkit-text-stroke: 0; background: none; -webkit-text-fill-color: #FFFFFF; text-shadow: 0 2px 0 #7A2E00; }
+.wl-shout.win.t-top { font-size: 54px; animation: wl-shout-in 2s cubic-bezier(.2,1.5,.4,1) forwards, wl-neon .18s steps(2) 6; }
+@keyframes wl-shout-in { 0% { transform: scale(.2) rotate(-12deg); opacity: 0; } 18% { transform: scale(1.18) rotate(3deg); opacity: 1; } 30% { transform: scale(1) rotate(-2deg); } 85% { opacity: 1; } 100% { transform: scale(1.06) translateY(-10px); opacity: 0; } }
+@keyframes wl-neon { 50% { filter: drop-shadow(0 4px 0 #7A2E00) drop-shadow(0 0 30px #FFFFFF); } }
+.wl-shout.lose { font-size: 34px; color: #F1F3F5; text-shadow: 0 3px 0 #495057, 0 0 12px rgba(0,0,0,.5); animation: wl-lose 1.3s ease-out forwards; }
+.wl-shout.lose small { color: #DEE2E6; text-shadow: 0 2px 0 #343A40; }
+@keyframes wl-lose { 0% { transform: translateY(-30px); opacity: 0; } 20% { transform: translateY(0); opacity: 1; } 70% { opacity: 1; } 100% { transform: translateY(26px); opacity: 0; } }
+.wl-shout.lose.near { font-size: 44px; color: #FF6B6B; text-shadow: 0 4px 0 #8F1D1D, 0 0 18px rgba(255,80,80,.8); animation: wl-near 1.7s cubic-bezier(.2,1.4,.4,1) forwards; }
+@keyframes wl-near { 0% { transform: scale(2.4) rotate(-8deg); opacity: 0; } 15% { transform: scale(1) rotate(-4deg); opacity: 1; } 22% { transform: translateX(-8px) rotate(-4deg); } 29% { transform: translateX(8px) rotate(-4deg); } 36% { transform: translateX(-4px) rotate(-4deg); } 43% { transform: translateX(0) rotate(-4deg); } 85% { opacity: 1; } 100% { transform: translateY(18px) rotate(-6deg); opacity: 0; } }
+.wl-coin { position: absolute; left: 50%; top: 50%; z-index: 5; width: 24px; height: 24px; pointer-events: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,.35)); }
+.wl-coin .kernel { width: 24px; height: 24px; }
+.wl-stage.boom::after { content: ""; position: absolute; inset: -14%; z-index: -1; border-radius: 50%; background: repeating-conic-gradient(from 0deg, rgba(255,255,255,.75) 0 4deg, rgba(255,214,59,.0) 4deg 12deg); -webkit-mask: radial-gradient(circle, transparent 40%, #000 48%, transparent 74%); mask: radial-gradient(circle, transparent 40%, #000 48%, transparent 74%); animation: wl-boom 1.8s ease-out forwards; pointer-events: none; }
+@keyframes wl-boom { 0% { transform: scale(.7) rotate(0); opacity: 0; } 15% { opacity: 1; } 100% { transform: scale(1.25) rotate(40deg); opacity: 0; } }
+.wl-cab.party .wl-bulb { animation: wl-rainbow .32s linear infinite; }
+.wl-cab.party .wl-bulbs g:nth-child(3n+1) .wl-bulb { animation-delay: -.1s; } .wl-cab.party .wl-bulbs g:nth-child(3n+2) .wl-bulb { animation-delay: -.2s; }
+@keyframes wl-rainbow { 0% { fill: #FF6B6B; } 25% { fill: #FFD43B; } 50% { fill: #69DB7C; } 75% { fill: #74C0FC; } 100% { fill: #DA77F2; } }
+.wl-cab.party .sl-bulbs i { animation-duration: .16s; }
+.wl-cab.party.t-top { animation: wl-glowcab .4s ease-in-out infinite alternate; }
+@keyframes wl-glowcab { to { box-shadow: inset 0 0 0 4px #FFFFFF, inset 0 0 0 8px #5F1E7A, 0 10px 0 #2B0A57, 0 0 50px 16px rgba(255,212,59,.75); } }
+.wl-cab.dim .wl-bulb { animation: wl-off .9s steps(1) forwards; }
+@keyframes wl-off { 0% { fill: #3B2A00; } 45% { fill: #3B2A00; } 55% { fill: #FFF3BF; } 65% { fill: #3B2A00; } 75% { fill: #FFF3BF; } }
+.wl-cab.dim .wl-svg { filter: drop-shadow(0 8px 14px rgba(0,0,0,.4)) saturate(.55) brightness(.85); transition: filter .2s; }
+.wl-puff { position: absolute; left: 50%; top: 56%; z-index: 5; width: 26px; height: 26px; margin: -13px; border-radius: 50%; background: radial-gradient(circle, rgba(222,226,230,.9), rgba(173,181,189,.2) 70%, transparent); animation: wl-puff 1.1s ease-out forwards; pointer-events: none; }
+@keyframes wl-puff { from { transform: translate(0, 0) scale(.4); opacity: .9; } to { transform: translate(var(--x), -60px) scale(2.2); opacity: 0; } }
+.wl-stage.nm { animation: wl-nm .55s ease-in-out; }
+@keyframes wl-nm { 15% { transform: translateX(-10px) rotate(-1deg); } 35% { transform: translateX(9px) rotate(1deg); } 55% { transform: translateX(-6px); } 75% { transform: translateX(3px); } }
+.wl-cab.miss .wl-win { stroke: #FF6B6B; animation: wl-win .12s steps(2) 6; }
+.wl-shard { position: absolute; left: 50%; top: 9%; z-index: 6; width: 3px; height: 22px; margin-left: -1.5px; background: linear-gradient(180deg, #FFFFFF, rgba(255,107,107,.2)); transform-origin: 50% 100%; transform: rotate(var(--a)) translateY(-6px); animation: wl-shard .9s ease-out forwards; pointer-events: none; }
+@keyframes wl-shard { to { transform: rotate(var(--a)) translateY(-46px); opacity: 0; } }
 /* ===== 냥냥 레이스 ===== */
 .rc-panel { grid-column: 1 / -1; }
 .rc-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
@@ -5975,8 +6008,49 @@ img, svg, video { max-width: 100%; }
     });
     Promise.all([r0, r1, wlRoll(2, S[res[2]].id, D[2], 300, 6, C[2])]).then(() => { cab.classList.remove('focus', 'spin'); wlResult(m, res); });
   }
+  // ----- 결과 연출 -----
+  // 휠 위에 크게 뜨는 글자(당첨: 네온 금색 / 꽝: 붉은 금 간 글자)
+  function wlShout(text, cls, ms) {
+    const st = wlEl('wl-stage'); if (!st) return null;
+    const e = document.createElement('div'); e.className = 'wl-shout ' + (cls || ''); e.innerHTML = text; st.appendChild(e); setTimeout(() => e.remove(), ms || 1600); return e;
+  }
+  // 가운데 허브에서 강냉이 알갱이가 분수처럼 튀어나온다
+  function wlFountain(n, power) {
+    const st = wlEl('wl-stage'); if (!st) return;
+    const W = st.clientWidth;
+    for (let i = 0; i < n; i++) {
+      const c = document.createElement('span'); c.className = 'wl-coin'; c.innerHTML = K; st.appendChild(c);
+      const ang = -Math.PI / 2 + (Math.random() - .5) * Math.PI * 1.25, v = (.28 + Math.random() * .3) * W * power;
+      const dx = Math.cos(ang) * v, dy = Math.sin(ang) * v, fall = W * (.35 + Math.random() * .3), rot = (Math.random() - .5) * 720;
+      c.animate([
+        { transform: 'translate(-50%,-50%) scale(.3) rotate(0deg)', opacity: 1 },
+        { transform: 'translate(calc(-50% + ' + dx.toFixed(0) + 'px), calc(-50% + ' + dy.toFixed(0) + 'px)) scale(1.1) rotate(' + (rot / 2).toFixed(0) + 'deg)', opacity: 1, offset: .45 },
+        { transform: 'translate(calc(-50% + ' + (dx * 1.35).toFixed(0) + 'px), calc(-50% + ' + (dy + fall).toFixed(0) + 'px)) scale(.8) rotate(' + rot.toFixed(0) + 'deg)', opacity: 0 }
+      ], { duration: 1100 + Math.random() * 600, delay: Math.random() * (power > 1 ? 900 : 400), easing: 'cubic-bezier(.2,.6,.4,1)', fill: 'both' }).finished.catch(() => {}).then(() => c.remove());
+    }
+  }
+  // 아깝다 연출: 바깥 휠이 맞는 그림 쪽으로 반 칸 더 갈 듯 기울었다가 튕겨 돌아온다
+  function wlTease(targetId) {
+    return new Promise(res => {
+      const g = wlEl('wl-r2'); if (!g) return res();
+      const L = wlLayout(2), i = WL.cur[2], left = L[(i + 11) % 12], right = L[(i + 1) % 12];
+      // 오른쪽(시계 방향 다음 칸)이 맞는 그림이면 휠을 반시계로 당겨야 그 칸이 창 쪽으로 온다
+      const dir = right === targetId ? -1 : left === targetId ? 1 : (Math.random() < .5 ? 1 : -1);
+      const base = WL.rot[2], t0 = performance.now(), dur = 1100;
+      const step = now => {
+        const gg = wlEl('wl-r2'); if (!gg) return res();
+        const t = Math.min(1, (now - t0) / dur);
+        // 0~0.55: 천천히 11°까지 다가감 → 0.55~1: 스프링처럼 튕겨 제자리
+        const off = t < .55 ? 11 * Math.sin(t / .55 * Math.PI / 2) : 11 * Math.exp(-7 * (t - .55)) * Math.cos((t - .55) * 26);
+        gg.setAttribute('transform', 'rotate(' + (base + dir * off).toFixed(2) + ')');
+        if (t < 1) { requestAnimationFrame(step); return; }
+        gg.setAttribute('transform', 'rotate(' + base.toFixed(2) + ')'); res();
+      };
+      requestAnimationFrame(step);
+    });
+  }
   function wlResult(m, res) {
-    const cab = wlEl('wl-cab'), status = wlEl('wl-status'), svg = wlEl('wl-svg'), S = wlSyms(m);
+    const cab = wlEl('wl-cab'), status = wlEl('wl-status'), svg = wlEl('wl-svg'), S = wlSyms(m), st = wlEl('wl-stage');
     if (cab) cab.classList.remove('hot');
     const done = () => { WL.spinning = false; const b = wlEl('wl-btn'); if (b) b.disabled = false; };
     if (res[0] === res[1] && res[1] === res[2]) {
@@ -5988,14 +6062,41 @@ img, svg, video { max-width: 100%; }
       saveMe(); renderHUD(true);
       if (!svg) return done();
       [0, 1, 2].forEach(k => { const el = svg.querySelector('.wl-sym[data-k="' + k + '"][data-i="' + WL.cur[k] + '"]'); if (el) el.classList.add('hit'); });
-      cab.classList.add('won'); SFX.land(tier); restart(wlEl('wl-flash'), 'on'); if (tier === 'top') restart(cab, 'shake');
+      // 당첨 축하: 전구 무지개·후광 폭발·네온 글자·강냉이 분수·번쩍임
+      cab.classList.add('won', 'party', 't-' + tier); SFX.land(tier);
+      restart(wlEl('wl-flash'), 'on'); restart(st, 'boom');
+      wlShout(tier === 'top' ? 'JACKPOT!!<small>' + slEsc(x.name) + ' 3개 · ' + rcMul(x.mult) + '</small>' : tier === 'hi' ? 'BIG WIN!<small>' + slEsc(x.name) + ' 3개 · ' + rcMul(x.mult) + '</small>' : 'WIN!<small>' + slEsc(x.name) + ' 3개 · ' + rcMul(x.mult) + '</small>', 'win t-' + tier, tier === 'mid' ? 1400 : 2000);
+      wlFountain(tier === 'top' ? 46 : tier === 'hi' ? 30 : 16, tier === 'top' ? 1.3 : 1);
+      const r = st.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      floatFx(); burst([x.c, '#FFE066', '#FFFFFF', '#FF8FB1'], tier === 'top' ? 140 : tier === 'hi' ? 90 : 50, tier === 'top' ? 14 : 10, cx, cy);
+      if (tier !== 'mid') { rain([x.c, '#FFC64E', '#FF8FB1', '#74C0FC', '#FFFFFF'], tier === 'top' ? 200 : 100); restart(cab, 'shake'); }
+      if (tier === 'top') { setTimeout(() => { restart(wlEl('wl-flash'), 'on'); restart(cab, 'shake'); SFX.star(5); }, 700); setTimeout(() => restart(wlEl('wl-flash'), 'on'), 1300); }
       if (status) status.innerHTML = '<b>' + slEsc(x.name) + ' 3개!</b> ' + rcMul(x.mult) + ' · 강냉이 <b>' + fmt(got) + '개</b>';
-      setTimeout(() => wlShowWin(m, x, got, tier), 800);
+      setTimeout(() => { if (cab) cab.classList.remove('party', 't-mid', 't-hi', 't-top'); if (wlEl('wl-stage')) wlShowWin(m, x, got, tier); else done(); }, tier === 'mid' ? 1300 : 2000);
       return;
     }
-    if (status) status.innerHTML = res[0] === res[1] ? '아까워요! <b>바깥</b> 휠만 달랐어요' : res[1] === res[2] ? '가운데·바깥이 같았어요. <b>안쪽</b>이 아쉬워요' : res[0] === res[2] ? '안쪽·바깥이 같았어요. <b>가운데</b>가 아쉬워요' : '세 휠이 모두 달라요. 다시 도전!';
-    if (res[0] === res[1]) SFX.lose();
-    setTimeout(done, 250);
+    const near = res[0] === res[1];
+    if (near) {
+      // 리치 실패: 바깥 휠이 아깝게 기울었다 튕겨 돌아오고, 창이 붉게 번쩍이며 금 간 '아깝다!'
+      if (status) status.innerHTML = '두근두근…';
+      wlTease(S[res[0]].id).then(() => {
+        if (!wlEl('wl-stage')) return done();
+        cab.classList.add('miss'); restart(st, 'nm'); SFX.lose();
+        wlShout('아깝다!<small>' + slEsc(S[res[0]].name) + ' 3개까지 한 칸!</small>', 'lose near', 1700);
+        for (let i = 0; i < 8; i++) { const d = document.createElement('i'); d.className = 'wl-shard'; d.style.setProperty('--a', (i * 45 + Math.random() * 20) + 'deg'); st.appendChild(d); setTimeout(() => d.remove(), 900); }
+        if (status) status.innerHTML = '아까워요! <b>바깥</b> 휠만 달랐어요';
+        setTimeout(() => { cab.classList.remove('miss'); done(); }, 1100);
+      });
+      return;
+    }
+    // 일반 꽝: 전구가 꺼졌다 다시 켜지고, '다음 기회에!'가 스르륵
+    const two = res[1] === res[2] || res[0] === res[2];
+    cab.classList.add('dim');
+    wlShout(two ? '아쉬워요!<small>2개까지 맞았어요</small>' : '다음 기회에!', 'lose', 1300);
+    for (let i = 0; i < 6; i++) { const p = document.createElement('i'); p.className = 'wl-puff'; p.style.setProperty('--x', ((Math.random() - .5) * 120).toFixed(0) + 'px'); p.style.animationDelay = (i * .06).toFixed(2) + 's'; st.appendChild(p); setTimeout(() => p.remove(), 1200); }
+    if (status) status.innerHTML = res[1] === res[2] ? '가운데·바깥이 같았어요. <b>안쪽</b>이 아쉬워요' : res[0] === res[2] ? '안쪽·바깥이 같았어요. <b>가운데</b>가 아쉬워요' : '세 휠이 모두 달라요. 다시 도전!';
+    setTimeout(() => cab.classList.remove('dim'), 900);
+    setTimeout(done, 400);
   }
   function wlShowWin(m, x, got, tier) {
     let el = wlEl('wl-modal');
