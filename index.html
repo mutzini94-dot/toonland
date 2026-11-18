@@ -860,6 +860,35 @@ button.stat { font: inherit; color: inherit; cursor: pointer; }
 .fs-hands .fs-reel { display: none; }
 .fs-hands { right: auto; bottom: auto; }
 .fs-svg { filter: drop-shadow(3px 6px 4px rgba(0,20,60,.35)); }
+/* ===== 럭키 룰렛 ===== */
+.wl-panel { grid-column: 1 / -1; }
+.wl-cab { position: relative; width: min(460px, 100%); padding: 14px 16px 18px; border-radius: 30px 30px 22px 22px; background: linear-gradient(180deg, #D6336C, #862E9C 55%, #3B1C6B); box-shadow: inset 0 0 0 4px #FFD43B, inset 0 0 0 8px #5F1E7A, 0 10px 0 #2B0A57, 0 18px 30px rgba(40,10,80,.35); }
+.wl-cab.shake { animation: pk-shake .45s; }
+.wl-marquee { background: linear-gradient(180deg, #FFEC99, #FAB005); }
+.wl-cab.hot .sl-bulbs i { animation-duration: .22s; }
+.wl-stage { position: relative; aspect-ratio: 1 / 1; border-radius: 50%; }
+.wl-svg { display: block; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 8px 14px rgba(0,0,0,.4)); }
+.wl-stage .sl-flash { border-radius: 50%; }
+.wl-stage .sl-reach { top: 50%; }
+.wl-ring.fast { filter: blur(1.1px); }
+.wl-ring.stop { animation: wl-stop .3s ease-out; }
+@keyframes wl-stop { 40% { filter: brightness(1.35); } }
+.wl-bulb { fill: #FFF9DB; animation: wl-bulb 1s steps(1) infinite; }
+@keyframes wl-bulb { 0% { fill: #FFF9DB; } 50% { fill: #FF6B6B; } }
+.wl-cab.hot .wl-bulb, .wl-cab.won .wl-bulb { animation-duration: .2s; }
+.wl-win { animation: wl-win 1.6s ease-in-out infinite; }
+@keyframes wl-win { 50% { stroke: #FFFFFF; } }
+.wl-cab.won .wl-win { animation: wl-win .25s steps(2) infinite; }
+.wl-sym.hit > * { animation: wl-hit .45s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: center; }
+@keyframes wl-hit { to { transform: scale(1.18); } }
+.wl-hub { animation: wl-hub 3s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes wl-hub { 50% { transform: scale(1.04); } }
+.wl-btn { margin-top: 2px; }
+.wl-ic { width: 26px; height: 26px; margin-right: 6px; vertical-align: middle; }
+.wl-m-art { position: relative; width: 210px; height: 78px; margin: 4px auto 4px; animation: sl-m-art 1s cubic-bezier(.2,1.6,.4,1) .15s both; }
+.wl-m-art svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 6px 8px rgba(0,0,0,.2)); }
+.sl-m-btns [data-wlx="close"] { background: #F1F3F5; color: #343A40; }
+.sl-m-btns [data-wlx="again"] { background: linear-gradient(180deg, #FF5C8A, #E5195E); color: #FFFFFF; box-shadow: 0 4px 0 #9D0B3C; }
 /* ===== 냥냥 레이스 ===== */
 .rc-panel { grid-column: 1 / -1; }
 .rc-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
@@ -2486,6 +2515,7 @@ img, svg, video { max-width: 100%; }
     <button type="button" role="tab" data-gtab="gslot" aria-selected="false" style="--gtc:#1C7ED6"><span class="gt-dot"></span>상품 슬롯 <small class="gt-new">NEW</small></button>
     <button type="button" role="tab" data-gtab="race" aria-selected="false" style="--gtc:#2F9E44"><span class="gt-dot"></span>냥냥 레이스 <small class="gt-new">NEW</small></button>
     <button type="button" role="tab" data-gtab="fish" aria-selected="false" style="--gtc:#1971C2"><span class="gt-dot"></span>냥 낚시터 <small class="gt-new">NEW</small></button>
+    <button type="button" role="tab" data-gtab="wheel" aria-selected="false" style="--gtc:#D6336C"><span class="gt-dot"></span>럭키 룰렛 <small class="gt-new">NEW</small></button>
   </div>
   </div>
 
@@ -2526,7 +2556,7 @@ img, svg, video { max-width: 100%; }
   <p class="ad-invalid" id="ad-invalid" hidden></p>
 
   <div class="ad-layout">
-  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="archery"><span class="gnb-dot" data-addot="archery"></span><span class="gnb-text"><b>깡통 사격</b><small>캔별 상품 보상표</small></span></button><button type="button" class="gnb-item" data-adpage="slot"><span class="gnb-dot" data-addot="slot"></span><span class="gnb-text"><b>캐릭터 슬롯</b><small>캐릭터별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="gslot"><span class="gnb-dot" data-addot="gslot"></span><span class="gnb-text"><b>상품 슬롯</b><small>상품별 비중·준비 수량</small></span></button><button type="button" class="gnb-item" data-adpage="race"><span class="gnb-dot" data-addot="race"></span><span class="gnb-text"><b>냥냥 레이스</b><small>우승 비중·배당</small></span></button><button type="button" class="gnb-item" data-adpage="fish"><span class="gnb-dot" data-addot="fish"></span><span class="gnb-text"><b>냥 낚시터</b><small>입장권·물고기 확률표</small></span></button></div></nav>
+  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="archery"><span class="gnb-dot" data-addot="archery"></span><span class="gnb-text"><b>깡통 사격</b><small>캔별 상품 보상표</small></span></button><button type="button" class="gnb-item" data-adpage="slot"><span class="gnb-dot" data-addot="slot"></span><span class="gnb-text"><b>캐릭터 슬롯</b><small>캐릭터별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="gslot"><span class="gnb-dot" data-addot="gslot"></span><span class="gnb-text"><b>상품 슬롯</b><small>상품별 비중·준비 수량</small></span></button><button type="button" class="gnb-item" data-adpage="race"><span class="gnb-dot" data-addot="race"></span><span class="gnb-text"><b>냥냥 레이스</b><small>우승 비중·배당</small></span></button><button type="button" class="gnb-item" data-adpage="fish"><span class="gnb-dot" data-addot="fish"></span><span class="gnb-text"><b>냥 낚시터</b><small>입장권·물고기 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="wheel"><span class="gnb-dot" data-addot="wheel"></span><span class="gnb-text"><b>럭키 룰렛</b><small>그림별 비중·배수</small></span></button></div></nav>
   <div class="ad-main">
   <div class="ad-page" data-page="overview">
 
@@ -2603,6 +2633,15 @@ img, svg, video { max-width: 100%; }
     <div class="fields" id="fs-fields"></div>
     <div class="table-wrap"><table class="ad-table" id="fs-t"></table></div>
     <div class="ed-foot"><div class="pa-calc" id="fs-calc"></div></div>
+  </div>
+  </div>
+  <div class="ad-page" data-page="wheel" hidden>
+  <div class="panel ad-block" id="wl-admin">
+    <h2>럭키 룰렛 관리 <span class="tag" id="wl-sum"></span></h2>
+    <p class="hub-note">3겹 휠(안쪽·가운데·바깥)은 같은 출현 비중으로 각각 따로 정해지고, 휠에 그려진 칸 배치는 연출이에요. 세 휠이 모두 같은 그림이면 그 그림의 배수만큼 강냉이를 줘요. <b>3개 일치 확률 = 출현 확률³</b>, RTP = Σ(3개 일치 확률 × 배수)예요. 비중과 배수는 직접 정해요.</p>
+    <div class="fields" id="wl-fields"></div>
+    <div class="table-wrap"><table class="ad-table" id="wl-t"></table></div>
+    <div class="ed-foot"><div class="pa-calc" id="wl-calc"></div></div>
   </div>
   </div>
   <div class="ad-page" data-page="archery" hidden>
@@ -2965,6 +3004,7 @@ img, svg, video { max-width: 100%; }
     { id: 'gslot', name: '상품 슬롯', cost: 100, color: '#1C7ED6', tab: 'gslot' },
     { id: 'race', name: '냥냥 레이스', cost: 100, color: '#2F9E44', tab: 'race' },
     { id: 'fish', name: '냥 낚시터', cost: 100, color: '#1971C2', tab: 'fish' },
+    { id: 'wheel', name: '럭키 룰렛', cost: 100, color: '#D6336C', tab: 'wheel' },
     { id: 'gold', name: '골드존', cost: 2000, color: 'var(--t-gold)' },
     { id: 'creator', name: '크리에이터존', cost: 3000, color: 'var(--t-creator)' },
     { id: 'legend', name: '레전드존', cost: 10000, color: 'var(--t-legend)' }
@@ -3023,6 +3063,10 @@ img, svg, video { max-width: 100%; }
         baits: [{ name: '입장권', cost: 100 }],
         fish: [{ id: 'can', mult: 0, probs: [15] }, { id: 'minnow', mult: 0.3, probs: [30] }, { id: 'crucian', mult: 0.6, probs: [25] }, { id: 'carp', mult: 1.2, probs: [18] }, { id: 'catfish', mult: 2, probs: [8] }, { id: 'salmon', mult: 4, probs: [3] }, { id: 'tuna', mult: 8, probs: [0.9] }, { id: 'gold', mult: 30, probs: [0.1] }],
         prizes: [W('C', '빈 깡통 ×0', 'kernel', 0, 0, 15), W('C', '피라미 ×0.3', 'kernel', 30, 0, 30), W('C', '붕어 ×0.6', 'kernel', 60, 0, 25), W('B', '잉어 ×1.2', 'kernel', 120, 0, 18), W('B', '메기 ×2', 'kernel', 200, 0, 8), W('A', '연어 ×4', 'kernel', 400, 0, 3), W('A', '참치 ×8', 'kernel', 800, 0, 0.9), W('S', '황금 잉어 ×30', 'kernel', 3000, 0, 0.1)] },
+      // 럭키 룰렛: 3겹 휠(안쪽→가운데→바깥). 같은 그림 3개면 배수. RTP = Σ p³ × 배수
+      { id: 'wheel', zone: 'wheel', mode: 'wheel', name: '럭키 룰렛', cost: 100, demand: 800000, top: '세븐 3개 ×450',
+        syms: [{ id: 'seven', w: 5, mult: 450 }, { id: 'bar', w: 9, mult: 110 }, { id: 'bell', w: 13, mult: 55 }, { id: 'grape', w: 18, mult: 26 }, { id: 'lemon', w: 25, mult: 13 }, { id: 'cherry', w: 30, mult: 9 }],
+        prizes: [W('S', '세븐 3개 ×450', 'kernel', 45000, 0, 0.0125), W('S', 'BAR 3개 ×110', 'kernel', 11000, 0, 0.0729), W('A', '황금 종 3개 ×55', 'kernel', 5500, 0, 0.2197), W('A', '포도 3개 ×26', 'kernel', 2600, 0, 0.5832), W('B', '레몬 3개 ×13', 'kernel', 1300, 0, 1.5625), W('C', '체리 3개 ×9', 'kernel', 900, 0, 2.7)] },
       // 팝콘 대포: 게이지 등급(퍼펙트·좋아요·보통)별 확률표로 거리 구간 결정. 배수 공통, 등급별 RTP 동일(B 방식)
       { id: 'cannon', zone: 'cannon', mode: 'cannon', cv: 2, name: '팝콘 대포', cost: 100, demand: 800000, mults: [0.2, 0.5, 1, 2, 4, 10],
         probs: { perfect: [0, 0, 90.2, 7, 2, 0.8], good: [0, 0, 96, 3.5, 0.5, 0], normal: [45, 30, 10, 10, 4, 1] }, top: '800m 이상 ×10 · 강냉이 1,000개',
@@ -3095,7 +3139,7 @@ img, svg, video { max-width: 100%; }
   const WALLET_KEY = 'tooneland-wallet-v1';
   const WALLET = (() => { try { const w = JSON.parse(localStorage.getItem(WALLET_KEY)); if (w && typeof w.bal === 'number' && Array.isArray(w.log)) return w; } catch (e) { /* 저장소 없음 */ } return { bal: 12340, log: [{ t: Date.now(), d: 0, after: 12340, why: '시작 잔액 (목업)' }] }; })();
   let ledgerWhy = '', walletT = 0;
-  const GAME_WHY = { puzzle: ['직소 퍼즐 카드 뽑기', '직소 퍼즐 보상'], runner: ['냥치 런 입장', '냥치 런 점수 받기'], cannon: ['팝콘 대포 발사', '팝콘 대포 착지 보상'], slot: ['캐릭터 슬롯 돌리기', '캐릭터 슬롯 당첨'], gslot: ['상품 슬롯 돌리기', '상품 슬롯 당첨'], race: ['냥냥 레이스 응원', '냥냥 레이스 적중'], fish: ['냥 낚시터 입장', '냥 낚시터 조과'], archery: ['깡통 사격 입장(탄 구매)', '깡통 사격 명중 상품'] };
+  const GAME_WHY = { puzzle: ['직소 퍼즐 카드 뽑기', '직소 퍼즐 보상'], runner: ['냥치 런 입장', '냥치 런 점수 받기'], cannon: ['팝콘 대포 발사', '팝콘 대포 착지 보상'], slot: ['캐릭터 슬롯 돌리기', '캐릭터 슬롯 당첨'], gslot: ['상품 슬롯 돌리기', '상품 슬롯 당첨'], race: ['냥냥 레이스 응원', '냥냥 레이스 적중'], fish: ['냥 낚시터 입장', '냥 낚시터 조과'], wheel: ['럭키 룰렛 돌리기', '럭키 룰렛 당첨'], archery: ['깡통 사격 입장(탄 구매)', '깡통 사격 명중 상품'] };
   function ledgerReason(d) {
     if (ledgerWhy) return ledgerWhy;
     if (typeof current !== 'undefined' && current) return current.name + (d < 0 ? ' 뽑기' : ' 당첨');
@@ -3191,6 +3235,7 @@ img, svg, video { max-width: 100%; }
 
   function renderZones() {
     const COPY = {
+      wheel: ['3겹 휠이 차례로 멈추는 럭키 룰렛', '안쪽 → 가운데 → 바깥 휠이 차례로 멈춰요. 위쪽 창에 같은 그림 3개가 모이면 그 그림의 배수만큼 강냉이를 받아요.'],
       fish: ['찌가 쑥 잠길 때 챔질하는 냥 낚시터', '낚싯대를 던지고 찌가 잠기는 순간 [챔질!]을 누르면 물고기를 낚아요. 물고기마다 배수만큼 강냉이를 받고, 처음 낚은 물고기는 도감에 올라가요.'],
       race: ['캐릭터 5마리가 달리는 냥냥 레이스', '응원할 캐릭터를 고르고 1등 또는 3위 안을 맞히면 배당만큼 강냉이를 받아요. 우승 확률이 낮은 캐릭터일수록 배당이 커요.'],
       gslot: ['직소 퍼즐 상품을 3단으로 맞추는 상품 슬롯', '상품 그림을 위·가운데·아래로 나눈 릴 3개가 차례로 멈춰요. 세 칸이 모두 같은 상품이면 그 상품을 받아요. 비싼 상품일수록 드물게 나와요.'],
@@ -3247,10 +3292,11 @@ img, svg, video { max-width: 100%; }
     if (state.tab === 'slot' || state.tab === 'gslot') { $('floor').innerHTML = slotFloorHTML(); slInit(); return; }
     if (state.tab === 'race') { $('floor').innerHTML = raceFloorHTML(); rcInit(); return; }
     if (state.tab === 'fish') { $('floor').innerHTML = fishFloorHTML(); fsInit(); return; }
+    if (state.tab === 'wheel') { $('floor').innerHTML = wheelFloorHTML(); wlInit(); return; }
     const order = id => zones.findIndex(z => z.id === id);
     const list = state.tab !== 'gacha'
       ? machines.filter(m => m.mode === state.tab)
-      : machines.filter(m => !['board', 'puzzle', 'farm', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish'].includes(m.mode) && (state.zone === 'all' || m.zone === state.zone)).sort((a, b) => order(a.zone) - order(b.zone));
+      : machines.filter(m => !['board', 'puzzle', 'farm', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel'].includes(m.mode) && (state.zone === 'all' || m.zone === state.zone)).sort((a, b) => order(a.zone) - order(b.zone));
     $('floor').innerHTML = list.map(m => m.mode === 'board' ? boardCardHTML(m) : machineHTML(m, 'button')).join('');
   }
   function renderHUD(bump) {
@@ -5721,6 +5767,207 @@ img, svg, video { max-width: 100%; }
     if (FS.phase === 'idle' || FS.phase === 'result') fsCast(); else fsHook();
   });
   addEventListener('resize', () => { if (state.tab === 'fish' && fsEl('fs-stage') && (FS.phase === 'idle' || FS.phase === 'result')) { FS.bob = null; fsDraw(); } });
+  // =====================================================================
+  // 럭키 룰렛: 안쪽·가운데·바깥 3겹 휠. 안쪽 → 가운데 → 바깥 순서로 멈추고, 위쪽 창에 세 휠 모두 같은 그림이면 당첨.
+  // 세 휠은 같은 비중으로 따로 추첨(그림 배치는 연출). 당첨 = 그림 배수 × 1회 금액. RTP = Σ(비중 확률³ × 배수)
+  // 그림은 파친코·슬롯의 전형적인 기호(7·BAR·종·체리·레몬·포도)를 직접 그린 SVG
+  const WL_DEF = [
+    { id: 'seven', name: '세븐', w: 5, mult: 450, c: '#E03131' },
+    { id: 'bar', name: 'BAR', w: 9, mult: 110, c: '#343A40' },
+    { id: 'bell', name: '황금 종', w: 13, mult: 55, c: '#F59F00' },
+    { id: 'grape', name: '포도', w: 18, mult: 26, c: '#7048E8' },
+    { id: 'lemon', name: '레몬', w: 25, mult: 13, c: '#FAB005' },
+    { id: 'cherry', name: '체리', w: 30, mult: 9, c: '#F03E3E' }
+  ];
+  // 휠 한 바퀴 12칸의 그림 배치(체리·레몬 3, 포도·종 2, BAR·세븐 1). 휠마다 시작 위치를 다르게
+  const WL_SEQ = ['seven', 'cherry', 'lemon', 'bell', 'grape', 'cherry', 'bar', 'lemon', 'grape', 'cherry', 'bell', 'lemon'];
+  const WL_RING = [{ r0: 46, r1: 92, sz: 30, shift: 0, dir: 1, col: ['#5F3DC4', '#4527A0'] }, { r0: 96, r1: 142, sz: 36, shift: 4, dir: -1, col: ['#E8590C', '#C2410C'] }, { r0: 146, r1: 192, sz: 40, shift: 8, dir: 1, col: ['#C2255C', '#9C1A47'] }];
+  const WL_PARTS = ['안쪽', '가운데', '바깥'];
+  const WL = { spinning: false, rot: [0, 0, 0], cur: [0, 0, 0] };
+  const wheelMachine = () => machines.find(m => m.mode === 'wheel');
+  const wlSyms = m => WL_DEF.map(d => { const x = m && Array.isArray(m.syms) ? m.syms.find(y => y.id === d.id) || {} : {}; return Object.assign({}, d, { w: x.w == null ? d.w : Math.max(0, Number(x.w) || 0), mult: x.mult == null ? d.mult : Math.max(0, Number(x.mult) || 0) }); });
+  const wlProb = m => { const S = wlSyms(m), t = S.reduce((a, x) => a + x.w, 0); return S.map(x => t ? x.w / t : 0); };
+  const wlHit = m => wlProb(m).reduce((a, p) => a + p * p * p, 0);
+  const wlRtp = m => { const S = wlSyms(m); return wlProb(m).reduce((a, p, i) => a + p * p * p * S[i].mult, 0); };
+  const wlGrade = mul => mul >= 100 ? 'S' : mul >= 25 ? 'A' : mul >= 10 ? 'B' : 'C';
+  function wlSync(m) {
+    const S = wlSyms(m), P = wlProb(m);
+    m.syms = S.map(x => ({ id: x.id, w: x.w, mult: x.mult }));
+    m.prizes = S.map((x, i) => ({ g: wlGrade(x.mult), name: x.name + ' 3개 ' + rcMul(x.mult), kind: 'kernel', val: Math.round(num(m.cost) * x.mult), cost: 0, w: +(Math.pow(P[i], 3) * 100).toFixed(4) }));
+    const top = S.reduce((b, x) => x.mult > b.mult ? x : b, S[0]);
+    m.top = top.name + ' 3개 ' + rcMul(top.mult);
+  }
+  // 기호 그림 (가운데 0,0 기준, 크기 s)
+  function wlSym(id, s) {
+    const k = s / 40;
+    const g = body => '<g transform="scale(' + k.toFixed(3) + ')">' + body + '</g>';
+    switch (id) {
+      case 'seven': return g('<path d="M-14 -16 H15 L2 18 H-8 L4 -8 H-14 Z" fill="#FF4D4F" stroke="#FFE066" stroke-width="3.5" stroke-linejoin="round"/><path d="M-12 -14 H12" stroke="#FFFFFF" stroke-width="2" opacity=".55"/><path d="M-14 -16 H15 L2 18 H-8 L4 -8 H-14 Z" fill="none" stroke="#8A1C1C" stroke-width="1" stroke-linejoin="round"/>');
+      case 'bar': return g('<rect x="-19" y="-11" width="38" height="22" rx="4" fill="#212529" stroke="#FFD43B" stroke-width="2.5"/><text x="0" y="5.5" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="14" fill="#FFFFFF" letter-spacing=".5">BAR</text><path d="M-16 -7 H16" stroke="#FFFFFF" stroke-width="1.2" opacity=".35"/>');
+      case 'bell': return g('<path d="M0 -17 C-10 -17 -12 -6 -12 2 C-12 8 -16 10 -17 13 H17 C16 10 12 8 12 2 C12 -6 10 -17 0 -17 Z" fill="#FCC419" stroke="#E67700" stroke-width="2"/><circle cx="0" cy="16" r="4" fill="#E67700"/><circle cx="0" cy="-18" r="2.5" fill="#E67700"/><path d="M-6 -10 C-8 -4 -8 2 -8 6" stroke="#FFF3BF" stroke-width="3" stroke-linecap="round" fill="none"/>');
+      case 'grape': return g('<g fill="#7950F2" stroke="#4C2BB3" stroke-width="1.4">' + [[-8, -6], [0, -7], [8, -6], [-4, 1], [4, 1], [-8, 7], [8, 7], [0, 8], [-3, 14], [4, 14]].map(([x, y]) => '<circle cx="' + x + '" cy="' + y + '" r="5"/>').join('') + '</g><g fill="#D0BFFF">' + [[-9.5, -8], [-1.5, -9], [6.5, -8], [-5.5, -1]].map(([x, y]) => '<circle cx="' + x + '" cy="' + y + '" r="1.5"/>').join('') + '</g><path d="M0 -12 V-18" stroke="#5C940D" stroke-width="2.5"/><path d="M1 -16 C8 -22 15 -18 14 -12 C8 -12 4 -13 1 -16 Z" fill="#40C057" stroke="#2B8A3E" stroke-width="1"/>');
+      case 'lemon': return g('<path d="M-17 0 C-15 -14 15 -14 17 0 C15 14 -15 14 -17 0 Z" fill="#FFD43B" stroke="#E0A800" stroke-width="2"/><path d="M-17 0 L-20 -1 M17 0 L20 -1" stroke="#E0A800" stroke-width="2.5" stroke-linecap="round"/><path d="M-9 -6 C-4 -9 3 -9 7 -7" stroke="#FFF9DB" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M6 -10 C10 -16 16 -15 16 -11 C12 -10 9 -10 6 -10 Z" fill="#51CF66"/>');
+      default: return g('<path d="M-7 4 C-6 -6 -1 -14 6 -18 M7 6 C7 -4 5 -12 6 -18" stroke="#2B8A3E" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M6 -18 C12 -22 19 -18 18 -12 C12 -12 8 -14 6 -18 Z" fill="#40C057" stroke="#2B8A3E" stroke-width="1"/><circle cx="-8" cy="9" r="9" fill="#FA5252" stroke="#A61E1E" stroke-width="1.6"/><circle cx="8" cy="10" r="9" fill="#E03131" stroke="#A61E1E" stroke-width="1.6"/><circle cx="-11" cy="6" r="2.6" fill="#FFFFFF" opacity=".75"/><circle cx="5" cy="7" r="2.6" fill="#FFFFFF" opacity=".75"/>');
+    }
+  }
+  const wlPt = (r, a) => { const t = a * Math.PI / 180; return [r * Math.sin(t), -r * Math.cos(t)]; };
+  function wlArc(r0, r1, a0, a1) {
+    const [x0, y0] = wlPt(r1, a0), [x1, y1] = wlPt(r1, a1), [x2, y2] = wlPt(r0, a1), [x3, y3] = wlPt(r0, a0);
+    return 'M' + x0.toFixed(2) + ' ' + y0.toFixed(2) + ' A' + r1 + ' ' + r1 + ' 0 0 1 ' + x1.toFixed(2) + ' ' + y1.toFixed(2) + ' L' + x2.toFixed(2) + ' ' + y2.toFixed(2) + ' A' + r0 + ' ' + r0 + ' 0 0 0 ' + x3.toFixed(2) + ' ' + y3.toFixed(2) + 'Z';
+  }
+  const wlLayout = k => WL_SEQ.map((_, i) => WL_SEQ[(i + WL_RING[k].shift) % WL_SEQ.length]);
+  function wlRingSVG(k) {
+    const R = WL_RING[k], L = wlLayout(k), rm = (R.r0 + R.r1) / 2;
+    return '<g id="wl-r' + k + '" class="wl-ring" transform="rotate(' + WL.rot[k].toFixed(2) + ')">' +
+      L.map((id, i) => { const a = i * 30; return '<path d="' + wlArc(R.r0, R.r1, a - 15, a + 15) + '" fill="' + R.col[i % 2] + '" stroke="#FFD43B" stroke-width="1.2"/>' +
+        '<g class="wl-sym" data-k="' + k + '" data-i="' + i + '" transform="rotate(' + a + ') translate(0 ' + (-rm) + ')"><circle r="' + (R.sz * .62).toFixed(1) + '" fill="#FFFFFF" opacity=".92"/>' + wlSym(id, R.sz) + '</g>'; }).join('') +
+      '</g>';
+  }
+  function wheelFloorHTML() {
+    const m = wheelMachine(); if (!m) return '';
+    wlSync(m);
+    const S = wlSyms(m), P = wlProb(m);
+    const bulbs = Array.from({ length: 28 }, (_, i) => { const [x, y] = wlPt(203, i * (360 / 28)); return '<circle class="wl-bulb" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="4.2" style="animation-delay:' + (-(i % 2) * .5) + 's"/>'; }).join('');
+    const rows = S.slice().sort((a, b) => b.mult - a.mult).map(x => { const i = S.indexOf(x), p3 = Math.pow(P[i], 3); return '<tr><td><svg class="wl-ic" viewBox="-22 -22 44 44" aria-hidden="true">' + wlSym(x.id, 36) + '</svg>' + slEsc(x.name) + '</td><td class="num rate">' + slPctTxt(P[i]) + '</td><td class="num">' + slPctTxt(p3) + '</td><td><span class="chip" style="background:' + pkColor(x.mult) + '">' + rcMul(x.mult) + '</span></td><td class="num">' + fmt(Math.round(num(m.cost) * x.mult)) + '개</td></tr>'; }).join('');
+    return '<section class="wl-panel" aria-labelledby="wl-h"><div class="rc-wrap">' +
+      '<div class="wl-cab" id="wl-cab">' +
+        '<div class="sl-marquee wl-marquee"><span class="sl-bulbs" aria-hidden="true">' + '<i></i>'.repeat(13) + '</span><b>럭키 룰렛</b><small>안쪽 → 가운데 → 바깥, 같은 그림 3개면 당첨!</small></div>' +
+        '<div class="wl-stage" id="wl-stage">' +
+          '<svg class="wl-svg" id="wl-svg" viewBox="-214 -214 428 428" role="img" aria-label="3겹 룰렛">' +
+            '<defs><radialGradient id="wlHub" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#FFF3BF"/><stop offset=".55" stop-color="#FAB005"/><stop offset="1" stop-color="#C77700"/></radialGradient>' +
+              '<radialGradient id="wlRim" cx=".5" cy=".5" r=".5"><stop offset=".86" stop-color="#2B0A57"/><stop offset=".93" stop-color="#FFD43B"/><stop offset="1" stop-color="#8A6414"/></radialGradient>' +
+              '<filter id="wlGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>' +
+            '<circle r="212" fill="url(#wlRim)"/><circle r="194" fill="#1B0B3A"/>' +
+            '<g class="wl-bulbs">' + bulbs + '</g>' +
+            [2, 1, 0].map(wlRingSVG).join('') +
+            // 위쪽 당첨 창(세 휠을 가로지르는 30° 창)과 화살표
+            '<path class="wl-win" d="' + wlArc(44, 194, -15, 15) + '" fill="rgba(255,255,255,.1)" stroke="#FFE066" stroke-width="4" filter="url(#wlGlow)"/>' +
+            '<path d="M0 -188 L-14 -214 H14 Z" fill="#FA5252" stroke="#FFFFFF" stroke-width="2.5" stroke-linejoin="round" filter="url(#wlGlow)"/>' +
+            '<g class="wl-hub"><circle r="42" fill="url(#wlHub)" stroke="#8A6414" stroke-width="3"/><circle r="33" fill="none" stroke="#FFF9DB" stroke-width="1.5" opacity=".7"/>' +
+              '<text y="-4" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="15" fill="#7A3E00">LUCKY</text><text y="14" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="12" fill="#C92A2A">★ 777 ★</text></g>' +
+          '</svg>' +
+          '<div class="sl-flash" id="wl-flash"></div>' +
+        '</div>' +
+        '<div class="sl-status" id="wl-status" aria-live="polite">버튼을 눌러 돌려 보세요. 위쪽 창에 같은 그림 3개면 당첨!</div>' +
+        '<button class="sl-btn wl-btn" type="button" id="wl-btn" data-wl="spin">돌리기 <span class="num">1회 ' + K + fmt(num(m.cost)) + '</span></button>' +
+      '</div>' +
+      '<aside class="cn-info"><h3 id="wl-h">' + m.name + ' <small class="qmeta">1회 ' + K + fmt(num(m.cost)) + '</small></h3>' +
+        '<p>3겹 룰렛이 <b>안쪽 → 가운데 → 바깥</b> 순서로 멈춰요. 위쪽 노란 창(빨간 화살표)에 세 휠이 <b>같은 그림</b>이면 그 그림의 배수만큼 강냉이를 받아요.</p>' +
+        '<ul><li>세 휠은 같은 확률로 따로 정해지고, 휠에 그려진 칸 수와 확률은 달라요(아래 표가 실제 확률이에요).</li><li>안쪽과 가운데가 같으면 <b>리치!</b> 바깥 휠이 더 오래 돌아요.</li><li>당첨 확률은 ' + slPctTxt(wlHit(m)) + ', 평균 환원(RTP)은 ' + pct(wlRtp(m)) + '예요.</li><li>스페이스 바로도 돌릴 수 있어요.</li></ul>' +
+        '<div class="cn-table-wrap"><table class="cn-table sl-paytable"><thead><tr><th>그림</th><th>휠마다</th><th>3개 일치</th><th>배수</th><th>받는 강냉이</th></tr></thead><tbody>' + rows + '</tbody>' +
+        '<tfoot><tr><td>합계</td><td></td><td class="num">' + slPctTxt(wlHit(m)) + '</td><td colspan="2" class="num">RTP ' + pct(wlRtp(m)) + '</td></tr></tfoot></table></div>' +
+      '</aside></div></section>';
+  }
+  function wlInit() { const b = wlEl('wl-btn'); if (b) b.disabled = WL.spinning; }
+  const wlEl = id => document.getElementById(id);
+  const wlPick = P => { let r = Math.random(); for (let i = 0; i < P.length; i++) { r -= P[i]; if (r < 0) return i; } return P.length - 1; };
+  // 휠 k를 기호 id가 위쪽 창에 오도록 dur 동안 돌린다(방향은 휠마다 번갈아)
+  function wlRoll(k, symId, dur, delay, spins) {
+    return new Promise(res => {
+      const L = wlLayout(k), idxs = L.map((id, i) => id === symId ? i : -1).filter(i => i >= 0), idx = idxs[Math.floor(Math.random() * idxs.length)];
+      const dir = WL_RING[k].dir, cur = WL.rot[k], th = idx * 30;
+      let delta = dir > 0 ? (((-th - cur) % 360) + 360) % 360 : -((((cur + th) % 360) + 360) % 360);
+      const fin = cur + delta + dir * 360 * spins, g = wlEl('wl-r' + k);
+      const t0 = performance.now() + delay;
+      const step = now => {
+        const gg = wlEl('wl-r' + k); if (!gg) return res();
+        const t = Math.max(0, Math.min(1, (now - t0) / dur));
+        // 처음엔 빠르게, 끝에서 살짝 넘었다가 돌아오며 멈춤
+        const e = t < 1 ? 1 - Math.pow(1 - t, 3.2) + Math.sin(t * Math.PI) * .012 * Math.max(0, (t - .7) / .3) : 1;
+        const r = cur + (fin - cur) * e;
+        gg.setAttribute('transform', 'rotate(' + r.toFixed(2) + ')');
+        gg.classList.toggle('fast', t > 0 && t < .75);
+        if (t < 1) { requestAnimationFrame(step); return; }
+        WL.rot[k] = fin % 360; WL.cur[k] = idx; gg.setAttribute('transform', 'rotate(' + WL.rot[k].toFixed(2) + ')');
+        SFX.snap(); restart(gg, 'stop'); res();
+      };
+      requestAnimationFrame(step);
+    });
+  }
+  function wlSpin() {
+    const m = wheelMachine(); if (!m || WL.spinning || !wlEl('wl-svg')) return;
+    if (state.balance < num(m.cost)) { toast('', '강냉이가 부족해요. 체험용 강냉이를 충전해 보세요.', true); return; }
+    state.balance -= num(m.cost); renderHUD(true);
+    WL.spinning = true;
+    const btn = wlEl('wl-btn'); if (btn) btn.disabled = true;
+    const cab = wlEl('wl-cab'), status = wlEl('wl-status'), svg = wlEl('wl-svg');
+    cab.classList.remove('hot', 'won'); svg.querySelectorAll('.wl-sym.hit').forEach(x => x.classList.remove('hit'));
+    SFX.crank(); setTimeout(() => SFX.roll(), 160);
+    if (status) status.textContent = '안쪽 휠부터 차례로 멈춰요…';
+    const S = wlSyms(m), P = wlProb(m), res = [wlPick(P), wlPick(P), wlPick(P)], reach = res[0] === res[1];
+    const D = [1500, 2300, 3100]; if (reach) D[2] += 1700;
+    const r0 = wlRoll(0, S[res[0]].id, D[0], 0, 4), r1 = wlRoll(1, S[res[1]].id, D[1], 150, 5);
+    r1.then(() => {
+      if (!reach || !wlEl('wl-stage')) return;
+      cab.classList.add('hot'); SFX.ready();
+      const rc = document.createElement('div'); rc.className = 'sl-reach'; rc.textContent = '리치!'; wlEl('wl-stage').appendChild(rc); setTimeout(() => rc.remove(), 1300);
+      if (status) status.innerHTML = '<b>리치!</b> 바깥 휠까지 ' + slEsc(S[res[0]].name) + '(이)면 당첨!';
+    });
+    Promise.all([r0, r1, wlRoll(2, S[res[2]].id, D[2], 300, 6)]).then(() => wlResult(m, res));
+  }
+  function wlResult(m, res) {
+    const cab = wlEl('wl-cab'), status = wlEl('wl-status'), svg = wlEl('wl-svg'), S = wlSyms(m);
+    if (cab) cab.classList.remove('hot');
+    const done = () => { WL.spinning = false; const b = wlEl('wl-btn'); if (b) b.disabled = false; };
+    if (res[0] === res[1] && res[1] === res[2]) {
+      const x = S[res[0]], got = Math.round(num(m.cost) * x.mult), tier = x.mult >= 100 ? 'top' : x.mult >= 25 ? 'hi' : 'mid';
+      state.balance += got;
+      const p = { g: wlGrade(x.mult), name: '럭키 룰렛 ' + x.name + ' 3개 ' + rcMul(x.mult) + ' · ' + fmt(got) + '개', kind: 'kernel', val: got };
+      recordResult(p, m);
+      if (x.mult >= 25) { state.feed.unshift({ g: p.g, item: '강냉이 ' + fmt(got) + '개', who: '나 · 럭키 룰렛 ' + x.name }); renderFeed(true); }
+      saveMe(); renderHUD(true);
+      if (!svg) return done();
+      [0, 1, 2].forEach(k => { const el = svg.querySelector('.wl-sym[data-k="' + k + '"][data-i="' + WL.cur[k] + '"]'); if (el) el.classList.add('hit'); });
+      cab.classList.add('won'); SFX.land(tier); restart(wlEl('wl-flash'), 'on'); if (tier === 'top') restart(cab, 'shake');
+      if (status) status.innerHTML = '<b>' + slEsc(x.name) + ' 3개!</b> ' + rcMul(x.mult) + ' · 강냉이 <b>' + fmt(got) + '개</b>';
+      setTimeout(() => wlShowWin(m, x, got, tier), 800);
+      return;
+    }
+    if (status) status.innerHTML = res[0] === res[1] ? '아까워요! <b>바깥</b> 휠만 달랐어요' : res[1] === res[2] ? '가운데·바깥이 같았어요. <b>안쪽</b>이 아쉬워요' : res[0] === res[2] ? '안쪽·바깥이 같았어요. <b>가운데</b>가 아쉬워요' : '세 휠이 모두 달라요. 다시 도전!';
+    if (res[0] === res[1]) SFX.lose();
+    setTimeout(done, 250);
+  }
+  function wlShowWin(m, x, got, tier) {
+    let el = wlEl('wl-modal');
+    if (!el) {
+      el = document.createElement('div'); el.id = 'wl-modal'; el.className = 'sl-modal'; el.hidden = true;
+      el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-labelledby', 'wl-m-title');
+      document.body.appendChild(el);
+      el.addEventListener('click', e => { const b = e.target.closest('[data-wlx]'); if (b) { wlCloseWin(b.dataset.wlx === 'again'); return; } if (e.target === el) wlCloseWin(false); });
+    }
+    const bg = x.id === 'seven' ? '#FFE3E3' : x.id === 'bar' ? '#E9ECEF' : x.id === 'bell' ? '#FFF3BF' : x.id === 'grape' ? '#E5DBFF' : x.id === 'lemon' ? '#FFF9DB' : '#FFE3E3';
+    const sparks = [[12, 18], [84, 14], [8, 52], [90, 46], [22, 70], [78, 72]].map(([a, b], i) => '<i class="sl-m-spark" style="left:' + a + '%;top:' + b + '%;animation-delay:' + (i * .23).toFixed(2) + 's"></i>').join('');
+    el.innerHTML = '<div class="sl-m-card' + (tier === 'top' ? ' top' : '') + '" style="--mc:' + bg + ';--mi:' + x.c + '"><div class="sl-m-rays" aria-hidden="true"></div>' + sparks +
+      '<div class="sl-m-label">' + (tier === 'top' ? '잭팟!' : tier === 'hi' ? '빅 히트!' : '당첨!') + '</div>' +
+      '<div class="wl-m-art"><svg viewBox="-70 -26 140 52" aria-hidden="true">' + [-44, 0, 44].map((dx, i) => '<g transform="translate(' + dx + ' 0)"><circle r="22" fill="#FFFFFF" stroke="' + x.c + '" stroke-width="2.5"/>' + wlSym(x.id, 34) + '</g>').join('') + '</svg></div>' +
+      '<h3 id="wl-m-title">' + slEsc(x.name) + ' 3개!</h3>' +
+      '<p class="sl-m-win"><span class="chip" style="background:' + pkColor(x.mult) + '">' + rcMul(x.mult) + '</span>강냉이를 받았어요<b class="num">' + K + '<span id="wl-m-got">0</span>개</b></p>' +
+      '<div class="sl-m-btns"><button type="button" data-wlx="close">확인</button><button type="button" data-wlx="again">한 번 더 <small class="num">' + fmt(num(m.cost)) + '</small></button></div></div>';
+    el.hidden = false;
+    const out = wlEl('wl-m-got'), t0 = performance.now(), dur = tier === 'top' ? 1600 : 900;
+    const tick = now => { const t = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - t, 3); if (out) out.textContent = fmt(Math.round(got * e)); if (t < 1 && !el.hidden) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+    const rc = el.querySelector('.sl-m-card').getBoundingClientRect(), cx = rc.left + rc.width / 2, cy = rc.top + rc.height * .4;
+    floatFx();
+    setTimeout(() => { burst([x.c, '#FFE07A', '#FFFFFF'], tier === 'top' ? 130 : tier === 'hi' ? 80 : 50, tier === 'top' ? 13 : 10, cx, cy); if (tier !== 'mid') rain([x.c, '#FFC64E', '#FF8FB1', '#FFFFFF'], tier === 'top' ? 170 : 80); }, 150);
+    const b = el.querySelector('[data-wlx="again"]'); if (b) b.focus();
+  }
+  function wlCloseWin(again) {
+    const el = wlEl('wl-modal'); if (!el || el.hidden) return;
+    el.hidden = true; el.innerHTML = '';
+    WL.spinning = false; const cab = wlEl('wl-cab'); if (cab) cab.classList.remove('won');
+    const b = wlEl('wl-btn'); if (b) b.disabled = false;
+    if (again) wlSpin(); else if (b) b.focus();
+  }
+  document.addEventListener('keydown', e => { const el = wlEl('wl-modal'); if (el && !el.hidden && e.key === 'Escape') { e.preventDefault(); wlCloseWin(false); } });
+  $('floor').addEventListener('click', e => { const b = e.target.closest('[data-wl="spin"]'); if (b && !b.disabled) wlSpin(); });
+  document.addEventListener('keydown', e => {
+    if (state.tab !== 'wheel' || e.key !== ' ' || e.repeat) return;
+    if (e.target.closest && e.target.closest('input, textarea, select, button, [contenteditable]')) return;
+    if (!$('app') || $('app').hidden || $('app').classList.contains('in-lounge')) return;
+    if (wlEl('wl-modal') && !wlEl('wl-modal').hidden) return;
+    e.preventDefault(); wlSpin();
+  });
 
   // =====================================================================
   // 깡통 사격: 서부 사격장 건물의 구멍 6개에서 캔이 2개씩 2초 동안 나왔다 들어간다(10초 동안 5번).
@@ -6176,7 +6423,7 @@ img, svg, video { max-width: 100%; }
   const goodsQty = (m, p) => m.mode === 'puzzle' || m.mode === 'gslot' || isProb(m) ? num(p.qty) : num(p.total);
   // RTP = 강냉이로 돌려준 양 ÷ 받은 강냉이 (강냉이 전용. 100% − RTP = 강냉이 소진)
   // 상품 예산 = 머신에 넣은 상품 수량 × 원가 합계 (직접 정하지 않고 수량으로 조절)
-  const NO_PRIZE_GAMES = ['runner', 'cannon', 'archery', 'slot', 'race', 'fish'];
+  const NO_PRIZE_GAMES = ['runner', 'cannon', 'archery', 'slot', 'race', 'fish', 'wheel'];
   function econ(m, s) {
     if (m.mode === 'gslot') gsSync(m);
     const e = econCore(m, s);
@@ -6192,6 +6439,10 @@ img, svg, video { max-width: 100%; }
     const mRev = num(m.demand) * s.kernelValue;
     if (m.mode === 'archery') {
       const rev = num(m.cost) * s.kernelValue, rtp = arRtp(m);
+      return { rev, pay: rev * rtp, rtp, mRev, mPay: mRev * rtp, wsum: 100, runs: num(m.cost) ? num(m.demand) / num(m.cost) : 0 };
+    }
+    if (m.mode === 'wheel') {
+      const rev = num(m.cost) * s.kernelValue, rtp = wlRtp(m);
       return { rev, pay: rev * rtp, rtp, mRev, mPay: mRev * rtp, wsum: 100, runs: num(m.cost) ? num(m.demand) / num(m.cost) : 0 };
     }
     if (m.mode === 'fish') {
@@ -6277,6 +6528,7 @@ img, svg, video { max-width: 100%; }
     if (m.mode === 'gslot') return '상품 머신은 수량으로 관리해요';
     if (m.mode === 'race') return '배당은 직접 정해요';
     if (m.mode === 'fish') return '배수·확률은 직접 정해요';
+    if (m.mode === 'wheel') return '배수는 직접 정해요';
     if (isProb(m)) {
       if (method === 'price' || !e.rtp) return byPrice(e.pay);
       const f = T / e.rtp;
@@ -6310,7 +6562,7 @@ img, svg, video { max-width: 100%; }
       const e = econ(m, draft.settings);
       if (!num(m.cost)) errs.push(m.name + ': 입장료를 입력해 주세요.');
       if (isProb(m) && Math.abs(e.wsum - 100) > 0.01) errs.push(m.name + ': 확률 합계가 ' + fmt(+e.wsum.toFixed(2)) + '%예요. 100%로 맞춰 주세요.');
-      if (!isProb(m) && !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish'].includes(m.mode) && !e.N) errs.push(m.name + ': 캡슐 수량이 0개예요.');   // 냥치 런·팝콘 대포는 캡슐이 없는 게임
+      if (!isProb(m) && !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel'].includes(m.mode) && !e.N) errs.push(m.name + ': 캡슐 수량이 0개예요.');   // 냥치 런·팝콘 대포는 캡슐이 없는 게임
       if (m.prizes.some(p => !String(p.name).trim())) errs.push(m.name + ': 이름이 비어 있는 상품이 있어요.');
     });
     draft.machines.filter(m => m.mode === 'archery').forEach(m => {
@@ -6351,6 +6603,10 @@ img, svg, video { max-width: 100%; }
       B.forEach((b, k) => { const sum = F.reduce((a, f) => a + f.probs[k], 0); if (Math.abs(sum - 100) > .05) errs.push('냥 낚시터: 확률 합이 100%가 아니에요.'); });
       if (!(num(m.hit) > 0 && num(m.hit) <= 100)) errs.push('냥 낚시터: 예산 기준 챔질 성공률은 1~100%여야 해요.');
     });
+    draft.machines.filter(m => m.mode === 'wheel').forEach(m => {
+      if (!(num(m.cost) >= 10)) errs.push('럭키 룰렛: 1회 금액은 10 이상이어야 해요.');
+      if (!(wlSyms(m).reduce((a, x) => a + x.w, 0) > 0)) errs.push('럭키 룰렛: 출현 비중 합이 0이에요.');
+    });
     draft.machines.filter(m => m.mode === 'puzzle').forEach(m => m.prizes.forEach(p => { if (p.kind === 'product' && !(num(p.cost) > 0)) errs.push('직소 퍼즐: ' + p.name + '의 원가를 입력해 주세요.'); }));
     return errs;
   }
@@ -6380,21 +6636,21 @@ img, svg, video { max-width: 100%; }
       const e = econ(m, s), st = mSt(m, e);
       return '<tr style="--c:' + zoneOf(m.zone).color + '">' +
         '<td><span class="mname"><i></i>' + m.name + '</span></td>' +
-        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'archery' ? '깡통 사격' : m.mode === 'slot' ? '캐릭터 슬롯' : m.mode === 'gslot' ? '상품 슬롯' : m.mode === 'race' ? '냥냥 레이스' : m.mode === 'fish' ? '냥 낚시터' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
+        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'archery' ? '깡통 사격' : m.mode === 'slot' ? '캐릭터 슬롯' : m.mode === 'gslot' ? '상품 슬롯' : m.mode === 'race' ? '냥냥 레이스' : m.mode === 'fish' ? '냥 낚시터' : m.mode === 'wheel' ? '럭키 룰렛' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
         '<td class="r">' + fmt(num(m.cost)) + '</td>' +
-        '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'cannon' || m.mode === 'archery' ? '약 ' + fmt(Math.round(e.runs)) + '발' : m.mode === 'runner' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'slot' || m.mode === 'gslot' ? '약 ' + fmt(Math.round(e.runs)) + '회' : m.mode === 'race' ? '약 ' + fmt(Math.round(e.runs)) + '판(최소 기준)' : m.mode === 'fish' ? '약 ' + fmt(Math.round(e.runs)) + '번' : m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
+        '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'cannon' || m.mode === 'archery' ? '약 ' + fmt(Math.round(e.runs)) + '발' : m.mode === 'runner' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'slot' || m.mode === 'gslot' || m.mode === 'wheel' ? '약 ' + fmt(Math.round(e.runs)) + '회' : m.mode === 'race' ? '약 ' + fmt(Math.round(e.runs)) + '판(최소 기준)' : m.mode === 'fish' ? '약 ' + fmt(Math.round(e.runs)) + '번' : m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
         '<td class="r">' + (e.hasGoods ? won(e.goods) + '<span class="ed-left">상품 ' + fmt(e.goodsN) + '개</span>' : '<span class="qmeta">상품 없음</span>') + '</td>' +
         (e.hasGoods ? '<td>' + (e.hasKern ? '<b class="num">' + pct(e.rtp) + '</b> <span class="qmeta">강냉이 보상분 (참고)</span>' : '<span class="qmeta">강냉이 보상 없음</span>') + '</td>' :
         '<td><div class="rtpcell"><div class="rtpbar"><i style="width:' + Math.min(100, e.rtp / 1.5 * 100).toFixed(1) + '%;--st:var(--' + st.cls + ')"></i><b style="left:' + Math.min(100, T / 1.5 * 100).toFixed(1) + '%"></b></div><span>' + pct(e.rtp) + '</span></div></td>' ) +
         '<td><span class="status ' + st.cls + '">' + st.label + '</span></td>' +
-        '<td>' + (e.hasGoods || m.mode === 'runner' || m.mode === 'slot' || m.mode === 'race' || m.mode === 'fish' ? '' : '<button class="btn-xs" type="button" data-fit="' + m.id + '">목표로 맞추기</button>') + '</td></tr>';
+        '<td>' + (e.hasGoods || m.mode === 'runner' || m.mode === 'slot' || m.mode === 'race' || m.mode === 'fish' || m.mode === 'wheel' ? '' : '<button class="btn-xs" type="button" data-fit="' + m.id + '">목표로 맞추기</button>') + '</td></tr>';
     }).join('');
     $('ad-compare').innerHTML = '<thead><tr><th>머신</th><th>방식</th><th class="r">입장료(강냉이)</th><th class="r">월 소진(강냉이)</th><th class="r">상품 예산 (수량 × 원가)</th><th>강냉이 RTP</th><th>상태</th><th></th></tr></thead><tbody>' + rows + '</tbody>';
   }
 
   function renderTabs() {
     const s = draft.settings;
-    $('ad-tabs').innerHTML = draft.machines.filter(m => !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish'].includes(m.mode)).map(m =>
+    $('ad-tabs').innerHTML = draft.machines.filter(m => !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel'].includes(m.mode)).map(m =>
       '<button class="ad-tab" type="button" role="tab" data-tab="' + m.id + '" aria-selected="' + (m.id === sel) + '" style="--c:' + zoneOf(m.zone).color + '"><i></i>' + m.name + ' <small>' + (econ(m, s).hasGoods ? won(econ(m, s).goods) : pct(econ(m, s).rtp)) + '</small></button>').join('');
   }
 
@@ -6527,7 +6783,7 @@ img, svg, video { max-width: 100%; }
         c2.drawImage(img, (S - w) / 2, (S - h) / 2, w, h);
         const m = pzDraft(); if (!m || !m.prizes[i]) return;
         m.prizes[i].img = cv.toDataURL('image/jpeg', 0.72);
-        renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats();
+        renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderStats();
       };
       img.src = fr.result;
     };
@@ -6541,7 +6797,7 @@ img, svg, video { max-width: 100%; }
     }
     if (el.id === 'pa-auto') {
       m.autoW = el.checked; if (m.autoW) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderStats(); return true;
     }
     if (el.dataset.pi != null && el.dataset.k) {
       const p = m.prizes[Number(el.dataset.pi)], k = el.dataset.k;
@@ -6562,13 +6818,13 @@ img, svg, video { max-width: 100%; }
     if (e.target.id === 'pa-add') {
       m.prizes.push({ g: 'C', name: '새 상품', kind: 'product', val: 0, cost: 3000, w: 0, qty: 10, img: '', pid: 'p' + Date.now().toString(36) });
       if (m.autoW !== false) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderStats(); return true;
     }
     const del = e.target.closest('[data-padel]');
     if (del) {
       m.prizes.splice(Number(del.dataset.padel), 1);
       if (m.autoW !== false) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderStats(); return true;
     }
     return false;
   }
@@ -6603,7 +6859,7 @@ img, svg, video { max-width: 100%; }
     return false;
   }
   // ----- 관리자 좌측 메뉴: 기능별로 한 화면씩 -----
-  const AD_PAGES = ['overview', 'machines', 'puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish'];
+  const AD_PAGES = ['overview', 'machines', 'puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel'];
   let adPage = (() => { try { const v = localStorage.getItem('tooneland-ad-page'); return AD_PAGES.includes(v) ? v : 'overview'; } catch (e) { return 'overview'; } })();
   function adGo(page, keepScroll) {
     if (!AD_PAGES.includes(page)) page = 'overview';
@@ -6619,7 +6875,7 @@ img, svg, video { max-width: 100%; }
     const s = draft.settings, T = target(), R = { ok: 1, warn: 2, bad: 3 };
     const worst = list => list.reduce((w, m) => { const c = mSt(m, econ(m, s)).cls; return (R[c] || 0) > (R[w] || 0) ? c : w; }, '');
     const by = mode => draft.machines.filter(m => mode(m));
-    const map = { overview: worst(draft.machines), machines: worst(by(m => !['puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish'].includes(m.mode))), archery: worst(by(m => m.mode === 'archery')), puzzle: worst(by(m => m.mode === 'puzzle')), runner: worst(by(m => m.mode === 'runner')), cannon: worst(by(m => m.mode === 'cannon')), slot: worst(by(m => m.mode === 'slot')), gslot: worst(by(m => m.mode === 'gslot')), race: worst(by(m => m.mode === 'race')), fish: worst(by(m => m.mode === 'fish')) };
+    const map = { overview: worst(draft.machines), machines: worst(by(m => !['puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel'].includes(m.mode))), archery: worst(by(m => m.mode === 'archery')), puzzle: worst(by(m => m.mode === 'puzzle')), runner: worst(by(m => m.mode === 'runner')), cannon: worst(by(m => m.mode === 'cannon')), slot: worst(by(m => m.mode === 'slot')), gslot: worst(by(m => m.mode === 'gslot')), race: worst(by(m => m.mode === 'race')), fish: worst(by(m => m.mode === 'fish')), wheel: worst(by(m => m.mode === 'wheel')) };
     document.querySelectorAll('#ad-gnb [data-addot]').forEach(d => { d.className = 'gnb-dot' + (map[d.dataset.addot] ? ' ' + map[d.dataset.addot] : ''); });
   }
   document.getElementById('ad-gnb').addEventListener('click', e => { const b = e.target.closest('[data-adpage]'); if (b) adGo(b.dataset.adpage); });
@@ -6704,7 +6960,7 @@ img, svg, video { max-width: 100%; }
     if (e.target.id !== 'ar-fit') return false;
     const m = arDraft(); if (!m) return true;
     const ok = arFitGrades(m, target());
-    renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats();
+    renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderStats();
     toast('', '깡통 사격: ' + (ok ? '캔별 확률을 목표 RTP ' + pct(target()) + '(' + arBullets(m) + '발 중 ' + arHits(m) + '발 명중 기준)에 맞췄어요' : '일부 캔은 확률만으로 맞출 수 없어요. 배수를 조정해 주세요'), true);
     return true;
   }
@@ -6792,7 +7048,7 @@ img, svg, video { max-width: 100%; }
     if (e.target.id !== 'cn-fit') return false;
     const m = cnDraft(); if (!m) return true;
     const ok = cnFitGrades(m, target());
-    renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats();
+    renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderStats();
     toast('', '팝콘 대포: ' + (ok ? '보통 확률을 조정해 전체 RTP를 ' + pct(target()) + '에 맞췄어요' : '보통 확률만으로 맞출 수 없어요. 퍼펙트·좋아요 확률이나 배수를 조정해 주세요'), true);
     return true;
   }
@@ -6966,10 +7222,48 @@ img, svg, video { max-width: 100%; }
     return true;
   }
 
+  // ----- 럭키 룰렛 관리: 그림별 출현 비중(세 휠 공통)·배수 -----
+  const wlDraft = () => draft.machines.find(m => m.mode === 'wheel');
+  function renderWheelAdmin() {
+    const m = wlDraft(); if (!m || !wlEl('wl-fields')) return;
+    wlSync(m);
+    const S = wlSyms(m);
+    $('wl-fields').innerHTML =
+      '<div class="field"><label for="wl-cost">1회 금액</label><div class="input-unit"><input class="input num" id="wl-cost" type="number" min="10" step="10" data-wlf="cost" value="' + num(m.cost) + '"><span>강냉이</span></div></div>' +
+      '<div class="field"><label for="wl-demand">월 예상 강냉이 소진</label><div class="input-unit"><input class="input num" id="wl-demand" type="number" min="0" data-wlf="demand" value="' + num(m.demand) + '"><span>강냉이</span></div></div>';
+    $('wl-t').innerHTML = '<thead><tr><th>그림</th><th class="w-num">출현 비중</th><th class="r">휠마다 확률</th><th class="r">3개 일치</th><th class="w-num">배수</th><th class="r">지급</th><th class="r">RTP 기여</th></tr></thead><tbody>' +
+      S.map((x, i) => '<tr><td><svg class="wl-ic" viewBox="-22 -22 44 44" aria-hidden="true">' + wlSym(x.id, 36) + '</svg>' + slEsc(x.name) + '</td>' +
+        '<td><input class="input sm num" type="number" min="0" step="1" data-wlw="' + x.id + '" value="' + x.w + '" aria-label="' + slEsc(x.name) + ' 출현 비중"></td>' +
+        '<td class="r num" data-wlp="' + i + '"></td><td class="r num" data-wlh="' + i + '"></td>' +
+        '<td><div class="input-unit"><input class="input sm num" type="number" min="0" step="1" data-wlm="' + x.id + '" value="' + x.mult + '" aria-label="' + slEsc(x.name) + ' 배수"><span>배</span></div></td>' +
+        '<td class="r num" data-wlpay="' + i + '"></td><td class="r num" data-wlr="' + i + '"></td></tr>').join('') +
+      '</tbody><tfoot><tr><td colspan="3">합계</td><td class="r num" id="wl-hit"></td><td></td><td></td><td class="r num" id="wl-rtp"></td></tr></tfoot>';
+    renderWheelCalc();
+  }
+  function renderWheelCalc() {
+    const m = wlDraft(); if (!m || !wlEl('wl-calc')) return;
+    const S = wlSyms(m), P = wlProb(m), cost = num(m.cost), T = target(), r = wlRtp(m), st = statusOf(r, T);
+    S.forEach((x, i) => { const p3 = Math.pow(P[i], 3), set = (k, v) => { const el = document.querySelector('[data-' + k + '="' + i + '"]'); if (el) el.textContent = v; }; set('wlp', slPctTxt(P[i])); set('wlh', slPctTxt(p3)); set('wlpay', fmt(Math.round(cost * x.mult)) + '개'); set('wlr', pct(p3 * x.mult)); });
+    $('wl-hit').textContent = slPctTxt(wlHit(m)); $('wl-rtp').textContent = pct(r);
+    $('wl-sum').textContent = 'RTP ' + pct(r) + ' · 당첨 ' + slPctTxt(wlHit(m));
+    $('wl-calc').innerHTML = '<span>당첨 확률(3개 일치 합) <b>' + slPctTxt(wlHit(m)) + '</b></span><span>평균 지급 <b>강냉이 ' + fmt(Math.round(r * cost)) + '</b> / 1회 ' + fmt(cost) + '</span><span>RTP <b>' + pct(r) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>';
+  }
+  function wheelAdminInput(el) {
+    const m = wlDraft(); if (!m) return false;
+    const d = el.dataset;
+    if (d.wlf == null && d.wlw == null && d.wlm == null) return false;
+    wlSync(m);
+    if (d.wlf) m[d.wlf] = Math.round(num(el.value));
+    if (d.wlw != null) { const x = m.syms.find(y => y.id === d.wlw); if (x) x.w = Math.max(0, num(el.value)); }
+    if (d.wlm != null) { const x = m.syms.find(y => y.id === d.wlm); if (x) x.mult = Math.max(0, num(el.value)); }
+    wlSync(m); renderWheelCalc(); renderStats();
+    return true;
+  }
+
   function openAdmin() {
     // 편집 중인 내용이 없으면 최신 설정(게임에서 줄어든 남은 수량 포함)으로 다시 시작
     if (!draft || JSON.stringify(draft) === draftBase) { draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); }
-    renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats(); adGo(adPage, true);
+    renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderStats(); adGo(adPage, true);
   }
 
   // ----- 관리자 이벤트 -----
@@ -6984,6 +7278,7 @@ img, svg, video { max-width: 100%; }
     if (gslotAdminInput(e.target)) return;
     if (raceAdminInput(e.target)) return;
     if (fishAdminInput(e.target)) return;
+    if (wheelAdminInput(e.target)) return;
     const el = e.target, s = draft.settings;
     if (el.id === 'ad-rtp' || el.id === 'ad-rtp-range') {
       s.targetRtp = num(el.value);
@@ -7034,17 +7329,17 @@ img, svg, video { max-width: 100%; }
         : { g: 'B', name: '새 상품', kind: 'product', val: 0, cost: 1000, total: 10, left: 10 });
       renderEditor(); renderStats();
     } else if (id === 'ad-fit-all') {
-      const km = draft.machines.filter(m => m.mode !== 'runner' && m.mode !== 'slot' && m.mode !== 'race' && m.mode !== 'fish' && !isGoods(m) && econ(m, draft.settings).hasKern);
+      const km = draft.machines.filter(m => m.mode !== 'runner' && m.mode !== 'slot' && m.mode !== 'race' && m.mode !== 'fish' && m.mode !== 'wheel' && !isGoods(m) && econ(m, draft.settings).hasKern);
       km.forEach(m => fitMachine(m, draft.settings, target(), 'price'));
-      renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats();
+      renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderStats();
       toast('', '강냉이 머신 ' + km.length + '개를 목표 RTP ' + draft.settings.targetRtp + '%에 맞췄어요. 저장해야 게임에 반영돼요.', true);
     } else if (id === 'ad-revert') {
-      draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats();
+      draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderStats();
     } else if (id === 'ad-reset') {
       const btn = $('ad-reset');
       if (Date.now() - resetArmed < 4000) {
         draft = clone(DEFAULT_CONFIG); resetArmed = 0; btn.textContent = '기본값으로';
-        renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats();
+        renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderStats();
         toast('', '기본값을 불러왔어요. 저장해야 게임에 반영돼요.', true);
       } else {
         resetArmed = Date.now(); btn.textContent = '한 번 더 누르면 초기화';
@@ -7055,7 +7350,7 @@ img, svg, video { max-width: 100%; }
     } else if (id === 'ad-load-remote') {
       if (sync.remote) { draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); }
       $('ad-remote').hidden = true;
-      renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats();
+      renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderStats();
     }
   });
 
@@ -7100,7 +7395,7 @@ img, svg, video { max-width: 100%; }
     if (!draft || JSON.stringify(draft) === draftBase) {
       draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft);
       $('ad-remote').hidden = true;
-      if (!$('admin').hidden) { renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderStats(); }
+      if (!$('admin').hidden) { renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderStats(); }
     } else if (!sync.saving) {
       $('ad-remote').hidden = false;
       if (!$('admin').hidden) renderStats();
@@ -7234,6 +7529,11 @@ img, svg, video { max-width: 100%; }
       '<ellipse cx="74" cy="60" rx="5" ry="7" fill="#FA5252" stroke="#212529" stroke-width="1.5"/><path d="M69 60h10v7h-10z" fill="#FFFFFF"/>' +
       '<ellipse cx="74" cy="66" rx="14" ry="3" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity=".8"/>' +
       '<g transform="translate(14 64) scale(.42)"><path d="M92 35 L116 16 L110 35 L116 54 Z" fill="#F59F00" stroke="#212529" stroke-width="3"/><ellipse cx="54" cy="35" rx="40" ry="19" fill="#FAB005" stroke="#212529" stroke-width="3"/><circle cx="28" cy="30" r="5" fill="#FFFFFF" stroke="#212529" stroke-width="2"/><circle cx="27" cy="30" r="2.5" fill="#212529"/></g></svg>',
+    wheel: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgw1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F06595"/><stop offset="1" stop-color="#5F3DC4"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgw1)"/>' +
+      '<circle cx="50" cy="54" r="38" fill="#FFD43B"/><circle cx="50" cy="54" r="34" fill="#C2255C"/><circle cx="50" cy="54" r="25" fill="#E8590C"/><circle cx="50" cy="54" r="16" fill="#5F3DC4"/>' +
+      [0, 30, 60, 90, 120, 150].map(a => '<path d="M50 54 L50 20" stroke="#FFD43B" stroke-width="1.2" transform="rotate(' + a + ' 50 54)"/><path d="M50 54 L50 20" stroke="#FFD43B" stroke-width="1.2" transform="rotate(' + (a + 180) + ' 50 54)"/>').join('') +
+      '<circle cx="50" cy="54" r="10" fill="#FAB005" stroke="#8A6414" stroke-width="1.5"/><text x="50" y="58.5" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="12" fill="#C92A2A">7</text>' +
+      '<path d="M50 22 L44 10 H56 Z" fill="#FA5252" stroke="#FFFFFF" stroke-width="1.5"/></svg>',
     hall: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgu5" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD43B"/><stop offset="1" stop-color="#E67700"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgu5)"/>' +
       '<path d="M34 24h32v14a16 16 0 0 1-32 0z" fill="#FFFFFF"/><path d="M34 29h-7a8 8 0 0 0 9 13M66 29h7a8 8 0 0 1-9 13" stroke="#FFFFFF" stroke-width="4" fill="none"/><rect x="46" y="53" width="8" height="11" fill="#FFFFFF"/><rect x="35" y="64" width="30" height="9" rx="2.5" fill="#FFFFFF"/>' +
       '<path d="M50 29l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.2 2.7 1-5.7-4.1-4 5.7-.8z" fill="#F59F00"/></svg>'
@@ -7247,7 +7547,8 @@ img, svg, video { max-width: 100%; }
     { id: 'slot', name: '캐릭터 슬롯', sub: '3단 맞추기', ic: '#9C36B5', fc: '#862E9C', badge: 'N', desc: '머리·몸통·다리 릴이 차례로 멈춰요. 한 캐릭터로 맞추면 당첨!' },
     { id: 'gslot', name: '상품 슬롯', sub: '상품 3단 맞추기', ic: '#1C7ED6', fc: '#1864AB', badge: 'N', desc: '상품 그림 3칸을 한 상품으로 맞추면 그 상품을 받아요!' },
     { id: 'race', name: '냥냥 레이스', sub: '1등 맞히기', ic: '#2F9E44', fc: '#2B8A3E', badge: 'N', desc: '캐릭터 5마리가 달려요. 1등이나 3위 안을 맞히면 배당만큼!' },
-    { id: 'fish', name: '냥 낚시터', sub: '챔질 타이밍', ic: '#1971C2', fc: '#1864AB', badge: 'N', desc: '찌가 쑥 잠길 때 챔질! 황금 잉어를 낚으면 ×30이에요.' }
+    { id: 'fish', name: '냥 낚시터', sub: '챔질 타이밍', ic: '#1971C2', fc: '#1864AB', badge: 'N', desc: '찌가 쑥 잠길 때 챔질! 황금 잉어를 낚으면 ×30이에요.' },
+    { id: 'wheel', name: '럭키 룰렛', sub: '3겹 휠', ic: '#D6336C', fc: '#A61E4D', badge: 'N', desc: '안쪽·가운데·바깥 휠에 같은 그림 3개! 세븐 3개면 ×450이에요.' }
   ];
   const LG_DOCK = [
     { id: 'hall', name: '명예의 전당', ic: '#E67700' },
@@ -7305,11 +7606,12 @@ img, svg, video { max-width: 100%; }
     if (AR.active && location.hash !== '#archery') { history.replaceState(null, '', '#archery'); toast('', '사격이 끝난 뒤에 이동할 수 있어요.', true); return; }
     if (slEl('sl-modal') && !slEl('sl-modal').hidden) slCloseWin(false);
     if (['cast', 'wait', 'bite', 'reel', 'jump'].includes(FS.phase) && location.hash !== '#fish') { history.replaceState(null, '', '#fish'); toast('', '낚시가 끝난 뒤에 이동할 수 있어요.', true); return; }
+    if (WL.spinning && location.hash !== '#wheel') { history.replaceState(null, '', '#wheel'); toast('', '휠이 멈춘 뒤에 이동할 수 있어요.', true); return; }
     if (RC.running && location.hash !== '#race') { history.replaceState(null, '', '#race'); toast('', '경주가 끝난 뒤에 이동할 수 있어요.', true); return; }
     if (SL.spinning && location.hash !== '#' + SL.tab) { history.replaceState(null, '', '#' + SL.tab); toast('', '릴이 멈춘 뒤에 이동할 수 있어요.', true); return; }
     if (CN.flying && location.hash !== '#cannon') { history.replaceState(null, '', '#cannon'); toast('', '팝콘이 착지한 뒤에 이동할 수 있어요.', true); return; }
     if (RN.active && location.hash !== '#runner') { history.replaceState(null, '', '#runner'); toast('', '냥치 런이 끝난 뒤에 이동할 수 있어요.', true); return; }
-    const tab = ({ '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#runner': 'runner', '#cannon': 'cannon', '#archery': 'archery', '#slot': 'slot', '#gslot': 'gslot', '#race': 'race', '#fish': 'fish' })[location.hash] || 'gacha';
+    const tab = ({ '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#runner': 'runner', '#cannon': 'cannon', '#archery': 'archery', '#slot': 'slot', '#gslot': 'gslot', '#race': 'race', '#fish': 'fish', '#wheel': 'wheel' })[location.hash] || 'gacha';
     if (!admin && !shop && !lounge && tab !== state.tab) {
       if (!$('modal').hidden) { if (busy) return; closeModal(); }
       state.tab = tab; renderZones(); renderFloor();
