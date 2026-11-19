@@ -7959,7 +7959,7 @@ img, svg, video { max-width: 100%; }
           '<div class="dy-paddock" id="dy-paddock"><b>' + (DRB.stage === 'kart' ? '냥냥 카트 서킷' : '냥냥 더비') + '</b><span>' + (DRB.stage === 'kart' ? '해안 마을 서킷 · ' + DY_N + '대' : '1600m · 잔디 · ' + DY_N + '마리') + '</span><small>응원할 선수를 고르고 출발!</small></div>' +
           '<div class="dy-finish" id="dy-finish" hidden></div>' +
         '</div>' +
-        '<div class="dy-stagebar" role="group" aria-label="스테이지"><button type="button" data-dyg="turf" aria-pressed="' + (DRB.stage === 'turf') + '"><b>경마장</b><small>레일 옆 · 정면 중계</small></button><button type="button" data-dyg="kart" aria-pressed="' + (DRB.stage === 'kart') + '"><b>카트 서킷</b><small>카트 뒤 추격 카메라</small></button></div>' +
+        '<div class="dy-stagebar" role="group" aria-label="스테이지"><button type="button" data-dyg="turf" aria-pressed="' + (DRB.stage === 'turf') + '"><b>경마장</b><small>레일 옆 · 정면 중계</small></button><button type="button" data-dyg="kart" aria-pressed="' + (DRB.stage === 'kart') + '"><b>카트 서킷</b><small>경마장과 같은 중계 카메라</small></button></div>' +
         '<div class="dy-cards" id="dy-cards" role="group" aria-label="출전 냥이">' + cards + '</div>' +
         '<div class="dy-opts"><div class="dy-type" role="group" aria-label="베팅 종류"><button type="button" data-dyt="win" aria-pressed="' + (DRB.type === 'win') + '">1착 맞히기</button><button type="button" data-dyt="show" aria-pressed="' + (DRB.type === 'show') + '">3착 안</button></div>' +
           '<div class="dy-bets" role="group" aria-label="베팅 강냉이">' + bets.map(v => '<button type="button" data-dyb="' + v + '" aria-pressed="' + (DRB.bet === v) + '">' + K + fmt(v) + '</button>').join('') + '</div></div>' +
@@ -7985,8 +7985,6 @@ img, svg, video { max-width: 100%; }
     const lead = live[0], p = lead.x / DY_L, top = live.slice(0, 4), cx = top.reduce((a, r) => a + r.x, 0) / top.length, cz = live.reduce((a, r) => a + r.z, 0) / live.length;
     let pos, look, name;
     if (S.ended) { pos = [DY_L + 30, 3, cz - 4]; look = [DY_L + 8, .9, cz]; name = 'end'; }
-    else if (DRB.stage === 'kart' && p < .78) { pos = [cx - 3, 2.4, -6.5]; look = [cx + 3, .9, cz + 1]; name = 'side'; }
-    else if (DRB.stage === 'kart') { pos = [Math.min(cx + 15, DY_L + 12), 2.2, cz - 2]; look = [cx - 4, 1, cz]; name = 'front'; }
     else if (p < .07) { pos = [cx + 18, 2.6, -9]; look = [cx + 1, .8, cz]; name = 'gate'; }
     else if (p < .58) { pos = [cx - 3, 2.4, -6.5]; look = [cx + 3, .9, cz + 1]; name = 'side'; }
     else if (p < .8) { pos = [cx - 18, 11, -18]; look = [cx + 6, .3, cz]; name = 'wide'; }
@@ -8091,7 +8089,7 @@ img, svg, video { max-width: 100%; }
     [-.1, .1].forEach(px => { const gg = ctx.createRadialGradient(w * px, -h * .12, 0, w * px, -h * .12, w * .045); gg.addColorStop(0, '#111'); gg.addColorStop(.6, '#555'); gg.addColorStop(1, '#CED4DA'); ctx.fillStyle = gg; ctx.beginPath(); ctx.arc(w * px, -h * .12, w * .042, 0, 7); ctx.fill(); ctx.strokeStyle = O; ctx.lineWidth = lw * .7; ctx.stroke(); });
     ctx.strokeStyle = O; ctx.lineWidth = lw;
     // 선수 뒤통수
-    const hr = w * .25, hy = -h * .58 - hr * .78;
+    const hr = w * .36, hy = -h * .5 - hr * .72;
     if (H.top === 'hood' || H.top === 'dino') {
       ctx.fillStyle = H.c; ctx.beginPath(); ctx.ellipse(0, hy, hr * 1.12, hr * 1.02, 0, 0, 7); ctx.fill(); ctx.stroke();
       if (H.top === 'dino') { ctx.fillStyle = '#467A38'; [[-.45, -.1], [.45, -.2], [0, .35], [-.2, -.55], [.3, .4]].forEach(([a, b]) => { ctx.beginPath(); ctx.ellipse(a * hr, hy + b * hr, hr * .13, hr * .18, 0, 0, 7); ctx.fill(); }); [-1, 1].forEach(k => { ctx.fillStyle = H.ear; ctx.beginPath(); ctx.arc(k * hr * .78, hy - hr * .78, hr * .24, 0, 7); ctx.fill(); ctx.stroke(); }); }
@@ -8212,53 +8210,72 @@ img, svg, video { max-width: 100%; }
     const yaw = Math.atan2(cam.f[2], cam.f[0]);
     if (dyOk('sky')) { const im = dyImg.sky, sh = Math.max(hy, 10), sw = im.naturalWidth * sh / im.naturalHeight, off = ((-yaw / (Math.PI * 2)) * sw * 4 + t * 4) % (sw * 2); for (let k = -1; k * sw + off < W + sw; k++) { const x = k * sw + off, fl = ((k % 2) + 2) % 2; ctx.save(); if (fl) { ctx.translate(x + sw, 0); ctx.scale(-1, 1); ctx.drawImage(im, 0, 0, sw, sh); } else ctx.drawImage(im, x, 0, sw, sh); ctx.restore(); } }
     else { ctx.fillStyle = '#7FB6EA'; ctx.fillRect(0, 0, W, hy); }
-    ctx.fillStyle = '#2E86DE'; ctx.fillRect(0, hy, W, H - hy);
+    const th = Math.max(8, H * .07); if (dyOk('trees')) { const im = dyImg.trees, tw = im.naturalWidth * th / im.naturalHeight, off = ((-yaw / (Math.PI * 2)) * tw * 9) % tw; for (let x = off - tw; x < W; x += tw) ctx.drawImage(im, x, hy - th + 2, tw, th); }
+    ctx.fillStyle = '#7DB35A'; ctx.fillRect(0, hy, W, H - hy);
     const x0 = Math.floor((cam.pos[0] - 140) / 8) * 8, x1 = cam.pos[0] + 300;
     const poly = (pts, col) => { const P = pts.map(q => cam.p(...q)); if (P.some(v => !v)) return null; ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(P[0][0], P[0][1]); for (let k = 1; k < P.length; k++) ctx.lineTo(P[k][0], P[k][1]); ctx.closePath(); ctx.fill(); return P; };
-    const xs = []; for (let x = x0; x <= x1;) { const d = Math.abs(x - cam.pos[0]), w = d < 18 ? 1 : d < 40 ? 4 : 8; xs.push([x, w]); x += w; }
-    xs.sort((a, b) => Math.abs(b[0] - cam.pos[0]) - Math.abs(a[0] - cam.pos[0])).forEach(([x, w]) => {
-      const e = x + w + .05, st = Math.floor(x / 4) % 2;
-      poly([[x, 0, -60], [e, 0, -60], [e, 0, -14], [x, 0, -14]], '#2E86DE');                               // 바다
-      poly([[x, 0, -14], [e, 0, -14], [e, 0, -1], [x, 0, -1]], '#EBDFC6');                                  // 모래·돌길
-      poly([[x, 0, -1], [e, 0, -1], [e, 0, 0], [x, 0, 0]], st ? '#E03131' : '#FFFFFF');                     // 연석
-      poly([[x, 0, 0], [e, 0, 0], [e, 0, DY_TW], [x, 0, DY_TW]], Math.floor(x / 8) % 2 ? '#8C93A0' : '#949BA8');   // 아스팔트
-      if (Math.floor(x / 6) % 2) [5.3, 10.6].forEach(z => poly([[x, .01, z - .12], [e, .01, z - .12], [e, .01, z + .12], [x, .01, z + .12]], '#F1F3F5'));
-      poly([[x, 0, DY_TW], [e, 0, DY_TW], [e, 0, DY_TW + 1], [x, 0, DY_TW + 1]], st ? '#E03131' : '#FFFFFF');
-      poly([[x, 0, DY_TW + 1], [e, 0, DY_TW + 1], [e, 0, 140], [x, 0, 140]], '#F1E6D2');                     // 하얀 돌길 광장
+    const xs = []; for (let x = x0; x <= x1;) { const d = Math.abs(x - cam.pos[0]), w = d < 18 ? 1 : d < 40 ? 2 : 4; xs.push([x, w]); x += w; }
+    const byDist = (a, b) => Math.abs(b[0] - cam.pos[0]) - Math.abs(a[0] - cam.pos[0]);
+    xs.sort(byDist).forEach(([x, w]) => {
+      const e = x + w + .05;
+      poly([[x, 0, -60], [e, 0, -60], [e, 0, -9], [x, 0, -9]], Math.floor(x / 8) % 2 ? '#78AE55' : '#7DB35A');            // 안쪽 잔디
+      poly([[x, 0, -9], [e, 0, -9], [e, 0, -1.4], [x, 0, -1.4]], Math.floor(x / 2) % 2 ? '#D9C9A8' : '#E2D3B4');          // 안쪽 보도(타일)
+      poly([[x, 0, -1.4], [e, 0, -1.4], [e, 0, 0], [x, 0, 0]], Math.floor(x / 2) % 2 ? '#F1F3F5' : '#E03131');            // 연석
+      poly([[x, 0, 0], [e, 0, 0], [e, 0, DY_TW], [x, 0, DY_TW]], '#5B6B82');                                              // 푸른빛 아스팔트
+      poly([[x, .01, .25], [e, .01, .25], [e, .01, .45], [x, .01, .45]], '#F8F9FA'); poly([[x, .01, DY_TW - .45], [e, .01, DY_TW - .45], [e, .01, DY_TW - .25], [x, .01, DY_TW - .25]], '#F8F9FA');
+      if (Math.floor(x / 5) % 2 === 0) [5.3, 10.7].forEach(z => poly([[x, .01, z - .14], [e, .01, z - .14], [e, .01, z + .14], [x, .01, z + .14]], '#F8F9FA'));   // 흰 점선 차선
+      poly([[x, 0, DY_TW], [e, 0, DY_TW], [e, 0, DY_TW + .8], [x, 0, DY_TW + .8]], '#C9CDD2');
+      poly([[x, 0, DY_TW + 1.4], [e, 0, DY_TW + 1.4], [e, 0, 34], [x, 0, 34]], Math.floor(x / 2) % 2 ? '#CDBB97' : '#D6C5A2');   // 바깥 보도
+      poly([[x, 0, 34], [e, 0, 34], [e, 0, 140], [x, 0, 140]], '#7DB35A');
     });
-    if (DY_L > x0 && DY_L < x1) for (let k = 0; k < 8; k++) poly([[DY_L - .5, .01, k * 2], [DY_L + .5, .01, k * 2], [DY_L + .5, .01, k * 2 + 2], [DY_L - .5, .01, k * 2 + 2]], k % 2 ? '#212529' : '#FFFFFF');
-    // 소품(먼 것부터): 바깥 하얀 집 줄 · 양쪽 야자수 · 가로등
+    // 안쪽 낮은 벽돌 담(위에 노랑·검정 띠) — 카메라 쪽이라 먼 것부터
+    xs.slice().sort(byDist).forEach(([x, w]) => {
+      const e = x + w + .05;
+      poly([[x, 0, -1.6], [e, 0, -1.6], [e, .5, -1.6], [x, .5, -1.6]], Math.floor(x * 1.5) % 2 ? '#C8743E' : '#B8693A');
+    });
+    if (DY_L > x0 && DY_L < x1) for (let k = 0; k < 8; k++) poly([[DY_L - .5, .015, k * 2], [DY_L + .5, .015, k * 2], [DY_L + .5, .015, k * 2 + 2], [DY_L - .5, .015, k * 2 + 2]], k % 2 ? '#212529' : '#FFFFFF');
+    // 바깥 셰브론 방호벽(노랑·검정 화살표)
+    for (let x = Math.floor(x0 / 1.6) * 1.6; x < x1; x += 1.6) {
+      const z = DY_TW + 1.2, a = poly([[x, 0, z], [x + 1.6, 0, z], [x + 1.6, 1.4, z], [x, 1.4, z]], '#FCC419'); if (!a) continue;
+      poly([[x + .25, .15, z - .01], [x + .85, .7, z - .01], [x + .25, 1.25, z - .01], [x + .7, 1.25, z - .01], [x + 1.3, .7, z - .01], [x + .7, .15, z - .01]], '#212529');
+    }
+    // 소품(먼 것부터): 유럽풍 집 · 둥근 나무 · 청록 쌍가로등
     const props = [];
-    for (let x = Math.floor(x0 / 14) * 14; x < x1 + 40; x += 14) props.push({ t: 'house', x, z: 30 + (Math.abs(x) % 28 ? 0 : 6), v: Math.abs(x / 14) % 4 });
-    for (let x = Math.floor(x0 / 10) * 10; x < x1 + 40; x += 10) { props.push({ t: 'palm', x, z: -5 }); props.push({ t: 'palm', x: x + 5, z: DY_TW + 6 }); }
+    for (let x = Math.floor(x0 / 12) * 12; x < x1 + 40; x += 12) props.push({ t: 'house', x, z: 36 + (Math.abs(x / 12) % 3) * 2, v: Math.abs(x / 12) % 5 });
+    for (let x = Math.floor(x0 / 12) * 12 + 6; x < x1 + 40; x += 12) props.push({ t: 'tree', x, z: 32 });
+    for (let x = Math.floor(x0 / 18) * 18; x < x1 + 40; x += 18) { props.push({ t: 'lamp', x, z: DY_TW + 3 }); props.push({ t: 'tree', x: x + 9, z: -12 }); }
     props.map(p => ({ p, d: Math.hypot(p.x - cam.pos[0], p.z - cam.pos[2]) })).sort((a, b) => b.d - a.d).forEach(({ p }) => {
       if (p.t === 'house') {
-        const w = 10, h = 7 + p.v * 1.4, z = p.z;
-        const F = poly([[p.x, 0, z], [p.x + w, 0, z], [p.x + w, h, z], [p.x, h, z]], '#F8F9FA'); if (!F) return;
-        poly([[p.x - .4, h, z - .3], [p.x + w + .4, h, z - .3], [p.x + w + .4, h + .8, z - .3], [p.x - .4, h + .8, z - .3]], ['#1C7ED6', '#228BE6', '#4DABF7', '#1971C2'][p.v]);
-        if (p.v % 2) { const c = cam.p(p.x + w / 2, h + .8, z - .3), r = cam.p(p.x + w / 2 + 2.4, h + .8, z - .3); if (c && r) { ctx.fillStyle = '#1C7ED6'; ctx.beginPath(); ctx.ellipse(c[0], c[1], Math.abs(r[0] - c[0]), Math.abs(r[0] - c[0]) * .8, 0, Math.PI, 0); ctx.fill(); } }
-        [[1.5, 3.2], [6.5, 3.2]].forEach(([a, b]) => poly([[p.x + a, b, z - .02], [p.x + a + 2, b, z - .02], [p.x + a + 2, b + 2, z - .02], [p.x + a, b + 2, z - .02]], '#5C7CFA'));
+        const w = 10, h = 6 + (p.v % 3) * 1.2, z = p.z, wall = ['#FFF4E6', '#FFE3E3', '#E7F5FF', '#FFF9DB', '#F8F0FC'][p.v], roof = ['#E03131', '#1971C2', '#E8590C', '#5F3DC4', '#C92A2A'][p.v];
+        if (!poly([[p.x, 0, z], [p.x + w, 0, z], [p.x + w, h, z], [p.x, h, z]], wall)) return;
+        poly([[p.x - .6, h, z - .2], [p.x + w + .6, h, z - .2], [p.x + w / 2, h + 4.2, z - .2]], roof);   // 박공 지붕
+        poly([[p.x + w * .42, h + 1, z - .25], [p.x + w * .58, h + 1, z - .25], [p.x + w * .58, h + 2.4, z - .25], [p.x + w * .42, h + 2.4, z - .25]], '#FFFFFF');
+        [[1.2, 3.4], [4.2, 3.4], [7.2, 3.4]].forEach(([a, b]) => { poly([[p.x + a, b, z - .02], [p.x + a + 1.6, b, z - .02], [p.x + a + 1.6, b + 1.8, z - .02], [p.x + a, b + 1.8, z - .02]], '#74C0FC'); poly([[p.x + a - .15, b - .2, z - .03], [p.x + a + 1.75, b - .2, z - .03], [p.x + a + 1.75, b, z - .03], [p.x + a - .15, b, z - .03]], roof); });
         poly([[p.x + 4.2, 0, z - .02], [p.x + 5.8, 0, z - .02], [p.x + 5.8, 2.6, z - .02], [p.x + 4.2, 2.6, z - .02]], '#8D6E63');
+      } else if (p.t === 'tree') {
+        const b = cam.p(p.x, 0, p.z), tp = cam.p(p.x, 6, p.z); if (!b || !tp) return; const h = b[1] - tp[1]; if (h < 3) return;
+        ctx.fillStyle = '#7B5A3A'; ctx.fillRect(b[0] - h * .04, b[1] - h * .45, h * .08, h * .45);
+        ctx.fillStyle = '#4C9A3A'; ctx.beginPath(); ctx.arc(b[0], b[1] - h * .66, h * .3, 0, 7); ctx.fill(); ctx.fillStyle = '#62B34C'; ctx.beginPath(); ctx.arc(b[0] - h * .08, b[1] - h * .74, h * .17, 0, 7); ctx.fill();
       } else {
-        const b = cam.p(p.x, 0, p.z), tp = cam.p(p.x + .6, 7, p.z); if (!b || !tp) return; const h = b[1] - tp[1]; if (h < 3) return;
-        ctx.strokeStyle = '#8D6E63'; ctx.lineWidth = Math.max(1, h * .05); ctx.beginPath(); ctx.moveTo(b[0], b[1]); ctx.quadraticCurveTo(b[0] + h * .12, b[1] - h * .5, tp[0], tp[1]); ctx.stroke();
-        ctx.fillStyle = '#2F9E44'; for (let k = 0; k < 6; k++) { const a = k / 6 * Math.PI * 2; ctx.beginPath(); ctx.ellipse(tp[0] + Math.cos(a) * h * .16, tp[1] + Math.sin(a) * h * .05, h * .2, h * .05, a, 0, 7); ctx.fill(); }
+        const b = cam.p(p.x, 0, p.z), tp = cam.p(p.x, 6.4, p.z); if (!b || !tp) return; const h = b[1] - tp[1]; if (h < 3) return;
+        ctx.strokeStyle = '#1098AD'; ctx.lineWidth = Math.max(1.5, h * .035); ctx.beginPath(); ctx.moveTo(b[0], b[1]); ctx.lineTo(tp[0], tp[1]); ctx.moveTo(tp[0] - h * .2, tp[1] + h * .05); ctx.quadraticCurveTo(tp[0], tp[1] - h * .06, tp[0] + h * .2, tp[1] + h * .05); ctx.stroke();
+        ctx.fillStyle = '#FFF3BF'; [-1, 1].forEach(k => { ctx.beginPath(); ctx.ellipse(tp[0] + k * h * .2, tp[1] + h * .08, h * .05, h * .035, 0, 0, 7); ctx.fill(); });
       }
     });
     // GOAL 아치
     const gl = cam.p(DY_L, 0, -1.6), gr = cam.p(DY_L, 0, DY_TW + 1.6), gl2 = cam.p(DY_L, 7, -1.6), gr2 = cam.p(DY_L, 7, DY_TW + 1.6), gl3 = cam.p(DY_L, 8.6, -1.6), gr3 = cam.p(DY_L, 8.6, DY_TW + 1.6);
     if (gl && gr && gl2 && gr2 && gl3 && gr3) {
-      ctx.strokeStyle = '#495057'; ctx.lineWidth = Math.max(2, 120 / gl[2]); ctx.beginPath(); ctx.moveTo(gl[0], gl[1]); ctx.lineTo(gl3[0], gl3[1]); ctx.moveTo(gr[0], gr[1]); ctx.lineTo(gr3[0], gr3[1]); ctx.stroke();
+      ctx.strokeStyle = '#1098AD'; ctx.lineWidth = Math.max(2, 120 / gl[2]); ctx.beginPath(); ctx.moveTo(gl[0], gl[1]); ctx.lineTo(gl3[0], gl3[1]); ctx.moveTo(gr[0], gr[1]); ctx.lineTo(gr3[0], gr3[1]); ctx.stroke();
       for (let k = 0; k < 12; k++) { const a = k / 12, b2 = (k + 1) / 12, L = (p, q, f) => [p[0] + (q[0] - p[0]) * f, p[1] + (q[1] - p[1]) * f]; const A = L(gl2, gr2, a), B = L(gl2, gr2, b2), C = L(gl3, gr3, b2), D = L(gl3, gr3, a); ctx.fillStyle = k % 2 ? '#212529' : '#FFFFFF'; ctx.beginPath(); ctx.moveTo(A[0], A[1]); ctx.lineTo(B[0], B[1]); ctx.lineTo(C[0], C[1]); ctx.lineTo(D[0], D[1]); ctx.closePath(); ctx.fill(); }
     }
     return hy;
   }
   // 옆·앞에서 본 카트 + 캐릭터 애니메이션(시트의 옆모습/정면 프레임)
   function dyKart3D(ctx, b, h, i, phase, side, dir, toward, boost) {
-    const d = DY_DEF[i] || DY_DEF[0], O = '#1E1A1A', u = h, lw = Math.max(1, u * .028);
-    if (!toward && !side) { ktKart(ctx, b[0], b[1], u * 1.0, i, { boost }); return; }
+    const d = DY_DEF[i] || DY_DEF[0], O = '#1E1A1A', u0 = h * 1.2, u = u0 * .7, lw = Math.max(1, u * .03);   // 카트는 작게(0.7), 머리는 크게
+    if (!toward && !side) { ktKart(ctx, b[0], b[1], u0 * .9, i, { boost }); return; }
     const v = side ? 1 : 0, nf = DY_NF[v], fr = Math.floor(((phase % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) / (Math.PI * 2) * nf) % nf;
-    const HF = .56, ch = u * 1.0, cw = ch * DY_FW / DY_FH;   // 시트 프레임의 위 56%(머리)만 사용
+    const HF = .56, ch = u0 * 1.25, cw = ch * DY_FW / DY_FH;   // 시트 프레임의 위 56%(머리)만 사용
     const head = (cx, bottom) => { if (dySpr) ctx.drawImage(dySpr, fr * DY_FW, (i * 2 + v) * DY_FH, DY_FW, DY_FH * HF, cx - cw / 2, bottom - ch * HF, cw, ch * HF); };
     const body = (a, b2) => { const g = ctx.createLinearGradient(0, a, 0, b2); g.addColorStop(0, ktShade(d.deep, .35)); g.addColorStop(.55, d.deep); g.addColorStop(1, ktShade(d.deep, -.35)); return g; };
     ctx.save(); ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.lineWidth = lw; ctx.strokeStyle = O;
@@ -8346,19 +8363,11 @@ img, svg, video { max-width: 100%; }
         if (!S.slowOn) { S.slowOn = true; st.classList.add('slowmo'); SFX.thud(); if (S.close) { const tl = dyEl('dy-tele'); if (tl) { tl.textContent = '접전!!'; restart(tl, 'show'); } dyComm('중계', '나란히 들어옵니다! 누가 먼저냐!'); } }
       } else if (S.slowOn) { S.slowOn = false; st.classList.remove('slowmo'); }
       const live = dyStep(S, dt);
-      if (DRB.stage === 'kart') {
-        // 카트 서킷 카메라: 초반 후면 추격 → 중반 측면 → 마지막 정면
-        const kp = S.ended ? 'front' : live[0].x / DY_L < .35 ? 'rear' : live[0].x / DY_L < .78 ? 'side' : 'front';
-        if (S.kphase && S.kphase !== kp) { restart(st, 'dy-cut'); S.cam = null; }
-        S.kphase = kp;
-        if (kp === 'rear') dyKartDraw(view.ctx, view.W, view.H, S, R, live, slow);
-        else { const shot = dyShot(S, live), cam = dyCam(S.cam.pos, S.cam.look, view.W, view.H, slow ? 1.3 : 1.05); draw(shot, cam); }
-      }
-      else { const shot = dyShot(S, live), cam = dyCam(S.cam.pos, S.cam.look, view.W, view.H, shot === 'wide' ? 1.25 : slow ? 1.3 : 1.05); draw(shot, cam); }
+      { const shot = dyShot(S, live), cam = dyCam(S.cam.pos, S.cam.look, view.W, view.H, shot === 'wide' ? 1.25 : slow ? 1.3 : 1.05); draw(shot, cam); }
       dyHud(S, live);
       if (!S.ended && S.t > T1 + .4) {
         S.ended = true;
-        if (S.close && DRB.stage !== 'kart') {
+        if (S.close) {
           // 비디오 판독 시작
           S.rev = { ph: 'rep', t: T1 - 1.4 };
           st.classList.add('review');
@@ -8457,7 +8466,7 @@ img, svg, video { max-width: 100%; }
     dyPrep();
     dyUI();
     // 대기 화면: 출발 게이트 앞 정지 장면
-    if (!DRB.on) { const m = derbyMachine(); const S = dyMakeSim(m, Array.from({ length: DY_N }, (_, i) => i)); S.t = 0; const view = dyResize(); if (view && S) { const live = dyStep(S, 0); if (DRB.stage === 'kart') dyKartDraw(view.ctx, view.W, view.H, S, dyRunners(m), live, false); else { dyShot(S, live); const cam = dyCam(S.cam.pos, S.cam.look, view.W, view.H, 1.05); dyDrawWorld(view.ctx, cam, 0); const R = dyRunners(m); S.run.map(r => ({ r, p: cam.p(r.x, 0, r.z) })).filter(o => o.p).sort((a, b) => b.p[2] - a.p[2]).forEach(o => dyDrawRunner(view.ctx, cam, R, o.r.i, o.r.x, o.r.z, 0, 0)); dyNameTags(view.ctx, cam, R, S.run); } } if (DRB.last && DRB.sim) { const fin = dyEl('dy-finish'); if (fin) fin.hidden = true; } }
+    if (!DRB.on) { const m = derbyMachine(); const S = dyMakeSim(m, Array.from({ length: DY_N }, (_, i) => i)); S.t = 0; const view = dyResize(); if (view && S) { const live = dyStep(S, 0); { dyShot(S, live); const cam = dyCam(S.cam.pos, S.cam.look, view.W, view.H, 1.05); (DRB.stage === 'kart' ? dyDrawWorldKart : dyDrawWorld)(view.ctx, cam, 0); const R = dyRunners(m); S.run.map(r => ({ r, p: cam.p(r.x, 0, r.z) })).filter(o => o.p).sort((a, b) => b.p[2] - a.p[2]).forEach(o => dyDrawRunner(view.ctx, cam, R, o.r.i, o.r.x, o.r.z, 0, 0)); dyNameTags(view.ctx, cam, R, S.run); } } if (DRB.last && DRB.sim) { const fin = dyEl('dy-finish'); if (fin) fin.hidden = true; } }
     else dyLoop();
   }
   $('floor').addEventListener('click', e => {
