@@ -1312,6 +1312,87 @@ svg.lt-kico.lt-tic { width: 22px; height: 22px; margin: 0 8px 0 2px; }
 .sl-btn.bd-go.playing:disabled { background: linear-gradient(180deg, #23302A, #121A16); color: #8CE99A; box-shadow: 0 6px 0 #08090B, inset 0 0 0 1.5px rgba(140,233,154,.4); }
 @media (max-width: 640px) { .bd-room { padding: 46px 8px 10px; } .bd-title b { font-size: 14px; } .bd-case.tense { animation: none; } .bd-hint { font-size: 11px; } }
 @media (prefers-reduced-motion: reduce) { .bd-case.tense, .bd-room.live .bd-spool:not(:disabled), .bd-led, .bd-lcd.hot, .bd-lcd.wait, .bd-lampglow { animation: none; } }
+/* ===== 냥냥 더비 ===== */
+.dy-panel { grid-column: 1 / -1; overflow-x: clip; }
+.dy-cab { position: relative; width: min(520px, 100%); padding: 12px; border-radius: 24px; background: linear-gradient(180deg, #1F3B5C, #142A44 50%, #0C1C30); box-shadow: inset 0 0 0 2px #F0D27A, 0 10px 0 #08121F, 0 22px 36px rgba(10,20,40,.35); }
+.dy-stage { position: relative; height: 520px; overflow: hidden; border-radius: 16px; background: #5DBB4A; box-shadow: inset 0 0 0 2px #08121F; isolation: isolate; }
+.dy-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.dy-top { position: absolute; left: 10px; right: 10px; top: 8px; z-index: 4; display: flex; align-items: center; gap: 6px; font-family: 'Arial Black', Arial, sans-serif; font-size: 11px; color: #FFFFFF; text-shadow: 0 1px 2px rgba(0,0,0,.6); }
+.dy-top > span:first-child { color: #A5D8FF; } .dy-top > span:last-child { color: #FFC9C9; }
+.dy-bar { position: relative; flex: 1; height: 8px; border-radius: 4px; background: linear-gradient(90deg, rgba(255,255,255,.5), rgba(255,255,255,.85)); box-shadow: 0 1px 3px rgba(0,0,0,.35); }
+.dy-dot { position: absolute; top: 50%; left: 0; width: 18px; height: 18px; margin: -9px; display: grid; place-items: center; border-radius: 50%; background: var(--cap); color: #FFFFFF; font: 900 9px/1 Arial, sans-serif; font-style: normal; box-shadow: 0 0 0 1.5px #FFFFFF, 0 1px 3px rgba(0,0,0,.5); transition: left .12s linear; }
+.dy-dot[data-dyd="0"], .dy-dot[data-dyd="4"], .dy-dot[data-dyd="7"] { color: #212529; }
+.dy-dot.me { width: 24px; height: 24px; margin: -12px; font-size: 11px; box-shadow: 0 0 0 2.5px #FFD43B, 0 0 10px rgba(255,212,59,.9); }
+.dy-skills { position: absolute; right: 8px; top: 34px; z-index: 5; display: grid; gap: 6px; width: 168px; pointer-events: none; }
+.dy-skill { display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 10px 0 4px; border-radius: 10px 4px 4px 10px; background: linear-gradient(90deg, rgba(255,255,255,.96), rgba(233,236,239,.92)); box-shadow: inset 4px 0 0 #4DABF7, 0 3px 8px rgba(0,0,0,.3); color: #212529; font-size: 12.5px; font-weight: 900; animation: dy-skin .35s cubic-bezier(.2,1.4,.4,1); }
+.dy-skill span { width: 30px; height: 30px; flex: 0 0 auto; border-radius: 8px; overflow: hidden; background: #E7F5FF; }
+.dy-skill span svg { width: 100%; height: 100%; display: block; }
+.dy-skill.mine { box-shadow: inset 4px 0 0 #FAB005, 0 0 0 2px #FFD43B, 0 3px 10px rgba(0,0,0,.35); background: linear-gradient(90deg, #FFF9DB, #FFF3BF); }
+.dy-skill.out { animation: dy-skout .4s ease-in forwards; }
+@keyframes dy-skin { from { transform: translateX(110%); opacity: 0; } }
+@keyframes dy-skout { to { transform: translateX(110%); opacity: 0; } }
+.dy-tele { position: absolute; left: 50%; top: 30%; z-index: 6; translate: -50% 0; padding: 6px 22px; border-radius: 6px; background: linear-gradient(90deg, transparent, rgba(201,42,42,.92) 12%, rgba(201,42,42,.92) 88%, transparent); color: #FFFFFF; font-family: 'Arial Black', Arial, sans-serif; font-size: 26px; letter-spacing: .04em; text-shadow: 0 2px 0 #5C0A0A; white-space: nowrap; opacity: 0; pointer-events: none; }
+.dy-tele.show { animation: dy-tele 1.8s cubic-bezier(.2,1.2,.4,1) forwards; }
+@keyframes dy-tele { 0% { opacity: 0; transform: scaleX(.2); } 15% { opacity: 1; transform: scaleX(1.05); } 25% { transform: none; } 80% { opacity: 1; } 100% { opacity: 0; } }
+.dy-bottom { position: absolute; left: 0; right: 0; bottom: 0; z-index: 5; padding: 30px 10px 10px; background: linear-gradient(180deg, transparent, rgba(8,18,31,.7) 34%, rgba(8,18,31,.88)); }
+.dy-me { display: flex; align-items: center; gap: 8px; min-height: 46px; }
+.dy-mf { width: 46px; height: 46px; border-radius: 50%; overflow: hidden; background: radial-gradient(circle at 50% 30%, #FFF3BF, #FAB005); box-shadow: 0 0 0 2.5px #FFD43B, 0 2px 6px rgba(0,0,0,.4); }
+.dy-mf svg { width: 100%; height: 100%; display: block; }
+.dy-mr { font-family: 'Arial Black', Arial, sans-serif; font-size: 16px; color: #FFFFFF; text-shadow: 0 2px 2px rgba(0,0,0,.5); }
+.dy-mr b { font-size: 34px; color: #FF922B; -webkit-text-stroke: 1.5px #FFFFFF; paint-order: stroke; }
+.dy-tag { padding: 3px 10px; border-radius: 999px; background: rgba(0,0,0,.6); box-shadow: inset 0 0 0 1px #FFD43B; color: #FFE066; font-style: normal; font-size: 12px; font-weight: 800; }
+.dy-comm { margin-top: 6px; min-height: 58px; }
+.dy-comm p { margin: 0; padding: 3px 0; border-top: 1px solid rgba(255,255,255,.14); color: #F1F3F5; font-size: 12px; line-height: 1.35; animation: dy-cin .3s ease-out; }
+.dy-comm p b { display: inline-block; margin-right: 6px; color: #FF8787; font-size: 11px; }
+.dy-comm p b.h { color: #74C0FC; }
+@keyframes dy-cin { from { transform: translateY(6px); opacity: 0; } }
+.dy-paddock { position: absolute; left: 50%; top: 42%; z-index: 6; translate: -50% -50%; width: max-content; max-width: 90%; white-space: nowrap; display: grid; justify-items: center; gap: 2px; padding: 12px 26px; border-radius: 14px; background: rgba(8,18,31,.78); box-shadow: inset 0 0 0 2px #F0D27A; color: #FFFFFF; text-align: center; }
+.dy-paddock b { font-family: 'Arial Black', Arial, sans-serif; font-size: 26px; color: #FFE066; }
+.dy-paddock span { font-size: 12px; font-weight: 700; color: #A5D8FF; } .dy-paddock small { font-size: 12px; color: #DEE2E6; }
+.dy-stage.live .dy-paddock { display: none; }
+.dy-finish { position: absolute; inset: 0; z-index: 8; display: grid; grid-template-rows: 1fr auto auto auto; justify-items: center; padding: 34px 14px 14px; background: radial-gradient(70% 50% at 50% 35%, rgba(255,243,191,.95), rgba(255,212,59,.6) 40%, rgba(28,126,214,.75) 80%), conic-gradient(from 0deg at 50% 35%, rgba(255,255,255,.25) 0 10deg, transparent 10deg 30deg, rgba(255,255,255,.25) 30deg 40deg, transparent 40deg 60deg); }
+.dy-finish.show { animation: dy-fin .6s cubic-bezier(.2,1.3,.4,1); }
+@keyframes dy-fin { from { opacity: 0; transform: scale(1.08); } }
+.dy-fpose { width: 190px; max-height: 210px; animation: dy-pose 1.2s ease-in-out infinite alternate; }
+.dy-fpose svg { width: 100%; height: 100%; filter: drop-shadow(0 8px 10px rgba(0,0,0,.3)); }
+@keyframes dy-pose { to { transform: translateY(-6px) rotate(-2deg); } }
+.dy-fhead { text-align: center; }
+.dy-fhead small { display: block; font-size: 12px; font-weight: 800; color: #0B3B66; }
+.dy-fhead b { font-family: 'Arial Black', Arial, sans-serif; font-size: 28px; color: #FFFFFF; -webkit-text-stroke: 2px #0B3B66; paint-order: stroke; }
+.dy-podium { display: flex; gap: 8px; margin: 8px 0; padding: 0; list-style: none; }
+.dy-podium li { display: grid; justify-items: center; width: 92px; padding: 6px 4px; border-radius: 10px; background: rgba(255,255,255,.88); color: #212529; font-size: 11.5px; font-weight: 800; }
+.dy-podium li svg { width: 36px; height: 36px; }
+.dy-podium li em { font-style: normal; color: #C92A2A; }
+.dy-podium li.me { box-shadow: 0 0 0 2.5px #FAB005, 0 0 12px rgba(250,176,5,.7); }
+.dy-fme { padding: 8px 14px; border-radius: 12px; font-size: 13.5px; font-weight: 900; text-align: center; }
+.dy-fme.hit { background: linear-gradient(180deg, #FFF3BF, #FCC419); color: #7A1D00; box-shadow: 0 0 14px rgba(252,196,25,.7); }
+.dy-fme.miss { background: rgba(8,18,31,.75); color: #E9ECEF; }
+.dy-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 10px; }
+.dy-card { position: relative; display: grid; grid-template-columns: 34px 1fr; grid-template-rows: auto auto; align-items: center; column-gap: 6px; padding: 6px 6px 6px 8px; border: 0; border-radius: 12px; background: rgba(255,255,255,.08); color: #E7F5FF; text-align: left; cursor: pointer; transition: background .15s, transform .1s; }
+.dy-card > svg { grid-row: 1 / 3; width: 34px; height: 34px; }
+.dy-gate { position: absolute; left: 4px; top: 4px; z-index: 1; width: 15px; height: 15px; display: grid; place-items: center; border-radius: 4px; background: var(--cap); color: #FFFFFF; font: 900 9px/1 Arial; box-shadow: 0 0 0 1px rgba(0,0,0,.4); }
+.dy-card[data-dyp="0"] .dy-gate, .dy-card[data-dyp="4"] .dy-gate, .dy-card[data-dyp="7"] .dy-gate { color: #212529; }
+.dy-cn { display: grid; min-width: 0; }
+.dy-cn b { font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dy-cn small { font-size: 10px; color: #A5D8FF; }
+.dy-odds { display: flex; align-items: baseline; gap: 5px; }
+.dy-odds b { font-family: 'Arial Black', Arial, sans-serif; font-size: 13px; color: #FFE066; }
+.dy-odds small { font-size: 10px; color: #CED4DA; }
+.dy-card[aria-pressed="true"] { background: linear-gradient(180deg, #FFF9DB, #FFE066); color: #3B2A00; box-shadow: 0 0 0 2px #FFFFFF, 0 0 12px rgba(255,212,59,.6); }
+.dy-card[aria-pressed="true"] .dy-cn small { color: #7A5A00; } .dy-card[aria-pressed="true"] .dy-odds b { color: #C92A2A; } .dy-card[aria-pressed="true"] .dy-odds small { color: #5C4300; }
+.dy-card:not(:disabled):hover { background: rgba(255,255,255,.16); }
+.dy-card[aria-pressed="true"]:not(:disabled):hover { background: linear-gradient(180deg, #FFFDF0, #FFE98A); }
+.dy-card:disabled { cursor: default; opacity: .7; }
+.dy-opts { display: grid; grid-template-columns: auto 1fr; gap: 8px; margin-top: 8px; }
+.dy-type, .dy-bets { display: flex; gap: 4px; padding: 4px; border-radius: 12px; background: rgba(0,0,0,.3); }
+.dy-type button, .dy-bets button { flex: 1; min-height: 40px; padding: 0 10px; border: 0; border-radius: 9px; background: transparent; color: #D0EBFF; font-size: 12.5px; font-weight: 800; white-space: nowrap; cursor: pointer; }
+.dy-bets .kernel { width: 12px; height: 12px; vertical-align: -2px; }
+.dy-type button[aria-pressed="true"], .dy-bets button[aria-pressed="true"] { background: linear-gradient(180deg, #E7F5FF, #74C0FC); color: #0B3B66; }
+.dy-type button:disabled, .dy-bets button:disabled { opacity: .55; cursor: default; }
+.sl-btn.dy-go { width: 100%; margin-top: 10px; background: linear-gradient(180deg, #FF6B6B, #C92A2A); color: #FFFFFF; box-shadow: 0 6px 0 #7A1010; }
+.sl-btn.dy-go span { font-size: 12px; }
+.sl-btn.dy-go:disabled { background: #6C7A8C; color: #D7DDE8; box-shadow: 0 6px 0 #3E4A5C; }
+@media (max-width: 640px) { .dy-stage { height: 470px; } .dy-cards { grid-template-columns: repeat(2, 1fr); } .dy-opts { grid-template-columns: 1fr; } .dy-skills { width: 140px; } .dy-skill { font-size: 11px; } .dy-tele { font-size: 21px; } .dy-fpose { width: 150px; } .dy-podium li { width: 84px; } }
 /* ===== 냥냥 레이스 ===== */
 .rc-panel { grid-column: 1 / -1; }
 .rc-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
@@ -2942,6 +3023,7 @@ img, svg, video { max-width: 100%; }
     <button type="button" role="tab" data-gtab="scratch" aria-selected="false" style="--gtc:#E8590C"><span class="gt-dot"></span>럭키 스크래치 <small class="gt-new">NEW</small></button>
     <button type="button" role="tab" data-gtab="pirate" aria-selected="false" style="--gtc:#C92A2A"><span class="gt-dot"></span>해적 통 룰렛 <small class="gt-new">NEW</small></button>
     <button type="button" role="tab" data-gtab="bomb" aria-selected="false" style="--gtc:#E67700"><span class="gt-dot"></span>폭탄 해체반 <small class="gt-new">NEW</small></button>
+    <button type="button" role="tab" data-gtab="derby" aria-selected="false" style="--gtc:#1C7ED6"><span class="gt-dot"></span>냥냥 더비 <small class="gt-new">NEW</small></button>
   </div>
   </div>
 
@@ -2982,7 +3064,7 @@ img, svg, video { max-width: 100%; }
   <p class="ad-invalid" id="ad-invalid" hidden></p>
 
   <div class="ad-layout">
-  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="archery"><span class="gnb-dot" data-addot="archery"></span><span class="gnb-text"><b>깡통 사격</b><small>캔별 상품 보상표</small></span></button><button type="button" class="gnb-item" data-adpage="slot"><span class="gnb-dot" data-addot="slot"></span><span class="gnb-text"><b>캐릭터 슬롯</b><small>캐릭터별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="gslot"><span class="gnb-dot" data-addot="gslot"></span><span class="gnb-text"><b>상품 슬롯</b><small>상품별 비중·준비 수량</small></span></button><button type="button" class="gnb-item" data-adpage="race"><span class="gnb-dot" data-addot="race"></span><span class="gnb-text"><b>냥냥 레이스</b><small>우승 비중·배당</small></span></button><button type="button" class="gnb-item" data-adpage="fish"><span class="gnb-dot" data-addot="fish"></span><span class="gnb-text"><b>냥 낚시터</b><small>입장권·물고기 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="wheel"><span class="gnb-dot" data-addot="wheel"></span><span class="gnb-text"><b>럭키 룰렛</b><small>그림별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="pirate"><span class="gnb-dot" data-addot="pirate"></span><span class="gnb-text"><b>해적 통 룰렛</b><small>구멍·해적·칼 수·RTP</small></span></button><button type="button" class="gnb-item" data-adpage="bomb"><span class="gnb-dot" data-addot="bomb"></span><span class="gnb-text"><b>폭탄 해체반</b><small>선 개수·시간·배수</small></span></button></div></nav>
+  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="archery"><span class="gnb-dot" data-addot="archery"></span><span class="gnb-text"><b>깡통 사격</b><small>캔별 상품 보상표</small></span></button><button type="button" class="gnb-item" data-adpage="slot"><span class="gnb-dot" data-addot="slot"></span><span class="gnb-text"><b>캐릭터 슬롯</b><small>캐릭터별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="gslot"><span class="gnb-dot" data-addot="gslot"></span><span class="gnb-text"><b>상품 슬롯</b><small>상품별 비중·준비 수량</small></span></button><button type="button" class="gnb-item" data-adpage="race"><span class="gnb-dot" data-addot="race"></span><span class="gnb-text"><b>냥냥 레이스</b><small>우승 비중·배당</small></span></button><button type="button" class="gnb-item" data-adpage="fish"><span class="gnb-dot" data-addot="fish"></span><span class="gnb-text"><b>냥 낚시터</b><small>입장권·물고기 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="wheel"><span class="gnb-dot" data-addot="wheel"></span><span class="gnb-text"><b>럭키 룰렛</b><small>그림별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="pirate"><span class="gnb-dot" data-addot="pirate"></span><span class="gnb-text"><b>해적 통 룰렛</b><small>구멍·해적·칼 수·RTP</small></span></button><button type="button" class="gnb-item" data-adpage="bomb"><span class="gnb-dot" data-addot="bomb"></span><span class="gnb-text"><b>폭탄 해체반</b><small>선 개수·시간·배수</small></span></button><button type="button" class="gnb-item" data-adpage="derby"><span class="gnb-dot" data-addot="derby"></span><span class="gnb-text"><b>냥냥 더비</b><small>우승 비중·배당·RTP</small></span></button></div></nav>
   <div class="ad-main">
   <div class="ad-page" data-page="overview">
 
@@ -3086,6 +3168,15 @@ img, svg, video { max-width: 100%; }
     <div class="fields" id="bd-fields"></div>
     <div class="table-wrap"><table class="ad-table" id="bd-t"></table></div>
     <div class="ed-foot"><div class="pa-calc" id="bd-calc"></div></div>
+  </div>
+  </div>
+  <div class="ad-page" data-page="derby" hidden>
+  <div class="panel ad-block" id="dy-admin">
+    <h2>냥냥 더비 관리 <span class="tag" id="dy-sum"></span></h2>
+    <p class="hub-note">순위는 출발 순간 우승 비중대로 1착부터 차례로 뽑아요(1착 확률 = 비중 비율). 배당은 <b>목표 RTP ÷ 맞힐 확률</b>(0.1 단위 내림, 최소 ×1.0)로 자동 계산돼서, 손님이 어느 냥이·어느 베팅을 골라도 환원율이 목표 이하예요. 각질은 레이스 연출(초반·막판 속도)에만 쓰여요.</p>
+    <div class="fields" id="dy-fields"></div>
+    <div class="table-wrap"><table class="ad-table" id="dy-t"></table></div>
+    <div class="ed-foot"><div class="pa-calc" id="dy-calc"></div></div>
   </div>
   </div>
   <div class="ad-page" data-page="archery" hidden>
@@ -3452,6 +3543,7 @@ img, svg, video { max-width: 100%; }
     { id: 'scratch', name: '럭키 스크래치', cost: 300, color: '#E8590C', tab: 'scratch' },
     { id: 'pirate', name: '해적 통 룰렛', cost: 50, color: '#C92A2A', tab: 'pirate' },
     { id: 'bomb', name: '폭탄 해체반', cost: 50, color: '#E67700', tab: 'bomb' },
+    { id: 'derby', name: '냥냥 더비', cost: 100, color: '#1C7ED6', tab: 'derby' },
     { id: 'gold', name: '골드존', cost: 2000, color: 'var(--t-gold)' },
     { id: 'creator', name: '크리에이터존', cost: 3000, color: 'var(--t-creator)' },
     { id: 'legend', name: '레전드존', cost: 10000, color: 'var(--t-legend)' }
@@ -3523,6 +3615,10 @@ img, svg, video { max-width: 100%; }
       // 폭탄 해체반: 선 5개(해체 1·폭발 1·빈 선 3). 해체 선을 먼저 자르면 성공, 몇 번째에 해체했는지에 따라 배수. RTP = Σ P(j) × 배수(j)
       { id: 'bomb', zone: 'bomb', mode: 'bomb', name: '폭탄 해체반', cost: 50, demand: 600000, wires: 5, sec: 10, mults: [2, 1.6, 1.3, 1.1], top: '원샷 해체 ×2',
         prizes: [W('A', '1번째에 해체 ×2', 'kernel', 100, 0, 20), W('B', '2번째에 해체 ×1.6', 'kernel', 80, 0, 15), W('B', '3번째에 해체 ×1.3', 'kernel', 65, 0, 10), W('B', '4번째에 해체 ×1.1', 'kernel', 55, 0, 5)] },
+      // 냥냥 더비: 9마리 3D 중계 경주. 우승 비중으로 순위를 정하고, 배당 = 목표 RTP ÷ 맞힐 확률(자동). 최대 RTP로 관리
+      { id: 'derby', zone: 'derby', mode: 'derby', name: '냥냥 더비', cost: 100, maxBet: 1000, demand: 800000, rtp: 85, top: '',
+        runners: [{ name: '치즈냥', style: 0, w: 18 }, { name: '고등어', style: 1, w: 15 }, { name: '삼색이', style: 2, w: 13 }, { name: '턱시도', style: 3, w: 12 }, { name: '러시안블루', style: 1, w: 11 }, { name: '샴냥', style: 2, w: 9 }, { name: '까망이', style: 3, w: 8 }, { name: '하양이', style: 0, w: 7 }, { name: '호랑냥', style: 2, w: 7 }],
+        prizes: [] },
       // 팝콘 대포: 게이지 등급(퍼펙트·좋아요·보통)별 확률표로 거리 구간 결정. 배수 공통, 등급별 RTP 동일(B 방식)
       { id: 'cannon', zone: 'cannon', mode: 'cannon', cv: 2, name: '팝콘 대포', cost: 100, demand: 800000, mults: [0.2, 0.5, 1, 2, 4, 10],
         probs: { perfect: [0, 0, 90.2, 7, 2, 0.8], good: [0, 0, 96, 3.5, 0.5, 0], normal: [45, 30, 10, 10, 4, 1] }, top: '800m 이상 ×10 · 강냉이 1,000개',
@@ -3601,7 +3697,7 @@ img, svg, video { max-width: 100%; }
   const WALLET_KEY = 'tooneland-wallet-v1';
   const WALLET = (() => { try { const w = JSON.parse(localStorage.getItem(WALLET_KEY)); if (w && typeof w.bal === 'number' && Array.isArray(w.log)) return w; } catch (e) { /* 저장소 없음 */ } return { bal: 12340, log: [{ t: Date.now(), d: 0, after: 12340, why: '시작 잔액 (목업)' }] }; })();
   let ledgerWhy = '', walletT = 0;
-  const GAME_WHY = { puzzle: ['직소 퍼즐 카드 뽑기', '직소 퍼즐 보상'], runner: ['냥치 런 입장', '냥치 런 점수 받기'], cannon: ['팝콘 대포 발사', '팝콘 대포 착지 보상'], slot: ['캐릭터 슬롯 돌리기', '캐릭터 슬롯 당첨'], gslot: ['상품 슬롯 돌리기', '상품 슬롯 당첨'], race: ['냥냥 레이스 응원', '냥냥 레이스 적중'], fish: ['냥 낚시터 입장', '냥 낚시터 조과'], wheel: ['럭키 룰렛 돌리기', '럭키 룰렛 당첨'], scratch: ['럭키 스크래치 구매', '럭키 스크래치 당첨'], pirate: ['해적 통 룰렛 입장', '해적 통 룰렛 보물 획득'], bomb: ['폭탄 해체반 입장', '폭탄 해체반 해체 성공'], archery: ['깡통 사격 입장(탄 구매)', '깡통 사격 명중 상품'] };
+  const GAME_WHY = { puzzle: ['직소 퍼즐 카드 뽑기', '직소 퍼즐 보상'], runner: ['냥치 런 입장', '냥치 런 점수 받기'], cannon: ['팝콘 대포 발사', '팝콘 대포 착지 보상'], slot: ['캐릭터 슬롯 돌리기', '캐릭터 슬롯 당첨'], gslot: ['상품 슬롯 돌리기', '상품 슬롯 당첨'], race: ['냥냥 레이스 응원', '냥냥 레이스 적중'], fish: ['냥 낚시터 입장', '냥 낚시터 조과'], wheel: ['럭키 룰렛 돌리기', '럭키 룰렛 당첨'], scratch: ['럭키 스크래치 구매', '럭키 스크래치 당첨'], pirate: ['해적 통 룰렛 입장', '해적 통 룰렛 보물 획득'], bomb: ['폭탄 해체반 입장', '폭탄 해체반 해체 성공'], derby: ['냥냥 더비 베팅', '냥냥 더비 적중'], archery: ['깡통 사격 입장(탄 구매)', '깡통 사격 명중 상품'] };
   function ledgerReason(d) {
     if (ledgerWhy) return ledgerWhy;
     if (typeof current !== 'undefined' && current) return current.name + (d < 0 ? ' 뽑기' : ' 당첨');
@@ -3697,6 +3793,7 @@ img, svg, video { max-width: 100%; }
 
   function renderZones() {
     const COPY = {
+      derby: ['3D 중계로 즐기는 냥냥 더비', '냥이 9마리가 1600m를 달려요. 응원할 냥이를 골라 1착 또는 3착 안에 걸고, 레일 옆·정면 카메라로 중계를 지켜보세요.'],
       bomb: ['해체 선을 찾아 자르는 폭탄 해체반', '폭탄의 선 5개 중 해체 선은 단 하나! 폭발 선보다 먼저 해체 선을 자르면 성공이고, 빨리 해체할수록 보상이 커요.'],
       pirate: ['칼을 꽂아 버티는 해적 통 룰렛', '통 구멍에 칼을 하나씩 꽂아요. 해적이 튀어나오지 않고 칼 5개를 모두 버티면 보물(입장료 × 배수)을 받아요.'],
       scratch: ['은박을 긁어 같은 그림 3개를 찾는 럭키 스크래치', '회차마다 정해진 장수만 발행하는 한정 복권이에요. 남은 복권과 상품 수량을 실시간으로 공개하고, 같은 그림 3개가 나오면 그 상품을 받아요.'],
@@ -3761,10 +3858,11 @@ img, svg, video { max-width: 100%; }
     if (state.tab === 'scratch') { $('floor').innerHTML = scratchFloorHTML(); ltInit(); return; }
     if (state.tab === 'pirate') { $('floor').innerHTML = pirateFloorHTML(); brInit(); return; }
     if (state.tab === 'bomb') { $('floor').innerHTML = bombFloorHTML(); bdInit(); return; }
+    if (state.tab === 'derby') { $('floor').innerHTML = derbyFloorHTML(); requestAnimationFrame(() => dyInit()); return; }
     const order = id => zones.findIndex(z => z.id === id);
     const list = state.tab !== 'gacha'
       ? machines.filter(m => m.mode === state.tab)
-      : machines.filter(m => !['board', 'puzzle', 'farm', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb', 'scratch'].includes(m.mode) && (state.zone === 'all' || m.zone === state.zone)).sort((a, b) => order(a.zone) - order(b.zone));
+      : machines.filter(m => !['board', 'puzzle', 'farm', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb', 'derby', 'scratch'].includes(m.mode) && (state.zone === 'all' || m.zone === state.zone)).sort((a, b) => order(a.zone) - order(b.zone));
     $('floor').innerHTML = list.map(m => m.mode === 'board' ? boardCardHTML(m) : machineHTML(m, 'button')).join('');
   }
   function renderHUD(bump) {
@@ -7496,6 +7594,356 @@ img, svg, video { max-width: 100%; }
     const w = e.target.closest && e.target.closest('.bd-wire'); if (!w) return;
     e.preventDefault(); if (BDF.on && !BDF.busy) bdCut(Number(w.dataset.bdw));
   });
+  // =====================================================================
+  // 냥냥 더비: 냥이 9마리 경주. 한 마리를 골라 '1착(단승)' 또는 '3착 안(연승)'에 강냉이를 건다.
+  // 순위는 출발 순간 우승 비중으로 정해지고(앞 순위부터 차례로 뽑기), 레이스는 그 순위에 맞춘 3D 중계 연출이다.
+  // 배당은 목표 RTP ÷ 맞힐 확률(0.1 단위 내림, 최소 ×1.0)로 자동 계산 → 어떤 선택이든 RTP가 목표 이하.
+  // 화면: 3D 카메라(출발 게이트 → 레일 옆 추적 → 높은 전경 → 마지막 직선 정면) · 진행 막대 · 스킬 카드 · 실시간 순위 · 중계
+  const DY_DEF = [
+    { name: '치즈냥', fur: '#FFB45A', fur2: '#E8890C', style: 0, w: 18 }, { name: '고등어', fur: '#A7B0B8', fur2: '#5C6670', style: 1, w: 15 },
+    { name: '삼색이', fur: '#FFF4E6', fur2: '#E8890C', style: 2, w: 13 }, { name: '턱시도', fur: '#2B2D31', fur2: '#F8F9FA', style: 3, w: 12 },
+    { name: '러시안블루', fur: '#8FA3B8', fur2: '#5E728A', style: 1, w: 11 }, { name: '샴냥', fur: '#F3E3C8', fur2: '#6B4A35', style: 2, w: 9 },
+    { name: '까망이', fur: '#3A3A40', fur2: '#1E1E22', style: 3, w: 8 }, { name: '하양이', fur: '#FFFFFF', fur2: '#DDE3EA', style: 0, w: 7 },
+    { name: '호랑냥', fur: '#F59F00', fur2: '#8A4B00', style: 2, w: 7 }];
+  const DY_CAP = ['#FFFFFF', '#212529', '#E03131', '#1C7ED6', '#FAB005', '#2F9E44', '#F76707', '#E64980', '#7048E8'];
+  const DY_STYLE = ['도주', '선행', '선입', '추입'];
+  const DY_SKILL = [['선두 사수', '바람 가르기'], ['냥발 질주', '코너 장인'], ['틈새 파고들기', '꼬리 부스트'], ['막판 스퍼트', '각성 추입']];
+  const DY_L = 400;   // 경주 거리(월드 단위), 화면 표시는 ×4 = 1600m
+  const DRB = { on: false, pick: 0, type: 'win', bet: 0, raf: 0, sim: null, last: null };
+  const derbyMachine = () => machines.find(m => m.mode === 'derby');
+  const dyEl = id => document.getElementById(id);
+  function dyRunners(m) {
+    return DY_DEF.map((d, i) => { const r = m && Array.isArray(m.runners) ? m.runners[i] || {} : {}; return { name: String(r.name == null ? d.name : r.name).slice(0, 8) || d.name, fur: d.fur, fur2: d.fur2, style: r.style == null ? d.style : Math.max(0, Math.min(3, Math.round(num(r.style)))), w: r.w == null ? d.w : Math.max(0, num(r.w)) }; });
+  }
+  const dyTarget = m => Math.max(.5, Math.min(.99, (num(m && m.rtp) || 85) / 100));
+  const dyWinP = m => { const R = dyRunners(m), t = R.reduce((a, r) => a + r.w, 0); return R.map(r => t ? r.w / t : 0); };
+  // 3착 안 확률: 1·2·3착을 차례로 뽑는 모든 경우(9×8×7)
+  function dyTop3P(m) {
+    const w = dyRunners(m).map(r => r.w), t = w.reduce((a, b) => a + b, 0), out = w.map(() => 0); if (!t) return out;
+    for (let a = 0; a < 9; a++) for (let b = 0; b < 9; b++) { if (a === b) continue; for (let c = 0; c < 9; c++) {
+      if (c === a || c === b) continue; const ta = t - w[a], tb = ta - w[b]; if (!ta || !tb) continue;
+      const p = w[a] / t * w[b] / ta * w[c] / tb; out[a] += p; out[b] += p; out[c] += p; } }
+    return out;
+  }
+  const dyOdds = (m, p) => p > 0 ? Math.max(1, Math.floor(dyTarget(m) / p * 10 + 1e-9) / 10) : 0;
+  function dyBoard(m) { const R = dyRunners(m), q = dyWinP(m), q3 = dyTop3P(m); return R.map((r, i) => ({ ...r, i, pw: q[i], p3: q3[i], win: dyOdds(m, q[i]), show: dyOdds(m, q3[i]) })); }
+  const dyMaxRtp = m => Math.max(0, ...dyBoard(m).flatMap(b => [b.pw * b.win, b.p3 * b.show]));
+  const dyAvgRtp = m => { const X = dyBoard(m).flatMap(b => [b.pw * b.win, b.p3 * b.show]); return X.length ? X.reduce((a, b) => a + b, 0) / X.length : 0; };
+  const dyMul = v => '×' + (+Number(v).toFixed(1));
+  const dyBets = m => { const c = num(m.cost), mx = Math.max(c, num(m.maxBet) || c * 10); return [1, 3, 5, 10].map(k => c * k).filter(v => v <= mx); };
+  function dySync(m) {
+    const B = dyBoard(m); m.runners = B.map(b => ({ name: b.name, style: b.style, w: b.w }));
+    m.prizes = B.map(b => ({ g: b.win >= 10 ? 'S' : b.win >= 5 ? 'A' : b.win >= 3 ? 'B' : 'C', name: b.name + ' 1착 ' + dyMul(b.win), kind: 'kernel', val: Math.floor(num(m.cost) * b.win), cost: 0, w: +(b.pw * 100).toFixed(2) }));
+    const top = B.reduce((x, b) => b.win > x.win ? b : x, B[0]); m.top = top.name + ' 1착 ' + dyMul(top.win);
+  }
+  function dyOrder(m) {
+    const w = dyRunners(m).map(r => r.w), left = w.map((_, i) => i), order = [];
+    while (left.length) { const t = left.reduce((a, i) => a + w[i], 0); let r = Math.random() * t, k = left.length - 1; for (let j = 0; j < left.length; j++) { r -= w[left[j]]; if (r < 0) { k = j; break; } } order.push(left.splice(k, 1)[0]); }
+    return order;
+  }
+
+  // ----- 초상화(직접 그린 에셋): 냥이 얼굴 + 기수 모자(게이트 색)
+  function dyFace(i, big) {
+    const d = DY_DEF[i], O = '#2B2D31', cap = DY_CAP[i], fur = d.fur, f2 = d.fur2;
+    const patch = i === 3 ? '<path d="M30 58 Q50 40 70 58 Q66 80 50 82 Q34 80 30 58 Z" fill="#F8F9FA"/>' : i === 2 ? '<path d="M22 44 Q30 30 44 34 Q40 48 26 52 Z" fill="#2B2D31"/><path d="M62 30 Q76 32 78 46 Q66 46 60 38 Z" fill="#E8890C"/>' : i === 5 ? '<ellipse cx="50" cy="66" rx="16" ry="12" fill="#6B4A35" opacity=".8"/>' : (i === 1 || i === 8) ? '<path d="M40 26 L42 36 M50 24 V35 M60 26 L58 36 M20 54 L30 56 M80 54 L70 56" stroke="' + f2 + '" stroke-width="3.4" stroke-linecap="round"/>' : '';
+    const eye = i === 6 ? '#FFE066' : O;
+    return '<svg viewBox="0 0 100 100" aria-hidden="true"' + (big ? ' class="big"' : '') + '><path d="M18 40 L20 10 L42 26 Z M82 40 L80 10 L58 26 Z" fill="' + fur + '" stroke="' + O + '" stroke-width="3" stroke-linejoin="round"/><path d="M23 34 L24 17 L36 26 Z M77 34 L76 17 L64 26 Z" fill="#FFB3C6"/>' +
+      '<ellipse cx="50" cy="56" rx="38" ry="32" fill="' + fur + '" stroke="' + O + '" stroke-width="3"/>' + patch +
+      '<path d="M14 44 Q50 0 86 44 Q50 30 14 44 Z" fill="' + cap + '" stroke="' + O + '" stroke-width="2.6"/><path d="M50 22 V40" stroke="' + (i === 0 || i === 7 ? '#ADB5BD' : '#FFFFFF') + '" stroke-opacity=".6" stroke-width="3"/><text x="50" y="40" text-anchor="middle" font-family="Arial Black, Arial" font-size="13" fill="' + (i === 0 || i === 4 || i === 7 ? '#212529' : '#FFFFFF') + '">' + (i + 1) + '</text>' +
+      '<ellipse cx="37" cy="58" rx="4.6" ry="5.6" fill="' + eye + '"/><ellipse cx="63" cy="58" rx="4.6" ry="5.6" fill="' + eye + '"/><circle cx="38.6" cy="56" r="1.7" fill="#FFFFFF"/><circle cx="64.6" cy="56" r="1.7" fill="#FFFFFF"/>' +
+      '<path d="M47.4 66 h5.2 l-2.6 3 z" fill="#FF8FA3"/><path d="M43 71 q3.5 4 7 0 q3.5 4 7 0" stroke="' + (i === 3 || i === 6 ? '#ADB5BD' : O) + '" stroke-width="2.2" fill="none" stroke-linecap="round"/><ellipse cx="27" cy="68" rx="5" ry="3" fill="#FFB3C6" opacity=".8"/><ellipse cx="73" cy="68" rx="5" ry="3" fill="#FFB3C6" opacity=".8"/></svg>';
+  }
+  // 우승 클로즈업 포즈(손 번쩍)
+  function dyPose(i) {
+    const d = DY_DEF[i], O = '#2B2D31';
+    return '<svg viewBox="0 0 200 220" aria-hidden="true"><path d="M60 214 Q60 140 100 132 Q140 140 140 214 Z" fill="' + DY_CAP[i] + '" stroke="' + O + '" stroke-width="4"/><text x="100" y="190" text-anchor="middle" font-family="Arial Black, Arial" font-size="34" fill="' + (i === 0 || i === 4 || i === 7 ? '#212529' : '#FFFFFF') + '">' + (i + 1) + '</text>' +
+      '<path d="M132 150 Q170 110 168 60" stroke="' + O + '" stroke-width="22" stroke-linecap="round" fill="none"/><path d="M132 150 Q170 110 168 60" stroke="' + d.fur + '" stroke-width="15" stroke-linecap="round" fill="none"/><circle cx="168" cy="54" r="12" fill="' + d.fur + '" stroke="' + O + '" stroke-width="4"/>' +
+      '<g transform="translate(40 18) scale(1.2)">' + dyFace(i).replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g></svg>';
+  }
+
+  // ----- 3D 카메라: 월드(x 진행, y 위, z 옆) → 화면
+  function dyCam(pos, look, W, H, fov) {
+    const f = [look[0] - pos[0], look[1] - pos[1], look[2] - pos[2]], fl = Math.hypot(...f); f[0] /= fl; f[1] /= fl; f[2] /= fl;
+    let r = [f[2], 0, -f[0]]; const rl = Math.hypot(...r) || 1; r = r.map(v => v / rl);
+    const u = [f[1] * r[2] - f[2] * r[1], f[2] * r[0] - f[0] * r[2], f[0] * r[1] - f[1] * r[0]];   // 위 = 앞 × 오른쪽
+    const F = H * fov;
+    return { pos, f, r, u, F, W, H, p(x, y, z) { const dx = x - pos[0], dy = y - pos[1], dz = z - pos[2]; const cz = dx * f[0] + dy * f[1] + dz * f[2]; if (cz < .4) return null; const cx = dx * r[0] + dy * r[1] + dz * r[2], cy = dx * u[0] + dy * u[1] + dz * u[2]; return [W / 2 + cx / cz * F, H / 2 - cy / cz * F, cz]; } };
+  }
+  const DY_TW = 16;   // 주로 폭(z 0~16)
+  function dyDrawWorld(ctx, cam, t) {
+    const { W, H } = cam;
+    // 하늘 + 지면 바탕
+    const hz = cam.p(cam.pos[0] + cam.f[0] * 600, 0, cam.pos[2] + cam.f[2] * 600), hy = hz ? Math.max(-50, Math.min(H + 50, hz[1])) : H * .35;
+    let g = ctx.createLinearGradient(0, 0, 0, hy); g.addColorStop(0, '#4D9DE0'); g.addColorStop(1, '#BFE3FF'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, Math.max(0, hy));
+    ctx.fillStyle = '#5DBB4A'; ctx.fillRect(0, hy, W, H - hy);
+    // 구름
+    ctx.fillStyle = 'rgba(255,255,255,.85)';
+    for (let k = 0; k < 6; k++) { const c = cam.p(cam.pos[0] + 300 + ((k * 137 - t * 2) % 600 + 600) % 600 - 300, 60 + (k % 3) * 14, -200 + k * 90); if (c && c[1] < hy && c[2] > 1) { const s = 900 / c[2]; ctx.beginPath(); ctx.ellipse(c[0], c[1], 26 * s, 9 * s, 0, 0, 7); ctx.ellipse(c[0] + 16 * s, c[1] - 6 * s, 18 * s, 9 * s, 0, 0, 7); ctx.fill(); } }
+    const x0 = Math.floor((cam.pos[0] - 120) / 8) * 8, x1 = cam.pos[0] + 260;
+    const quad = (pts, col) => { const P = pts.map(q => cam.p(...q)); if (P.some(v => !v)) return; ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(P[0][0], P[0][1]); for (let k = 1; k < 4; k++) ctx.lineTo(P[k][0], P[k][1]); ctx.closePath(); ctx.fill(); };
+    // 바깥 잔디(진한 줄무늬) · 주로(잔디 결 줄무늬) — 멀리서부터
+    const seg = []; for (let x = x1; x >= x0; x -= 8) seg.push(x);
+    seg.forEach(x => {
+      const stripe = Math.floor(x / 8) % 2;
+      quad([[x, 0, -60], [x + 8, 0, -60], [x + 8, 0, -1], [x, 0, -1]], stripe ? '#4FA63E' : '#56AE44');
+      quad([[x, 0, DY_TW + 1], [x + 8, 0, DY_TW + 1], [x + 8, 0, 80], [x, 0, 80]], stripe ? '#4FA63E' : '#56AE44');
+      quad([[x, 0, -1], [x + 8, 0, -1], [x + 8, 0, DY_TW + 1], [x, 0, DY_TW + 1]], stripe ? '#6CCB57' : '#64C24F');
+    });
+    // 결승선
+    if (DY_L > x0 && DY_L < x1) { quad([[DY_L - .4, .01, -1], [DY_L + .4, .01, -1], [DY_L + .4, .01, DY_TW + 1], [DY_L - .4, .01, DY_TW + 1]], '#FFFFFF'); }
+    // 나무 줄(양쪽 멀리) — 멀리서부터
+    const trees = []; for (let x = Math.floor(x0 / 14) * 14; x < x1 + 200; x += 14) { trees.push([x, -46 - (x % 28 ? 6 : 0)]); trees.push([x + 7, 64 + (x % 28 ? 5 : 0)]); }
+    trees.map(([x, z]) => [x, z, cam.p(x, 0, z)]).filter(v => v[2]).sort((a, b) => b[2][2] - a[2][2]).forEach(([x, z, b]) => {
+      const top = cam.p(x, 9, z); if (!top) return; const h = b[1] - top[1], w = h * .55; if (!(h > 2)) return;
+      ctx.fillStyle = '#6B4A2B'; ctx.fillRect(b[0] - w * .08, b[1] - h * .35, w * .16, h * .35);
+      ctx.fillStyle = (Math.abs(x) % 3 < 1.5) ? '#2F8F3A' : '#3AA046'; ctx.beginPath(); ctx.ellipse(b[0], b[1] - h * .62, w * .55, h * .42, 0, 0, 7); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.12)'; ctx.beginPath(); ctx.ellipse(b[0] - w * .15, b[1] - h * .75, w * .22, h * .16, 0, 0, 7); ctx.fill();
+    });
+    // 레일(안쪽 z=-1, 바깥 z=17): 기둥 + 가로대
+    [-1, DY_TW + 1].forEach(z => {
+      let prev = null;
+      for (let x = Math.floor(x0 / 4) * 4; x <= x1; x += 4) {
+        const b = cam.p(x, 0, z), tp = cam.p(x, 1.1, z); if (!b || !tp) { prev = null; continue; }
+        ctx.strokeStyle = '#E9ECEF'; ctx.lineWidth = Math.max(1, 60 / b[2]); ctx.beginPath(); ctx.moveTo(b[0], b[1]); ctx.lineTo(tp[0], tp[1]); ctx.stroke();
+        if (prev) { ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = Math.max(1.2, 90 / tp[2]); ctx.beginPath(); ctx.moveTo(prev[0], prev[1]); ctx.lineTo(tp[0], tp[1]); ctx.stroke(); }
+        prev = tp;
+      }
+    });
+    // 거리 표지(400m마다)와 결승 기둥
+    for (let k = 1; k < 4; k++) { const x = DY_L * k / 4, b = cam.p(x, 0, -3.5), tp = cam.p(x, 2.6, -3.5); if (b && tp) { const s = 40 / b[2]; ctx.fillStyle = '#FFFFFF'; ctx.fillRect(tp[0] - 12 * s, tp[1] - 8 * s, 24 * s, 12 * s); ctx.fillStyle = '#C92A2A'; ctx.font = '900 ' + (8 * s) + 'px Arial'; ctx.textAlign = 'center'; ctx.fillText(String(1600 - k * 400), tp[0], tp[1] + 1 * s); ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 2 * s; ctx.beginPath(); ctx.moveTo(b[0], b[1]); ctx.lineTo(tp[0], tp[1] + 4 * s); ctx.stroke(); } }
+    const gb = cam.p(DY_L, 0, -2), gt = cam.p(DY_L, 6, -2);
+    if (gb && gt) { const s = 60 / gb[2]; ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 3 * s; ctx.beginPath(); ctx.moveTo(gb[0], gb[1]); ctx.lineTo(gt[0], gt[1]); ctx.stroke(); ctx.fillStyle = '#E03131'; ctx.fillRect(gt[0] - 20 * s, gt[1] - 10 * s, 40 * s, 14 * s); ctx.fillStyle = '#FFFFFF'; ctx.font = '900 ' + (9 * s) + 'px Arial'; ctx.textAlign = 'center'; ctx.fillText('GOAL', gt[0], gt[1] + 1 * s); }
+    return hy;
+  }
+  // 달리는 냥이(정면/뒷면/옆면 자동)
+  function dyDrawRunner(ctx, cam, R, i, x, z, phase, vx) {
+    const b = cam.p(x, 0, z), tp = cam.p(x, 1.8, z); if (!b || !tp) return;
+    const h = b[1] - tp[1]; if (h < 2) return;
+    const ahead = cam.p(x + 2, 0, z), sdx = ahead ? ahead[0] - b[0] : 0, sdy = ahead ? ahead[1] - b[1] : 0;
+    const side = Math.abs(sdx) > Math.abs(sdy) * 1.2, dir = sdx >= 0 ? 1 : -1, toward = sdy > 0;
+    const s = h / 100, d = DY_DEF[i], O = '#2B2D31', fur = d.fur, cap = DY_CAP[i], bob = Math.abs(Math.sin(phase)) * 6;
+    ctx.save(); ctx.translate(b[0], b[1]);
+    ctx.fillStyle = 'rgba(0,0,0,.22)'; ctx.beginPath(); ctx.ellipse(0, 0, (side ? 38 : 24) * s, 7 * s, 0, 0, 7); ctx.fill();
+    ctx.scale(s, s); ctx.translate(0, -bob); ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    if (side) {
+      ctx.scale(dir, 1);
+      const leg = (px, a) => { ctx.strokeStyle = O; ctx.lineWidth = 11; ctx.beginPath(); ctx.moveTo(px, -36); ctx.lineTo(px + Math.sin(a) * 16, -6 + Math.abs(Math.cos(a)) * -4); ctx.stroke(); ctx.strokeStyle = fur; ctx.lineWidth = 6.5; ctx.stroke(); };
+      leg(-18, phase + 1.4); leg(16, phase + 3.1);
+      ctx.strokeStyle = O; ctx.lineWidth = 9; ctx.beginPath(); ctx.moveTo(-34, -44); ctx.quadraticCurveTo(-56, -58 + Math.sin(phase) * 8, -50, -76); ctx.stroke(); ctx.strokeStyle = fur; ctx.lineWidth = 5; ctx.stroke();
+      ctx.fillStyle = fur; ctx.strokeStyle = O; ctx.lineWidth = 3.5; ctx.beginPath(); ctx.ellipse(-2, -46, 36, 17, -.05, 0, 7); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = cap; ctx.beginPath(); ctx.roundRect(-16, -60, 26, 24, 4); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = (i === 0 || i === 4 || i === 7) ? '#212529' : '#FFFFFF'; ctx.font = '900 15px Arial'; ctx.textAlign = 'center'; ctx.save(); ctx.scale(dir, 1); ctx.fillText(String(i + 1), -3 * dir, -43); ctx.restore();
+      leg(-12, phase); leg(22, phase + 1.7);
+      ctx.fillStyle = fur; ctx.beginPath(); ctx.arc(38, -66, 17, 0, 7); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(28, -78); ctx.lineTo(30, -96); ctx.lineTo(40, -82); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(42, -80); ctx.lineTo(50, -95); ctx.lineTo(52, -78); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = cap; ctx.beginPath(); ctx.arc(38, -70, 16, Math.PI * 1.05, Math.PI * 1.95); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = i === 6 ? '#FFE066' : O; ctx.beginPath(); ctx.ellipse(45, -64, 2.6, 3.4, 0, 0, 7); ctx.fill();
+      ctx.fillStyle = '#FF8FA3'; ctx.beginPath(); ctx.arc(54, -60, 2.4, 0, 7); ctx.fill();
+    } else {
+      const sw = Math.sin(phase);
+      ctx.strokeStyle = O; ctx.lineWidth = 11; [[-12, sw], [12, -sw]].forEach(([px, a]) => { ctx.beginPath(); ctx.moveTo(px, -30); ctx.lineTo(px + a * 3, -4 - Math.max(0, a) * 8); ctx.strokeStyle = O; ctx.lineWidth = 11; ctx.stroke(); ctx.strokeStyle = fur; ctx.lineWidth = 6.5; ctx.stroke(); });
+      if (!toward) { ctx.strokeStyle = O; ctx.lineWidth = 9; ctx.beginPath(); ctx.moveTo(0, -30); ctx.quadraticCurveTo(sw * 14, -50, sw * 8, -64); ctx.stroke(); ctx.strokeStyle = fur; ctx.lineWidth = 5; ctx.stroke(); }
+      ctx.fillStyle = fur; ctx.strokeStyle = O; ctx.lineWidth = 3.5; ctx.beginPath(); ctx.ellipse(0, -44, 22, 20, 0, 0, 7); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = cap; ctx.beginPath(); ctx.roundRect(-13, -52, 26, 20, 4); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = (i === 0 || i === 4 || i === 7) ? '#212529' : '#FFFFFF'; ctx.font = '900 14px Arial'; ctx.textAlign = 'center'; ctx.fillText(String(i + 1), 0, -37);
+      ctx.fillStyle = fur; ctx.beginPath(); ctx.arc(0, -74, 19, 0, 7); ctx.fill(); ctx.stroke();
+      [-1, 1].forEach(k => { ctx.beginPath(); ctx.moveTo(k * 8, -88); ctx.lineTo(k * 14, -104); ctx.lineTo(k * 18, -84); ctx.closePath(); ctx.fill(); ctx.stroke(); });
+      ctx.fillStyle = cap; ctx.beginPath(); ctx.arc(0, -78, 18, Math.PI * 1.05, Math.PI * 1.95); ctx.closePath(); ctx.fill(); ctx.stroke();
+      if (toward) { ctx.fillStyle = i === 6 ? '#FFE066' : O; ctx.beginPath(); ctx.ellipse(-7, -72, 2.6, 3.4, 0, 0, 7); ctx.ellipse(7, -72, 2.6, 3.4, 0, 0, 7); ctx.fill(); ctx.fillStyle = '#FF8FA3'; ctx.beginPath(); ctx.arc(0, -66, 2.2, 0, 7); ctx.fill(); }
+    }
+    ctx.restore();
+  }
+
+  // ----- 레이스 시뮬레이션: 정해진 순위대로 결승선을 통과하도록 각 냥이의 진행 곡선을 만든다
+  function dyMakeSim(m, order) {
+    const R = dyRunners(m), N = 9, T1 = 21, rank = Array(N);
+    order.forEach((ri, k) => { rank[ri] = k; });
+    const close = Math.random() < .35;   // 1·2착 접전(사진 판정)
+    let acc = T1; const Ti = Array(N);
+    order.forEach((ri, k) => { if (k === 0) Ti[ri] = T1; else { acc += k === 1 ? (close ? .04 + Math.random() * .06 : .14 + Math.random() * .22) : .06 + Math.random() * .22; Ti[ri] = acc; } });
+    const late = Math.floor(Math.random() * N);
+    const run = R.map((r, i) => ({ i, style: r.style, T: Ti[i], d: i === late ? .5 : Math.random() * .15, z: 1 + i * 1.7, zt: 1 + i * 1.7, ph: Math.random() * 6, x: 0, skillAt: [.12, .45, .62, .78][r.style] + Math.random() * .06, skilled: false }));
+    return { run, order, rank, close, late, t: 0, done: false, finish: -1, cam: null, log: [], photo: false, ended: false };
+  }
+  const DY_K = [.035, .018, -.014, -.035];
+  function dyX(r, t) { if (t <= r.d) return 0; const u = (t - r.d) / (r.T - r.d); if (u >= 1) return DY_L + (t - r.T) * DY_L / r.T * .55; return DY_L * Math.max(0, u + DY_K[r.style] * Math.sin(Math.PI * u)); }
+  function dyStep(S, dt) {
+    S.t += dt;
+    S.run.forEach(r => { const nx = dyX(r, S.t); r.v = (nx - r.x) / Math.max(dt, 1e-3); r.x = nx; r.ph += dt * (6 + Math.min(14, r.v * .6)); });
+    const live = S.run.slice().sort((a, b) => b.x - a.x);
+    live.forEach((r, k) => { r.now = k + 1; r.zt = .8 + (k % 5) * 2.4 + (k >= 5 ? 1.2 : 0) + Math.sin(S.t * .6 + r.i) * .5; r.z += (r.zt - r.z) * Math.min(1, dt * 1.4); });
+    return live;
+  }
+
+  function derbyFloorHTML() {
+    const m = derbyMachine(); if (!m) return '';
+    dySync(m);
+    const B = dyBoard(m), bets = dyBets(m); if (!bets.includes(DRB.bet)) DRB.bet = bets[0];
+    const pop = B.slice().sort((a, b) => b.pw - a.pw).map(b => b.i);
+    const cards = B.map(b => '<button type="button" class="dy-card" data-dyp="' + b.i + '" aria-pressed="' + (DRB.pick === b.i) + '"><span class="dy-gate" style="--cap:' + DY_CAP[b.i] + '">' + (b.i + 1) + '</span>' + dyFace(b.i) + '<span class="dy-cn"><b>' + b.name + '</b><small>' + DY_STYLE[b.style] + ' · ' + (pop.indexOf(b.i) + 1) + '번 인기</small></span><span class="dy-odds"><b>' + dyMul(b.win) + '</b><small>3착 ' + dyMul(b.show) + '</small></span></button>').join('');
+    const rows = B.map(b => '<tr><td>' + (b.i + 1) + '번 ' + b.name + '</td><td class="num">' + slPctTxt(b.pw) + '</td><td class="num">' + dyMul(b.win) + '</td><td class="num">' + slPctTxt(b.p3) + '</td><td class="num">' + dyMul(b.show) + '</td></tr>').join('');
+    return '<section class="dy-panel" aria-labelledby="dy-h"><div class="rc-wrap">' +
+      '<div class="dy-cab" id="dy-cab">' +
+        '<div class="dy-stage" id="dy-stage"><canvas id="dy-cv" aria-label="냥냥 더비 중계 화면"></canvas>' +
+          '<div class="dy-top"><span>START</span><div class="dy-bar" id="dy-bar">' + B.map(b => '<i class="dy-dot" data-dyd="' + b.i + '" style="--cap:' + DY_CAP[b.i] + '">' + (b.i + 1) + '</i>').join('') + '</div><span>GOAL</span></div>' +
+          '<div class="dy-skills" id="dy-skills" aria-live="polite"></div>' +
+          '<div class="dy-tele" id="dy-tele"></div>' +
+          '<div class="dy-bottom"><div class="dy-me" id="dy-me"></div><div class="dy-comm" id="dy-comm"></div></div>' +
+          '<div class="dy-paddock" id="dy-paddock"><b>냥냥 더비</b><span>1600m · 잔디 · 9마리</span><small>응원할 냥이를 고르고 출발!</small></div>' +
+          '<div class="dy-finish" id="dy-finish" hidden></div>' +
+        '</div>' +
+        '<div class="dy-cards" id="dy-cards" role="group" aria-label="출전 냥이">' + cards + '</div>' +
+        '<div class="dy-opts"><div class="dy-type" role="group" aria-label="베팅 종류"><button type="button" data-dyt="win" aria-pressed="' + (DRB.type === 'win') + '">1착 맞히기</button><button type="button" data-dyt="show" aria-pressed="' + (DRB.type === 'show') + '">3착 안</button></div>' +
+          '<div class="dy-bets" role="group" aria-label="베팅 강냉이">' + bets.map(v => '<button type="button" data-dyb="' + v + '" aria-pressed="' + (DRB.bet === v) + '">' + K + fmt(v) + '</button>').join('') + '</div></div>' +
+        '<button class="sl-btn dy-go" type="button" id="dy-go"></button>' +
+        '<div class="sl-status" id="dy-status" aria-live="polite"></div>' +
+      '</div>' +
+      '<aside class="cn-info"><h3 id="dy-h">' + m.name + ' <small class="qmeta">' + K + fmt(num(m.cost)) + '부터</small></h3>' +
+        '<p>냥이 9마리가 1600m를 달려요. 응원할 냥이를 골라 <b>1착 맞히기</b> 또는 <b>3착 안</b>에 강냉이를 걸면, 맞혔을 때 건 강냉이 × 배당을 받아요.</p>' +
+        '<ul><li>순위는 출발 순간 각 냥이의 우승 비중대로 정해지고, 레이스 중계는 그 결과에 맞춘 연출이에요. 각질(도주·선행·선입·추입)에 따라 달리는 모습만 달라져요.</li><li>배당은 맞힐 확률로 자동 계산돼요. 어느 냥이·어느 베팅이든 평균 환원(RTP)은 최대 ' + pct(dyMaxRtp(m)) + '이에요.</li><li>1·2착이 접전이면 사진 판정 슬로모션이 나와요.</li></ul>' +
+        '<div class="cn-table-wrap"><table class="cn-table sl-paytable"><thead><tr><th>냥이</th><th>1착 확률</th><th>1착 배당</th><th>3착 안 확률</th><th>3착 배당</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
+      '</aside></div></section>';
+  }
+  function dyResize() {
+    const cv = dyEl('dy-cv'); if (!cv) return null;
+    const r = cv.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
+    const W = Math.max(10, Math.round(r.width)), H = Math.max(10, Math.round(r.height));
+    if (cv.width !== W * dpr || cv.height !== H * dpr) { cv.width = W * dpr; cv.height = H * dpr; }
+    const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); return { ctx, W, H };
+  }
+  // 카메라 연출: 진행률(선두 기준)에 따라 샷을 바꾸고 부드럽게 이어 붙인다
+  function dyShot(S, live) {
+    const lead = live[0], p = lead.x / DY_L, top = live.slice(0, 4), cx = top.reduce((a, r) => a + r.x, 0) / top.length, cz = live.reduce((a, r) => a + r.z, 0) / live.length;
+    let pos, look, name;
+    if (S.ended) { pos = [DY_L + 30, 3, cz - 4]; look = [DY_L + 8, .9, cz]; name = 'end'; }
+    else if (p < .07) { pos = [cx + 18, 2.6, -9]; look = [cx + 1, .8, cz]; name = 'gate'; }
+    else if (p < .58) { pos = [cx - 3, 2.4, -6.5]; look = [cx + 3, .9, cz + 1]; name = 'side'; }
+    else if (p < .8) { pos = [cx - 18, 11, -18]; look = [cx + 6, .3, cz]; name = 'wide'; }
+    else { pos = [Math.min(cx + 15, DY_L + 12), 2.2, cz - 2]; look = [cx - 4, 1, cz]; name = 'front'; }
+    if (!S.cam || S.cam.name !== name) { S.cam = S.cam ? { ...S.cam, name, blend: 0, from: { pos: S.cam.pos, look: S.cam.look } } : { name, blend: 1, pos, look }; }
+    const c = S.cam; c.blend = Math.min(1, (c.blend || 0) + .03);
+    const e = c.blend < 1 ? 1 - Math.pow(1 - c.blend, 3) : 1, L = (a, b) => a.map((v, k) => v + (b[k] - v) * e);
+    if (c.from && c.blend < 1) { c.pos = L(c.from.pos, pos); c.look = L(c.from.look, look); } else { c.pos = pos; c.look = look; }
+    return name;
+  }
+  function dyComm(tag, txt) {
+    const box = dyEl('dy-comm'); if (!box) return;
+    box.insertAdjacentHTML('beforeend', '<p><b class="' + (tag === '해설' ? 'h' : '') + '">' + tag + '</b>' + txt + '</p>');
+    while (box.children.length > 3) box.firstElementChild.remove();
+  }
+  function dySkill(r) {
+    const box = dyEl('dy-skills'); if (!box) return;
+    const nm = DY_SKILL[r.style][Math.random() < .5 ? 0 : 1];
+    const el = document.createElement('div'); el.className = 'dy-skill' + (r.i === DRB.pick ? ' mine' : ''); el.innerHTML = '<span>' + dyFace(r.i) + '</span><b>' + nm + '</b>'; box.prepend(el);
+    while (box.children.length > 3) box.lastElementChild.remove();
+    setTimeout(() => el.classList.add('out'), 2000); setTimeout(() => el.remove(), 2400);
+  }
+  function dyLoop() {
+    cancelAnimationFrame(DRB.raf);
+    let last = performance.now();
+    const R = dyRunners(derbyMachine());
+    const tick = now => {
+      const S = DRB.sim, view = dyResize(); if (!S || !view) return;
+      let dt = Math.min(.05, (now - last) / 1000); last = now;
+      // 사진 판정: 결승 직전 슬로모션
+      const T1 = S.run[S.order[0]].T;
+      if (S.close && S.t > T1 - .55 && S.t < T1 + .3) { dt *= .22; if (!S.photo) { S.photo = true; const tl = dyEl('dy-tele'); if (tl) { tl.textContent = '사진 판정!?'; restart(tl, 'show'); } dyComm('중계', '나란히 들어옵니다! 사진 판정입니다!'); } }
+      const live = dyStep(S, dt);
+      const shot = dyShot(S, live), cam = dyCam(S.cam.pos, S.cam.look, view.W, view.H, shot === 'wide' ? 1.25 : 1.05);
+      const { ctx } = view; ctx.clearRect(0, 0, view.W, view.H);
+      dyDrawWorld(ctx, cam, S.t);
+      S.run.map(r => ({ r, p: cam.p(r.x, 0, r.z) })).filter(o => o.p).sort((a, b) => b.p[2] - a.p[2]).forEach(o => dyDrawRunner(ctx, cam, R, o.r.i, o.r.x, o.r.z, o.r.ph, o.r.v));
+      if (shot === 'front' || shot === 'gate') { ctx.fillStyle = 'rgba(255,255,255,.12)'; for (let k = 0; k < 10; k++) { const yy = (k * 53 + S.t * 400) % view.H; ctx.fillRect(0, yy, view.W, 1); } }
+      dyHud(S, live);
+      if (!S.ended && S.t > T1 + .4) { S.ended = true; setTimeout(dyFinish, 900); }
+      if (S.t < T1 + 4) DRB.raf = requestAnimationFrame(tick);
+    };
+    DRB.raf = requestAnimationFrame(tick);
+  }
+  function dyHud(S, live) {
+    const bar = dyEl('dy-bar'); if (!bar) return;
+    S.run.forEach(r => { const d = bar.querySelector('[data-dyd="' + r.i + '"]'); if (d) { d.style.left = (Math.min(1, r.x / DY_L) * 100).toFixed(2) + '%'; d.classList.toggle('me', r.i === DRB.pick); d.style.zIndex = r.i === DRB.pick ? 20 : 10 - r.now; } });
+    const me = S.run[DRB.pick], p = live[0].x / DY_L;
+    // 내 응원 냥: 실시간 순위 + 상태
+    let tag = '';
+    if (me.i === S.late && p < .25) tag = '늦은 출발';
+    else if (p > .75 && me.v > live[0].v * 1.02) tag = '다릿심 충분';
+    else if (me.now === 1) tag = '선두!';
+    else if (p > .85 && me.now <= 3) tag = '스퍼트!';
+    const box = dyEl('dy-me');
+    if (box) box.innerHTML = '<span class="dy-mf">' + dyFace(me.i) + '</span><span class="dy-mr"><b class="num">' + me.now + '</b>/9</span>' + (tag ? '<i class="dy-tag">' + tag + '</i>' : '');
+    // 스킬 발동 + 중계
+    S.run.forEach(r => { if (!r.skilled && r.x / DY_L > r.skillAt && S.t > 1) { r.skilled = true; dySkill(r); if (r.i === DRB.pick) SFX.star(2); } });
+    const marks = [[.02, () => dyComm('중계', '자, 스타트를 끊었습니다! 9마리 냥이 일제히 출발!')], [.03, () => dyComm('해설', S.late != null ? (S.late + 1) + '번 ' + DY_DEF[S.late].name + ', 조금 늦은 출발이네요.' : '깔끔한 스타트예요.')],
+      [.25, () => dyComm('중계', '선두는 ' + (live[0].i + 1) + '번 ' + DY_DEF[live[0].i].name + '! 2번째 ' + DY_DEF[live[1].i].name + '.')], [.5, () => dyComm('해설', '중간 지점, ' + DY_DEF[me.i].name + '은(는) 지금 ' + me.now + '위예요.')],
+      [.72, () => dyComm('중계', '400m 표지 통과! 마지막 직선으로 들어옵니다!')], [.88, () => dyComm('중계', (live[0].i + 1) + '번 ' + DY_DEF[live[0].i].name + ' 버티나! ' + DY_DEF[live[1].i].name + ' 맹추격!')]];
+    S.mk = S.mk || 0;
+    while (S.mk < marks.length && p >= marks[S.mk][0]) { marks[S.mk][1](); S.mk++; }
+    if (p >= .72 && !S.straight) { S.straight = true; const tl = dyEl('dy-tele'); if (tl) { tl.textContent = '마지막 직선!'; restart(tl, 'show'); } SFX.ready ? SFX.ready() : null; }
+  }
+  function dyStart() {
+    const m = derbyMachine(); if (!m || DRB.on) return;
+    const bet = DRB.bet || num(m.cost);
+    if (state.balance < bet) { toast('', '강냉이가 부족해요. 체험용 강냉이를 충전해 보세요.', true); return; }
+    state.balance -= bet; renderHUD(true);
+    dySync(m);
+    DRB.on = true; DRB.placed = { pick: DRB.pick, type: DRB.type, bet, odds: DRB.type === 'win' ? dyBoard(m)[DRB.pick].win : dyBoard(m)[DRB.pick].show };
+    DRB.sim = dyMakeSim(m, dyOrder(m));
+    ['dy-paddock', 'dy-finish'].forEach(id => { const e = dyEl(id); if (e) e.hidden = true; });
+    const comm = dyEl('dy-comm'); if (comm) comm.innerHTML = '';
+    const sk = dyEl('dy-skills'); if (sk) sk.innerHTML = '';
+    dyEl('dy-stage').classList.add('live');
+    SFX.go ? SFX.go() : SFX.whoosh();
+    const st = dyEl('dy-status'); if (st) st.innerHTML = '<b>' + (DRB.pick + 1) + '번 ' + DY_DEF[DRB.pick].name + '</b> ' + (DRB.type === 'win' ? '1착' : '3착 안') + '에 ' + fmt(bet) + ' 걸었어요 · 배당 ' + dyMul(DRB.placed.odds);
+    dyUI(); dyLoop();
+  }
+  function dyFinish() {
+    const m = derbyMachine(), S = DRB.sim; if (!m || !S) return;
+    const P = DRB.placed, rk = S.rank[P.pick] + 1, hit = P.type === 'win' ? rk === 1 : rk <= 3, got = hit ? Math.floor(P.bet * P.odds) : 0;
+    DRB.on = false; DRB.last = { rk, hit, got };
+    if (got) state.balance += got;
+    recordResult(hit ? { g: P.odds >= 10 ? 'S' : P.odds >= 5 ? 'A' : P.odds >= 2 ? 'B' : 'C', name: '냥냥 더비 ' + DY_DEF[P.pick].name + ' ' + (P.type === 'win' ? '1착' : '3착 안') + ' ' + dyMul(P.odds) + ' · ' + fmt(got) + '개', kind: 'kernel', val: got } : { g: 'C', name: '냥냥 더비 ' + DY_DEF[P.pick].name + ' ' + rk + '착', kind: 'kernel', val: 0 }, m);
+    if (hit && P.odds >= 5) { state.feed.unshift({ g: P.odds >= 10 ? 'S' : 'A', item: '강냉이 ' + fmt(got) + '개', who: '나 · 냥냥 더비 ' + DY_DEF[P.pick].name + ' ' + (P.type === 'win' ? '1착' : '3착 안') }); renderFeed(true); }
+    saveMe(); renderHUD(true);
+    const w = S.order[0], fin = dyEl('dy-finish'), st = dyEl('dy-stage');
+    if (fin) {
+      fin.innerHTML = '<div class="dy-fpose">' + dyPose(w) + '</div><div class="dy-fhead"><small>' + (S.close ? '사진 판정 결과' : '1착') + '</small><b>' + (w + 1) + '번 ' + DY_DEF[w].name + '!</b></div>' +
+        '<ol class="dy-podium">' + S.order.slice(0, 3).map((ri, k) => '<li class="' + (ri === P.pick ? 'me' : '') + '"><em>' + (k + 1) + '착</em>' + dyFace(ri) + '<span>' + (ri + 1) + '번 ' + DY_DEF[ri].name + '</span></li>').join('') + '</ol>' +
+        '<div class="dy-fme ' + (hit ? 'hit' : 'miss') + '">' + (hit ? '적중! ' + DY_DEF[P.pick].name + ' ' + rk + '착 · ' + dyMul(P.odds) + ' → 강냉이 +' + fmt(got) : DY_DEF[P.pick].name + ' ' + rk + '착… 다음엔 꼭!') + '</div>';
+      fin.hidden = false; restart(fin, 'show');
+    }
+    const s = dyEl('dy-status'); if (s) s.innerHTML = hit ? '<b>적중!</b> ' + (P.pick + 1) + '번 ' + DY_DEF[P.pick].name + ' ' + rk + '착 → 강냉이 <b>+' + fmt(got) + '</b>' : (P.pick + 1) + '번 ' + DY_DEF[P.pick].name + '은(는) ' + rk + '착이었어요. 1착은 ' + (w + 1) + '번 ' + DY_DEF[w].name + '!';
+    dyComm('중계', (w + 1) + '번 ' + DY_DEF[w].name + ', 1착으로 골인!');
+    if (hit) { SFX.land(P.odds >= 5 ? 'top' : 'hi'); if (P.odds >= 5) SFX.fanfare(); const r = st.getBoundingClientRect(); floatFx(); burst(['#FFD43B', '#FFFFFF', DY_CAP[P.pick], '#4DABF7'], P.odds >= 5 ? 120 : 70, 11, r.left + r.width / 2, r.top + r.height * .4); if (P.odds >= 5) rain(['#FFD43B', '#FAB005', '#FFFFFF', DY_CAP[P.pick]], 120); }
+    else SFX.lose();
+    st.classList.remove('live');
+    dyUI();
+  }
+  function dyUI() {
+    const m = derbyMachine(); if (!m || !dyEl('dy-go')) return;
+    const B = dyBoard(m), b = B[DRB.pick], odds = DRB.type === 'win' ? b.win : b.show;
+    const go = dyEl('dy-go'); go.disabled = DRB.on;
+    go.innerHTML = DRB.on ? '레이스 중…' : (DRB.last ? '다시 출발 ' : '출발! ') + '<span class="num">' + (DRB.pick + 1) + '번 ' + b.name + ' · ' + (DRB.type === 'win' ? '1착' : '3착 안') + ' ' + dyMul(odds) + ' · ' + K + fmt(DRB.bet) + ' → 최대 ' + fmt(Math.floor(DRB.bet * odds)) + '</span>';
+    document.querySelectorAll('.dy-card').forEach(c => { c.setAttribute('aria-pressed', String(Number(c.dataset.dyp) === DRB.pick)); c.disabled = DRB.on; });
+    document.querySelectorAll('[data-dyt]').forEach(c => { c.setAttribute('aria-pressed', String(c.dataset.dyt === DRB.type)); c.disabled = DRB.on; });
+    document.querySelectorAll('[data-dyb]').forEach(c => { c.setAttribute('aria-pressed', String(Number(c.dataset.dyb) === DRB.bet)); c.disabled = DRB.on; });
+    const s = dyEl('dy-status'); if (s && !DRB.on && !DRB.last) s.innerHTML = '응원할 냥이와 베팅을 고르고 <b>출발!</b>을 눌러 주세요';
+  }
+  function dyInit() {
+    dyUI();
+    // 대기 화면: 출발 게이트 앞 정지 장면
+    if (!DRB.on) { const m = derbyMachine(); const S = dyMakeSim(m, Array.from({ length: 9 }, (_, i) => i)); S.t = 0; const view = dyResize(); if (view && S) { const live = dyStep(S, 0); dyShot(S, live); const cam = dyCam(S.cam.pos, S.cam.look, view.W, view.H, 1.05); dyDrawWorld(view.ctx, cam, 0); const R = dyRunners(m); S.run.map(r => ({ r, p: cam.p(r.x, 0, r.z) })).filter(o => o.p).sort((a, b) => b.p[2] - a.p[2]).forEach(o => dyDrawRunner(view.ctx, cam, R, o.r.i, o.r.x, o.r.z, 0, 0)); } if (DRB.last && DRB.sim) { const fin = dyEl('dy-finish'); if (fin) fin.hidden = true; } }
+    else dyLoop();
+  }
+  $('floor').addEventListener('click', e => {
+    if (state.tab !== 'derby' || DRB.on) return;
+    const c = e.target.closest('[data-dyp]'); if (c) { DRB.pick = Number(c.dataset.dyp); SFX.toggle ? SFX.toggle() : null; dyUI(); return; }
+    const t = e.target.closest('[data-dyt]'); if (t) { DRB.type = t.dataset.dyt; dyUI(); return; }
+    const b = e.target.closest('[data-dyb]'); if (b) { DRB.bet = Number(b.dataset.dyb); dyUI(); return; }
+    if (e.target.closest('#dy-go')) dyStart();
+  });
+  addEventListener('resize', () => { if (state.tab === 'derby' && !DRB.on && dyEl('dy-cv')) dyInit(); });
 
   // =====================================================================
   // 깡통 사격: 서부 사격장 건물의 구멍 6개에서 캔이 2개씩 2초 동안 나왔다 들어간다(10초 동안 5번).
@@ -7951,7 +8399,7 @@ img, svg, video { max-width: 100%; }
   const goodsQty = (m, p) => m.mode === 'puzzle' || m.mode === 'gslot' || isProb(m) ? num(p.qty) : num(p.total);
   // RTP = 강냉이로 돌려준 양 ÷ 받은 강냉이 (강냉이 전용. 100% − RTP = 강냉이 소진)
   // 상품 예산 = 머신에 넣은 상품 수량 × 원가 합계 (직접 정하지 않고 수량으로 조절)
-  const NO_PRIZE_GAMES = ['runner', 'cannon', 'archery', 'slot', 'race', 'fish', 'wheel', 'pirate', 'bomb'];
+  const NO_PRIZE_GAMES = ['runner', 'cannon', 'archery', 'slot', 'race', 'fish', 'wheel', 'pirate', 'bomb', 'derby'];
   function econ(m, s) {
     if (m.mode === 'gslot') gsSync(m);
     const e = econCore(m, s);
@@ -7983,6 +8431,10 @@ img, svg, video { max-width: 100%; }
     }
     if (m.mode === 'fish') {
       const rev = num(m.cost) * s.kernelValue, rtp = fsMaxRtp(m);
+      return { rev, pay: rev * rtp, rtp, mRev, mPay: mRev * rtp, wsum: 100, runs: num(m.cost) ? num(m.demand) / num(m.cost) : 0 };
+    }
+    if (m.mode === 'derby') {
+      const rev = num(m.cost) * s.kernelValue, rtp = dyMaxRtp(m);
       return { rev, pay: rev * rtp, rtp, mRev, mPay: mRev * rtp, wsum: 100, runs: num(m.cost) ? num(m.demand) / num(m.cost) : 0 };
     }
     if (m.mode === 'race') {
@@ -8063,6 +8515,7 @@ img, svg, video { max-width: 100%; }
     if (m.mode === 'slot') return '배수는 직접 정해요';
     if (m.mode === 'gslot') return '상품 머신은 수량으로 관리해요';
     if (m.mode === 'race') return '배당은 직접 정해요';
+    if (m.mode === 'derby') return '배당은 목표 RTP로 자동 계산돼요';
     if (m.mode === 'fish') return '배수·확률은 직접 정해요';
     if (m.mode === 'wheel') return '배수는 직접 정해요';
     if (m.mode === 'pirate') return '배수는 목표 RTP로 자동 계산돼요';
@@ -8100,7 +8553,7 @@ img, svg, video { max-width: 100%; }
       const e = econ(m, draft.settings);
       if (!num(m.cost)) errs.push(m.name + ': 입장료를 입력해 주세요.');
       if (isProb(m) && Math.abs(e.wsum - 100) > 0.01) errs.push(m.name + ': 확률 합계가 ' + fmt(+e.wsum.toFixed(2)) + '%예요. 100%로 맞춰 주세요.');
-      if (!isProb(m) && !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb'].includes(m.mode) && !e.N) errs.push(m.name + ': 캡슐 수량이 0개예요.');   // 냥치 런·팝콘 대포는 캡슐이 없는 게임
+      if (!isProb(m) && !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb', 'derby'].includes(m.mode) && !e.N) errs.push(m.name + ': 캡슐 수량이 0개예요.');   // 냥치 런·팝콘 대포는 캡슐이 없는 게임
       if (m.prizes.some(p => !String(p.name).trim())) errs.push(m.name + ': 이름이 비어 있는 상품이 있어요.');
     });
     draft.machines.filter(m => m.mode === 'archery').forEach(m => {
@@ -8128,6 +8581,12 @@ img, svg, video { max-width: 100%; }
       const I = gsItems(m);
       if (!I.length) errs.push('상품 슬롯: 직소 퍼즐에 상품이 없어요.');
       else if (!(I.reduce((a, x) => a + x.w, 0) > 0)) errs.push('상품 슬롯: 출현 비중 합이 0이에요.');
+    });
+    draft.machines.filter(m => m.mode === 'derby').forEach(m => {
+      if (!(num(m.cost) >= 1)) errs.push('냥냥 더비: 최소 베팅은 1 이상이어야 해요.');
+      if (!(num(m.maxBet) >= num(m.cost))) errs.push('냥냥 더비: 최대 베팅은 최소 베팅 이상이어야 해요.');
+      if (!(num(m.rtp) >= 50 && num(m.rtp) <= 99)) errs.push('냥냥 더비: 목표 RTP는 50~99%예요.');
+      if (!(dyRunners(m).every(r => r.w > 0))) errs.push('냥냥 더비: 모든 냥이의 우승 비중은 0보다 커야 해요.');
     });
     draft.machines.filter(m => m.mode === 'race').forEach(m => {
       if (!(num(m.cost) >= 10)) errs.push('냥냥 레이스: 최소 응원 강냉이는 10 이상이어야 해요.');
@@ -8187,21 +8646,21 @@ img, svg, video { max-width: 100%; }
       const e = econ(m, s), st = mSt(m, e);
       return '<tr style="--c:' + zoneOf(m.zone).color + '">' +
         '<td><span class="mname"><i></i>' + m.name + '</span></td>' +
-        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'archery' ? '깡통 사격' : m.mode === 'slot' ? '캐릭터 슬롯' : m.mode === 'gslot' ? '상품 슬롯' : m.mode === 'race' ? '냥냥 레이스' : m.mode === 'fish' ? '냥 낚시터' : m.mode === 'wheel' ? '럭키 룰렛' : m.mode === 'pirate' ? '해적 통 룰렛' : m.mode === 'bomb' ? '폭탄 해체반' : m.mode === 'scratch' ? '스크래치 복권' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
+        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'archery' ? '깡통 사격' : m.mode === 'slot' ? '캐릭터 슬롯' : m.mode === 'gslot' ? '상품 슬롯' : m.mode === 'race' ? '냥냥 레이스' : m.mode === 'fish' ? '냥 낚시터' : m.mode === 'wheel' ? '럭키 룰렛' : m.mode === 'pirate' ? '해적 통 룰렛' : m.mode === 'bomb' ? '폭탄 해체반' : m.mode === 'derby' ? '냥냥 더비' : m.mode === 'scratch' ? '스크래치 복권' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
         '<td class="r">' + fmt(num(m.cost)) + '</td>' +
-        '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'cannon' || m.mode === 'archery' ? '약 ' + fmt(Math.round(e.runs)) + '발' : m.mode === 'runner' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'slot' || m.mode === 'gslot' || m.mode === 'wheel' ? '약 ' + fmt(Math.round(e.runs)) + '회' : m.mode === 'pirate' || m.mode === 'bomb' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'race' ? '약 ' + fmt(Math.round(e.runs)) + '판(최소 기준)' : m.mode === 'fish' ? '약 ' + fmt(Math.round(e.runs)) + '번' : m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
+        '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'cannon' || m.mode === 'archery' ? '약 ' + fmt(Math.round(e.runs)) + '발' : m.mode === 'runner' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'slot' || m.mode === 'gslot' || m.mode === 'wheel' ? '약 ' + fmt(Math.round(e.runs)) + '회' : m.mode === 'pirate' || m.mode === 'bomb' || m.mode === 'derby' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'race' ? '약 ' + fmt(Math.round(e.runs)) + '판(최소 기준)' : m.mode === 'fish' ? '약 ' + fmt(Math.round(e.runs)) + '번' : m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
         '<td class="r">' + (e.hasGoods ? won(e.goods) + '<span class="ed-left">상품 ' + fmt(e.goodsN) + '개</span>' : '<span class="qmeta">상품 없음</span>') + '</td>' +
         (e.hasGoods ? '<td>' + (e.hasKern ? '<b class="num">' + pct(e.rtp) + '</b> <span class="qmeta">강냉이 보상분 (참고)</span>' : '<span class="qmeta">강냉이 보상 없음</span>') + '</td>' :
         '<td><div class="rtpcell"><div class="rtpbar"><i style="width:' + Math.min(100, e.rtp / 1.5 * 100).toFixed(1) + '%;--st:var(--' + st.cls + ')"></i><b style="left:' + Math.min(100, T / 1.5 * 100).toFixed(1) + '%"></b></div><span>' + pct(e.rtp) + '</span></div></td>' ) +
         '<td><span class="status ' + st.cls + '">' + st.label + '</span></td>' +
-        '<td>' + (e.hasGoods || m.mode === 'runner' || m.mode === 'slot' || m.mode === 'race' || m.mode === 'fish' || m.mode === 'wheel' || m.mode === 'pirate' || m.mode === 'bomb' ? '' : '<button class="btn-xs" type="button" data-fit="' + m.id + '">목표로 맞추기</button>') + '</td></tr>';
+        '<td>' + (e.hasGoods || m.mode === 'runner' || m.mode === 'slot' || m.mode === 'race' || m.mode === 'fish' || m.mode === 'wheel' || m.mode === 'pirate' || m.mode === 'bomb' || m.mode === 'derby' ? '' : '<button class="btn-xs" type="button" data-fit="' + m.id + '">목표로 맞추기</button>') + '</td></tr>';
     }).join('');
     $('ad-compare').innerHTML = '<thead><tr><th>머신</th><th>방식</th><th class="r">입장료(강냉이)</th><th class="r">월 소진(강냉이)</th><th class="r">상품 예산 (수량 × 원가)</th><th>강냉이 RTP</th><th>상태</th><th></th></tr></thead><tbody>' + rows + '</tbody>';
   }
 
   function renderTabs() {
     const s = draft.settings;
-    $('ad-tabs').innerHTML = draft.machines.filter(m => !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb'].includes(m.mode)).map(m =>
+    $('ad-tabs').innerHTML = draft.machines.filter(m => !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb', 'derby'].includes(m.mode)).map(m =>
       '<button class="ad-tab" type="button" role="tab" data-tab="' + m.id + '" aria-selected="' + (m.id === sel) + '" style="--c:' + zoneOf(m.zone).color + '"><i></i>' + m.name + ' <small>' + (econ(m, s).hasGoods ? won(econ(m, s).goods) : pct(econ(m, s).rtp)) + '</small></button>').join('');
   }
 
@@ -8274,6 +8733,7 @@ img, svg, video { max-width: 100%; }
     const errs = validate();
     gsSyncAll(config);   // 상품 슬롯의 상품 목록은 직소 퍼즐에서 파생되므로 비교 전에 맞춘다
     config.machines.filter(m => m.mode === 'fish').forEach(fsSync);   // 예전 미끼 3종 설정은 단일 입장권으로
+    config.machines.filter(m => m.mode === 'derby').forEach(dySync); draft.machines.filter(m => m.mode === 'derby').forEach(dySync);   // 냥냥 더비 배당·보상은 비중에서 파생
     config.machines.filter(m => m.mode === 'bomb').forEach(bdSync); draft.machines.filter(m => m.mode === 'bomb').forEach(bdSync);   // 폭탄 해체반 배수표 길이·보상은 선 개수에서 파생
     config.machines.filter(m => m.mode === 'pirate').forEach(brSync); draft.machines.filter(m => m.mode === 'pirate').forEach(brSync);   // 해적 통 룰렛 배수표는 설정값에서 파생
     config.machines.filter(m => m.mode === 'scratch').forEach(ltSync); draft.machines.filter(m => m.mode === 'scratch').forEach(ltSync);   // 스크래치 기프티콘 = 직소 퍼즐 상품
@@ -8337,7 +8797,7 @@ img, svg, video { max-width: 100%; }
         c2.drawImage(img, (S - w) / 2, (S - h) / 2, w, h);
         const m = pzDraft(); if (!m || !m.prizes[i]) return;
         m.prizes[i].img = cv.toDataURL('image/jpeg', 0.72);
-        renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderStats();
+        renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderStats();
       };
       img.src = fr.result;
     };
@@ -8351,7 +8811,7 @@ img, svg, video { max-width: 100%; }
     }
     if (el.id === 'pa-auto') {
       m.autoW = el.checked; if (m.autoW) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderStats(); return true;
     }
     if (el.dataset.pi != null && el.dataset.k) {
       const p = m.prizes[Number(el.dataset.pi)], k = el.dataset.k;
@@ -8372,13 +8832,13 @@ img, svg, video { max-width: 100%; }
     if (e.target.id === 'pa-add') {
       m.prizes.push({ g: 'C', name: '새 상품', kind: 'product', val: 0, cost: 3000, w: 0, qty: 10, img: '', pid: 'p' + Date.now().toString(36) });
       if (m.autoW !== false) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderStats(); return true;
     }
     const del = e.target.closest('[data-padel]');
     if (del) {
       m.prizes.splice(Number(del.dataset.padel), 1);
       if (m.autoW !== false) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderStats(); return true;
     }
     return false;
   }
@@ -8413,7 +8873,7 @@ img, svg, video { max-width: 100%; }
     return false;
   }
   // ----- 관리자 좌측 메뉴: 기능별로 한 화면씩 -----
-  const AD_PAGES = ['overview', 'machines', 'puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb'];
+  const AD_PAGES = ['overview', 'machines', 'puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb', 'derby'];
   let adPage = (() => { try { const v = localStorage.getItem('tooneland-ad-page'); return AD_PAGES.includes(v) ? v : 'overview'; } catch (e) { return 'overview'; } })();
   function adGo(page, keepScroll) {
     if (!AD_PAGES.includes(page)) page = 'overview';
@@ -8429,7 +8889,7 @@ img, svg, video { max-width: 100%; }
     const s = draft.settings, T = target(), R = { ok: 1, warn: 2, bad: 3 };
     const worst = list => list.reduce((w, m) => { const c = mSt(m, econ(m, s)).cls; return (R[c] || 0) > (R[w] || 0) ? c : w; }, '');
     const by = mode => draft.machines.filter(m => mode(m));
-    const map = { overview: worst(draft.machines), machines: worst(by(m => !['puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb'].includes(m.mode))), archery: worst(by(m => m.mode === 'archery')), puzzle: worst(by(m => m.mode === 'puzzle')), runner: worst(by(m => m.mode === 'runner')), cannon: worst(by(m => m.mode === 'cannon')), slot: worst(by(m => m.mode === 'slot')), gslot: worst(by(m => m.mode === 'gslot')), race: worst(by(m => m.mode === 'race')), fish: worst(by(m => m.mode === 'fish')), wheel: worst(by(m => m.mode === 'wheel')), pirate: worst(by(m => m.mode === 'pirate')), bomb: worst(by(m => m.mode === 'bomb')) };
+    const map = { overview: worst(draft.machines), machines: worst(by(m => !['puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb', 'derby'].includes(m.mode))), archery: worst(by(m => m.mode === 'archery')), puzzle: worst(by(m => m.mode === 'puzzle')), runner: worst(by(m => m.mode === 'runner')), cannon: worst(by(m => m.mode === 'cannon')), slot: worst(by(m => m.mode === 'slot')), gslot: worst(by(m => m.mode === 'gslot')), race: worst(by(m => m.mode === 'race')), fish: worst(by(m => m.mode === 'fish')), wheel: worst(by(m => m.mode === 'wheel')), pirate: worst(by(m => m.mode === 'pirate')), bomb: worst(by(m => m.mode === 'bomb')), derby: worst(by(m => m.mode === 'derby')) };
     document.querySelectorAll('#ad-gnb [data-addot]').forEach(d => { d.className = 'gnb-dot' + (map[d.dataset.addot] ? ' ' + map[d.dataset.addot] : ''); });
   }
   document.getElementById('ad-gnb').addEventListener('click', e => { const b = e.target.closest('[data-adpage]'); if (b) adGo(b.dataset.adpage); });
@@ -8514,7 +8974,7 @@ img, svg, video { max-width: 100%; }
     if (e.target.id !== 'ar-fit') return false;
     const m = arDraft(); if (!m) return true;
     const ok = arFitGrades(m, target());
-    renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderStats();
+    renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderStats();
     toast('', '깡통 사격: ' + (ok ? '캔별 확률을 목표 RTP ' + pct(target()) + '(' + arBullets(m) + '발 중 ' + arHits(m) + '발 명중 기준)에 맞췄어요' : '일부 캔은 확률만으로 맞출 수 없어요. 배수를 조정해 주세요'), true);
     return true;
   }
@@ -8602,7 +9062,7 @@ img, svg, video { max-width: 100%; }
     if (e.target.id !== 'cn-fit') return false;
     const m = cnDraft(); if (!m) return true;
     const ok = cnFitGrades(m, target());
-    renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderStats();
+    renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderStats();
     toast('', '팝콘 대포: ' + (ok ? '보통 확률을 조정해 전체 RTP를 ' + pct(target()) + '에 맞췄어요' : '보통 확률만으로 맞출 수 없어요. 퍼펙트·좋아요 확률이나 배수를 조정해 주세요'), true);
     return true;
   }
@@ -8863,16 +9323,48 @@ img, svg, video { max-width: 100%; }
     const m = bdDraft(); if (!m) return false;
     const d = el.dataset; if (d.bdf == null && d.bdm == null) return false;
     bdSync(m);
-    if (d.bdf) { m[d.bdf] = Math.max(0, Math.round(num(el.value))); if (d.bdf === 'wires' && num(m.wires) >= 4 && num(m.wires) <= 7) { bdSync(m); renderBombAdmin(); renderStats(); return true; } }
+    if (d.bdf) { m[d.bdf] = Math.max(0, Math.round(num(el.value))); if (d.bdf === 'wires' && num(m.wires) >= 4 && num(m.wires) <= 7) { bdSync(m); renderBombAdmin(); renderDerbyAdmin(); renderStats(); return true; } }
     if (d.bdm != null) m.mults[Number(d.bdm)] = Math.max(0, num(el.value));
     bdSync(m); renderBombCalc(); renderStats();
+    return true;
+  }
+
+  // ----- 냥냥 더비 관리: 베팅 범위·목표 RTP + 냥이별 이름·각질·우승 비중 → 배당 자동 -----
+  const dyDraft = () => draft.machines.find(m => m.mode === 'derby');
+  function renderDerbyAdmin() {
+    const m = dyDraft(); if (!m || !dyEl('dy-fields')) return;
+    dySync(m);
+    const fld = (id, label, key, unit, min, step) => '<div class="field"><label for="' + id + '">' + label + '</label><div class="input-unit"><input class="input num" id="' + id + '" type="number" min="' + min + '" step="' + (step || 1) + '" data-dyf="' + key + '" value="' + num(m[key]) + '"><span>' + unit + '</span></div></div>';
+    $('dy-fields').innerHTML = fld('dya-cost', '최소 베팅', 'cost', '강냉이', 1) + fld('dya-max', '최대 베팅', 'maxBet', '강냉이', 1) + fld('dya-rtp', '목표 RTP', 'rtp', '%', 50, .5) + fld('dya-demand', '월 예상 강냉이 소진', 'demand', '강냉이', 0);
+    $('dy-t').innerHTML = '<thead><tr><th>번호</th><th>이름</th><th>각질</th><th class="w-num">우승 비중</th><th class="r">1착 확률</th><th class="r">1착 배당</th><th class="r">3착 안 확률</th><th class="r">3착 배당</th></tr></thead><tbody>' +
+      dyRunners(m).map((r, i) => '<tr><td>' + (i + 1) + '번</td><td><input class="input sm" type="text" maxlength="8" data-dyn="' + i + '" value="' + String(r.name).replace(/"/g, '&quot;') + '" aria-label="' + (i + 1) + '번 이름"></td><td><select class="input sm" data-dys="' + i + '" aria-label="' + (i + 1) + '번 각질">' + DY_STYLE.map((t, k) => '<option value="' + k + '"' + (k === r.style ? ' selected' : '') + '>' + t + '</option>').join('') + '</select></td><td><input class="input sm num" type="number" min="0" step="1" data-dyw="' + i + '" value="' + r.w + '" aria-label="' + (i + 1) + '번 우승 비중"></td><td class="r num" data-dyc="pw' + i + '"></td><td class="r num" data-dyc="win' + i + '"></td><td class="r num" data-dyc="p3' + i + '"></td><td class="r num" data-dyc="show' + i + '"></td></tr>').join('') + '</tbody>';
+    renderDerbyCalc();
+  }
+  function renderDerbyCalc() {
+    const m = dyDraft(); if (!m || !dyEl('dy-calc')) return;
+    const B = dyBoard(m), set = (k, v) => { const el = document.querySelector('[data-dyc="' + k + '"]'); if (el) el.textContent = v; };
+    B.forEach(b => { set('pw' + b.i, slPctTxt(b.pw)); set('win' + b.i, dyMul(b.win)); set('p3' + b.i, slPctTxt(b.p3)); set('show' + b.i, dyMul(b.show)); });
+    const mx = dyMaxRtp(m), av = dyAvgRtp(m), st = statusOf(mx, target());
+    $('dy-sum').textContent = 'RTP 최대 ' + pct(mx);
+    $('dy-calc').innerHTML = '<span>평균 RTP <b>' + pct(av) + '</b> (배당 내림 때문에 목표보다 조금 낮아요)</span><span>최대 RTP <b>' + pct(mx) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>';
+  }
+  function derbyAdminInput(el) {
+    const m = dyDraft(); if (!m) return false;
+    const d = el.dataset; if (d.dyf == null && d.dyn == null && d.dys == null && d.dyw == null) return false;
+    dySync(m);
+    if (d.dyf) m[d.dyf] = d.dyf === 'rtp' ? Math.max(0, num(el.value)) : Math.max(0, Math.round(num(el.value)));
+    if (d.dyn != null) m.runners[Number(d.dyn)].name = el.value;
+    if (d.dys != null) m.runners[Number(d.dys)].style = Number(el.value);
+    if (d.dyw != null) m.runners[Number(d.dyw)].w = Math.max(0, num(el.value));
+    const keepRtp = m.rtp; dySync(m); if (d.dyf === 'rtp') m.rtp = keepRtp;
+    renderDerbyCalc(); renderStats();
     return true;
   }
 
   function openAdmin() {
     // 편집 중인 내용이 없으면 최신 설정(게임에서 줄어든 남은 수량 포함)으로 다시 시작
     if (!draft || JSON.stringify(draft) === draftBase) { draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); }
-    renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderStats(); adGo(adPage, true);
+    renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderStats(); adGo(adPage, true);
   }
 
   // ----- 관리자 이벤트 -----
@@ -8890,6 +9382,7 @@ img, svg, video { max-width: 100%; }
     if (wheelAdminInput(e.target)) return;
     if (pirateAdminInput(e.target)) return;
     if (bombAdminInput(e.target)) return;
+    if (derbyAdminInput(e.target)) return;
     const el = e.target, s = draft.settings;
     if (el.id === 'ad-rtp' || el.id === 'ad-rtp-range') {
       s.targetRtp = num(el.value);
@@ -8940,17 +9433,17 @@ img, svg, video { max-width: 100%; }
         : { g: 'B', name: '새 상품', kind: 'product', val: 0, cost: 1000, total: 10, left: 10 });
       renderEditor(); renderStats();
     } else if (id === 'ad-fit-all') {
-      const km = draft.machines.filter(m => m.mode !== 'runner' && m.mode !== 'slot' && m.mode !== 'race' && m.mode !== 'fish' && m.mode !== 'wheel' && m.mode !== 'pirate' && m.mode !== 'bomb' && !isGoods(m) && econ(m, draft.settings).hasKern);
+      const km = draft.machines.filter(m => m.mode !== 'runner' && m.mode !== 'slot' && m.mode !== 'race' && m.mode !== 'fish' && m.mode !== 'wheel' && m.mode !== 'pirate' && m.mode !== 'bomb' && m.mode !== 'derby' && !isGoods(m) && econ(m, draft.settings).hasKern);
       km.forEach(m => fitMachine(m, draft.settings, target(), 'price'));
-      renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderStats();
+      renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderStats();
       toast('', '강냉이 머신 ' + km.length + '개를 목표 RTP ' + draft.settings.targetRtp + '%에 맞췄어요. 저장해야 게임에 반영돼요.', true);
     } else if (id === 'ad-revert') {
-      draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderStats();
+      draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderStats();
     } else if (id === 'ad-reset') {
       const btn = $('ad-reset');
       if (Date.now() - resetArmed < 4000) {
         draft = clone(DEFAULT_CONFIG); resetArmed = 0; btn.textContent = '기본값으로';
-        renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderStats();
+        renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderStats();
         toast('', '기본값을 불러왔어요. 저장해야 게임에 반영돼요.', true);
       } else {
         resetArmed = Date.now(); btn.textContent = '한 번 더 누르면 초기화';
@@ -8961,7 +9454,7 @@ img, svg, video { max-width: 100%; }
     } else if (id === 'ad-load-remote') {
       if (sync.remote) { draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); }
       $('ad-remote').hidden = true;
-      renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderStats();
+      renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderStats();
     }
   });
 
@@ -9006,7 +9499,7 @@ img, svg, video { max-width: 100%; }
     if (!draft || JSON.stringify(draft) === draftBase) {
       draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft);
       $('ad-remote').hidden = true;
-      if (!$('admin').hidden) { renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderStats(); }
+      if (!$('admin').hidden) { renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderStats(); }
     } else if (!sync.saving) {
       $('ad-remote').hidden = false;
       if (!$('admin').hidden) renderStats();
@@ -9158,6 +9651,10 @@ img, svg, video { max-width: 100%; }
       [16, 32, 48, 64].map(x => '<rect x="' + x + '" y="18" width="18" height="70" rx="8" fill="#E03131" stroke="#5C0A0E" stroke-width="1.6"/>').join('') + '<rect x="12" y="28" width="76" height="7" fill="#212529"/><rect x="12" y="74" width="76" height="7" fill="#212529"/>' +
       '<rect x="26" y="40" width="48" height="30" rx="5" fill="#3A424A" stroke="#111418" stroke-width="1.6"/><rect x="31" y="44" width="38" height="11" rx="2" fill="#06100A"/><text x="50" y="53" text-anchor="middle" font-family="Courier New, monospace" font-weight="900" font-size="9" fill="#FF4D4F">00:07</text>' +
       '<path d="M34 60 q6 8 12 0" stroke="#4D9DFF" stroke-width="2.6" fill="none"/><path d="M46 60 q6 8 12 0" stroke="#FFD43B" stroke-width="2.6" fill="none"/><path d="M58 60 l3 4 M64 66 l3 -6" stroke="#51CF66" stroke-width="2.6" fill="none"/></svg>',
+    derby: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgdy1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4D9DE0"/><stop offset=".45" stop-color="#BFE3FF"/><stop offset=".45" stop-color="#64C24F"/><stop offset="1" stop-color="#3E8E30"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgdy1)"/>' +
+      '<path d="M0 62 L100 52 M0 76 L100 64" stroke="#FFFFFF" stroke-width="2.4"/><path d="M0 50 Q30 40 60 46 T100 40" stroke="#2F8F3A" stroke-width="8" fill="none"/>' +
+      [[28, '#FFB45A', '#E03131'], [52, '#A7B0B8', '#1C7ED6'], [74, '#2B2D31', '#FAB005']].map(([x, f, c]) => '<ellipse cx="' + x + '" cy="74" rx="11" ry="6" fill="' + f + '" stroke="#2B2D31" stroke-width="1.6"/><circle cx="' + (x + 11) + '" cy="66" r="6" fill="' + f + '" stroke="#2B2D31" stroke-width="1.6"/><path d="M' + (x + 5) + ' 63 a6 6 0 0 1 12 0 z" fill="' + c + '"/>').join('') +
+      '<path d="M84 20 V58" stroke="#FFFFFF" stroke-width="3"/><rect x="72" y="14" width="24" height="10" rx="2" fill="#E03131"/></svg>',
     hall: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgu5" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD43B"/><stop offset="1" stop-color="#E67700"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgu5)"/>' +
       '<path d="M34 24h32v14a16 16 0 0 1-32 0z" fill="#FFFFFF"/><path d="M34 29h-7a8 8 0 0 0 9 13M66 29h7a8 8 0 0 1-9 13" stroke="#FFFFFF" stroke-width="4" fill="none"/><rect x="46" y="53" width="8" height="11" fill="#FFFFFF"/><rect x="35" y="64" width="30" height="9" rx="2.5" fill="#FFFFFF"/>' +
       '<path d="M50 29l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.2 2.7 1-5.7-4.1-4 5.7-.8z" fill="#F59F00"/></svg>'
@@ -9175,7 +9672,8 @@ img, svg, video { max-width: 100%; }
     { id: 'wheel', name: '럭키 룰렛', sub: '3겹 휠', ic: '#D6336C', fc: '#A61E4D', badge: 'N', desc: '안쪽·가운데·바깥 휠에 같은 그림 3개! 세븐 3개면 ×450이에요.' },
     { id: 'scratch', name: '럭키 스크래치', sub: '한정 복권', ic: '#E8590C', fc: '#D9480F', badge: 'N', desc: '은박을 긁어 같은 그림 3개! 치킨 기프티콘이 2장 숨어 있어요.' },
     { id: 'pirate', name: '해적 통 룰렛', sub: '칼 꽂기 버티기', ic: '#C92A2A', fc: '#7A1010', badge: 'N', desc: '칼 5개를 모두 꽂고 버티면 보물 획득! 해적이 튀어나오면 끝.' },
-    { id: 'bomb', name: '폭탄 해체반', sub: '해체 선 찾기', ic: '#E67700', fc: '#A85400', badge: 'N', desc: '선 5개 중 해체 선은 하나! 빨리 해체할수록 보상 UP.' }
+    { id: 'bomb', name: '폭탄 해체반', sub: '해체 선 찾기', ic: '#E67700', fc: '#A85400', badge: 'N', desc: '선 5개 중 해체 선은 하나! 빨리 해체할수록 보상 UP.' },
+    { id: 'derby', name: '냥냥 더비', sub: '3D 경주 중계', ic: '#1C7ED6', fc: '#0B4AA8', badge: 'N', desc: '냥이 9마리 1600m 레이스! 응원 냥이의 1착에 걸어 보세요.' }
   ];
   const LG_DOCK = [
     { id: 'hall', name: '명예의 전당', ic: '#E67700' },
@@ -9233,6 +9731,7 @@ img, svg, video { max-width: 100%; }
     if (AR.active && location.hash !== '#archery') { history.replaceState(null, '', '#archery'); toast('', '사격이 끝난 뒤에 이동할 수 있어요.', true); return; }
     if (slEl('sl-modal') && !slEl('sl-modal').hidden) slCloseWin(false);
     if (['cast', 'wait', 'bite', 'reel', 'jump'].includes(FS.phase) && location.hash !== '#fish') { history.replaceState(null, '', '#fish'); toast('', '낚시가 끝난 뒤에 이동할 수 있어요.', true); return; }
+    if (DRB.on && location.hash !== '#derby') { history.replaceState(null, '', '#derby'); toast('', '레이스가 끝난 뒤에 이동할 수 있어요.', true); return; }
     if ((BDF.on || BDF.busy) && location.hash !== '#bomb') { history.replaceState(null, '', '#bomb'); toast('', '해체 중에는 이동할 수 없어요. 판이 끝난 뒤 이동해 주세요.', true); return; }
     if ((BRL.on || BRL.busy) && location.hash !== '#pirate') { history.replaceState(null, '', '#pirate'); toast('', '진행 중인 판이 끝난 뒤 이동할 수 있어요.', true); return; }
     if (LT.card && !LT.card.done && location.hash !== '#scratch') { history.replaceState(null, '', '#scratch'); toast('', '긁던 복권을 다 긁은 뒤에 이동할 수 있어요.', true); return; }
@@ -9241,7 +9740,7 @@ img, svg, video { max-width: 100%; }
     if (SL.spinning && location.hash !== '#' + SL.tab) { history.replaceState(null, '', '#' + SL.tab); toast('', '릴이 멈춘 뒤에 이동할 수 있어요.', true); return; }
     if (CN.flying && location.hash !== '#cannon') { history.replaceState(null, '', '#cannon'); toast('', '팝콘이 착지한 뒤에 이동할 수 있어요.', true); return; }
     if (RN.active && location.hash !== '#runner') { history.replaceState(null, '', '#runner'); toast('', '냥치 런이 끝난 뒤에 이동할 수 있어요.', true); return; }
-    const tab = ({ '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#runner': 'runner', '#cannon': 'cannon', '#archery': 'archery', '#slot': 'slot', '#gslot': 'gslot', '#race': 'race', '#fish': 'fish', '#wheel': 'wheel', '#scratch': 'scratch', '#pirate': 'pirate', '#bomb': 'bomb' })[location.hash] || 'gacha';
+    const tab = ({ '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#runner': 'runner', '#cannon': 'cannon', '#archery': 'archery', '#slot': 'slot', '#gslot': 'gslot', '#race': 'race', '#fish': 'fish', '#wheel': 'wheel', '#scratch': 'scratch', '#pirate': 'pirate', '#bomb': 'bomb', '#derby': 'derby' })[location.hash] || 'gacha';
     if (!admin && !shop && !lounge && tab !== state.tab) {
       if (!$('modal').hidden) { if (busy) return; closeModal(); }
       state.tab = tab; renderZones(); renderFloor();
