@@ -7908,7 +7908,7 @@ img, svg, video { max-width: 100%; }
 
   // ----- 레이스 시뮬레이션: 정해진 순위대로 결승선을 통과하도록 각 냥이의 진행 곡선을 만든다
   function dyMakeSim(m, order) {
-    const R = dyRunners(m), N = DY_N, T1 = 21, rank = Array(N);
+    const R = dyRunners(m), N = DY_N, T1 = DRB.stage === 'kart' ? 15 : 21, rank = Array(N);   // 카트는 더 빠르게
     order.forEach((ri, k) => { rank[ri] = k; });
     const close = Math.random() < .35;   // 1·2착 접전(사진 판정)
     let acc = T1; const Ti = Array(N);
@@ -7959,7 +7959,7 @@ img, svg, video { max-width: 100%; }
           '<div class="dy-paddock" id="dy-paddock"><b>' + (DRB.stage === 'kart' ? '냥냥 카트 서킷' : '냥냥 더비') + '</b><span>' + (DRB.stage === 'kart' ? '해안 마을 서킷 · ' + DY_N + '대' : '1600m · 잔디 · ' + DY_N + '마리') + '</span><small>응원할 선수를 고르고 출발!</small></div>' +
           '<div class="dy-finish" id="dy-finish" hidden></div>' +
         '</div>' +
-        '<div class="dy-stagebar" role="group" aria-label="스테이지"><button type="button" data-dyg="turf" aria-pressed="' + (DRB.stage === 'turf') + '"><b>경마장</b><small>레일 옆 · 정면 중계</small></button><button type="button" data-dyg="kart" aria-pressed="' + (DRB.stage === 'kart') + '"><b>카트 서킷</b><small>경마장과 같은 중계 카메라</small></button></div>' +
+        '<div class="dy-stagebar" role="group" aria-label="스테이지"><button type="button" data-dyg="turf" aria-pressed="' + (DRB.stage === 'turf') + '"><b>경마장</b><small>레일 옆 · 정면 중계</small></button><button type="button" data-dyg="kart" aria-pressed="' + (DRB.stage === 'kart') + '"><b>카트 서킷</b><small>추격 → 측면 → 정면 카메라</small></button></div>' +
         '<div class="dy-cards" id="dy-cards" role="group" aria-label="출전 냥이">' + cards + '</div>' +
         '<div class="dy-opts"><div class="dy-type" role="group" aria-label="베팅 종류"><button type="button" data-dyt="win" aria-pressed="' + (DRB.type === 'win') + '">1착 맞히기</button><button type="button" data-dyt="show" aria-pressed="' + (DRB.type === 'show') + '">3착 안</button></div>' +
           '<div class="dy-bets" role="group" aria-label="베팅 강냉이">' + bets.map(v => '<button type="button" data-dyb="' + v + '" aria-pressed="' + (DRB.bet === v) + '">' + K + fmt(v) + '</button>').join('') + '</div></div>' +
@@ -7985,6 +7985,8 @@ img, svg, video { max-width: 100%; }
     const lead = live[0], p = lead.x / DY_L, top = live.slice(0, 4), cx = top.reduce((a, r) => a + r.x, 0) / top.length, cz = live.reduce((a, r) => a + r.z, 0) / live.length;
     let pos, look, name;
     if (S.ended) { pos = [DY_L + 30, 3, cz - 4]; look = [DY_L + 8, .9, cz]; name = 'end'; }
+    else if (DRB.stage === 'kart' && p < .78) { pos = [cx - 3, 2.4, -6.5]; look = [cx + 3, .9, cz + 1]; name = 'side'; }
+    else if (DRB.stage === 'kart') { pos = [Math.min(cx + 15, DY_L + 12), 2.2, cz - 2]; look = [cx - 4, 1, cz]; name = 'front'; }
     else if (p < .07) { pos = [cx + 18, 2.6, -9]; look = [cx + 1, .8, cz]; name = 'gate'; }
     else if (p < .58) { pos = [cx - 3, 2.4, -6.5]; look = [cx + 3, .9, cz + 1]; name = 'side'; }
     else if (p < .8) { pos = [cx - 18, 11, -18]; look = [cx + 6, .3, cz]; name = 'wide'; }
@@ -8027,7 +8029,7 @@ img, svg, video { max-width: 100%; }
   // 순위·배당·정산은 경마장 스테이지와 같다(같은 시뮬레이션). 화면만 굽은 도로 + 언덕 + 카트 뒷모습으로 그린다.
   const KT = (() => {
     const segL = 200, roadW = 2000;
-    const sec = [[34, 0, 0], [24, 2.4, 0], [12, 0, 22], [28, -3.2, 0], [16, 0, -22], [22, 1.9, 0], [12, 0, 0], [26, -2.6, 16], [24, 0, -16], [44, 0, 0]];
+    const sec = [[50, 0, 0], [36, 2.4, 0], [18, 0, 22], [42, -3.2, 0], [24, 0, -22], [33, 1.9, 0], [18, 0, 0], [39, -2.6, 16], [36, 0, -16], [60, 0, 0]];   // 길게 → 같은 시간에 더 많이 지나감
     const seg = []; let y = 0;
     const ease = p => (-Math.cos(p * Math.PI) / 2) + .5;
     sec.forEach(([n, c, h]) => {
@@ -8107,20 +8109,19 @@ img, svg, video { max-width: 100%; }
   function ktProp(ctx, p, sx, sy, sc, W) {
     const u = sc * W / 2;
     if (p.t === 'house') {
-      const w = 1100 * u, h = (900 + p.v * 160) * u, x = sx - w / 2; if (w < 2) return;
-      ctx.fillStyle = '#F8F9FA'; ctx.fillRect(x, sy - h, w, h); ctx.strokeStyle = 'rgba(0,0,0,.12)'; ctx.lineWidth = Math.max(1, w * .01); ctx.strokeRect(x, sy - h, w, h);
-      ctx.fillStyle = ['#1C7ED6', '#228BE6', '#4DABF7', '#1971C2'][p.v]; if (p.v % 2) { ctx.beginPath(); ctx.ellipse(sx, sy - h, w * .28, w * .22, 0, Math.PI, 0); ctx.fill(); } else ctx.fillRect(x - w * .04, sy - h - w * .06, w * 1.08, w * .07);
-      ctx.fillStyle = '#5C7CFA'; for (let k = 0; k < 2; k++) ctx.fillRect(x + w * (.18 + k * .44), sy - h * .62, w * .2, h * .22);
-      ctx.fillStyle = '#8D6E63'; ctx.fillRect(sx - w * .08, sy - h * .3, w * .16, h * .3);
-      if (p.v === 2) { ctx.fillStyle = '#E64980'; ctx.beginPath(); ctx.arc(x + w * .9, sy - h * .7, w * .1, 0, 7); ctx.fill(); }
+      const w = 1100 * u, h = (800 + p.v * 140) * u, x = sx - w / 2; if (w < 2) return;
+      ctx.fillStyle = ['#FFF4E6', '#FFE3E3', '#E7F5FF', '#FFF9DB'][p.v]; ctx.fillRect(x, sy - h, w, h);
+      ctx.fillStyle = ['#E03131', '#1971C2', '#E8590C', '#5F3DC4'][p.v]; ctx.beginPath(); ctx.moveTo(x - w * .06, sy - h); ctx.lineTo(sx, sy - h - w * .42); ctx.lineTo(x + w * 1.06, sy - h); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = '#74C0FC'; for (let k = 0; k < 3; k++) ctx.fillRect(x + w * (.1 + k * .3), sy - h * .66, w * .18, h * .22);
+      ctx.fillStyle = '#8D6E63'; ctx.fillRect(sx - w * .07, sy - h * .3, w * .14, h * .3);
     } else if (p.t === 'palm') {
-      const h = 1500 * u; if (h < 3) return;
-      ctx.strokeStyle = '#8D6E63'; ctx.lineWidth = Math.max(1, h * .05); ctx.beginPath(); ctx.moveTo(sx, sy); ctx.quadraticCurveTo(sx + h * .12, sy - h * .5, sx + h * .05, sy - h); ctx.stroke();
-      ctx.fillStyle = '#2F9E44'; for (let k = 0; k < 6; k++) { const a = k / 6 * Math.PI * 2; ctx.beginPath(); ctx.ellipse(sx + h * .05 + Math.cos(a) * h * .16, sy - h + Math.sin(a) * h * .05, h * .2, h * .05, a, 0, 7); ctx.fill(); }
+      const h = 1300 * u; if (h < 3) return;
+      ctx.fillStyle = '#7B5A3A'; ctx.fillRect(sx - h * .04, sy - h * .45, h * .08, h * .45);
+      ctx.fillStyle = '#4C9A3A'; ctx.beginPath(); ctx.arc(sx, sy - h * .66, h * .3, 0, 7); ctx.fill(); ctx.fillStyle = '#62B34C'; ctx.beginPath(); ctx.arc(sx - h * .08, sy - h * .74, h * .17, 0, 7); ctx.fill();
     } else if (p.t === 'lamp') {
-      const h = 1200 * u; if (h < 3) return;
-      ctx.strokeStyle = '#495057'; ctx.lineWidth = Math.max(1, h * .03); ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(sx, sy - h); ctx.stroke();
-      ctx.fillStyle = '#FFE066'; ctx.beginPath(); ctx.arc(sx, sy - h, h * .07, 0, 7); ctx.fill();
+      const h = 1300 * u; if (h < 3) return;
+      ctx.strokeStyle = '#1098AD'; ctx.lineWidth = Math.max(1, h * .035); ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(sx, sy - h); ctx.moveTo(sx - h * .2, sy - h * .95); ctx.quadraticCurveTo(sx, sy - h * 1.06, sx + h * .2, sy - h * .95); ctx.stroke();
+      ctx.fillStyle = '#FFF3BF'; [-1, 1].forEach(k => { ctx.beginPath(); ctx.ellipse(sx + k * h * .2, sy - h * .92, h * .05, h * .035, 0, 0, 7); ctx.fill(); });
     } else if (p.t === 'ring') {
       const r = 520 * u; if (r < 2) return; ctx.strokeStyle = '#FCC419'; ctx.lineWidth = Math.max(2, r * .16); ctx.beginPath(); ctx.ellipse(sx, sy - r * 2.2, r, r * 1.1, 0, 0, 7); ctx.stroke();
       ctx.strokeStyle = '#FFF3BF'; ctx.lineWidth = Math.max(1, r * .05); ctx.beginPath(); ctx.ellipse(sx - r * .05, sy - r * 2.25, r * .92, r * 1.02, 0, 0, 7); ctx.stroke();
@@ -8131,9 +8132,25 @@ img, svg, video { max-width: 100%; }
       ctx.fillStyle = '#FFFFFF'; ctx.font = '900 ' + (s2 * .7).toFixed(1) + 'px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('?', sx, sy - s2 * 1.4);
     }
   }
+  function ktSpeedLines(ctx, W, H, vy, power, t) {
+    ctx.save(); ctx.lineCap = 'round';
+    const n = Math.round(18 + power * 18);
+    for (let k = 0; k < n; k++) {
+      const a = k / n * Math.PI * 2 + Math.sin(k * 12.9898) * .2, ph = ((t * (2.4 + power * 2.6) + k * .137) % 1), r1 = Math.min(W, H) * (.18 + ph * .6), r2 = r1 + Math.min(W, H) * (.08 + power * .12);
+      ctx.strokeStyle = 'rgba(255,255,255,' + (.12 + power * .25) * (1 - ph * .4) + ')'; ctx.lineWidth = 1 + power * 1.6 * ph;
+      ctx.beginPath(); ctx.moveTo(W / 2 + Math.cos(a) * r1, vy + Math.sin(a) * r1 * .62); ctx.lineTo(W / 2 + Math.cos(a) * r2, vy + Math.sin(a) * r2 * .62); ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function dyKartSpeedFx(ctx, W, H, S, shot) {
+    if (shot === 'front' || shot === 'end') { ktSpeedLines(ctx, W, H, H * .42, .8, S.t); return; }
+    ctx.save(); const n = 26;
+    for (let k = 0; k < n; k++) { const y = (Math.sin(k * 78.233) * .5 + .5) * H * .9, len = 40 + (k % 5) * 30, x = W - ((S.t * (900 + (k % 4) * 260) + k * 131) % (W + len * 2)) + len; ctx.strokeStyle = 'rgba(255,255,255,' + (.1 + (k % 3) * .07) + ')'; ctx.lineWidth = 1 + (k % 3); ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + len, y); ctx.stroke(); }
+    ctx.restore();
+  }
   function dyKartDraw(ctx, W, H, S, R, live, slow) {
     const me = S.run[DRB.pick], pz = ktZ(me.x), camZ = Math.max(0, pz - 1500), latMe = ktLat(me), cy0 = H * .36;   // 화면 중심을 위로 → 내 카트가 아래 중계 패널 위에 오도록
-    const camX = latMe * KT.roadW * .55, camH = 820 + ktSegY(camZ + 400), depth = .84;
+    const shake = Math.sin(S.t * 47) * 14 + Math.sin(S.t * 31) * 9, camX = latMe * KT.roadW * .55 + shake, camH = 760 + ktSegY(camZ + 400) + Math.abs(Math.sin(S.t * 23)) * 10, depth = .7;   // 넓은 화각 + 미세 흔들림
     S.kbg = S.kbg || 0;
     const base = Math.floor(camZ / KT.segL), curNow = (KT.seg[Math.min(KT.N - 1, base)] || {}).curve || 0;
     S.kbg += curNow * (me.v || 0) * .0009;
@@ -8141,9 +8158,9 @@ img, svg, video { max-width: 100%; }
     const hor = H * .3;
     let g = ctx.createLinearGradient(0, 0, 0, hor); g.addColorStop(0, '#3D8BEA'); g.addColorStop(1, '#BFE3FF'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, hor + 2);
     ctx.fillStyle = 'rgba(255,255,255,.9)'; for (let k = 0; k < 5; k++) { const cx = ((k * 211 - S.kbg * 300) % (W + 200) + W + 200) % (W + 200) - 100, cy = hor * (.2 + (k % 3) * .14); ctx.beginPath(); ctx.ellipse(cx, cy, 46, 14, 0, 0, 7); ctx.ellipse(cx + 26, cy - 8, 30, 14, 0, 0, 7); ctx.fill(); }
-    ctx.fillStyle = '#7E9CB8'; ctx.beginPath(); ctx.moveTo(0, hor); for (let k = 0; k <= 12; k++) { const xx = k / 12 * W, off = ((k * 37 + S.kbg * 120) % 12); ctx.lineTo(xx, hor - 18 - Math.abs(Math.sin(k * 1.3 + S.kbg)) * 34 - off); } ctx.lineTo(W, hor); ctx.fill();
-    g = ctx.createLinearGradient(0, hor, 0, H); g.addColorStop(0, '#2E86DE'); g.addColorStop(1, '#1864AB'); ctx.fillStyle = g; ctx.fillRect(0, hor, W, H - hor);
-    ctx.fillStyle = 'rgba(255,255,255,.35)'; for (let k = 0; k < 14; k++) { const xx = ((k * 97 - S.kbg * 500) % W + W) % W; ctx.fillRect(xx, hor + 4 + (k % 4) * 6, 18, 2); }
+    ctx.fillStyle = '#9CC89A'; ctx.beginPath(); ctx.moveTo(0, hor); for (let k = 0; k <= 12; k++) { const xx = k / 12 * W, off = ((k * 37 + S.kbg * 120) % 12); ctx.lineTo(xx, hor - 18 - Math.abs(Math.sin(k * 1.3 + S.kbg)) * 34 - off); } ctx.lineTo(W, hor); ctx.fill();
+    g = ctx.createLinearGradient(0, hor, 0, H); g.addColorStop(0, '#8BC06A'); g.addColorStop(1, '#5E9E45'); ctx.fillStyle = g; ctx.fillRect(0, hor, W, H - hor);
+    for (let k = 0; k < 9; k++) { const xx = ((k * 83 - S.kbg * 260) % (W + 80) + W + 80) % (W + 80) - 40, hh = 10 + (k % 3) * 5; ctx.fillStyle = ['#FFF4E6', '#FFE3E3', '#E7F5FF'][k % 3]; ctx.fillRect(xx, hor - hh, 16, hh); ctx.fillStyle = ['#E03131', '#1971C2', '#E8590C'][k % 3]; ctx.beginPath(); ctx.moveTo(xx - 2, hor - hh); ctx.lineTo(xx + 8, hor - hh - 8); ctx.lineTo(xx + 18, hor - hh); ctx.fill(); }
     // 도로(가까운 것부터 투영해 언덕에 가려지는 부분은 건너뜀)
     const pr = (wx, wy, wz) => { const sc = depth / wz; return { x: W / 2 + sc * wx * W / 2, y: cy0 - sc * wy * H / 2, w: sc * KT.roadW * W / 2, sc }; };
     let x = 0, dx = -curNow * ((camZ % KT.segL) / KT.segL), maxy = H;
@@ -8156,12 +8173,13 @@ img, svg, video { max-width: 100%; }
       const p1 = pr(x1 - camX, y1 - camH, z1), p2 = pr(x2 - camX, y2 - camH, z2);
       vis.push({ idx, s, p1, p2, clip: maxy });
       if (p2.y >= maxy || p2.y >= p1.y) continue;
-      const alt = Math.floor(idx / 3) % 2;
+      const alt = idx % 2;
       const quad = (ax, ay, aw, bx, by, bw, col) => { ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(ax - aw, ay); ctx.lineTo(bx - bw, by); ctx.lineTo(bx + bw, by); ctx.lineTo(ax + aw, ay); ctx.closePath(); ctx.fill(); };
-      ctx.fillStyle = alt ? '#E9DCC4' : '#F1E6D2'; ctx.fillRect(0, p2.y, W, p1.y - p2.y + 1);   // 하얀 돌길 광장(마을)
+      ctx.fillStyle = alt ? '#D6C5A2' : '#E0D0AE'; ctx.fillRect(0, p2.y, W, p1.y - p2.y + 1);   // 보도
       quad(p1.x, p1.y, p1.w * 1.18, p2.x, p2.y, p2.w * 1.18, alt ? '#E03131' : '#FFFFFF');
-      quad(p1.x, p1.y, p1.w, p2.x, p2.y, p2.w, alt ? '#8C93A0' : '#949BA8');
-      if (Math.floor(idx / 2) % 2) { quad(p1.x - p1.w * .33, p1.y, p1.w * .015, p2.x - p2.w * .33, p2.y, p2.w * .015, '#F8F9FA'); quad(p1.x + p1.w * .33, p1.y, p1.w * .015, p2.x + p2.w * .33, p2.y, p2.w * .015, '#F8F9FA'); }
+      quad(p1.x + p1.w * 1.12, p1.y, p1.w * .07, p2.x + p2.w * 1.12, p2.y, p2.w * .07, alt ? '#FCC419' : '#212529');   // 바깥 노랑·검정 방호벽
+      quad(p1.x, p1.y, p1.w, p2.x, p2.y, p2.w, alt ? '#56657C' : '#5B6B82');
+      if (idx % 2) { quad(p1.x - p1.w * .33, p1.y, p1.w * .015, p2.x - p2.w * .33, p2.y, p2.w * .015, '#F8F9FA'); quad(p1.x + p1.w * .33, p1.y, p1.w * .015, p2.x + p2.w * .33, p2.y, p2.w * .015, '#F8F9FA'); }
       if (s.props.some(q => q.t === 'start' || q.t === 'arch')) { for (let k = 0; k < 8; k++) quad(p1.x - p1.w + (k + .5) * p1.w / 4, p1.y, p1.w / 8, p2.x - p2.w + (k + .5) * p2.w / 4, p2.y, p2.w / 8, (k + idx) % 2 ? '#212529' : '#FFFFFF'); }
       maxy = p2.y;
     }
@@ -8197,7 +8215,8 @@ img, svg, video { max-width: 100%; }
     }
     // 속도 줄 + 속도계
     const spd = Math.round((me.v || 0) * 7.2), boostMe = me.v > (DY_L / me.T) * 1.04;
-    if (boostMe || slow) { ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.lineWidth = 2; for (let k = 0; k < 14; k++) { const a = k / 14 * Math.PI * 2 + S.t, r1 = Math.min(W, H) * .32, r2 = r1 + 40 + (k % 3) * 18; ctx.beginPath(); ctx.moveTo(W / 2 + Math.cos(a) * r1, H * .55 + Math.sin(a) * r1 * .7); ctx.lineTo(W / 2 + Math.cos(a) * r2, H * .55 + Math.sin(a) * r2 * .7); ctx.stroke(); } }
+    ktSpeedLines(ctx, W, H, cy0 + H * .04, boostMe ? 1 : .55, S.t);
+    if (false) { ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.lineWidth = 2; for (let k = 0; k < 14; k++) { const a = k / 14 * Math.PI * 2 + S.t, r1 = Math.min(W, H) * .32, r2 = r1 + 40 + (k % 3) * 18; ctx.beginPath(); ctx.moveTo(W / 2 + Math.cos(a) * r1, H * .55 + Math.sin(a) * r1 * .7); ctx.lineTo(W / 2 + Math.cos(a) * r2, H * .55 + Math.sin(a) * r2 * .7); ctx.stroke(); } }
     const gx = 50, gy = 86, gr = 32;
     ctx.lineCap = 'round'; ctx.lineWidth = 9; ctx.strokeStyle = 'rgba(0,0,0,.45)'; ctx.beginPath(); ctx.arc(gx, gy, gr, Math.PI * .75, Math.PI * 2.25); ctx.stroke();
     const fr = Math.min(1, spd / 180); ctx.strokeStyle = boostMe ? '#FF922B' : fr > .8 ? '#FCC419' : '#4DABF7'; ctx.beginPath(); ctx.arc(gx, gy, gr, Math.PI * .75, Math.PI * (.75 + 1.5 * fr)); ctx.stroke();
@@ -8286,6 +8305,7 @@ img, svg, video { max-width: 100%; }
       if (boost) { const fl = .75 + Math.random() * .5, g = ctx.createLinearGradient(-u * .76, 0, -u * (.76 + .3 * fl), 0); g.addColorStop(0, '#FFF3BF'); g.addColorStop(.5, '#FFA94D'); g.addColorStop(1, 'rgba(255,80,40,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(-u * .74, -u * .3); ctx.quadraticCurveTo(-u * (.8 + .3 * fl), -u * .26, -u * .74, -u * .2); ctx.fill(); }
       // 리어 윙(차체 뒤)
       ctx.fillStyle = '#25282C'; ctx.fillRect(-u * .7, -u * .52, u * .05, u * .2); ctx.fillStyle = body(-u * .6, -u * .52); ctx.beginPath(); ctx.roundRect(-u * .86, -u * .6, u * .32, u * .08, u * .03); ctx.fill(); ctx.stroke();
+      ctx.strokeStyle = 'rgba(255,255,255,.55)'; ctx.lineWidth = Math.max(1, u * .03); for (let k = 0; k < 4; k++) { const yy = -u * (.12 + k * .1), l = u * (.4 + ((phase * 1.7 + k) % 1) * .5); ctx.beginPath(); ctx.moveTo(-u * .9, yy); ctx.lineTo(-u * .9 - l, yy); ctx.stroke(); } ctx.strokeStyle = O; ctx.lineWidth = lw;   // 바람 꼬리
       head(-u * .05, -u * .25);   // 머리(목은 차체에 가려짐)
       // 차체: 낮고 긴 노즈 + 사이드포드 + 콕핏
       ctx.fillStyle = body(-u * .44, -u * .08); ctx.beginPath();
@@ -8363,11 +8383,19 @@ img, svg, video { max-width: 100%; }
         if (!S.slowOn) { S.slowOn = true; st.classList.add('slowmo'); SFX.thud(); if (S.close) { const tl = dyEl('dy-tele'); if (tl) { tl.textContent = '접전!!'; restart(tl, 'show'); } dyComm('중계', '나란히 들어옵니다! 누가 먼저냐!'); } }
       } else if (S.slowOn) { S.slowOn = false; st.classList.remove('slowmo'); }
       const live = dyStep(S, dt);
-      { const shot = dyShot(S, live), cam = dyCam(S.cam.pos, S.cam.look, view.W, view.H, shot === 'wide' ? 1.25 : slow ? 1.3 : 1.05); draw(shot, cam); }
+      if (DRB.stage === 'kart') {
+        // 카트 서킷 카메라: 초반 후면 추격 → 중반 측면 → 마지막 정면
+        const kp = S.ended ? 'front' : live[0].x / DY_L < .35 ? 'rear' : live[0].x / DY_L < .78 ? 'side' : 'front';
+        if (S.kphase && S.kphase !== kp) { restart(st, 'dy-cut'); S.cam = null; }
+        S.kphase = kp;
+        if (kp === 'rear') dyKartDraw(view.ctx, view.W, view.H, S, R, live, slow);
+        else { const shot = dyShot(S, live), cam = dyCam(S.cam.pos, S.cam.look, view.W, view.H, slow ? 1.3 : 1.1); draw(shot, cam); dyKartSpeedFx(view.ctx, view.W, view.H, S, shot); }
+      }
+      else { const shot = dyShot(S, live), cam = dyCam(S.cam.pos, S.cam.look, view.W, view.H, shot === 'wide' ? 1.25 : slow ? 1.3 : 1.05); draw(shot, cam); }
       dyHud(S, live);
       if (!S.ended && S.t > T1 + .4) {
         S.ended = true;
-        if (S.close) {
+        if (S.close && DRB.stage !== 'kart') {
           // 비디오 판독 시작
           S.rev = { ph: 'rep', t: T1 - 1.4 };
           st.classList.add('review');
@@ -8466,7 +8494,7 @@ img, svg, video { max-width: 100%; }
     dyPrep();
     dyUI();
     // 대기 화면: 출발 게이트 앞 정지 장면
-    if (!DRB.on) { const m = derbyMachine(); const S = dyMakeSim(m, Array.from({ length: DY_N }, (_, i) => i)); S.t = 0; const view = dyResize(); if (view && S) { const live = dyStep(S, 0); { dyShot(S, live); const cam = dyCam(S.cam.pos, S.cam.look, view.W, view.H, 1.05); (DRB.stage === 'kart' ? dyDrawWorldKart : dyDrawWorld)(view.ctx, cam, 0); const R = dyRunners(m); S.run.map(r => ({ r, p: cam.p(r.x, 0, r.z) })).filter(o => o.p).sort((a, b) => b.p[2] - a.p[2]).forEach(o => dyDrawRunner(view.ctx, cam, R, o.r.i, o.r.x, o.r.z, 0, 0)); dyNameTags(view.ctx, cam, R, S.run); } } if (DRB.last && DRB.sim) { const fin = dyEl('dy-finish'); if (fin) fin.hidden = true; } }
+    if (!DRB.on) { const m = derbyMachine(); const S = dyMakeSim(m, Array.from({ length: DY_N }, (_, i) => i)); S.t = 0; const view = dyResize(); if (view && S) { const live = dyStep(S, 0); if (DRB.stage === 'kart') dyKartDraw(view.ctx, view.W, view.H, S, dyRunners(m), live, false); else { dyShot(S, live); const cam = dyCam(S.cam.pos, S.cam.look, view.W, view.H, 1.05); (DRB.stage === 'kart' ? dyDrawWorldKart : dyDrawWorld)(view.ctx, cam, 0); const R = dyRunners(m); S.run.map(r => ({ r, p: cam.p(r.x, 0, r.z) })).filter(o => o.p).sort((a, b) => b.p[2] - a.p[2]).forEach(o => dyDrawRunner(view.ctx, cam, R, o.r.i, o.r.x, o.r.z, 0, 0)); dyNameTags(view.ctx, cam, R, S.run); } } if (DRB.last && DRB.sim) { const fin = dyEl('dy-finish'); if (fin) fin.hidden = true; } }
     else dyLoop();
   }
   $('floor').addEventListener('click', e => {
