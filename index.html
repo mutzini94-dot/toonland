@@ -7829,7 +7829,7 @@ img, svg, video { max-width: 100%; }
     const ear = (ax, ay, bx, by, cx2, cy2, ix) => { ctx.fillStyle = W; ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.lineTo(cx2, cy2); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#FFB3C6'; ctx.beginPath(); ctx.moveTo(ax + (bx - ax) * .25 + ix, ay + (by - ay) * .3); ctx.lineTo(bx + ix * .5, by + 5); ctx.lineTo(cx2 + (bx - cx2) * .3 + ix, cy2 + (by - cy2) * .3); ctx.closePath(); ctx.fill(); };
     const badge = (bx, by, r) => { ctx.fillStyle = d.deep; ctx.strokeStyle = W; ctx.lineWidth = 2.6; ctx.beginPath(); ctx.arc(bx, by, r, 0, 7); ctx.fill(); ctx.stroke(); ctx.fillStyle = W; ctx.font = '900 ' + (r * 1.2) + 'px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(String(i + 1), bx, by + .5); ctx.textBaseline = 'alphabetic'; ctx.strokeStyle = O; };
     if (dySpr) {
-      const v = side ? 1 : 0, nf = DY_NF[v], Hh = h * 1.15, Ww = Hh * DY_FW / DY_FH;
+      const v = side && !DRB.front ? 1 : 0, nf = DY_NF[v], Hh = h * 1.15, Ww = Hh * DY_FW / DY_FH;
       const fr = Math.floor(((phase % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) / (Math.PI * 2) * nf) % nf;
       ctx.save(); ctx.fillStyle = 'rgba(0,0,0,.22)'; ctx.beginPath(); ctx.ellipse(b[0], b[1], Ww * .3, Hh * .04, 0, 0, 7); ctx.fill();
       ctx.translate(b[0], b[1]); if (side && dir < 0) ctx.scale(-1, 1);
@@ -8020,6 +8020,7 @@ img, svg, video { max-width: 100%; }
       let dt = Math.min(.05, (now - last) / 1000); last = now;
       const T1 = S.run[S.order[0]].T, st = dyEl('dy-stage');
       const draw = (shot, cam) => {
+        DRB.front = shot === 'front';   // 마지막 직선(정면 카메라)에서는 모두 앞모습
         const { ctx } = view; ctx.clearRect(0, 0, view.W, view.H);
         dyDrawWorld(ctx, cam, S.t);
         S.run.map(r => ({ r, p: cam.p(r.x, 0, r.z) })).filter(o => o.p).sort((a, b) => b.p[2] - a.p[2]).forEach(o => dyDrawRunner(ctx, cam, R, o.r.i, o.r.x, o.r.z, o.r.ph, o.r.v));
