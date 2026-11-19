@@ -7985,7 +7985,7 @@ img, svg, video { max-width: 100%; }
     const lead = live[0], p = lead.x / DY_L, top = live.slice(0, 4), cx = top.reduce((a, r) => a + r.x, 0) / top.length, cz = live.reduce((a, r) => a + r.z, 0) / live.length;
     let pos, look, name;
     if (S.ended) { pos = [DY_L + 30, 3, cz - 4]; look = [DY_L + 8, .9, cz]; name = 'end'; }
-    else if (DRB.stage === 'kart' && p < .78) { pos = [cx - 3, 2.4, -6.5]; look = [cx + 3, .9, cz + 1]; name = 'side'; }
+    else if (DRB.stage === 'kart' && p < .78) { const mx = S.run[DRB.pick].x, mz = S.run[DRB.pick].z; pos = [mx - 3, 3.2, -13]; look = [mx + 2.5, .8, mz]; name = 'side'; }   // 카트 측면: 내 카트를 따라가며 조금 멀리서
     else if (DRB.stage === 'kart') { pos = [Math.min(cx + 15, DY_L + 12), 2.2, cz - 2]; look = [cx - 4, 1, cz]; name = 'front'; }
     else if (p < .07) { pos = [cx + 18, 2.6, -9]; look = [cx + 1, .8, cz]; name = 'gate'; }
     else if (p < .58) { pos = [cx - 3, 2.4, -6.5]; look = [cx + 3, .9, cz + 1]; name = 'side'; }
