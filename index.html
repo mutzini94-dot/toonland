@@ -1321,7 +1321,6 @@ svg.lt-kico.lt-tic { width: 22px; height: 22px; margin: 0 8px 0 2px; }
 .dy-top > span:first-child { color: #A5D8FF; } .dy-top > span:last-child { color: #FFC9C9; }
 .dy-bar { position: relative; flex: 1; height: 8px; border-radius: 4px; background: linear-gradient(90deg, rgba(255,255,255,.5), rgba(255,255,255,.85)); box-shadow: 0 1px 3px rgba(0,0,0,.35); }
 .dy-dot { position: absolute; top: 50%; left: 0; width: 18px; height: 18px; margin: -9px; display: grid; place-items: center; border-radius: 50%; background: var(--cap); color: #FFFFFF; font: 900 9px/1 Arial, sans-serif; font-style: normal; box-shadow: 0 0 0 1.5px #FFFFFF, 0 1px 3px rgba(0,0,0,.5); transition: left .12s linear; }
-.dy-dot[data-dyd="0"], .dy-dot[data-dyd="4"], .dy-dot[data-dyd="7"] { color: #212529; }
 .dy-dot.me { width: 24px; height: 24px; margin: -12px; font-size: 11px; box-shadow: 0 0 0 2.5px #FFD43B, 0 0 10px rgba(255,212,59,.9); }
 .dy-skills { position: absolute; right: 8px; top: 34px; z-index: 5; display: grid; gap: 6px; width: 168px; pointer-events: none; }
 .dy-skill { display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 10px 0 4px; border-radius: 10px 4px 4px 10px; background: linear-gradient(90deg, rgba(255,255,255,.96), rgba(233,236,239,.92)); box-shadow: inset 4px 0 0 #4DABF7, 0 3px 8px rgba(0,0,0,.3); color: #212529; font-size: 12.5px; font-weight: 900; animation: dy-skin .35s cubic-bezier(.2,1.4,.4,1); }
@@ -1371,7 +1370,6 @@ svg.lt-kico.lt-tic { width: 22px; height: 22px; margin: 0 8px 0 2px; }
 .dy-card { position: relative; display: grid; grid-template-columns: 34px 1fr; grid-template-rows: auto auto; align-items: center; column-gap: 6px; padding: 6px 6px 6px 8px; border: 0; border-radius: 12px; background: rgba(255,255,255,.08); color: #E7F5FF; text-align: left; cursor: pointer; transition: background .15s, transform .1s; }
 .dy-card > svg { grid-row: 1 / 3; width: 34px; height: 34px; }
 .dy-gate { position: absolute; left: 4px; top: 4px; z-index: 1; width: 15px; height: 15px; display: grid; place-items: center; border-radius: 4px; background: var(--cap); color: #FFFFFF; font: 900 9px/1 Arial; box-shadow: 0 0 0 1px rgba(0,0,0,.4); }
-.dy-card[data-dyp="0"] .dy-gate, .dy-card[data-dyp="4"] .dy-gate, .dy-card[data-dyp="7"] .dy-gate { color: #212529; }
 .dy-cn { display: grid; min-width: 0; }
 .dy-cn b { font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .dy-cn small { font-size: 10px; color: #A5D8FF; }
@@ -3617,7 +3615,7 @@ img, svg, video { max-width: 100%; }
         prizes: [W('A', '1번째에 해체 ×2', 'kernel', 100, 0, 20), W('B', '2번째에 해체 ×1.6', 'kernel', 80, 0, 15), W('B', '3번째에 해체 ×1.3', 'kernel', 65, 0, 10), W('B', '4번째에 해체 ×1.1', 'kernel', 55, 0, 5)] },
       // 냥냥 더비: 9마리 3D 중계 경주. 우승 비중으로 순위를 정하고, 배당 = 목표 RTP ÷ 맞힐 확률(자동). 최대 RTP로 관리
       { id: 'derby', zone: 'derby', mode: 'derby', name: '냥냥 더비', cost: 100, maxBet: 1000, demand: 800000, rtp: 85, top: '',
-        runners: [{ name: '치즈냥', style: 0, w: 18 }, { name: '고등어', style: 1, w: 15 }, { name: '삼색이', style: 2, w: 13 }, { name: '턱시도', style: 3, w: 12 }, { name: '러시안블루', style: 1, w: 11 }, { name: '샴냥', style: 2, w: 9 }, { name: '까망이', style: 3, w: 8 }, { name: '하양이', style: 0, w: 7 }, { name: '호랑냥', style: 2, w: 7 }],
+        runners: [{ name: '하늘냥', style: 0, w: 18 }, { name: '딸기냥', style: 1, w: 15 }, { name: '민트냥', style: 2, w: 13 }, { name: '레몬냥', style: 3, w: 12 }, { name: '라벤더냥', style: 1, w: 11 }, { name: '복숭아냥', style: 2, w: 9 }, { name: '멜론냥', style: 3, w: 8 }, { name: '체리냥', style: 0, w: 7 }, { name: '소다냥', style: 2, w: 7 }],
         prizes: [] },
       // 팝콘 대포: 게이지 등급(퍼펙트·좋아요·보통)별 확률표로 거리 구간 결정. 배수 공통, 등급별 RTP 동일(B 방식)
       { id: 'cannon', zone: 'cannon', mode: 'cannon', cv: 2, name: '팝콘 대포', cost: 100, demand: 800000, mults: [0.2, 0.5, 1, 2, 4, 10],
@@ -7600,12 +7598,14 @@ img, svg, video { max-width: 100%; }
   // 배당은 목표 RTP ÷ 맞힐 확률(0.1 단위 내림, 최소 ×1.0)로 자동 계산 → 어떤 선택이든 RTP가 목표 이하.
   // 화면: 3D 카메라(출발 게이트 → 레일 옆 추적 → 높은 전경 → 마지막 직선 정면) · 진행 막대 · 스킬 카드 · 실시간 순위 · 중계
   const DY_DEF = [
-    { name: '치즈냥', fur: '#FFB45A', fur2: '#E8890C', style: 0, w: 18 }, { name: '고등어', fur: '#A7B0B8', fur2: '#5C6670', style: 1, w: 15 },
-    { name: '삼색이', fur: '#FFF4E6', fur2: '#E8890C', style: 2, w: 13 }, { name: '턱시도', fur: '#2B2D31', fur2: '#F8F9FA', style: 3, w: 12 },
-    { name: '러시안블루', fur: '#8FA3B8', fur2: '#5E728A', style: 1, w: 11 }, { name: '샴냥', fur: '#F3E3C8', fur2: '#6B4A35', style: 2, w: 9 },
-    { name: '까망이', fur: '#3A3A40', fur2: '#1E1E22', style: 3, w: 8 }, { name: '하양이', fur: '#FFFFFF', fur2: '#DDE3EA', style: 0, w: 7 },
-    { name: '호랑냥', fur: '#F59F00', fur2: '#8A4B00', style: 2, w: 7 }];
-  const DY_CAP = ['#FFFFFF', '#212529', '#E03131', '#1C7ED6', '#FAB005', '#2F9E44', '#F76707', '#E64980', '#7048E8'];
+    { name: '하늘냥', body: '#BFE8FA', deep: '#2E9BD6', style: 0, w: 18 }, { name: '딸기냥', body: '#FFC9DE', deep: '#E64980', style: 1, w: 15 },
+    { name: '민트냥', body: '#B8F2DC', deep: '#12B886', style: 2, w: 13 }, { name: '레몬냥', body: '#FFEC99', deep: '#E8A300', style: 3, w: 12 },
+    { name: '라벤더냥', body: '#DCD0FF', deep: '#7950F2', style: 1, w: 11 }, { name: '복숭아냥', body: '#FFD8BF', deep: '#F76707', style: 2, w: 9 },
+    { name: '멜론냥', body: '#D3F59E', deep: '#66A80F', style: 3, w: 8 }, { name: '체리냥', body: '#FFB3B3', deep: '#E03131', style: 0, w: 7 },
+    { name: '소다냥', body: '#A5F0F5', deep: '#0C8599', style: 2, w: 7 }];
+  // 예전 기본 이름(털 무늬)은 새 이름으로 바꿔 보여 준다
+  const DY_OLD = ['치즈냥', '고등어', '삼색이', '턱시도', '러시안블루', '샴냥', '까망이', '하양이', '호랑냥'];
+  const DY_CAP = DY_DEF.map(d => d.deep);
   const DY_STYLE = ['도주', '선행', '선입', '추입'];
   const DY_SKILL = [['선두 사수', '바람 가르기'], ['냥발 질주', '코너 장인'], ['틈새 파고들기', '꼬리 부스트'], ['막판 스퍼트', '각성 추입']];
   const DY_L = 400;   // 경주 거리(월드 단위), 화면 표시는 ×4 = 1600m
@@ -7613,7 +7613,7 @@ img, svg, video { max-width: 100%; }
   const derbyMachine = () => machines.find(m => m.mode === 'derby');
   const dyEl = id => document.getElementById(id);
   function dyRunners(m) {
-    return DY_DEF.map((d, i) => { const r = m && Array.isArray(m.runners) ? m.runners[i] || {} : {}; return { name: String(r.name == null ? d.name : r.name).slice(0, 8) || d.name, fur: d.fur, fur2: d.fur2, style: r.style == null ? d.style : Math.max(0, Math.min(3, Math.round(num(r.style)))), w: r.w == null ? d.w : Math.max(0, num(r.w)) }; });
+    return DY_DEF.map((d, i) => { const r = m && Array.isArray(m.runners) ? m.runners[i] || {} : {}; const nm = r.name == null || r.name === DY_OLD[i] ? d.name : r.name; return { name: String(nm).slice(0, 8) || d.name, style: r.style == null ? d.style : Math.max(0, Math.min(3, Math.round(num(r.style)))), w: r.w == null ? d.w : Math.max(0, num(r.w)) }; });
   }
   const dyTarget = m => Math.max(.5, Math.min(.99, (num(m && m.rtp) || 85) / 100));
   const dyWinP = m => { const R = dyRunners(m), t = R.reduce((a, r) => a + r.w, 0); return R.map(r => t ? r.w / t : 0); };
@@ -7642,23 +7642,33 @@ img, svg, video { max-width: 100%; }
     return order;
   }
 
-  // ----- 초상화(직접 그린 에셋): 냥이 얼굴 + 기수 모자(게이트 색)
-  function dyFace(i, big) {
-    const d = DY_DEF[i], O = '#2B2D31', cap = DY_CAP[i], fur = d.fur, f2 = d.fur2;
-    const patch = i === 3 ? '<path d="M30 58 Q50 40 70 58 Q66 80 50 82 Q34 80 30 58 Z" fill="#F8F9FA"/>' : i === 2 ? '<path d="M22 44 Q30 30 44 34 Q40 48 26 52 Z" fill="#2B2D31"/><path d="M62 30 Q76 32 78 46 Q66 46 60 38 Z" fill="#E8890C"/>' : i === 5 ? '<ellipse cx="50" cy="66" rx="16" ry="12" fill="#6B4A35" opacity=".8"/>' : (i === 1 || i === 8) ? '<path d="M40 26 L42 36 M50 24 V35 M60 26 L58 36 M20 54 L30 56 M80 54 L70 56" stroke="' + f2 + '" stroke-width="3.4" stroke-linecap="round"/>' : '';
-    const eye = i === 6 ? '#FFE066' : O;
-    return '<svg viewBox="0 0 100 100" aria-hidden="true"' + (big ? ' class="big"' : '') + '><path d="M18 40 L20 10 L42 26 Z M82 40 L80 10 L58 26 Z" fill="' + fur + '" stroke="' + O + '" stroke-width="3" stroke-linejoin="round"/><path d="M23 34 L24 17 L36 26 Z M77 34 L76 17 L64 26 Z" fill="#FFB3C6"/>' +
-      '<ellipse cx="50" cy="56" rx="38" ry="32" fill="' + fur + '" stroke="' + O + '" stroke-width="3"/>' + patch +
-      '<path d="M14 44 Q50 0 86 44 Q50 30 14 44 Z" fill="' + cap + '" stroke="' + O + '" stroke-width="2.6"/><path d="M50 22 V40" stroke="' + (i === 0 || i === 7 ? '#ADB5BD' : '#FFFFFF') + '" stroke-opacity=".6" stroke-width="3"/><text x="50" y="40" text-anchor="middle" font-family="Arial Black, Arial" font-size="13" fill="' + (i === 0 || i === 4 || i === 7 ? '#212529' : '#FFFFFF') + '">' + (i + 1) + '</text>' +
-      '<ellipse cx="37" cy="58" rx="4.6" ry="5.6" fill="' + eye + '"/><ellipse cx="63" cy="58" rx="4.6" ry="5.6" fill="' + eye + '"/><circle cx="38.6" cy="56" r="1.7" fill="#FFFFFF"/><circle cx="64.6" cy="56" r="1.7" fill="#FFFFFF"/>' +
-      '<path d="M47.4 66 h5.2 l-2.6 3 z" fill="#FF8FA3"/><path d="M43 71 q3.5 4 7 0 q3.5 4 7 0" stroke="' + (i === 3 || i === 6 ? '#ADB5BD' : O) + '" stroke-width="2.2" fill="none" stroke-linecap="round"/><ellipse cx="27" cy="68" rx="5" ry="3" fill="#FFB3C6" opacity=".8"/><ellipse cx="73" cy="68" rx="5" ry="3" fill="#FFB3C6" opacity=".8"/></svg>';
+  // ----- 초상화(첨부 캐릭터 스타일): 흰 고양이 얼굴 + 색 몸통(번호 배지)
+  const DY_O = '#3D3A3A';
+  function dyHead(face) {
+    const O = DY_O;
+    const eyes = face === 'joy' ? '<path d="M30 52 l9 5 l-9 5 M70 52 l-9 5 l9 5" stroke="' + O + '" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
+      : '<ellipse cx="36" cy="56" rx="4" ry="5" fill="' + O + '"/><ellipse cx="64" cy="56" rx="4" ry="5" fill="' + O + '"/><circle cx="37.5" cy="54" r="1.5" fill="#FFFFFF"/><circle cx="65.5" cy="54" r="1.5" fill="#FFFFFF"/>';
+    const mouth = face === 'joy' ? '<path d="M41 66 Q50 84 59 66 Q50 70 41 66 Z" fill="#8B2E3B" stroke="' + O + '" stroke-width="2.6" stroke-linejoin="round"/><path d="M45 75 Q50 72 55 75 Q50 80 45 75 Z" fill="#FF8FA3"/>'
+      : '<path d="M43 67 q3.5 4 7 0 q3.5 4 7 0" stroke="' + O + '" stroke-width="2.4" fill="none" stroke-linecap="round"/>';
+    return '<path d="M14 40 L17 8 Q19 4 23 7 L42 24 Z M86 40 L83 8 Q81 4 77 7 L58 24 Z" fill="#FFFFFF" stroke="' + O + '" stroke-width="3" stroke-linejoin="round"/><path d="M20 33 L21 15 L35 25 Z M80 33 L79 15 L65 25 Z" fill="#FFB3C6"/>' +
+      '<ellipse cx="50" cy="56" rx="40" ry="33" fill="#FFFFFF" stroke="' + O + '" stroke-width="3"/>' + eyes +
+      '<ellipse cx="24" cy="66" rx="6" ry="3.6" fill="#FFB3C6"/><ellipse cx="76" cy="66" rx="6" ry="3.6" fill="#FFB3C6"/><path d="M47.6 62 h4.8 l-2.4 2.8 z" fill="#FF8FA3" stroke="' + O + '" stroke-width="1" stroke-linejoin="round"/>' + mouth;
   }
-  // 우승 클로즈업 포즈(손 번쩍)
+  function dyFace(i, big) {
+    const d = DY_DEF[i];
+    return '<svg viewBox="0 0 100 100" aria-hidden="true"' + (big ? ' class="big"' : '') + '><ellipse cx="50" cy="104" rx="42" ry="26" fill="' + d.body + '" stroke="' + DY_O + '" stroke-width="3"/>' +
+      '<g transform="translate(6 2) scale(.88)">' + dyHead('idle') + '</g><circle cx="84" cy="86" r="11" fill="' + d.deep + '" stroke="#FFFFFF" stroke-width="2.4"/><text x="84" y="90.5" text-anchor="middle" font-family="Arial Black, Arial" font-size="12" fill="#FFFFFF">' + (i + 1) + '</text></svg>';
+  }
+  // 우승 클로즈업 포즈(첨부 이미지처럼 손 번쩍)
   function dyPose(i) {
-    const d = DY_DEF[i], O = '#2B2D31';
-    return '<svg viewBox="0 0 200 220" aria-hidden="true"><path d="M60 214 Q60 140 100 132 Q140 140 140 214 Z" fill="' + DY_CAP[i] + '" stroke="' + O + '" stroke-width="4"/><text x="100" y="190" text-anchor="middle" font-family="Arial Black, Arial" font-size="34" fill="' + (i === 0 || i === 4 || i === 7 ? '#212529' : '#FFFFFF') + '">' + (i + 1) + '</text>' +
-      '<path d="M132 150 Q170 110 168 60" stroke="' + O + '" stroke-width="22" stroke-linecap="round" fill="none"/><path d="M132 150 Q170 110 168 60" stroke="' + d.fur + '" stroke-width="15" stroke-linecap="round" fill="none"/><circle cx="168" cy="54" r="12" fill="' + d.fur + '" stroke="' + O + '" stroke-width="4"/>' +
-      '<g transform="translate(40 18) scale(1.2)">' + dyFace(i).replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g></svg>';
+    const d = DY_DEF[i], O = DY_O;
+    const arm = (path) => '<path d="' + path + '" stroke="' + O + '" stroke-width="24" stroke-linecap="round" fill="none"/><path d="' + path + '" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round" fill="none"/>';
+    return '<svg viewBox="0 0 200 220" aria-hidden="true">' +
+      '<ellipse cx="100" cy="214" rx="56" ry="7" fill="rgba(0,0,0,.18)"/>' + arm('M70 176 L62 206') + arm('M128 176 L138 206') +
+      '<ellipse cx="100" cy="158" rx="62" ry="48" fill="' + d.body + '" stroke="' + O + '" stroke-width="4"/><path d="M50 128 Q100 150 150 128" stroke="' + O + '" stroke-width="3" fill="none"/><ellipse cx="86" cy="168" rx="20" ry="13" fill="#FFFFFF" opacity=".45"/>' +
+      '<circle cx="100" cy="176" r="16" fill="' + d.deep + '" stroke="#FFFFFF" stroke-width="3"/><text x="100" y="183" text-anchor="middle" font-family="Arial Black, Arial" font-size="19" fill="#FFFFFF">' + (i + 1) + '</text>' +
+      arm('M46 150 Q30 160 34 176') + arm('M152 140 Q176 116 174 86') +
+      '<g transform="translate(30 12) scale(1.4)">' + dyHead('joy') + '</g></svg>';
   }
 
   // ----- 3D 카메라: 월드(x 진행, y 위, z 옆) → 화면
@@ -7715,42 +7725,48 @@ img, svg, video { max-width: 100%; }
     if (gb && gt) { const s = 60 / gb[2]; ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 3 * s; ctx.beginPath(); ctx.moveTo(gb[0], gb[1]); ctx.lineTo(gt[0], gt[1]); ctx.stroke(); ctx.fillStyle = '#E03131'; ctx.fillRect(gt[0] - 20 * s, gt[1] - 10 * s, 40 * s, 14 * s); ctx.fillStyle = '#FFFFFF'; ctx.font = '900 ' + (9 * s) + 'px Arial'; ctx.textAlign = 'center'; ctx.fillText('GOAL', gt[0], gt[1] + 1 * s); }
     return hy;
   }
-  // 달리는 냥이(정면/뒷면/옆면 자동)
+  // 달리는 냥이(첨부 캐릭터 스타일: 흰 머리 + 색 몸통, 정면/뒷면/옆면 자동)
   function dyDrawRunner(ctx, cam, R, i, x, z, phase, vx) {
     const b = cam.p(x, 0, z), tp = cam.p(x, 1.8, z); if (!b || !tp) return;
     const h = b[1] - tp[1]; if (h < 2) return;
     const ahead = cam.p(x + 2, 0, z), sdx = ahead ? ahead[0] - b[0] : 0, sdy = ahead ? ahead[1] - b[1] : 0;
     const side = Math.abs(sdx) > Math.abs(sdy) * 1.2, dir = sdx >= 0 ? 1 : -1, toward = sdy > 0;
-    const s = h / 100, d = DY_DEF[i], O = '#2B2D31', fur = d.fur, cap = DY_CAP[i], bob = Math.abs(Math.sin(phase)) * 6;
+    const s = h / 100, d = DY_DEF[i], O = DY_O, W = '#FFFFFF', bob = Math.abs(Math.sin(phase)) * 6;
+    const limb = (x1, y1, x2, y2) => { ctx.strokeStyle = O; ctx.lineWidth = 13; ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); ctx.strokeStyle = W; ctx.lineWidth = 8; ctx.stroke(); };
+    const ear = (ax, ay, bx, by, cx2, cy2, ix) => { ctx.fillStyle = W; ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.lineTo(cx2, cy2); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#FFB3C6'; ctx.beginPath(); ctx.moveTo(ax + (bx - ax) * .25 + ix, ay + (by - ay) * .3); ctx.lineTo(bx + ix * .5, by + 5); ctx.lineTo(cx2 + (bx - cx2) * .3 + ix, cy2 + (by - cy2) * .3); ctx.closePath(); ctx.fill(); };
+    const badge = (bx, by, r) => { ctx.fillStyle = d.deep; ctx.strokeStyle = W; ctx.lineWidth = 2.6; ctx.beginPath(); ctx.arc(bx, by, r, 0, 7); ctx.fill(); ctx.stroke(); ctx.fillStyle = W; ctx.font = '900 ' + (r * 1.2) + 'px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(String(i + 1), bx, by + .5); ctx.textBaseline = 'alphabetic'; ctx.strokeStyle = O; };
     ctx.save(); ctx.translate(b[0], b[1]);
-    ctx.fillStyle = 'rgba(0,0,0,.22)'; ctx.beginPath(); ctx.ellipse(0, 0, (side ? 38 : 24) * s, 7 * s, 0, 0, 7); ctx.fill();
-    ctx.scale(s, s); ctx.translate(0, -bob); ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    ctx.fillStyle = 'rgba(0,0,0,.22)'; ctx.beginPath(); ctx.ellipse(0, 0, (side ? 34 : 26) * s, 7 * s, 0, 0, 7); ctx.fill();
+    ctx.scale(s, s); ctx.translate(0, -bob); ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.strokeStyle = O;
     if (side) {
       ctx.scale(dir, 1);
-      const leg = (px, a) => { ctx.strokeStyle = O; ctx.lineWidth = 11; ctx.beginPath(); ctx.moveTo(px, -36); ctx.lineTo(px + Math.sin(a) * 16, -6 + Math.abs(Math.cos(a)) * -4); ctx.stroke(); ctx.strokeStyle = fur; ctx.lineWidth = 6.5; ctx.stroke(); };
-      leg(-18, phase + 1.4); leg(16, phase + 3.1);
-      ctx.strokeStyle = O; ctx.lineWidth = 9; ctx.beginPath(); ctx.moveTo(-34, -44); ctx.quadraticCurveTo(-56, -58 + Math.sin(phase) * 8, -50, -76); ctx.stroke(); ctx.strokeStyle = fur; ctx.lineWidth = 5; ctx.stroke();
-      ctx.fillStyle = fur; ctx.strokeStyle = O; ctx.lineWidth = 3.5; ctx.beginPath(); ctx.ellipse(-2, -46, 36, 17, -.05, 0, 7); ctx.fill(); ctx.stroke();
-      ctx.fillStyle = cap; ctx.beginPath(); ctx.roundRect(-16, -60, 26, 24, 4); ctx.fill(); ctx.stroke();
-      ctx.fillStyle = (i === 0 || i === 4 || i === 7) ? '#212529' : '#FFFFFF'; ctx.font = '900 15px Arial'; ctx.textAlign = 'center'; ctx.save(); ctx.scale(dir, 1); ctx.fillText(String(i + 1), -3 * dir, -43); ctx.restore();
-      leg(-12, phase); leg(22, phase + 1.7);
-      ctx.fillStyle = fur; ctx.beginPath(); ctx.arc(38, -66, 17, 0, 7); ctx.fill(); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(28, -78); ctx.lineTo(30, -96); ctx.lineTo(40, -82); ctx.closePath(); ctx.fill(); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(42, -80); ctx.lineTo(50, -95); ctx.lineTo(52, -78); ctx.closePath(); ctx.fill(); ctx.stroke();
-      ctx.fillStyle = cap; ctx.beginPath(); ctx.arc(38, -70, 16, Math.PI * 1.05, Math.PI * 1.95); ctx.closePath(); ctx.fill(); ctx.stroke();
-      ctx.fillStyle = i === 6 ? '#FFE066' : O; ctx.beginPath(); ctx.ellipse(45, -64, 2.6, 3.4, 0, 0, 7); ctx.fill();
-      ctx.fillStyle = '#FF8FA3'; ctx.beginPath(); ctx.arc(54, -60, 2.4, 0, 7); ctx.fill();
+      // 뒤쪽 다리·팔
+      limb(-8, -22, -8 + Math.sin(phase + 3.1) * 12, -2); limb(-14, -48, -30 + Math.sin(phase) * 8, -36);
+      // 둥근 몸통
+      ctx.fillStyle = d.body; ctx.lineWidth = 3.5; ctx.beginPath(); ctx.ellipse(-2, -38, 30, 26, 0, 0, 7); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,.45)'; ctx.beginPath(); ctx.ellipse(-10, -32, 12, 8, 0, 0, 7); ctx.fill();
+      ctx.save(); ctx.scale(dir, 1); badge(-4 * dir, -30, 8); ctx.restore();
+      // 앞다리·앞팔
+      limb(10, -20, 10 + Math.sin(phase) * 12, -2); limb(18, -46, 34 + Math.sin(phase + 3.1) * 8, -38);
+      // 머리
+      ear(14, -80, 18, -104, 30, -86, 0); ear(36, -86, 48, -102, 50, -80, 0);
+      ctx.fillStyle = W; ctx.lineWidth = 3.5; ctx.beginPath(); ctx.ellipse(28, -70, 26, 22, 0, 0, 7); ctx.fill(); ctx.stroke();
+      ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(30, -76); ctx.lineTo(37, -72); ctx.lineTo(30, -68); ctx.stroke();
+      ctx.fillStyle = '#8B2E3B'; ctx.beginPath(); ctx.moveTo(40, -64); ctx.quadraticCurveTo(46, -54, 52, -64); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#FFB3C6'; ctx.beginPath(); ctx.ellipse(24, -62, 5, 3, 0, 0, 7); ctx.fill();
     } else {
       const sw = Math.sin(phase);
-      ctx.strokeStyle = O; ctx.lineWidth = 11; [[-12, sw], [12, -sw]].forEach(([px, a]) => { ctx.beginPath(); ctx.moveTo(px, -30); ctx.lineTo(px + a * 3, -4 - Math.max(0, a) * 8); ctx.strokeStyle = O; ctx.lineWidth = 11; ctx.stroke(); ctx.strokeStyle = fur; ctx.lineWidth = 6.5; ctx.stroke(); });
-      if (!toward) { ctx.strokeStyle = O; ctx.lineWidth = 9; ctx.beginPath(); ctx.moveTo(0, -30); ctx.quadraticCurveTo(sw * 14, -50, sw * 8, -64); ctx.stroke(); ctx.strokeStyle = fur; ctx.lineWidth = 5; ctx.stroke(); }
-      ctx.fillStyle = fur; ctx.strokeStyle = O; ctx.lineWidth = 3.5; ctx.beginPath(); ctx.ellipse(0, -44, 22, 20, 0, 0, 7); ctx.fill(); ctx.stroke();
-      ctx.fillStyle = cap; ctx.beginPath(); ctx.roundRect(-13, -52, 26, 20, 4); ctx.fill(); ctx.stroke();
-      ctx.fillStyle = (i === 0 || i === 4 || i === 7) ? '#212529' : '#FFFFFF'; ctx.font = '900 14px Arial'; ctx.textAlign = 'center'; ctx.fillText(String(i + 1), 0, -37);
-      ctx.fillStyle = fur; ctx.beginPath(); ctx.arc(0, -74, 19, 0, 7); ctx.fill(); ctx.stroke();
-      [-1, 1].forEach(k => { ctx.beginPath(); ctx.moveTo(k * 8, -88); ctx.lineTo(k * 14, -104); ctx.lineTo(k * 18, -84); ctx.closePath(); ctx.fill(); ctx.stroke(); });
-      ctx.fillStyle = cap; ctx.beginPath(); ctx.arc(0, -78, 18, Math.PI * 1.05, Math.PI * 1.95); ctx.closePath(); ctx.fill(); ctx.stroke();
-      if (toward) { ctx.fillStyle = i === 6 ? '#FFE066' : O; ctx.beginPath(); ctx.ellipse(-7, -72, 2.6, 3.4, 0, 0, 7); ctx.ellipse(7, -72, 2.6, 3.4, 0, 0, 7); ctx.fill(); ctx.fillStyle = '#FF8FA3'; ctx.beginPath(); ctx.arc(0, -66, 2.2, 0, 7); ctx.fill(); }
+      limb(-12, -22, -12 + sw * 4, -2 - Math.max(0, sw) * 6); limb(12, -22, 12 - sw * 4, -2 - Math.max(0, -sw) * 6);
+      ctx.fillStyle = d.body; ctx.lineWidth = 3.5; ctx.beginPath(); ctx.ellipse(0, -38, 28, 26, 0, 0, 7); ctx.fill(); ctx.stroke();
+      limb(-24, -44, -34, -30 + sw * 6); limb(24, -44, 34, -30 - sw * 6);
+      if (toward) { ctx.fillStyle = 'rgba(255,255,255,.45)'; ctx.beginPath(); ctx.ellipse(-8, -32, 11, 7, 0, 0, 7); ctx.fill(); badge(0, -30, 8); }
+      ear(-24, -78, -20, -104, -6, -86, 0); ear(6, -86, 20, -104, 24, -78, 0);
+      ctx.fillStyle = W; ctx.lineWidth = 3.5; ctx.beginPath(); ctx.ellipse(0, -72, 28, 23, 0, 0, 7); ctx.fill(); ctx.stroke();
+      if (toward) {
+        ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(-15, -78); ctx.lineTo(-8, -74); ctx.lineTo(-15, -70); ctx.moveTo(15, -78); ctx.lineTo(8, -74); ctx.lineTo(15, -70); ctx.stroke();
+        ctx.fillStyle = '#8B2E3B'; ctx.beginPath(); ctx.moveTo(-6, -66); ctx.quadraticCurveTo(0, -54, 6, -66); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#FFB3C6'; ctx.beginPath(); ctx.ellipse(-18, -64, 5, 3, 0, 0, 7); ctx.ellipse(18, -64, 5, 3, 0, 0, 7); ctx.fill();
+      } else { ctx.fillStyle = d.deep; ctx.beginPath(); ctx.arc(0, -38, 9, 0, 7); ctx.fill(); ctx.fillStyle = W; ctx.font = '900 10px Arial'; ctx.textAlign = 'center'; ctx.fillText(String(i + 1), 0, -34.5); }
     }
     ctx.restore();
   }
@@ -9653,7 +9669,7 @@ img, svg, video { max-width: 100%; }
       '<path d="M34 60 q6 8 12 0" stroke="#4D9DFF" stroke-width="2.6" fill="none"/><path d="M46 60 q6 8 12 0" stroke="#FFD43B" stroke-width="2.6" fill="none"/><path d="M58 60 l3 4 M64 66 l3 -6" stroke="#51CF66" stroke-width="2.6" fill="none"/></svg>',
     derby: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgdy1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4D9DE0"/><stop offset=".45" stop-color="#BFE3FF"/><stop offset=".45" stop-color="#64C24F"/><stop offset="1" stop-color="#3E8E30"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgdy1)"/>' +
       '<path d="M0 62 L100 52 M0 76 L100 64" stroke="#FFFFFF" stroke-width="2.4"/><path d="M0 50 Q30 40 60 46 T100 40" stroke="#2F8F3A" stroke-width="8" fill="none"/>' +
-      [[28, '#FFB45A', '#E03131'], [52, '#A7B0B8', '#1C7ED6'], [74, '#2B2D31', '#FAB005']].map(([x, f, c]) => '<ellipse cx="' + x + '" cy="74" rx="11" ry="6" fill="' + f + '" stroke="#2B2D31" stroke-width="1.6"/><circle cx="' + (x + 11) + '" cy="66" r="6" fill="' + f + '" stroke="#2B2D31" stroke-width="1.6"/><path d="M' + (x + 5) + ' 63 a6 6 0 0 1 12 0 z" fill="' + c + '"/>').join('') +
+      [[28, '#BFE8FA', '#2E9BD6'], [52, '#FFC9DE', '#E64980'], [74, '#B8F2DC', '#12B886']].map(([x, f, c]) => '<ellipse cx="' + x + '" cy="74" rx="11" ry="6" fill="' + f + '" stroke="#2B2D31" stroke-width="1.6"/><circle cx="' + (x + 11) + '" cy="66" r="6" fill="' + f + '" stroke="#2B2D31" stroke-width="1.6"/><path d="M' + (x + 5) + ' 63 a6 6 0 0 1 12 0 z" fill="' + c + '"/>').join('') +
       '<path d="M84 20 V58" stroke="#FFFFFF" stroke-width="3"/><rect x="72" y="14" width="24" height="10" rx="2" fill="#E03131"/></svg>',
     hall: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgu5" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD43B"/><stop offset="1" stop-color="#E67700"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgu5)"/>' +
       '<path d="M34 24h32v14a16 16 0 0 1-32 0z" fill="#FFFFFF"/><path d="M34 29h-7a8 8 0 0 0 9 13M66 29h7a8 8 0 0 1-9 13" stroke="#FFFFFF" stroke-width="4" fill="none"/><rect x="46" y="53" width="8" height="11" fill="#FFFFFF"/><rect x="35" y="64" width="30" height="9" rx="2.5" fill="#FFFFFF"/>' +
