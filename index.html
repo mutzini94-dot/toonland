@@ -7621,11 +7621,11 @@ img, svg, video { max-width: 100%; }
   // 배당은 목표 RTP ÷ 맞힐 확률(0.1 단위 내림, 최소 ×1.0)로 자동 계산 → 어떤 선택이든 RTP가 목표 이하.
   // 화면: 3D 카메라(출발 게이트 → 레일 옆 추적 → 높은 전경 → 마지막 직선 정면) · 진행 막대 · 스킬 카드 · 실시간 순위 · 중계
   const DY_DEF = [
-    { name: '하늘냥', body: '#BFE8FA', deep: '#2E9BD6', style: 0, w: 18 }, { name: '딸기냥', body: '#FFC9DE', deep: '#E64980', style: 1, w: 15 },
-    { name: '민트냥', body: '#B8F2DC', deep: '#12B886', style: 2, w: 13 }, { name: '레몬냥', body: '#FFEC99', deep: '#E8A300', style: 3, w: 12 },
-    { name: '라벤더냥', body: '#DCD0FF', deep: '#7950F2', style: 1, w: 11 }, { name: '복숭아냥', body: '#FFD8BF', deep: '#F76707', style: 2, w: 9 },
-    { name: '멜론냥', body: '#D3F59E', deep: '#66A80F', style: 3, w: 8 }, { name: '체리냥', body: '#FFB3B3', deep: '#E03131', style: 0, w: 7 },
-    { name: '소다냥', body: '#A5F0F5', deep: '#0C8599', style: 2, w: 7 }];
+    { name: '하늘냥', body: '#4DABF7', deep: '#1971C2', style: 0, w: 18 }, { name: '딸기냥', body: '#F783AC', deep: '#C2255C', style: 1, w: 15 },
+    { name: '민트냥', body: '#38D9A9', deep: '#087F5B', style: 2, w: 13 }, { name: '레몬냥', body: '#FFD43B', deep: '#B07A00', style: 3, w: 12 },
+    { name: '라벤더냥', body: '#9775FA', deep: '#5F3DC4', style: 1, w: 11 }, { name: '복숭아냥', body: '#FF922B', deep: '#C2410C', style: 2, w: 9 },
+    { name: '멜론냥', body: '#94D82D', deep: '#4A7A0B', style: 3, w: 8 }, { name: '체리냥', body: '#FA5252', deep: '#A61E1E', style: 0, w: 7 },
+    { name: '소다냥', body: '#364FC7', deep: '#1B2A80', style: 2, w: 7 }];
   // 예전 기본 이름(털 무늬)은 새 이름으로 바꿔 보여 준다
   const DY_OLD = ['치즈냥', '고등어', '삼색이', '턱시도', '러시안블루', '샴냥', '까망이', '하양이', '호랑냥'];
   const DY_CAP = DY_DEF.map(d => d.deep);
@@ -7844,7 +7844,7 @@ img, svg, video { max-width: 100%; }
     const limb = (x1, y1, x2, y2) => { ctx.strokeStyle = O; ctx.lineWidth = 13; ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); ctx.strokeStyle = W; ctx.lineWidth = 8; ctx.stroke(); };
     const ear = (ax, ay, bx, by, cx2, cy2, ix) => { ctx.fillStyle = W; ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.lineTo(cx2, cy2); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#FFB3C6'; ctx.beginPath(); ctx.moveTo(ax + (bx - ax) * .25 + ix, ay + (by - ay) * .3); ctx.lineTo(bx + ix * .5, by + 5); ctx.lineTo(cx2 + (bx - cx2) * .3 + ix, cy2 + (by - cy2) * .3); ctx.closePath(); ctx.fill(); };
     const badge = (bx, by, r) => { ctx.fillStyle = d.deep; ctx.strokeStyle = W; ctx.lineWidth = 2.6; ctx.beginPath(); ctx.arc(bx, by, r, 0, 7); ctx.fill(); ctx.stroke(); ctx.fillStyle = W; ctx.font = '900 ' + (r * 1.2) + 'px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(String(i + 1), bx, by + .5); ctx.textBaseline = 'alphabetic'; ctx.strokeStyle = O; };
-    if (!side && dySpr) {
+    if (!side && dySpr && !(toward && dySide)) {
       const Hh = h * 1.12, Ww = Hh * DY_FW / DY_FH, fr = Math.floor(((phase % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) / (Math.PI * 2) * 12) % 12;
       ctx.save(); ctx.fillStyle = 'rgba(0,0,0,.22)'; ctx.beginPath(); ctx.ellipse(b[0], b[1], Ww * .32, Hh * .045, 0, 0, 7); ctx.fill();
       ctx.drawImage(dySpr[i], fr * DY_FW, toward ? 0 : DY_FH, DY_FW, DY_FH, b[0] - Ww / 2, b[1] - Hh * .985, Ww, Hh);
@@ -7853,7 +7853,8 @@ img, svg, video { max-width: 100%; }
       ctx.fillStyle = '#FFFFFF'; ctx.font = '900 ' + (br * 1.2).toFixed(1) + 'px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(String(i + 1), bx, by + .5); ctx.restore();
       return;
     }
-    if (side && dySide) {
+    if ((side || toward) && dySide) {
+      const dir = side ? (sdx >= 0 ? 1 : -1) : (b[0] < cam.W / 2 ? 1 : -1);
       const Hh = h * 1.12, Ww = Hh * DY_SW / DY_FH, fr = Math.floor(((phase % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) / (Math.PI * 2) * DY_SN) % DY_SN;
       ctx.save(); ctx.fillStyle = 'rgba(0,0,0,.22)'; ctx.beginPath(); ctx.ellipse(b[0], b[1], Ww * .34, Hh * .045, 0, 0, 7); ctx.fill();
       ctx.translate(b[0], b[1]); ctx.scale(dir, 1);
