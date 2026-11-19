@@ -1422,6 +1422,9 @@ svg.lt-kico.lt-tic { width: 22px; height: 22px; margin: 0 8px 0 2px; }
 .dy-stagebar button[aria-pressed="true"] { background: linear-gradient(180deg, #FFF3BF, #FFD43B); color: #5C3D00; box-shadow: 0 0 0 2px #FFFFFF; }
 .dy-stagebar button:not([aria-pressed="true"]):hover { background: rgba(255,255,255,.1); }
 .dy-stagebar button:disabled { opacity: .55; cursor: default; }
+
+.dy-stage.dy-cut canvas { animation: dy-cut .35s ease-out; }
+@keyframes dy-cut { 0% { filter: brightness(2.2) blur(2px); } 100% { filter: none; } }
 /* ===== 냥냥 레이스 ===== */
 .rc-panel { grid-column: 1 / -1; }
 .rc-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
@@ -7833,6 +7836,7 @@ img, svg, video { max-width: 100%; }
     const ahead = cam.p(x + 2, 0, z), sdx = ahead ? ahead[0] - b[0] : 0, sdy = ahead ? ahead[1] - b[1] : 0;
     const side = Math.abs(sdx) > Math.abs(sdy) * 1.2, dir = sdx >= 0 ? 1 : -1, toward = sdy > 0;
     const s = h / 100, d = DY_DEF[i], O = DY_O, W = '#FFFFFF', bob = Math.abs(Math.sin(phase)) * 6;
+    if (DRB.stage === 'kart') { const S0 = DRB.sim, T = S0 && S0.run[i] ? S0.run[i].T : 21; dyKart3D(ctx, b, h, i, phase, side && !DRB.front, dir, toward || DRB.front, vx > (DY_L / T) * 1.04); return; }
     const limb = (x1, y1, x2, y2) => { ctx.strokeStyle = O; ctx.lineWidth = 13; ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); ctx.strokeStyle = W; ctx.lineWidth = 8; ctx.stroke(); };
     const ear = (ax, ay, bx, by, cx2, cy2, ix) => { ctx.fillStyle = W; ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.lineTo(cx2, cy2); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#FFB3C6'; ctx.beginPath(); ctx.moveTo(ax + (bx - ax) * .25 + ix, ay + (by - ay) * .3); ctx.lineTo(bx + ix * .5, by + 5); ctx.lineTo(cx2 + (bx - cx2) * .3 + ix, cy2 + (by - cy2) * .3); ctx.closePath(); ctx.fill(); };
     const badge = (bx, by, r) => { ctx.fillStyle = d.deep; ctx.strokeStyle = W; ctx.lineWidth = 2.6; ctx.beginPath(); ctx.arc(bx, by, r, 0, 7); ctx.fill(); ctx.stroke(); ctx.fillStyle = W; ctx.font = '900 ' + (r * 1.2) + 'px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(String(i + 1), bx, by + .5); ctx.textBaseline = 'alphabetic'; ctx.strokeStyle = O; };
@@ -7981,6 +7985,8 @@ img, svg, video { max-width: 100%; }
     const lead = live[0], p = lead.x / DY_L, top = live.slice(0, 4), cx = top.reduce((a, r) => a + r.x, 0) / top.length, cz = live.reduce((a, r) => a + r.z, 0) / live.length;
     let pos, look, name;
     if (S.ended) { pos = [DY_L + 30, 3, cz - 4]; look = [DY_L + 8, .9, cz]; name = 'end'; }
+    else if (DRB.stage === 'kart' && p < .78) { pos = [cx - 3, 2.4, -6.5]; look = [cx + 3, .9, cz + 1]; name = 'side'; }
+    else if (DRB.stage === 'kart') { pos = [Math.min(cx + 15, DY_L + 12), 2.2, cz - 2]; look = [cx - 4, 1, cz]; name = 'front'; }
     else if (p < .07) { pos = [cx + 18, 2.6, -9]; look = [cx + 1, .8, cz]; name = 'gate'; }
     else if (p < .58) { pos = [cx - 3, 2.4, -6.5]; look = [cx + 3, .9, cz + 1]; name = 'side'; }
     else if (p < .8) { pos = [cx - 18, 11, -18]; look = [cx + 6, .3, cz]; name = 'wide'; }
@@ -8185,6 +8191,85 @@ img, svg, video { max-width: 100%; }
     const fr = Math.min(1, spd / 180); ctx.strokeStyle = boostMe ? '#FF922B' : fr > .8 ? '#FCC419' : '#4DABF7'; ctx.beginPath(); ctx.arc(gx, gy, gr, Math.PI * .75, Math.PI * (.75 + 1.5 * fr)); ctx.stroke();
     ctx.fillStyle = '#FFFFFF'; ctx.font = '900 17px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(String(spd), gx, gy - 2); ctx.font = '700 9px Arial'; ctx.fillText(boostMe ? 'BOOST!' : 'km/h', gx, gy + 13);
   }
+  // ----- 카트 서킷의 측면·정면 중계(3D 엔진 재사용): 해안 마을 도로 테마 + 옆/앞에서 본 카트
+  function dyDrawWorldKart(ctx, cam, t) {
+    const { W, H } = cam; dyTex();
+    const hz = cam.p(cam.pos[0] + cam.f[0] * 900, 0, cam.pos[2] + cam.f[2] * 900), hy = hz ? Math.max(20, Math.min(H + 50, hz[1])) : H * .35;
+    const yaw = Math.atan2(cam.f[2], cam.f[0]);
+    if (dyOk('sky')) { const im = dyImg.sky, sh = Math.max(hy, 10), sw = im.naturalWidth * sh / im.naturalHeight, off = ((-yaw / (Math.PI * 2)) * sw * 4 + t * 4) % (sw * 2); for (let k = -1; k * sw + off < W + sw; k++) { const x = k * sw + off, fl = ((k % 2) + 2) % 2; ctx.save(); if (fl) { ctx.translate(x + sw, 0); ctx.scale(-1, 1); ctx.drawImage(im, 0, 0, sw, sh); } else ctx.drawImage(im, x, 0, sw, sh); ctx.restore(); } }
+    else { ctx.fillStyle = '#7FB6EA'; ctx.fillRect(0, 0, W, hy); }
+    ctx.fillStyle = '#2E86DE'; ctx.fillRect(0, hy, W, H - hy);
+    const x0 = Math.floor((cam.pos[0] - 140) / 8) * 8, x1 = cam.pos[0] + 300;
+    const poly = (pts, col) => { const P = pts.map(q => cam.p(...q)); if (P.some(v => !v)) return null; ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(P[0][0], P[0][1]); for (let k = 1; k < P.length; k++) ctx.lineTo(P[k][0], P[k][1]); ctx.closePath(); ctx.fill(); return P; };
+    const xs = []; for (let x = x0; x <= x1;) { const d = Math.abs(x - cam.pos[0]), w = d < 18 ? 1 : d < 40 ? 4 : 8; xs.push([x, w]); x += w; }
+    xs.sort((a, b) => Math.abs(b[0] - cam.pos[0]) - Math.abs(a[0] - cam.pos[0])).forEach(([x, w]) => {
+      const e = x + w + .05, st = Math.floor(x / 4) % 2;
+      poly([[x, 0, -60], [e, 0, -60], [e, 0, -14], [x, 0, -14]], '#2E86DE');                               // 바다
+      poly([[x, 0, -14], [e, 0, -14], [e, 0, -1], [x, 0, -1]], '#EBDFC6');                                  // 모래·돌길
+      poly([[x, 0, -1], [e, 0, -1], [e, 0, 0], [x, 0, 0]], st ? '#E03131' : '#FFFFFF');                     // 연석
+      poly([[x, 0, 0], [e, 0, 0], [e, 0, DY_TW], [x, 0, DY_TW]], Math.floor(x / 8) % 2 ? '#8C93A0' : '#949BA8');   // 아스팔트
+      if (Math.floor(x / 6) % 2) [5.3, 10.6].forEach(z => poly([[x, .01, z - .12], [e, .01, z - .12], [e, .01, z + .12], [x, .01, z + .12]], '#F1F3F5'));
+      poly([[x, 0, DY_TW], [e, 0, DY_TW], [e, 0, DY_TW + 1], [x, 0, DY_TW + 1]], st ? '#E03131' : '#FFFFFF');
+      poly([[x, 0, DY_TW + 1], [e, 0, DY_TW + 1], [e, 0, 140], [x, 0, 140]], '#F1E6D2');                     // 하얀 돌길 광장
+    });
+    if (DY_L > x0 && DY_L < x1) for (let k = 0; k < 8; k++) poly([[DY_L - .5, .01, k * 2], [DY_L + .5, .01, k * 2], [DY_L + .5, .01, k * 2 + 2], [DY_L - .5, .01, k * 2 + 2]], k % 2 ? '#212529' : '#FFFFFF');
+    // 소품(먼 것부터): 바깥 하얀 집 줄 · 양쪽 야자수 · 가로등
+    const props = [];
+    for (let x = Math.floor(x0 / 14) * 14; x < x1 + 40; x += 14) props.push({ t: 'house', x, z: 30 + (Math.abs(x) % 28 ? 0 : 6), v: Math.abs(x / 14) % 4 });
+    for (let x = Math.floor(x0 / 10) * 10; x < x1 + 40; x += 10) { props.push({ t: 'palm', x, z: -5 }); props.push({ t: 'palm', x: x + 5, z: DY_TW + 6 }); }
+    props.map(p => ({ p, d: Math.hypot(p.x - cam.pos[0], p.z - cam.pos[2]) })).sort((a, b) => b.d - a.d).forEach(({ p }) => {
+      if (p.t === 'house') {
+        const w = 10, h = 7 + p.v * 1.4, z = p.z;
+        const F = poly([[p.x, 0, z], [p.x + w, 0, z], [p.x + w, h, z], [p.x, h, z]], '#F8F9FA'); if (!F) return;
+        poly([[p.x - .4, h, z - .3], [p.x + w + .4, h, z - .3], [p.x + w + .4, h + .8, z - .3], [p.x - .4, h + .8, z - .3]], ['#1C7ED6', '#228BE6', '#4DABF7', '#1971C2'][p.v]);
+        if (p.v % 2) { const c = cam.p(p.x + w / 2, h + .8, z - .3), r = cam.p(p.x + w / 2 + 2.4, h + .8, z - .3); if (c && r) { ctx.fillStyle = '#1C7ED6'; ctx.beginPath(); ctx.ellipse(c[0], c[1], Math.abs(r[0] - c[0]), Math.abs(r[0] - c[0]) * .8, 0, Math.PI, 0); ctx.fill(); } }
+        [[1.5, 3.2], [6.5, 3.2]].forEach(([a, b]) => poly([[p.x + a, b, z - .02], [p.x + a + 2, b, z - .02], [p.x + a + 2, b + 2, z - .02], [p.x + a, b + 2, z - .02]], '#5C7CFA'));
+        poly([[p.x + 4.2, 0, z - .02], [p.x + 5.8, 0, z - .02], [p.x + 5.8, 2.6, z - .02], [p.x + 4.2, 2.6, z - .02]], '#8D6E63');
+      } else {
+        const b = cam.p(p.x, 0, p.z), tp = cam.p(p.x + .6, 7, p.z); if (!b || !tp) return; const h = b[1] - tp[1]; if (h < 3) return;
+        ctx.strokeStyle = '#8D6E63'; ctx.lineWidth = Math.max(1, h * .05); ctx.beginPath(); ctx.moveTo(b[0], b[1]); ctx.quadraticCurveTo(b[0] + h * .12, b[1] - h * .5, tp[0], tp[1]); ctx.stroke();
+        ctx.fillStyle = '#2F9E44'; for (let k = 0; k < 6; k++) { const a = k / 6 * Math.PI * 2; ctx.beginPath(); ctx.ellipse(tp[0] + Math.cos(a) * h * .16, tp[1] + Math.sin(a) * h * .05, h * .2, h * .05, a, 0, 7); ctx.fill(); }
+      }
+    });
+    // GOAL 아치
+    const gl = cam.p(DY_L, 0, -1.6), gr = cam.p(DY_L, 0, DY_TW + 1.6), gl2 = cam.p(DY_L, 7, -1.6), gr2 = cam.p(DY_L, 7, DY_TW + 1.6), gl3 = cam.p(DY_L, 8.6, -1.6), gr3 = cam.p(DY_L, 8.6, DY_TW + 1.6);
+    if (gl && gr && gl2 && gr2 && gl3 && gr3) {
+      ctx.strokeStyle = '#495057'; ctx.lineWidth = Math.max(2, 120 / gl[2]); ctx.beginPath(); ctx.moveTo(gl[0], gl[1]); ctx.lineTo(gl3[0], gl3[1]); ctx.moveTo(gr[0], gr[1]); ctx.lineTo(gr3[0], gr3[1]); ctx.stroke();
+      for (let k = 0; k < 12; k++) { const a = k / 12, b2 = (k + 1) / 12, L = (p, q, f) => [p[0] + (q[0] - p[0]) * f, p[1] + (q[1] - p[1]) * f]; const A = L(gl2, gr2, a), B = L(gl2, gr2, b2), C = L(gl3, gr3, b2), D = L(gl3, gr3, a); ctx.fillStyle = k % 2 ? '#212529' : '#FFFFFF'; ctx.beginPath(); ctx.moveTo(A[0], A[1]); ctx.lineTo(B[0], B[1]); ctx.lineTo(C[0], C[1]); ctx.lineTo(D[0], D[1]); ctx.closePath(); ctx.fill(); }
+    }
+    return hy;
+  }
+  // 옆·앞에서 본 카트 + 캐릭터 애니메이션(시트의 옆모습/정면 프레임)
+  function dyKart3D(ctx, b, h, i, phase, side, dir, toward, boost) {
+    const d = DY_DEF[i] || DY_DEF[0], O = '#2B1D16';
+    if (!toward && !side) { ktKart(ctx, b[0], b[1], h * 1.0, i, { boost }); return; }
+    ctx.save(); ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.lineWidth = Math.max(1, h * .03); ctx.strokeStyle = O;
+    ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.beginPath(); ctx.ellipse(b[0], b[1], h * (side ? .75 : .52), h * .07, 0, 0, 7); ctx.fill();
+    const v = side ? 1 : 0, nf = DY_NF[v], fr = Math.floor(((phase % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) / (Math.PI * 2) * nf) % nf;
+    const ch = h * .95, cw = ch * DY_FW / DY_FH;
+    if (side) {
+      ctx.translate(b[0], b[1]); ctx.scale(dir, 1);
+      const L = h * 1.5, bh = h * .34;
+      if (boost) { const fl = .7 + Math.random() * .5; ctx.fillStyle = '#FFD43B'; ctx.beginPath(); ctx.moveTo(-L * .5, -bh * .55); ctx.lineTo(-L * (.5 + .22 * fl), -bh * .4); ctx.lineTo(-L * .5, -bh * .25); ctx.fill(); }
+      if (dySpr) ctx.drawImage(dySpr, fr * DY_FW, (i * 2 + 1) * DY_FH, DY_FW, DY_FH, -cw * .55, -bh - ch * .78, cw, ch);   // 캐릭터(다리는 차체에 가려짐)
+      ctx.fillStyle = d.deep; ctx.beginPath(); ctx.moveTo(-L * .5, -bh * .2); ctx.lineTo(-L * .52, -bh * .95); ctx.lineTo(-L * .2, -bh); ctx.lineTo(L * .18, -bh * .9); ctx.lineTo(L * .52, -bh * .5); ctx.lineTo(L * .5, -bh * .15); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,.4)'; ctx.fillRect(-L * .4, -bh * .78, L * .7, bh * .14);
+      ctx.fillStyle = '#FFFFFF'; ctx.beginPath(); ctx.arc(L * .08, -bh * .5, bh * .26, 0, 7); ctx.fill(); ctx.stroke();
+      ctx.save(); ctx.scale(dir, 1); ctx.fillStyle = d.deep; ctx.font = '900 ' + (bh * .34).toFixed(1) + 'px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(String(i + 1), dir * L * .08, -bh * .5 + .5); ctx.restore();
+      ctx.fillStyle = '#495057'; ctx.fillRect(-L * .56, -bh * 1.25, L * .06, bh * .35); ctx.fillStyle = d.deep; ctx.fillRect(-L * .62, -bh * 1.32, L * .2, bh * .12);   // 스포일러
+      [-L * .32, L * .34].forEach(wx => { const r = h * .15; ctx.fillStyle = '#212529'; ctx.beginPath(); ctx.arc(wx, -r, r, 0, 7); ctx.fill(); ctx.stroke(); ctx.strokeStyle = '#ADB5BD'; ctx.lineWidth = Math.max(1, r * .18); for (let k = 0; k < 3; k++) { const a = phase * 2 + k * 2.09; ctx.beginPath(); ctx.moveTo(wx, -r); ctx.lineTo(wx + Math.cos(a) * r * .7, -r + Math.sin(a) * r * .7); ctx.stroke(); } ctx.strokeStyle = O; ctx.lineWidth = Math.max(1, h * .03); });
+    } else {
+      ctx.translate(b[0], b[1]);
+      const Wk = h * 1.0, bh = h * .3;
+      if (dySpr) ctx.drawImage(dySpr, fr * DY_FW, (i * 2) * DY_FH, DY_FW, DY_FH, -cw / 2, -bh - ch * .8, cw, ch);
+      [-1, 1].forEach(k => { ctx.fillStyle = '#212529'; ctx.beginPath(); ctx.roundRect(k > 0 ? Wk * .32 : -Wk * .52, -bh * .9, Wk * .2, bh * .9, Wk * .05); ctx.fill(); ctx.stroke(); });
+      ctx.fillStyle = d.deep; ctx.beginPath(); ctx.moveTo(-Wk * .36, -bh * .1); ctx.lineTo(Wk * .36, -bh * .1); ctx.lineTo(Wk * .3, -bh); ctx.lineTo(-Wk * .3, -bh); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#FFE066'; [-1, 1].forEach(k => { ctx.beginPath(); ctx.ellipse(k * Wk * .2, -bh * .55, Wk * .06, bh * .14, 0, 0, 7); ctx.fill(); ctx.stroke(); });
+      ctx.fillStyle = '#FFFFFF'; ctx.beginPath(); ctx.roundRect(-Wk * .09, -bh * .42, Wk * .18, bh * .3, Wk * .03); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = d.deep; ctx.font = '900 ' + (bh * .26).toFixed(1) + 'px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(String(i + 1), 0, -bh * .27);
+    }
+    ctx.restore();
+  }
   function dyLoop() {
     cancelAnimationFrame(DRB.raf);
     let last = performance.now();
@@ -8197,7 +8282,7 @@ img, svg, video { max-width: 100%; }
       const draw = (shot, cam) => {
         DRB.front = shot === 'front';   // 마지막 직선(정면 카메라)에서는 모두 앞모습
         const { ctx } = view; ctx.clearRect(0, 0, view.W, view.H);
-        dyDrawWorld(ctx, cam, S.t);
+        (DRB.stage === 'kart' ? dyDrawWorldKart : dyDrawWorld)(ctx, cam, S.t);
         S.run.map(r => ({ r, p: cam.p(r.x, 0, r.z) })).filter(o => o.p).sort((a, b) => b.p[2] - a.p[2]).forEach(o => dyDrawRunner(ctx, cam, R, o.r.i, o.r.x, o.r.z, o.r.ph, o.r.v));
         dyNameTags(ctx, cam, R, S.run);
         if (shot === 'front' || shot === 'gate') { ctx.fillStyle = 'rgba(255,255,255,.12)'; for (let k = 0; k < 10; k++) { const yy = (k * 53 + S.t * 400) % view.H; ctx.fillRect(0, yy, view.W, 1); } }
@@ -8226,7 +8311,14 @@ img, svg, video { max-width: 100%; }
         if (!S.slowOn) { S.slowOn = true; st.classList.add('slowmo'); SFX.thud(); if (S.close) { const tl = dyEl('dy-tele'); if (tl) { tl.textContent = '접전!!'; restart(tl, 'show'); } dyComm('중계', '나란히 들어옵니다! 누가 먼저냐!'); } }
       } else if (S.slowOn) { S.slowOn = false; st.classList.remove('slowmo'); }
       const live = dyStep(S, dt);
-      if (DRB.stage === 'kart') dyKartDraw(view.ctx, view.W, view.H, S, R, live, slow);
+      if (DRB.stage === 'kart') {
+        // 카트 서킷 카메라: 초반 후면 추격 → 중반 측면 → 마지막 정면
+        const kp = S.ended ? 'front' : live[0].x / DY_L < .35 ? 'rear' : live[0].x / DY_L < .78 ? 'side' : 'front';
+        if (S.kphase && S.kphase !== kp) { restart(st, 'dy-cut'); S.cam = null; }
+        S.kphase = kp;
+        if (kp === 'rear') dyKartDraw(view.ctx, view.W, view.H, S, R, live, slow);
+        else { const shot = dyShot(S, live), cam = dyCam(S.cam.pos, S.cam.look, view.W, view.H, slow ? 1.3 : 1.05); draw(shot, cam); }
+      }
       else { const shot = dyShot(S, live), cam = dyCam(S.cam.pos, S.cam.look, view.W, view.H, shot === 'wide' ? 1.25 : slow ? 1.3 : 1.05); draw(shot, cam); }
       dyHud(S, live);
       if (!S.ended && S.t > T1 + .4) {
