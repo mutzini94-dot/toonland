@@ -8001,6 +8001,22 @@ img, svg, video { max-width: 100%; }
     while (box.children.length > 3) box.lastElementChild.remove();
     setTimeout(() => el.classList.add('out'), 2000); setTimeout(() => el.remove(), 2400);
   }
+  // 선수 이름표: 머리 위에 번호+이름(멀리 있으면 작게, 너무 작으면 생략). 내 응원 냥은 금색 테두리 + 꼬리표
+  function dyNameTags(ctx, cam, R, run) {
+    run.map(r => { const b = cam.p(r.x, 0, r.z), tp = cam.p(r.x, 2.05, r.z); return b && tp ? { r, b, tp, h: b[1] - tp[1] } : null; })
+      .filter(o => o && o.h > 16).sort((a, b) => b.b[2] - a.b[2]).forEach(o => {
+        const i = o.r.i, d = DY_DEF[i], me = i === DRB.pick, fs = Math.max(9, Math.min(15, o.h * .15));
+        const label = (i + 1) + ' ' + ((R[i] && R[i].name) || d.name);
+        ctx.save(); ctx.font = '800 ' + fs.toFixed(1) + 'px "Noto Sans KR", Arial, sans-serif';
+        const tw = ctx.measureText(label).width, w = tw + fs * 1.1, hh = fs * 1.5, x = o.tp[0] - w / 2, y = o.tp[1] - hh - fs * .5;
+        ctx.globalAlpha = .94; ctx.fillStyle = d.deep; ctx.beginPath(); ctx.roundRect(x, y, w, hh, hh / 2); ctx.fill();
+        ctx.beginPath(); ctx.moveTo(o.tp[0] - fs * .35, y + hh - .5); ctx.lineTo(o.tp[0] + fs * .35, y + hh - .5); ctx.lineTo(o.tp[0], y + hh + fs * .4); ctx.closePath(); ctx.fill();
+        ctx.globalAlpha = 1;
+        if (me) { ctx.strokeStyle = '#FFD43B'; ctx.lineWidth = Math.max(1.5, fs * .18); ctx.beginPath(); ctx.roundRect(x, y, w, hh, hh / 2); ctx.stroke(); }
+        ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(label, o.tp[0], y + hh / 2 + .5);
+        ctx.restore();
+      });
+  }
   function dyLoop() {
     cancelAnimationFrame(DRB.raf);
     let last = performance.now();
@@ -8014,6 +8030,7 @@ img, svg, video { max-width: 100%; }
         const { ctx } = view; ctx.clearRect(0, 0, view.W, view.H);
         dyDrawWorld(ctx, cam, S.t);
         S.run.map(r => ({ r, p: cam.p(r.x, 0, r.z) })).filter(o => o.p).sort((a, b) => b.p[2] - a.p[2]).forEach(o => dyDrawRunner(ctx, cam, R, o.r.i, o.r.x, o.r.z, o.r.ph, o.r.v));
+        dyNameTags(ctx, cam, R, S.run);
         if (shot === 'front' || shot === 'gate') { ctx.fillStyle = 'rgba(255,255,255,.12)'; for (let k = 0; k < 10; k++) { const yy = (k * 53 + S.t * 400) % view.H; ctx.fillRect(0, yy, view.W, 1); } }
         return ctx;
       };
@@ -8142,7 +8159,7 @@ img, svg, video { max-width: 100%; }
     dyPrep();
     dyUI();
     // 대기 화면: 출발 게이트 앞 정지 장면
-    if (!DRB.on) { const m = derbyMachine(); const S = dyMakeSim(m, Array.from({ length: 9 }, (_, i) => i)); S.t = 0; const view = dyResize(); if (view && S) { const live = dyStep(S, 0); dyShot(S, live); const cam = dyCam(S.cam.pos, S.cam.look, view.W, view.H, 1.05); dyDrawWorld(view.ctx, cam, 0); const R = dyRunners(m); S.run.map(r => ({ r, p: cam.p(r.x, 0, r.z) })).filter(o => o.p).sort((a, b) => b.p[2] - a.p[2]).forEach(o => dyDrawRunner(view.ctx, cam, R, o.r.i, o.r.x, o.r.z, 0, 0)); } if (DRB.last && DRB.sim) { const fin = dyEl('dy-finish'); if (fin) fin.hidden = true; } }
+    if (!DRB.on) { const m = derbyMachine(); const S = dyMakeSim(m, Array.from({ length: 9 }, (_, i) => i)); S.t = 0; const view = dyResize(); if (view && S) { const live = dyStep(S, 0); dyShot(S, live); const cam = dyCam(S.cam.pos, S.cam.look, view.W, view.H, 1.05); dyDrawWorld(view.ctx, cam, 0); const R = dyRunners(m); S.run.map(r => ({ r, p: cam.p(r.x, 0, r.z) })).filter(o => o.p).sort((a, b) => b.p[2] - a.p[2]).forEach(o => dyDrawRunner(view.ctx, cam, R, o.r.i, o.r.x, o.r.z, 0, 0)); dyNameTags(view.ctx, cam, R, S.run); } if (DRB.last && DRB.sim) { const fin = dyEl('dy-finish'); if (fin) fin.hidden = true; } }
     else dyLoop();
   }
   $('floor').addEventListener('click', e => {
