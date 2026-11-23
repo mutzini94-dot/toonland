@@ -1483,6 +1483,8 @@ svg.lt-kico.lt-tic { width: 22px; height: 22px; margin: 0 8px 0 2px; }
 .sg-table table { width: 100%; margin-top: 8px; }
 .sg-table p { margin: 6px 0 2px; color: #868E96; font-size: 12px; }
 @media (max-width: 640px) { .sg-stage { height: 360px; } .sg-rv { font-size: 34px; } .sg-rv .kernel { width: 32px; height: 32px; } }
+.sg-hits { margin-left: auto; margin-right: 8px; padding: 5px 11px; border-radius: 999px; background: rgba(255,212,59,.95); color: #7A1D00; font-size: 13px; font-weight: 800; box-shadow: 0 2px 8px rgba(0,0,0,.15); display: inline-flex; align-items: center; gap: 3px; }
+.sg-hits b { font-size: 15px; } .sg-hits .kernel { width: 14px; height: 14px; }
 /* ===== 냥냥 레이스 ===== */
 .rc-panel { grid-column: 1 / -1; }
 .rc-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
@@ -3275,7 +3277,7 @@ img, svg, video { max-width: 100%; }
   <div class="ad-page" data-page="sling" hidden>
   <div class="panel ad-block" id="sg-admin">
     <h2>박 터뜨리기 관리 <span class="tag" id="sg-sum"></span></h2>
-    <p class="hub-note">한 판에 냥이 여러 마리를 쏠 수 있지만 박은 <b>한 번만</b> 터지고, 터지는 순간 아래 보상표 확률대로 하나를 지급해요. 그래서 손님이 매번 맞혀도 RTP는 <b>Σ(확률 × 보상) ÷ 한 판 가격</b>을 넘지 않아요(못 맞히면 지급 없음).</p>
+    <p class="hub-note">한 판에 냥이를 <b>무조건 정해진 수만큼</b> 쏘고, <b>맞힌 박마다</b> 아래 보상표 확률대로 하나를 지급해요(맞히면 새 박이 걸려요). 그래서 손님이 모든 발을 맞혀도 RTP는 <b>냥이 수 × Σ(확률 × 보상) ÷ 한 판 가격</b>을 넘지 않아요.</p>
     <div class="fields" id="sg-fields"></div>
     <div class="table-wrap"><table class="ad-table" id="sg-t"></table></div>
     <div class="ed-foot"><div class="pa-calc" id="sg-calc"></div></div>
@@ -3727,9 +3729,9 @@ img, svg, video { max-width: 100%; }
       { id: 'kart', zone: 'kart', mode: 'derby', stage: 'kart', name: '냥냥 카트', cost: 100, maxBet: 1000, demand: 800000, rtp: 85, top: '',
         runners: [{ name: '주황 고양이', style: 1, w: 35 }, { name: '갈색 강아지', style: 0, w: 25 }, { name: '판다 고양이', style: 2, w: 20 }, { name: '개구리', style: 3, w: 12 }, { name: '초록 공룡', style: 3, w: 8 }],
         prizes: [] },
-      // 박 터뜨리기: 새총으로 냥이를 날려 매달린 박을 맞힌다. 한 판 냥이 3마리, 박은 한 번 터지고 보상표대로 지급(RTP = Σ확률×보상 ÷ 가격)
-      { id: 'sling', zone: 'sling', mode: 'sling', name: '박 터뜨리기', cost: 50, shots: 3, demand: 500000, top: '',
-        tiers: [{ name: '팝콘 한 줌', v: 20, p: 50 }, { name: '팝콘 한 봉', v: 35, p: 28 }, { name: '팝콘 한 통', v: 65, p: 15 }, { name: '황금 팝콘', v: 150, p: 5.5 }, { name: '대박 팝콘', v: 300, p: 1.5 }],
+      // 박 터뜨리기: 새총으로 냥이를 날려 매달린 박을 맞힌다. 한 판 무조건 3발, 맞힌 박마다 보상표대로 지급(최대 RTP = 3 × Σ확률×보상 ÷ 가격)
+      { id: 'sling', zone: 'sling', mode: 'sling', name: '박 터뜨리기', cost: 50, shots: 3, sv: 2, demand: 500000, top: '',
+        tiers: [{ name: '팝콘 한 줌', v: 7, p: 50 }, { name: '팝콘 한 봉', v: 12, p: 28 }, { name: '팝콘 한 통', v: 22, p: 15 }, { name: '황금 팝콘', v: 45, p: 5.5 }, { name: '대박 팝콘', v: 100, p: 1.5 }],
         prizes: [] },
       // 팝콘 대포: 게이지 등급(퍼펙트·좋아요·보통)별 확률표로 거리 구간 결정. 배수 공통, 등급별 RTP 동일(B 방식)
       { id: 'cannon', zone: 'cannon', mode: 'cannon', cv: 2, name: '팝콘 대포', cost: 100, demand: 800000, mults: [0.2, 0.5, 1, 2, 4, 10],
@@ -3905,7 +3907,7 @@ img, svg, video { max-width: 100%; }
 
   function renderZones() {
     const COPY = {
-      sling: ['냥이 새총으로 박 터뜨리기', '새총을 당겨 냥이를 날려 매달린 박을 맞혀 보세요. 박이 터지면 팝콘(강냉이)이 쏟아져요. 한 판에 냥이 3마리!'],
+      sling: ['냥이 새총으로 박 터뜨리기', '새총을 당겨 냥이를 날려 매달린 박을 맞혀 보세요. 한 판에 무조건 3번! 맞힌 박마다 팝콘(강냉이)이 쏟아져요.'],
       kart: ['카트 서킷 냥냥 카트', '냥냥 레이스 친구들 5마리가 카트를 타고 서킷을 달려요. 응원할 선수를 골라 1착 또는 3착 안에 걸고, 드리프트·항공 중계·시상식까지 지켜보세요.'],
       derby: ['3D 중계로 즐기는 냥냥 더비', '냥냥 레이스 친구들 5마리가 1600m를 달려요. 응원할 선수를 골라 1착 또는 3착 안에 걸고, 레일 옆·정면 카메라로 중계를 지켜보세요.'],
       bomb: ['해체 선을 찾아 자르는 폭탄 해체반', '폭탄의 선 5개 중 해체 선은 단 하나! 폭발 선보다 먼저 해체 선을 자르면 성공이고, 빨리 해체할수록 보상이 커요.'],
@@ -9004,10 +9006,10 @@ img, svg, video { max-width: 100%; }
   const SG = { on: false, phase: 'idle', left: 0, shots: 0, cat: null, drag: null, gourd: null, parts: [], pops: [], trail: [], raf: 0, last: 0, t: 0, res: null, img: null, msg: '' };
   const slingMachine = () => machines.find(m => m.mode === 'sling');
   function sgSync(m) {
-    if (!Array.isArray(m.tiers) || !m.tiers.length) m.tiers = [{ name: '팝콘 한 줌', v: 20, p: 50 }, { name: '팝콘 한 봉', v: 35, p: 28 }, { name: '팝콘 한 통', v: 65, p: 15 }, { name: '황금 팝콘', v: 150, p: 5.5 }, { name: '대박 팝콘', v: 300, p: 1.5 }];
+    if (m.sv !== 2 || !Array.isArray(m.tiers) || !m.tiers.length) { m.tiers = [{ name: '팝콘 한 줌', v: 7, p: 50 }, { name: '팝콘 한 봉', v: 12, p: 28 }, { name: '팝콘 한 통', v: 22, p: 15 }, { name: '황금 팝콘', v: 45, p: 5.5 }, { name: '대박 팝콘', v: 100, p: 1.5 }]; m.sv = 2; }   // v2: 맞힌 박마다 보상
     if (!(num(m.shots) >= 1)) m.shots = 3;
   }
-  const sgRtp = m => { sgSync(m); const c = num(m.cost); return c ? m.tiers.reduce((a, t) => a + num(t.p) / 100 * num(t.v), 0) / c : 0; };
+  const sgRtp = m => { sgSync(m); const c = num(m.cost); return c ? num(m.shots) * m.tiers.reduce((a, t) => a + num(t.p) / 100 * num(t.v), 0) / c : 0; };   // 최대 RTP = 모든 발을 맞힐 때
   const sgGrade = (m, v) => { const x = v / Math.max(1, num(m.cost)); return x >= 5 ? 'S' : x >= 2.5 ? 'A' : x >= 1 ? 'B' : 'C'; };
   function sgRoll(m) { const sp = m.tiers.reduce((a, t) => a + num(t.p), 0); let r = Math.random() * sp; for (const t of m.tiers) { if ((r -= num(t.p)) < 0) return t; } return m.tiers[m.tiers.length - 1]; }
   function slingFloorHTML() {
@@ -9016,12 +9018,12 @@ img, svg, video { max-width: 100%; }
     const c = num(m.cost), rows = m.tiers.map(t => '<tr><td>' + t.name + '</td><td class="num">' + slPctTxt(num(t.p) / 100) + '</td><td class="num">' + K + fmt(num(t.v)) + '</td></tr>').join('');
     return '<section class="sg-panel" aria-labelledby="sg-h"><div class="rc-wrap"><div class="sg-cab">' +
       '<div class="sg-stage" id="sg-stage"><canvas id="sg-cv" aria-label="박 터뜨리기 화면"></canvas>' +
-        '<div class="sg-hud"><b id="sg-h">박 터뜨리기</b><span class="sg-ammo" id="sg-ammo"></span></div>' +
+        '<div class="sg-hud"><b id="sg-h">박 터뜨리기</b><span class="sg-hits" id="sg-hits"></span><span class="sg-ammo" id="sg-ammo"></span></div>' +
         '<div class="sg-hint" id="sg-hint"></div>' +
         '<div class="sg-result" id="sg-result" hidden></div>' +
       '</div>' +
       '<button class="sl-btn sg-go" type="button" id="sg-go"></button>' +
-      '<details class="sg-table"><summary>박 안에 든 팝콘 (박이 터지면 아래 확률로 하나)</summary><table class="ad-table"><thead><tr><th>보상</th><th class="r">확률</th><th class="r">강냉이</th></tr></thead><tbody>' + rows + '</tbody></table><p>한 판 ' + K + fmt(c) + ' · 냥이 ' + num(m.shots) + '마리 · 박은 한 판에 한 번 터져요</p></details>' +
+      '<details class="sg-table"><summary>맞힌 박마다 받는 팝콘 (박 하나에 아래 확률로 하나)</summary><table class="ad-table"><thead><tr><th>보상</th><th class="r">확률</th><th class="r">강냉이</th></tr></thead><tbody>' + rows + '</tbody></table><p>한 판 ' + K + fmt(c) + ' · 냥이 ' + num(m.shots) + '마리(무조건 ' + num(m.shots) + '번) · 맞힌 박 수만큼 보상</p></details>' +
       '</div></div></section>';
   }
   // ----- 화면 크기·월드 배치
@@ -9031,11 +9033,11 @@ img, svg, video { max-width: 100%; }
     if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
     const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); return { cv, ctx, W, H };
   }
-  const sgGeo = (W, H) => { const u = Math.min(W, H * 1.35); return { gy: H * .84, sx: W * .17, sy: H * .52, sl: u * .055, cr: u * .055 * .3 * .7 * 1.6, pull: u * .2, g: H * 1.55, vmax: Math.sqrt(1.35 * W * H * 1.55) }; };
+  const sgGeo = (W, H) => { const u = Math.min(W, H * 1.35); return { gy: H * .84, sx: W * .17, sy: H * .52, sl: u * .055, cr: u * .055 * .7, pull: u * .2, g: H * 1.55, vmax: Math.sqrt(1.35 * W * H * 1.55) }; };
   function sgNewGourd(W, H) {
     const u = Math.min(W, H * 1.35), sAmp = W * (.05 + Math.random() * .05), ax0 = Math.min(W * (.6 + Math.random() * .22), W * .88 - sAmp), len0 = H * (.2 + Math.random() * .2);
     return { ax0, ax: ax0, ay: H * .085, len0, len: len0, sAmp, sW: 1.1 + Math.random() * 1, sPh: Math.random() * 6, lAmp: len0 * .18, lW: 1.7 + Math.random() * 1, lPh: Math.random() * 6,
-      amp: .3 + Math.random() * .22, w: 2.7 + Math.random() * 1.4, ph: Math.random() * 6, r: u * .07 * .3 * .7 * 1.6, x: ax0, y: H * .085 + len0, popped: false };
+      amp: .3 + Math.random() * .22, w: 2.7 + Math.random() * 1.4, ph: Math.random() * 6, r: u * .07 * .7, x: ax0, y: H * .085 + len0, popped: false };
   }
   function sgLoad() {   // 다음 냥이를 새총에 올린다
     const v = sgView(); if (!v) return; const G = sgGeo(v.W, v.H);
@@ -9062,8 +9064,8 @@ img, svg, video { max-width: 100%; }
     ctx.fillStyle = '#E8590C'; ctx.font = '900 ' + Math.round(r * .62) + 'px "Noto Sans KR", Arial, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.globalAlpha = .85; ctx.fillText('팝', 0, r * .08);
     ctx.restore();
   }
-  function sgPopcorn(ctx, x, y, s, a) {   // 팝콘 한 알
-    ctx.save(); ctx.translate(x, y); ctx.rotate(a); ctx.fillStyle = '#FFFDF4'; ctx.strokeStyle = '#E0C88E'; ctx.lineWidth = Math.max(.8, s * .12);
+  function sgPopcorn(ctx, x, y, s, a, gold) {   // 팝콘 한 알
+    ctx.save(); ctx.translate(x, y); ctx.rotate(a); ctx.fillStyle = gold ? '#FFE066' : '#FFFDF4'; ctx.strokeStyle = gold ? '#C99A06' : '#E0C88E'; ctx.lineWidth = Math.max(.8, s * .12);
     [[0, 0, .55], [-.45, -.25, .42], [.45, -.2, .44], [.05, -.55, .4]].forEach(([dx, dy, r]) => { ctx.beginPath(); ctx.arc(dx * s, dy * s, r * s, 0, 7); ctx.fill(); ctx.stroke(); });
     ctx.fillStyle = '#FCC419'; ctx.beginPath(); ctx.arc(0, s * .25, s * .2, 0, 7); ctx.fill(); ctx.restore();
   }
@@ -9088,7 +9090,10 @@ img, svg, video { max-width: 100%; }
   }
   function sgDraw(v, dt) {
     const { ctx, W, H } = v, G = sgGeo(W, H), t = SG.t;
-    ctx.clearRect(0, 0, W, H); sgScene(ctx, W, H, t);
+    ctx.clearRect(0, 0, W, H);
+    const fx = SG.fx, fa = fx ? t - fx.t : 9; ctx.save();
+    if (fa < .5) { const k = (1 - fa / .5) * (fx.big ? 16 : 10); ctx.translate((Math.random() - .5) * k, (Math.random() - .5) * k); }   // 터질 때 화면 흔들림
+    sgScene(ctx, W, H, t);
     const gd = SG.gourd;
     if (gd && !gd.popped) sgGourd(ctx, gd, t);
     // 조준선(처음 0.32초 구간만 보여 줌)
@@ -9104,10 +9109,23 @@ img, svg, video { max-width: 100%; }
     if (hold) { ctx.strokeStyle = '#6E3812'; ctx.lineWidth = 4.5; ctx.beginPath(); ctx.moveTo(G.sx - G.sl * 1.05, G.sy - G.sl * .3); ctx.lineTo(c.x - G.cr * .5, c.y + 1); ctx.stroke(); }
     sgSlingFront(ctx, G);
     // 박 조각·팝콘
-    SG.parts.forEach(p => { ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.a); ctx.fillStyle = '#E9F3D2'; ctx.strokeStyle = '#5E7F3E'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(0, 0, p.r, p.s, p.s + Math.PI); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.restore(); });
-    SG.pops.forEach(p => sgPopcorn(ctx, p.x, p.y, p.s, p.a));
+    if (fx && fa < 1.1) {   // 터진 자리 뒤로 회전하는 빛줄기
+      ctx.save(); ctx.translate(fx.x, fx.y); ctx.rotate(t * 1.6); ctx.globalAlpha = .55 * (1 - fa / 1.1); ctx.fillStyle = fx.big ? '#FFD43B' : '#FFF3BF';
+      const L = Math.min(W, H) * (.35 + fa * .5); for (let k = 0; k < 14; k++) { ctx.rotate(Math.PI * 2 / 14); ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-L * .09, -L); ctx.lineTo(L * .09, -L); ctx.closePath(); ctx.fill(); }
+      ctx.restore();
+    }
+    SG.parts.forEach(p => { ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.a); const gr = ctx.createLinearGradient(-p.r, -p.r, p.r, p.r); gr.addColorStop(0, '#FFFFF2'); gr.addColorStop(1, '#B9D49A'); ctx.fillStyle = gr; ctx.strokeStyle = '#5E7F3E'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(0, 0); ctx.arc(0, 0, p.r, p.s, p.s + p.span); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#FFFDF4'; ctx.beginPath(); ctx.arc(Math.cos(p.s + p.span / 2) * p.r * .45, Math.sin(p.s + p.span / 2) * p.r * .45, p.r * .18, 0, 7); ctx.fill(); ctx.restore(); });
+    SG.pops.forEach(p => sgPopcorn(ctx, p.x, p.y, p.s, p.a, p.g));
+    ctx.lineCap = 'round'; (SG.sparks || []).forEach(q => { const a = 1 - q.t / q.life; ctx.strokeStyle = q.c; ctx.globalAlpha = a; ctx.lineWidth = 2.5 * a + .8; ctx.beginPath(); ctx.moveTo(q.x, q.y); ctx.lineTo(q.x - q.vx * .045, q.y - q.vy * .045); ctx.stroke(); }); ctx.globalAlpha = 1;
     // 펑! 링
-    if (SG.boom) { const a = (t - SG.boom.t) / .5; if (a < 1) { ctx.strokeStyle = 'rgba(255,212,59,' + (1 - a) + ')'; ctx.lineWidth = 6 * (1 - a) + 1; ctx.beginPath(); ctx.arc(SG.boom.x, SG.boom.y, SG.boom.r * (1 + a * 2.2), 0, 7); ctx.stroke(); ctx.fillStyle = 'rgba(255,255,255,' + (.8 * (1 - a)) + ')'; ctx.beginPath(); ctx.arc(SG.boom.x, SG.boom.y, SG.boom.r * (1 + a), 0, 7); ctx.fill(); } }
+    if (fx) {   // 3겹 충격파 + 펑! 글자
+      [0, .1, .2].forEach((d, k) => { const a = (fa - d) / .55; if (a < 0 || a > 1) return; ctx.strokeStyle = k === 1 ? 'rgba(255,255,255,' + (1 - a) + ')' : 'rgba(255,' + (k ? 146 : 212) + ',' + (k ? 43 : 59) + ',' + (1 - a) + ')'; ctx.lineWidth = (9 - k * 2) * (1 - a) + 1; ctx.beginPath(); ctx.arc(fx.x, fx.y, fx.r * (1.2 + a * (3.2 + k)), 0, 7); ctx.stroke(); });
+      if (fa < .35) { const g2 = ctx.createRadialGradient(fx.x, fx.y, 0, fx.x, fx.y, fx.r * 3); g2.addColorStop(0, 'rgba(255,255,255,' + (1 - fa / .35) + ')'); g2.addColorStop(1, 'rgba(255,240,180,0)'); ctx.fillStyle = g2; ctx.beginPath(); ctx.arc(fx.x, fx.y, fx.r * 3, 0, 7); ctx.fill(); }
+      if (fa < 1.2) { const a = fa / 1.2, sc = fa < .15 ? .4 + fa / .15 * .9 : 1.3 - Math.min(.3, (fa - .15) * .6), fs = Math.max(26, fx.r * 2.2); ctx.save(); ctx.globalAlpha = a > .75 ? (1 - a) / .25 : 1; ctx.translate(fx.x, Math.max(62 + fs * .5, fx.y - fx.r * 2.4 - a * 18)); ctx.rotate(-.12); ctx.scale(sc, sc); ctx.font = '900 ' + fs.toFixed(0) + 'px "Noto Sans KR", Arial, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round'; ctx.lineWidth = fs * .22; ctx.strokeStyle = '#C92A2A'; const tx = fx.big ? '대박!' : '펑!'; ctx.strokeText(tx, 0, 0); ctx.fillStyle = fx.big ? '#FFE066' : '#FFFFFF'; ctx.fillText(tx, 0, 0); ctx.restore(); }
+    }
+    (SG.gains || []).forEach(q => { const a = (t - q.t) / 1.6; if (a > 1) return; const fs = q.big ? 22 : 17; ctx.save(); ctx.globalAlpha = a > .7 ? (1 - a) / .3 : 1; ctx.font = '900 ' + fs + 'px "Noto Sans KR", Arial, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round'; ctx.lineWidth = 5; ctx.strokeStyle = 'rgba(122,29,0,.85)'; const y = q.y - a * 26; ctx.strokeText(q.txt, q.x, y); ctx.fillStyle = q.big ? '#FFE066' : '#FFFFFF'; ctx.fillText(q.txt, q.x, y); ctx.restore(); });
+    ctx.restore();
+    if (fx && fa < .22) { ctx.fillStyle = 'rgba(255,255,255,' + (.55 * (1 - fa / .22)) + ')'; ctx.fillRect(0, 0, W, H); }   // 하얀 번쩍
   }
   // ----- 물리
   function sgStep(v, dt) {
@@ -9127,48 +9145,57 @@ img, svg, video { max-width: 100%; }
     if (c) { c.squash = Math.max(0, (c.squash || 0) - dt * 1.4); if (c.done) c.fade = (c.fade == null ? 1 : c.fade) - dt * 1.6; }
     SG.parts.forEach(p => { p.vy += G.g * dt; p.x += p.vx * dt; p.y += p.vy * dt; p.a += p.va * dt; });
     SG.parts = SG.parts.filter(p => p.y < H + 60);
+    if (SG.sparks) { SG.sparks.forEach(q => { q.t += dt; q.vy += G.g * .35 * dt; q.vx *= (1 - dt * 1.5); q.vy *= (1 - dt * 1.5); q.x += q.vx * dt; q.y += q.vy * dt; }); SG.sparks = SG.sparks.filter(q => q.t < q.life); }
+    if (SG.spray && SG.spray.left > 0) { const sp = SG.spray, n = Math.min(sp.left, Math.max(1, Math.round(sp.rate * dt))); sp.left -= n; for (let i = 0; i < n; i++) { const a = -Math.PI / 2 + (Math.random() - .5) * 1.4, v = 280 + Math.random() * 360; SG.pops.push({ x: sp.x, y: sp.y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, s: sp.s * (.8 + Math.random() * .7), a: Math.random() * 6, va: (Math.random() - .5) * 12, g: sp.gold && Math.random() < .55 }); } }
     SG.pops.forEach(p => { p.vy += G.g * .55 * dt; p.vx *= (1 - dt * .6); p.x += p.vx * dt; p.y += p.vy * dt; p.a += p.va * dt; if (p.y > G.gy - p.s * .6) { p.y = G.gy - p.s * .6; p.vy *= -.35; p.vx *= .5; p.va *= .5; } });
   }
   function sgHit(v, G) {
     const m = slingMachine(), gd = SG.gourd, c = SG.cat; if (!m || !gd) return;
     gd.popped = true; SG.boom = { x: gd.x, y: gd.y, r: Math.max(gd.r, 14), t: SG.t };
-    [-1, 1].forEach(k => SG.parts.push({ x: gd.x + k * gd.r * .3, y: gd.y, vx: k * (120 + Math.random() * 80) + c.vx * .2, vy: -220 - Math.random() * 120, r: gd.r, a: 0, va: k * (4 + Math.random() * 3), s: k < 0 ? Math.PI / 2 : -Math.PI / 2 }));
-    const tier = sgRoll(m), n = Math.min(120, 26 + Math.round(num(tier.v) / Math.max(1, num(m.cost)) * 14));
-    for (let i = 0; i < n; i++) { const a = Math.random() * Math.PI * 2, sp = 120 + Math.random() * 380; SG.pops.push({ x: gd.x, y: gd.y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 260, s: G.sl * (.2 + Math.random() * .14), a: Math.random() * 6, va: (Math.random() - .5) * 10 }); }
+    for (let k = 0; k < 6; k++) { const a = (k + .5) * Math.PI / 3, sp = 160 + Math.random() * 140; SG.parts.push({ x: gd.x, y: gd.y, vx: Math.cos(a) * sp + c.vx * .15, vy: Math.sin(a) * sp - 200, r: gd.r, a: 0, va: (Math.random() - .5) * 14, s: k * Math.PI / 3, span: Math.PI / 3 }); }
+    const tier = sgRoll(m), mult = num(tier.v) / Math.max(1, num(m.cost)), big = mult >= 3, n = Math.min(220, 50 + Math.round(mult * 26));
+    SG.fx = { x: gd.x, y: gd.y, r: gd.r, t: SG.t, big };
+    SG.sparks = Array.from({ length: big ? 70 : 42 }, () => { const a = Math.random() * Math.PI * 2, v = 260 + Math.random() * 420; return { x: gd.x, y: gd.y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, t: 0, life: .45 + Math.random() * .4, c: ['#FFE066', '#FFFFFF', '#FFA94D', big ? '#74C0FC' : '#FFF3BF', big ? '#F783AC' : '#FFD43B'][Math.floor(Math.random() * 5)] }; });
+    SG.spray = { left: Math.round(n / 2), rate: n / 1.4, x: gd.x, y: gd.y, s: G.sl * .26, gold: big };
+    for (let i = 0; i < Math.round(n / 2); i++) { const a = Math.random() * Math.PI * 2, sp = 140 + Math.random() * 420; SG.pops.push({ x: gd.x, y: gd.y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 280, s: G.sl * (.2 + Math.random() * .16), a: Math.random() * 6, va: (Math.random() - .5) * 10, g: big && Math.random() < .5 }); }
     c.vx *= .45; c.vy = Math.min(c.vy, -120); c.spin *= 1.6;
     SFX.thud(); SFX.whoosh();
-    SG.res = { hit: true, tier, got: num(tier.v) };
-    setTimeout(() => sgEnd(), 900);
+    SG.hits.push(tier); SG.got += num(tier.v);
+    SG.gains.push({ x: gd.x, y: gd.y + gd.r * 1.6 + 16, t: SG.t, txt: '+' + fmt(num(tier.v)) + ' ' + tier.name, big });
+    sgUI();
   }
-  function sgMiss() {
+  function sgMiss() {   // 한 발 끝(착지·화면 밖)
     const c = SG.cat; if (!c || c.done) return; c.done = true; c.fade = 1;
-    if (SG.res) return;
-    if (SG.left > 0) { SG.msg = ['아깝다!', '조금만 더!', '박이 흔들려요, 타이밍!'][Math.floor(Math.random() * 3)]; sgHint(SG.msg + ' 냥이 ' + SG.left + '마리 남았어요'); setTimeout(() => { if (SG.on && !SG.res) sgLoad(); }, 700); }
-    else { SG.res = { hit: false, got: 0 }; setTimeout(() => sgEnd(), 600); }
+    if (!SG.on) return;
+    const popped = SG.gourd && SG.gourd.popped;
+    if (SG.left > 0) {
+      sgHint(popped ? '명중! 새 박이 걸려요 · 냥이 ' + SG.left + '마리 남았어요' : ['아깝다!', '조금만 더!', '박이 움직여요, 타이밍!'][Math.floor(Math.random() * 3)] + ' 냥이 ' + SG.left + '마리 남았어요');
+      setTimeout(() => { if (!SG.on) return; if (popped) { const v = sgView(); if (v) { SG.gourd = sgNewGourd(v.W, v.H); SG.parts = []; } } sgLoad(); }, popped ? 1000 : 700);
+    } else setTimeout(() => sgEnd(), popped ? 1100 : 600);
   }
   function sgEnd() {
     const m = slingMachine(); if (!m || !SG.on) return;
-    const r = SG.res || { hit: false, got: 0 }, got = r.got;
-    SG.on = false; SG.phase = 'done';
+    const hits = SG.hits || [], got = SG.got || 0, hit = hits.length > 0, shots = num(m.shots);
+    SG.on = false; SG.phase = 'done'; SG.res = { done: true };
     if (got) state.balance += got;
-    recordResult(r.hit ? { g: sgGrade(m, got), name: m.name + ' ' + r.tier.name + ' · ' + fmt(got) + '개', kind: 'kernel', val: got } : { g: 'C', name: m.name + ' 실패', kind: 'kernel', val: 0 }, m);
-    if (r.hit && got >= num(m.cost) * 3) { state.feed.unshift({ g: got >= num(m.cost) * 5 ? 'S' : 'A', item: '강냉이 ' + fmt(got) + '개', who: '나 · ' + m.name + ' ' + r.tier.name }); renderFeed(true); }
+    recordResult(hit ? { g: sgGrade(m, got), name: m.name + ' ' + hits.length + '발 명중 · ' + fmt(got) + '개', kind: 'kernel', val: got } : { g: 'C', name: m.name + ' 명중 없음', kind: 'kernel', val: 0 }, m);
+    if (got >= num(m.cost) * 3) { state.feed.unshift({ g: got >= num(m.cost) * 5 ? 'S' : 'A', item: '강냉이 ' + fmt(got) + '개', who: '나 · ' + m.name + ' ' + hits.length + '발 명중' }); renderFeed(true); }
     saveMe(); renderHUD(true);
     const el = dyEl('sg-result');
     if (el) {
-      el.innerHTML = '<div class="sg-rcard ' + (r.hit ? 'hit' : 'miss') + '"><small>' + (r.hit ? '박 터뜨리기 성공!' : '박을 못 터뜨렸어요') + '</small><b>' + (r.hit ? r.tier.name : '다음엔 꼭!') + '</b><div class="sg-rv">' + K + '<span class="num" id="sg-rn">' + (r.hit ? '+0' : '0') + '</span></div><span>' + (r.hit ? '냥이 ' + (SG.shots) + '마리째에 명중' : '냥이 ' + num(m.shots) + '마리 모두 빗나감') + '</span></div>';
+      el.innerHTML = '<div class="sg-rcard ' + (hit ? 'hit' : 'miss') + '"><small>' + (hit ? shots + '발 중 ' + hits.length + '발 명중!' : '박을 못 터뜨렸어요') + '</small><b>' + (hit ? hits.map(t => t.name).join(' · ') : '다음엔 꼭!') + '</b><div class="sg-rv">' + K + '<span class="num" id="sg-rn">' + (hit ? '+0' : '0') + '</span></div><span>' + (hit ? '맞힌 박 ' + hits.length + '개 보상 합계' : '냥이 ' + shots + '마리 모두 빗나감') + '</span></div>';
       el.hidden = false; restart(el, 'show');
-      if (r.hit) { const n = dyEl('sg-rn'), t0 = Date.now(); clearInterval(SG.cT); SG.cT = setInterval(() => { const k = Math.min(1, (Date.now() - t0) / 1000), e = 1 - Math.pow(1 - k, 3); if (n) n.textContent = '+' + fmt(Math.round(got * e)); if (k >= 1) clearInterval(SG.cT); }, 30); }
+      if (hit) { const n = dyEl('sg-rn'), t0 = Date.now(); clearInterval(SG.cT); SG.cT = setInterval(() => { const k = Math.min(1, (Date.now() - t0) / 1000), e = 1 - Math.pow(1 - k, 3); if (n) n.textContent = '+' + fmt(Math.round(got * e)); if (k >= 1) clearInterval(SG.cT); }, 30); }
     }
-    if (r.hit) { SFX.land(got >= num(m.cost) * 3 ? 'top' : 'hi'); if (got >= num(m.cost) * 3) SFX.fanfare(); const st = dyEl('sg-stage'); if (st) { const b = st.getBoundingClientRect(); floatFx(); burst(['#FFFDF4', '#FFE8A3', '#FCC419', '#FFFFFF'], got >= num(m.cost) * 3 ? 110 : 60, 10, b.left + b.width * .7, b.top + b.height * .35); } }
+    if (hit) { const top = got >= num(m.cost) * 2; SFX.land(top ? 'top' : 'hi'); if (top) SFX.fanfare(); const st = dyEl('sg-stage'); if (st) { const b = st.getBoundingClientRect(); floatFx(); burst(['#FFFDF4', '#FFE8A3', '#FCC419', '#FFFFFF'], top ? 110 : 60, 10, b.left + b.width * .6, b.top + b.height * .35); } }
     else SFX.lose();
-    sgHint(r.hit ? '' : '');
     sgUI();
   }
   function sgHint(t) { const h = dyEl('sg-hint'); if (h) { h.textContent = t; if (t) restart(h, 'show'); } }
   function sgUI() {
     const m = slingMachine(), go = dyEl('sg-go'); if (!m || !go) return;
     const ammo = dyEl('sg-ammo'); if (ammo) ammo.innerHTML = Array.from({ length: num(m.shots) }, (_, i) => '<img src="' + SG_CAT + '" alt="" class="' + (!SG.on || i < SG.left ? 'on' : 'off') + '">').join('') + '<span>' + (SG.on ? SG.left : num(m.shots)) + '</span>';
+    const hb = dyEl('sg-hits'); if (hb) { const n = (SG.hits || []).length; hb.innerHTML = (SG.on || SG.res) ? '명중 <b>' + n + '</b> · ' + K + fmt(SG.got || 0) : ''; hb.hidden = !(SG.on || SG.res); }
     go.disabled = SG.on;
     go.innerHTML = SG.on ? (SG.phase === 'aim' ? '냥이를 뒤로 당겼다 놓아 발사!' : '날아가는 중…') : (SG.res ? '다시 하기 ' : '시작하기 ') + '<span class="num">' + K + fmt(num(m.cost)) + ' · 냥이 ' + num(m.shots) + '마리</span>';
   }
@@ -9178,7 +9205,7 @@ img, svg, video { max-width: 100%; }
     if (state.balance < c) { toast('', '강냉이가 부족해요. 체험용 강냉이를 충전해 보세요.', true); return; }
     state.balance -= c; renderHUD(true);
     const v = sgView(); if (!v) return;
-    SG.on = true; SG.res = null; SG.left = num(m.shots); SG.shots = 0; SG.parts = []; SG.pops = []; SG.boom = null;
+    SG.on = true; SG.res = null; SG.hits = []; SG.got = 0; SG.gains = []; SG.left = num(m.shots); SG.shots = 0; SG.parts = []; SG.pops = []; SG.boom = null; SG.fx = null; SG.sparks = []; SG.spray = null;
     SG.gourd = sgNewGourd(v.W, v.H);
     const el = dyEl('sg-result'); if (el) el.hidden = true;
     sgHint('박이 레일을 따라 움직여요! 타이밍을 노려 냥이를 날려요');
@@ -10668,10 +10695,10 @@ img, svg, video { max-width: 100%; }
   function renderSlingCalc() {
     const m = sgDraft(); if (!m || !dyEl('sg-calc')) return;
     const c = Math.max(1, num(m.cost)), set = (k, v) => { const el = document.querySelector('[data-sgc="' + k + '"]'); if (el) el.textContent = v; };
-    m.tiers.forEach((t, i) => { set('x' + i, '×' + (Math.round(num(t.v) / c * 100) / 100)); set('r' + i, pct(num(t.p) / 100 * num(t.v) / c)); });
+    m.tiers.forEach((t, i) => { set('x' + i, '×' + (Math.round(num(t.v) / c * 100) / 100)); set('r' + i, pct(num(m.shots) * num(t.p) / 100 * num(t.v) / c)); });
     const rtp = sgRtp(m), sp = m.tiers.reduce((a, t) => a + num(t.p), 0), st = statusOf(rtp, target());
     $('sg-sum').textContent = 'RTP 최대 ' + pct(rtp);
-    $('sg-calc').innerHTML = '<span>확률 합계 <b' + (Math.abs(sp - 100) > .01 ? ' style="color:#E03131"' : '') + '>' + Math.round(sp * 100) / 100 + '%</b></span><span>최대 RTP(매번 맞힐 때) <b>' + pct(rtp) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>';
+    $('sg-calc').innerHTML = '<span>확률 합계 <b' + (Math.abs(sp - 100) > .01 ? ' style="color:#E03131"' : '') + '>' + Math.round(sp * 100) / 100 + '%</b></span><span>최대 RTP(' + num(m.shots) + '발 모두 맞힐 때) <b>' + pct(rtp) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>';
   }
   function slingAdminInput(el) {
     const m = sgDraft(); if (!m) return false;
