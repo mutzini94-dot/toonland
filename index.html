@@ -1459,8 +1459,10 @@ svg.lt-kico.lt-tic { width: 22px; height: 22px; margin: 0 8px 0 2px; }
 .sg-hud { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; align-items: center; justify-content: space-between; pointer-events: none; }
 .sg-hud b { padding: 5px 12px; border-radius: 999px; background: rgba(255,255,255,.88); color: #1B6E2D; font-size: 14px; font-weight: 900; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
 .sg-ammo { display: flex; gap: 5px; padding: 5px 9px; border-radius: 999px; background: rgba(12,20,34,.45); }
-.sg-ammo i { width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,.3); box-shadow: inset 0 0 0 2px rgba(255,255,255,.5); }
-.sg-ammo i.on { background: #FFFFFF; box-shadow: inset 0 0 0 2px #74C0FC; }
+.sg-ammo { align-items: center; padding: 3px 10px 3px 6px; }
+.sg-ammo img { width: 24px; height: 24px; object-fit: contain; transition: opacity .25s, filter .25s, transform .25s; }
+.sg-ammo img.off { opacity: .28; filter: grayscale(1); transform: scale(.85); }
+.sg-ammo span { margin-left: 2px; color: #FFFFFF; font-size: 13px; font-weight: 900; }
 .sg-hint { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); max-width: 90%; padding: 7px 14px; border-radius: 12px; background: rgba(12,20,34,.62); color: #FFFFFF; font-size: 13px; font-weight: 800; text-align: center; pointer-events: none; opacity: 0; }
 .sg-hint.show { animation: sg-hint 3.2s ease both; }
 @keyframes sg-hint { 0% { opacity: 0; transform: translate(-50%, 8px); } 10%, 80% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; } }
@@ -9029,11 +9031,11 @@ img, svg, video { max-width: 100%; }
     if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
     const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); return { cv, ctx, W, H };
   }
-  const sgGeo = (W, H) => { const u = Math.min(W, H * 1.35); return { gy: H * .84, sx: W * .17, sy: H * .52, sl: u * .055, cr: u * .055 * .3, pull: u * .2, g: H * 1.55, vmax: Math.sqrt(1.35 * W * H * 1.55) }; };
+  const sgGeo = (W, H) => { const u = Math.min(W, H * 1.35); return { gy: H * .84, sx: W * .17, sy: H * .52, sl: u * .055, cr: u * .055 * .3 * .7, pull: u * .2, g: H * 1.55, vmax: Math.sqrt(1.35 * W * H * 1.55) }; };
   function sgNewGourd(W, H) {
     const u = Math.min(W, H * 1.35), sAmp = W * (.05 + Math.random() * .05), ax0 = Math.min(W * (.6 + Math.random() * .22), W * .88 - sAmp), len0 = H * (.2 + Math.random() * .2);
-    return { ax0, ax: ax0, ay: H * .085, len0, len: len0, sAmp, sW: .7 + Math.random() * .8, sPh: Math.random() * 6, lAmp: len0 * .18, lW: 1.2 + Math.random() * .9, lPh: Math.random() * 6,
-      amp: .28 + Math.random() * .22, w: 1.8 + Math.random() * 1.2, ph: Math.random() * 6, r: u * .07 * .3, x: ax0, y: H * .085 + len0, popped: false };
+    return { ax0, ax: ax0, ay: H * .085, len0, len: len0, sAmp, sW: 1.1 + Math.random() * 1, sPh: Math.random() * 6, lAmp: len0 * .18, lW: 1.7 + Math.random() * 1, lPh: Math.random() * 6,
+      amp: .3 + Math.random() * .22, w: 2.7 + Math.random() * 1.4, ph: Math.random() * 6, r: u * .07 * .3 * .7, x: ax0, y: H * .085 + len0, popped: false };
   }
   function sgLoad() {   // 다음 냥이를 새총에 올린다
     const v = sgView(); if (!v) return; const G = sgGeo(v.W, v.H);
@@ -9101,8 +9103,6 @@ img, svg, video { max-width: 100%; }
     if (c && !(c.done && c.fade <= 0)) { ctx.globalAlpha = c.done ? Math.max(0, c.fade) : 1; sgDrawCat(ctx, c.x, c.y, G.cr, c.rot, c.squash || 0); ctx.globalAlpha = 1; }
     if (hold) { ctx.strokeStyle = '#6E3812'; ctx.lineWidth = 4.5; ctx.beginPath(); ctx.moveTo(G.sx - G.sl * 1.05, G.sy - G.sl * .3); ctx.lineTo(c.x - G.cr * .5, c.y + 1); ctx.stroke(); }
     sgSlingFront(ctx, G);
-    // 남은 냥이(새총 옆 대기)
-    for (let k = 0; k < Math.max(0, SG.left - (hold ? 1 : 0)); k++) sgDrawCat(ctx, G.sx - G.sl * (1.6 + k * .9), G.gy - G.cr * .95, G.cr * .9, 0, 0);
     // 박 조각·팝콘
     SG.parts.forEach(p => { ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.a); ctx.fillStyle = '#E9F3D2'; ctx.strokeStyle = '#5E7F3E'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(0, 0, p.r, p.s, p.s + Math.PI); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.restore(); });
     SG.pops.forEach(p => sgPopcorn(ctx, p.x, p.y, p.s, p.a));
@@ -9168,7 +9168,7 @@ img, svg, video { max-width: 100%; }
   function sgHint(t) { const h = dyEl('sg-hint'); if (h) { h.textContent = t; if (t) restart(h, 'show'); } }
   function sgUI() {
     const m = slingMachine(), go = dyEl('sg-go'); if (!m || !go) return;
-    const ammo = dyEl('sg-ammo'); if (ammo) ammo.innerHTML = Array.from({ length: num(m.shots) }, (_, i) => '<i class="' + (SG.on && i < SG.left ? 'on' : SG.on ? '' : 'on') + '"></i>').join('');
+    const ammo = dyEl('sg-ammo'); if (ammo) ammo.innerHTML = Array.from({ length: num(m.shots) }, (_, i) => '<img src="' + SG_CAT + '" alt="" class="' + (!SG.on || i < SG.left ? 'on' : 'off') + '">').join('') + '<span>' + (SG.on ? SG.left : num(m.shots)) + '</span>';
     go.disabled = SG.on;
     go.innerHTML = SG.on ? (SG.phase === 'aim' ? '냥이를 뒤로 당겼다 놓아 발사!' : '날아가는 중…') : (SG.res ? '다시 하기 ' : '시작하기 ') + '<span class="num">' + K + fmt(num(m.cost)) + ' · 냥이 ' + num(m.shots) + '마리</span>';
   }
