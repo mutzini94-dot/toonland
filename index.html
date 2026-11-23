@@ -7995,7 +7995,7 @@ img, svg, video { max-width: 100%; }
     else if (p < .8) { pos = [cx - 18, 11, -18]; look = [cx + 6, .3, cz]; name = 'wide'; }
     else { pos = [Math.min(cx + 15, DY_L + 12), 2.2, cz - 2]; look = [cx - 4, 1, cz]; name = 'front'; }
     if (!S.cam || S.cam.name !== name) { S.cam = S.cam ? { ...S.cam, name, blend: 0, from: { pos: S.cam.pos, look: S.cam.look } } : { name, blend: 1, pos, look }; }
-    const c = S.cam; c.blend = Math.min(1, (c.blend || 0) + .03);
+    const c = S.cam, bdt = Math.min(.05, Math.max(0, S.t - (c.bt == null ? S.t : c.bt))); c.bt = S.t; c.blend = Math.min(1, (c.blend || 0) + bdt * 1.8);
     const e = c.blend < 1 ? 1 - Math.pow(1 - c.blend, 3) : 1, L = (a, b) => a.map((v, k) => v + (b[k] - v) * e);
     if (c.from && c.blend < 1) { c.pos = L(c.from.pos, pos); c.look = L(c.from.look, look); } else { c.pos = pos; c.look = look; }
     return name;
@@ -8013,6 +8013,19 @@ img, svg, video { max-width: 100%; }
     setTimeout(() => el.classList.add('out'), 2000); setTimeout(() => el.remove(), 2400);
   }
   // 선수 이름표: 머리 위에 번호+이름(멀리 있으면 작게, 너무 작으면 생략). 내 응원 냥은 금색 테두리 + 꼬리표
+  function dyGem(ctx, x, y, s) {   // 내 캐릭터 표시: 통통 튀는 노란 다이아몬드(y = 아래 꼭짓점 기준)
+    const t = performance.now() / 1000, b = y - Math.abs(Math.sin(t * 3.4)) * s * .32, hw = s * .62, mid = b - s * .8, top = b - s * 1.22;
+    ctx.save(); ctx.lineJoin = 'round';
+    const gl = ctx.createRadialGradient(x, mid, 0, x, mid, s * 1.1); gl.addColorStop(0, 'rgba(255,224,102,.55)'); gl.addColorStop(1, 'rgba(255,224,102,0)'); ctx.fillStyle = gl; ctx.beginPath(); ctx.arc(x, mid, s * 1.1, 0, 7); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(x, b); ctx.lineTo(x - hw, mid); ctx.lineTo(x - hw * .55, top); ctx.lineTo(x + hw * .55, top); ctx.lineTo(x + hw, mid); ctx.closePath();
+    ctx.fillStyle = '#FCC419'; ctx.fill(); ctx.lineWidth = Math.max(1.5, s * .12); ctx.strokeStyle = '#1E1A1A'; ctx.stroke();
+    ctx.fillStyle = '#FFF3BF'; ctx.beginPath(); ctx.moveTo(x - hw, mid); ctx.lineTo(x - hw * .55, top); ctx.lineTo(x + hw * .55, top); ctx.lineTo(x + hw, mid); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = '#FFE066'; ctx.beginPath(); ctx.moveTo(x - hw * .35, mid); ctx.lineTo(x, b); ctx.lineTo(x + hw * .35, mid); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = 'rgba(30,26,26,.35)'; ctx.lineWidth = Math.max(1, s * .06); ctx.beginPath(); ctx.moveTo(x - hw, mid); ctx.lineTo(x + hw, mid); ctx.moveTo(x - hw * .35, mid); ctx.lineTo(x - hw * .2, top); ctx.moveTo(x + hw * .35, mid); ctx.lineTo(x + hw * .2, top); ctx.stroke();
+    ctx.lineWidth = Math.max(1.5, s * .12); ctx.strokeStyle = '#1E1A1A'; ctx.beginPath(); ctx.moveTo(x, b); ctx.lineTo(x - hw, mid); ctx.lineTo(x - hw * .55, top); ctx.lineTo(x + hw * .55, top); ctx.lineTo(x + hw, mid); ctx.closePath(); ctx.stroke();
+    const tw = Math.max(0, Math.sin(t * 5)) * s * .28; if (tw > .5) { ctx.fillStyle = '#FFFFFF'; ctx.beginPath(); ctx.ellipse(x + hw * .5, top + s * .05, tw, tw * .25, 0, 0, 7); ctx.ellipse(x + hw * .5, top + s * .05, tw * .25, tw, 0, 0, 7); ctx.fill(); }
+    ctx.restore();
+  }
   function dyNameTags(ctx, cam, R, run) {
     run.map(r => { const b = cam.p(r.x, 0, r.z), tp = cam.p(r.x, 2.05, r.z); return b && tp ? { r, b, tp, h: b[1] - tp[1] } : null; })
       .filter(o => o && o.h > 16).sort((a, b) => b.b[2] - a.b[2]).forEach(o => {
@@ -8023,7 +8036,7 @@ img, svg, video { max-width: 100%; }
         ctx.globalAlpha = .94; ctx.fillStyle = d.deep; ctx.beginPath(); ctx.roundRect(x, y, w, hh, hh / 2); ctx.fill();
         ctx.beginPath(); ctx.moveTo(o.tp[0] - fs * .35, y + hh - .5); ctx.lineTo(o.tp[0] + fs * .35, y + hh - .5); ctx.lineTo(o.tp[0], y + hh + fs * .4); ctx.closePath(); ctx.fill();
         ctx.globalAlpha = 1;
-        if (me) { ctx.strokeStyle = '#FFD43B'; ctx.lineWidth = Math.max(1.5, fs * .18); ctx.beginPath(); ctx.roundRect(x, y, w, hh, hh / 2); ctx.stroke(); }
+        if (me) { ctx.strokeStyle = '#FFD43B'; ctx.lineWidth = Math.max(1.5, fs * .18); ctx.beginPath(); ctx.roundRect(x, y, w, hh, hh / 2); ctx.stroke(); dyGem(ctx, o.tp[0], y - fs * .3, Math.max(18, fs * 1.8)); }
         ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(label, o.tp[0], y + hh / 2 + .5);
         ctx.restore();
       });
@@ -8115,6 +8128,7 @@ img, svg, video { max-width: 100%; }
       ctx.font = '800 ' + fs + 'px "Noto Sans KR", Arial, sans-serif'; const tw = dyMW(ctx, label) + fs, ty = sy - ch * .56 - 6;
       ctx.fillStyle = d.deep; ctx.beginPath(); ctx.roundRect(sx - tw / 2, ty - fs * 1.4, tw, fs * 1.4, fs * .7); ctx.fill(); if (r.i === DRB.pick) { ctx.strokeStyle = '#FFD43B'; ctx.lineWidth = 2; ctx.stroke(); }
       ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(label, sx, ty - fs * .7);
+      if (r.i === DRB.pick) dyGem(ctx, sx, ty - fs * 1.4 - 3, 18);
       if (r.bt != null && S.t - r.bt < .7) ktPop(ctx, sx, sy - ch * .3, Math.max(22, ch), S.t - r.bt);
     });
     // 드론 카메라 프레임
@@ -8241,6 +8255,8 @@ img, svg, video { max-width: 100%; }
     for (let i = 0; i < NN; i++) { const u = (i - A0) / (A1 - A0), a = KTP.at(u).a, b = KTP.at(u + 1 / (A1 - A0)).a; dA.push(Math.atan2(Math.sin(b - a), Math.cos(b - a)) * 180 / Math.PI); }
     const hill = i => 650 * Math.sin(i / NN * Math.PI * 9) * Math.min(1, i / 40);
     for (let i = 0; i < NN; i++) { let sm = 0, w = 0; for (let k = -3; k <= 3; k++) { const v = dA[Math.max(0, Math.min(NN - 1, i + k))], ww = 4 - Math.abs(k); sm += v * ww; w += ww; } seg.push({ curve: Math.max(-4.2, Math.min(4.2, sm / w * 1.1)), ya: hill(i), yb: hill(i + 1), props: [] }); }
+    let cx = 0, cdx = 0; seg.forEach(sg => { sg.cx = cx; sg.cdx = cdx; cx += cdx; cdx += sg.curve; });
+    const endX = cx, endDX = cdx;
     const N = seg.length, S0 = 6, F = N - 36;
     seg.forEach((s, i) => {
       if (i % 3 === 0 && i > 2) { s.props.push({ t: 'house', o: -2.1 - (i % 7) * .08, v: i % 5 }); s.props.push({ t: 'house', o: 2.1 + (i % 5) * .08, v: (i + 2) % 5 }); }
@@ -8251,7 +8267,7 @@ img, svg, video { max-width: 100%; }
     [70, 230, 420, 600].forEach(i => seg[i].props.push({ t: 'ring', o: 0 }));
     KT_ITEMS.forEach(f => { const i = Math.round(S0 + f * (F - S0)); [-.55, 0, .55].forEach(o => seg[i].props.push({ t: 'box', o })); });
     seg[S0].props.push({ t: 'start' }); seg[F].props.push({ t: 'arch' });
-    return { segL, roadW, seg, N, S0, F };
+    return { segL, roadW, seg, N, S0, F, endX, endDX };
   })();
   const ktZ = x => (KT.S0 + Math.min(1.25, x / DY_L) * (KT.F - KT.S0)) * KT.segL;
   const ktLat = r => (Math.max(0, Math.min(16, r.z)) / 16 * 2 - 1) * .68;
@@ -8386,7 +8402,9 @@ img, svg, video { max-width: 100%; }
   }
   function dyKartDraw(ctx, W, H, S, R, live, slow) {
     const me = S.run[DRB.pick], pz = ktZ(me.x), camZ = Math.max(0, pz - 1500), latMe = ktLat(me), cy0 = H * .36;   // 화면 중심을 위로 → 내 카트가 아래 중계 패널 위에 오도록
-    const shake = Math.sin(S.t * 47) * 14 + Math.sin(S.t * 31) * 9, camX = latMe * KT.roadW * .55 + shake, camH = 760 + ktSegY(camZ + 400) + Math.abs(Math.sin(S.t * 23)) * 10, depth = .7;   // 넓은 화각 + 미세 흔들림
+    const fdt = Math.min(.05, Math.max(0, S.t - (S._lt == null ? S.t : S._lt))); S._lt = S.t;
+    const shake = Math.sin(S.t * 2.3) * 16 + Math.sin(S.t * 17) * 2.2, camX = latMe * KT.roadW * .55 + shake, camHt = 760 + ktSegY(camZ + 400) + Math.sin(S.t * 11) * 3, depth = .7;
+    S.camH = S.camH == null ? camHt : S.camH + (camHt - S.camH) * Math.min(1, fdt * 7); const camH = S.camH;   // 넓은 화각 + 미세 흔들림
     S.kbg = S.kbg || 0;
     const base = Math.floor(camZ / KT.segL), curNow = (KT.seg[Math.min(KT.N - 1, base)] || {}).curve || 0;
     S.kbg += curNow * (me.v || 0) * .0009;
@@ -8400,12 +8418,14 @@ img, svg, video { max-width: 100%; }
     g = ctx.createLinearGradient(0, hor, 0, H); g.addColorStop(0, '#93C468'); g.addColorStop(1, '#6EA94C'); ctx.fillStyle = g; ctx.fillRect(0, hor, W, H - hor);
     // 도로(가까운 것부터 투영해 언덕에 가려지는 부분은 건너뜀)
     const pr = (wx, wy, wz) => { const sc = depth / wz; return { x: W / 2 + sc * wx * W / 2, y: cy0 - sc * wy * H / 2, w: sc * KT.roadW * W / 2, sc }; };
-    let x = 0, dx = -curNow * ((camZ % KT.segL) / KT.segL), maxy = H;
+    let maxy = H;
+    const ktX = k => k < KT.N ? KT.seg[k].cx : KT.endX + KT.endDX * (k - KT.N), camZi = camZ / KT.segL, cf = camZi - base, cs = KT.seg[Math.min(KT.N - 1, base)];
+    const camCX = base < KT.N ? cs.cx + cs.cdx * cf : ktX(camZi), camSlope = base < KT.N ? cs.cdx + cs.curve * cf : KT.endDX;
     const drawN = 115, vis = []; let acc = null;
     for (let n = 0; n < drawN; n++) {
       const idx = base + n, s = KT.seg[Math.min(KT.N - 1, idx)], z1 = idx * KT.segL - camZ, z2 = z1 + KT.segL;
       const y1 = idx < KT.N ? s.ya : KT.seg[KT.N - 1].yb, y2 = idx < KT.N ? s.yb : y1, c = idx < KT.N ? s.curve : 0;
-      const x1 = x, x2 = x + dx; x += dx; dx += c;
+      const x1 = ktX(idx) - camCX - camSlope * (idx - camZi), x2 = ktX(idx + 1) - camCX - camSlope * (idx + 1 - camZi);
       if (z1 <= 20) continue;
       const p1 = pr(x1 - camX, y1 - camH, z1), p2 = pr(x2 - camX, y2 - camH, z2);
       vis.push({ idx, s, p1, p2, clip: maxy });
@@ -8468,13 +8488,14 @@ img, svg, video { max-width: 100%; }
         const f = (o.z % KT.segL) / KT.segL, cx = v.p1.x + (v.p2.x - v.p1.x) * f, cy = v.p1.y + (v.p2.y - v.p1.y) * f, cw = v.p1.w + (v.p2.w - v.p1.w) * f;
         const kx = cx + ktLat(o.r) * cw, kw = cw * .32, isMe = o.r.i === DRB.pick;
         const boost = o.r.v > (DY_L / o.r.T) * 1.04, curve = v.s.curve || 0;
-        ktKart(ctx, kx, cy, kw, o.r.i, { boost, drift: Math.abs(curve) > 1.8 && Math.random() < .7, tilt: isMe ? -curve * .025 : 0 });
+        if (isMe && kw <= 24) dyGem(ctx, kx, cy - kw * 1.25, 16);
+        ktKart(ctx, kx, cy, kw, o.r.i, { boost, drift: Math.abs(curve) > 1.8 && Math.random() < .7, tilt: isMe ? (S.tilt = (S.tilt || 0) + (-curve * .025 - (S.tilt || 0)) * Math.min(1, fdt * 5)) : 0 });
         if (o.r.bt != null && S.t - o.r.bt < .7) ktPop(ctx, kx, cy - kw * .55, kw, S.t - o.r.bt);
         if (kw > 24) {   // 이름표
           const label = (o.r.i + 1) + ' ' + ((R[o.r.i] && R[o.r.i].name) || DY_DEF[o.r.i].name), fs = Math.max(9, Math.min(14, kw * .13)), d = DY_DEF[o.r.i];
           ctx.font = '800 ' + fs.toFixed(1) + 'px "Noto Sans KR", Arial, sans-serif'; const tw = dyMW(ctx, label) + fs, ty = cy - kw * 1.32;
           ctx.fillStyle = d.deep; ctx.beginPath(); ctx.roundRect(kx - tw / 2, ty - fs * 1.4, tw, fs * 1.4, fs * .7); ctx.fill();
-          if (isMe) { ctx.strokeStyle = '#FFD43B'; ctx.lineWidth = 2; ctx.stroke(); }
+          if (isMe) { ctx.strokeStyle = '#FFD43B'; ctx.lineWidth = 2; ctx.stroke(); dyGem(ctx, kx, ty - fs * 1.4 - 3, Math.max(19, fs * 1.8)); }
           ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(label, kx, ty - fs * .7);
         }
       });
@@ -8500,7 +8521,7 @@ img, svg, video { max-width: 100%; }
     const th = Math.max(8, H * .07); if (!dyOk('kbg') && dyOk('trees')) { const im = dyImg.trees, tw = im.naturalWidth * th / im.naturalHeight, off = ((-yaw / (Math.PI * 2)) * tw * 9) % tw; for (let x = off - tw; x < W; x += tw) ctx.drawImage(im, x, hy - th + 2, tw, th); }
     ctx.fillStyle = '#7DB35A'; ctx.fillRect(0, hy, W, H - hy);
     const x0 = Math.floor((cam.pos[0] - 110) / 8) * 8, x1 = cam.pos[0] + 220;
-    const poly = (pts, col) => { const P = pts.map(q => cam.p(...q)); if (P.some(v => !v)) return null; ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(P[0][0], P[0][1]); for (let k = 1; k < P.length; k++) ctx.lineTo(P[k][0], P[k][1]); ctx.closePath(); ctx.fill(); return P; };
+    const poly = (pts, col) => { ctx.beginPath(); for (let k = 0; k < pts.length; k++) { const q = pts[k], v = cam.p(q[0], q[1], q[2]); if (!v) return null; if (k) ctx.lineTo(v[0], v[1]); else ctx.moveTo(v[0], v[1]); } ctx.closePath(); ctx.fillStyle = col; ctx.fill(); return true; };
     // 바닥: 한 색인 면(잔디·보도·아스팔트·차선)은 큰 덩어리로, 색이 바뀌는 연석·점선만 잘게 → 다각형 수 대폭 감소
     const byDist = (a, b) => Math.abs(b[0] - cam.pos[0]) - Math.abs(a[0] - cam.pos[0]);
     const xs = []; for (let x = Math.floor(x0 / 2) * 2; x <= x1;) { const w = Math.abs(x - cam.pos[0]) < 20 ? 2 : 10; xs.push([x, w]); x += w; }
