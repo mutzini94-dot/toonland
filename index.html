@@ -9031,11 +9031,11 @@ img, svg, video { max-width: 100%; }
     if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
     const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); return { cv, ctx, W, H };
   }
-  const sgGeo = (W, H) => { const u = Math.min(W, H * 1.35); return { gy: H * .84, sx: W * .17, sy: H * .52, sl: u * .055, cr: u * .055 * .3 * .7, pull: u * .2, g: H * 1.55, vmax: Math.sqrt(1.35 * W * H * 1.55) }; };
+  const sgGeo = (W, H) => { const u = Math.min(W, H * 1.35); return { gy: H * .84, sx: W * .17, sy: H * .52, sl: u * .055, cr: u * .055 * .3 * .7 * 1.6, pull: u * .2, g: H * 1.55, vmax: Math.sqrt(1.35 * W * H * 1.55) }; };
   function sgNewGourd(W, H) {
     const u = Math.min(W, H * 1.35), sAmp = W * (.05 + Math.random() * .05), ax0 = Math.min(W * (.6 + Math.random() * .22), W * .88 - sAmp), len0 = H * (.2 + Math.random() * .2);
     return { ax0, ax: ax0, ay: H * .085, len0, len: len0, sAmp, sW: 1.1 + Math.random() * 1, sPh: Math.random() * 6, lAmp: len0 * .18, lW: 1.7 + Math.random() * 1, lPh: Math.random() * 6,
-      amp: .3 + Math.random() * .22, w: 2.7 + Math.random() * 1.4, ph: Math.random() * 6, r: u * .07 * .3 * .7, x: ax0, y: H * .085 + len0, popped: false };
+      amp: .3 + Math.random() * .22, w: 2.7 + Math.random() * 1.4, ph: Math.random() * 6, r: u * .07 * .3 * .7 * 1.6, x: ax0, y: H * .085 + len0, popped: false };
   }
   function sgLoad() {   // 다음 냥이를 새총에 올린다
     const v = sgView(); if (!v) return; const G = sgGeo(v.W, v.H);
