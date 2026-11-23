@@ -8118,19 +8118,21 @@ img, svg, video { max-width: 100%; }
     return cv;
   }
   function dyKartAerial(ctx, W, H, S, R, dt) {
-    const RW = KTP.RW, pos = r => { const q = KTP.at(Math.max(0, r.x) / DY_L), l = ktLat(r) / .68 * .62 * RW / 2; return { x: q.x - Math.sin(q.a) * l, y: q.y + Math.cos(q.a) * l, a: q.a }; };
+    const RW = KTP.RW, pos = r => { const q = KTP.at(Math.max(0, r.x) / DY_L), lt = ktLat(r) / .68 * .62 * RW / 2; r.al = r.al == null ? lt : r.al + (lt - r.al) * Math.min(1, dt * 2.5); const l = r.al; return { x: q.x - Math.sin(q.a) * l, y: q.y + Math.cos(q.a) * l, a: q.a }; };
     // 처음엔 서킷 전체를 보여 주고(트랙 모양), 천천히 다섯 대가 모두 들어오는 높이로 내려온다
     const K = S.run.map(r => ({ r, p: pos(r) })), xs = K.map(o => o.p.x), ys = K.map(o => o.p.y);
     const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
     const tx = (x0 + x1) / 2, ty = (y0 + y1) / 2, span = Math.max(500, Math.min(1100, Math.max(x1 - x0, y1 - y0) * 1.3 + 300)), zt = Math.min(W, H * .7) / span;
     if (!S.ac) S.ac = { x: 655, y: 660, z: Math.min(W, H * .62) / 1250, t: 0 };
-    const c = S.ac; c.t += dt; const hold = c.t < .9 ? 0 : 1;
-    c.x += (tx - c.x) * Math.min(1, dt * 1.6) * hold; c.y += (ty - c.y) * Math.min(1, dt * 1.6) * hold; c.z += (zt - c.z) * Math.min(1, dt * 1.1) * hold;
+    const c = S.ac; c.t += dt;
+    const spring = (k, tgt, T) => { const v = k + 'v', om = 2 / T, xx = om * dt, ex = 1 / (1 + xx + .48 * xx * xx + .235 * xx * xx * xx), ch = c[k] - tgt, tp = ((c[v] || 0) + om * ch) * dt; c[v] = ((c[v] || 0) - om * tp) * ex; c[k] = tgt + (ch + tp) * ex; };
+    if (c.t > .9) { const rp = Math.min(1, (c.t - .9) / 1.2), m = 1 + 3 * (1 - rp) * (1 - rp); spring('x', tx, .55 * m); spring('y', ty, .55 * m); spring('z', zt, .9 * m); }   // 출발도 서서히
     const z = c.z, ox = W / 2 - c.x * z, oy = H * .39 - c.y * z, inView = (x, y, m) => { const sx = ox + x * z, sy = oy + y * z; return sx > -m && sx < W + m && sy > -m && sy < H + m; };
     ctx.fillStyle = '#7DB35A'; ctx.fillRect(0, 0, W, H);
     ctx.save(); ctx.translate(ox, oy); ctx.scale(z, z); ctx.lineJoin = 'round'; ctx.lineCap = 'round';
     if (!dyAerC) dyAerC = ktAerialLayer();
-    ctx.drawImage(dyAerC, -220, -220, 1720, 1820);
+    { const vx0 = Math.max(-220, -ox / z - 4), vy0 = Math.max(-220, -oy / z - 4), vx1 = Math.min(1500, (W - ox) / z + 4), vy1 = Math.min(1600, (H - oy) / z + 4);
+      if (vx1 > vx0 && vy1 > vy0) ctx.drawImage(dyAerC, vx0 + 220, vy0 + 220, vx1 - vx0, vy1 - vy0, vx0, vy0, vx1 - vx0, vy1 - vy0); }
     const st = KTP.stand; ctx.save(); ctx.translate(st.x, st.y); ctx.rotate(st.a);   // 출발선 옆 관중석
     ctx.fillStyle = 'rgba(0,0,0,.2)'; ctx.fillRect(-86, -22, 180, 52); ctx.fillStyle = '#ADB5BD'; ctx.fillRect(-90, -26, 180, 50);
     for (let q = 0; q < 60; q++) { ctx.fillStyle = ['#FF6B6B', '#4DABF7', '#FFD43B', '#69DB7C', '#F783AC', '#FFFFFF'][q % 6]; ctx.beginPath(); ctx.arc(-84 + (q % 20) * 8.6, -18 + Math.floor(q / 20) * 11 + Math.sin(S.t * 8 + q) * 1.2, 3.2, 0, 7); ctx.fill(); }
@@ -8138,8 +8140,8 @@ img, svg, video { max-width: 100%; }
     KT_ITEMS.forEach(f => [-.55, 0, .55].forEach(l => { const q = KTP.at(f), lw = l / .68 * .62 * RW / 2; ktItemBox(ctx, q.x - Math.sin(q.a) * lw, q.y + Math.cos(q.a) * lw, 12); }));
     K.forEach(({ r, p: q }) => {   // 드리프트 판정: 앞쪽 방향 변화량
       const q2 = KTP.at(Math.max(0, r.x) / DY_L + .006), da = Math.atan2(Math.sin(q2.a - q.a), Math.cos(q2.a - q.a)), want = Math.abs(da) > .12 ? 1 : 0;
-      r.adI = (r.adI || 0) + (want - (r.adI || 0)) * Math.min(1, dt * (want ? 3.5 : 2)); if (Math.abs(da) > .03) r.adDir = Math.sign(da);
-      q.yaw = (r.adDir || 0) * r.adI * .42;
+      r.ay = (r.ay || 0) + ((want ? Math.sign(da) : 0) - (r.ay || 0)) * Math.min(1, dt * (want ? 3 : 2)); r.adI = Math.abs(r.ay); r.adDir = Math.sign(r.ay) || 1;
+      q.yaw = r.ay * .42;
       if (r.adI > .35) { const fx = Math.cos(q.a + q.yaw), fy = Math.sin(q.a + q.yaw), rx = -fy, ry = fx; (r.ask = r.ask || []).push([q.x - fx * 12 + rx * 9, q.y - fy * 12 + ry * 9, q.x - fx * 12 - rx * 9, q.y - fy * 12 - ry * 9]); if (r.ask.length > 240) r.ask.shift();
         for (let k = 0; k < 2; k++) (S.asmk = S.asmk || []).push({ x: q.x - fx * 14 + (Math.random() - .5) * 14, y: q.y - fy * 14 + (Math.random() - .5) * 14, vx: -fx * 20 - (r.adDir || 1) * rx * 30, vy: -fy * 20 - (r.adDir || 1) * ry * 30, r: 5, life: .7, t: 0 }); }
     });
@@ -8189,7 +8191,7 @@ img, svg, video { max-width: 100%; }
         r.got[k] = S.t; r.bt = S.t;
         if (r.i === DRB.pick) { const tl = dyEl('dy-tele'); if (tl) { tl.textContent = 'BOOST!'; restart(tl, 'show'); } SFX.whoosh(); dyComm('중계', (r.i + 1) + '번 ' + DY_DEF[r.i].name + ', 아이템 획득! 부스트!'); }
       }
-      if (r.got[k] != null) { const tau = S.t - r.got[k]; off += DY_L * .035 * (tau < .5 ? Math.sin(Math.PI / 2 * tau / .5) : tau < 3 ? (1 + Math.cos(Math.PI * (tau - .5) / 2.5)) / 2 : 0); }
+      if (r.got[k] != null) { const tau = S.t - r.got[k]; off += DY_L * .035 * (tau < .7 ? (1 - Math.cos(Math.PI * tau / .7)) / 2 : tau < 3.2 ? (1 + Math.cos(Math.PI * (tau - .7) / 2.5)) / 2 : 0); }
     });
     return off;
   }
