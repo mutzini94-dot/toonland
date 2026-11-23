@@ -3314,7 +3314,7 @@ img, svg, video { max-width: 100%; }
   <div class="ad-page" data-page="hop" hidden>
   <div class="panel ad-block" id="hp-admin">
     <h2>냥이 징검다리 관리 <span class="tag" id="hp-sum"></span></h2>
-    <p class="hub-note">박자에 맞춰 징검다리를 밟는 건 <b>실력</b>, 갈림길에서 진짜 돌을 고르는 건 <b>반반 운</b>이에요. 보상은 통과한 갈림길 수로 정해져요. 손님이 박자를 <b>전부 완벽하게</b> 맞춰도 RTP는 <b>Σ P(갈림길 k개 통과) × 보상[k] ÷ 한 판 가격</b>을 넘지 않아요(박자를 놓치면 더 낮아짐).</p>
+    <p class="hub-note">냥이는 자동으로 건너고 손님은 좌우만 움직여요. 돌이 있는 쪽으로 따라가는 건 <b>실력</b>, 갈림길에서 진짜 돌을 고르는 건 <b>반반 운</b>이에요. 보상은 통과한 갈림길 수로 정해져요. 손님이 길을 <b>전부 맞게</b> 따라가도 RTP는 <b>Σ P(갈림길 k개 통과) × 보상[k] ÷ 한 판 가격</b>을 넘지 않아요(길을 놓치면 더 낮아짐).</p>
     <div class="fields" id="hp-fields"></div>
     <div class="table-wrap"><table class="ad-table" id="hp-t"></table></div>
     <div class="ed-foot"><div class="pa-calc" id="hp-calc"></div></div>
@@ -3948,7 +3948,7 @@ img, svg, video { max-width: 100%; }
 
   function renderZones() {
     const COPY = {
-      hop: ['리듬 타고 냥이 징검다리', '박자에 맞춰 다가오는 징검다리를 밟고 건너요. 갈림길에선 진짜 돌을 골라야 해요! 통과한 갈림길이 많을수록 보상 UP.'],
+      hop: ['리듬 타고 냥이 징검다리', '냥이는 자동으로 징검다리를 건너요. ← → 로 돌이 있는 쪽으로 움직이고, 갈림길에선 진짜 돌을 골라요! 처음엔 느리다가 중간부터 빨라져요.'],
       sling: ['냥이 새총으로 박 터뜨리기', '새총을 당겨 냥이를 날려 매달린 박을 맞혀 보세요. 한 판에 무조건 3번! 맞힌 박마다 팝콘(강냉이)이 쏟아져요.'],
       kart: ['카트 서킷 냥냥 카트', '냥냥 레이스 친구들 5마리가 카트를 타고 서킷을 달려요. 응원할 선수를 골라 1착 또는 3착 안에 걸고, 드리프트·항공 중계·시상식까지 지켜보세요.'],
       derby: ['3D 중계로 즐기는 냥냥 더비', '냥냥 레이스 친구들 5마리가 1600m를 달려요. 응원할 선수를 골라 1착 또는 3착 안에 걸고, 레일 옆·정면 카메라로 중계를 지켜보세요.'],
@@ -9341,8 +9341,8 @@ img, svg, video { max-width: 100%; }
   $('floor').addEventListener('click', e => { if (state.tab !== 'sling') return; if (e.target.closest('#sg-go')) sgStart(); });
   addEventListener('resize', () => { if (state.tab === 'sling' && !SG.on && dyEl('sg-cv')) sgInit(); });
   // =====================================================================
-  // 냥이 징검다리: 박자에 맞춰 다가오는 징검다리를 밟고 건너는 리듬 게임.
-  // 중간중간 좌/우 갈림길에서 진짜 돌을 골라야 하고(50:50), 타이밍을 놓치거나 가짜 돌을 밟으면 물에 빠진다.
+  // 냥이 징검다리: 냥이가 박자에 맞춰 자동으로 징검다리를 건너고, 손님은 ← → 로 돌이 있는 쪽으로만 움직인다.
+  // 중간중간 좌/우 갈림길에서 진짜 돌을 골라야 하고(50:50), 돌이 없는 쪽이나 가짜 돌에 내리면 물에 빠진다. 처음엔 느리다가 두 번째 갈림길부터 빨라진다.
   // 보상 = 통과한 갈림길 수에 따른 표. 모든 박자를 완벽히 맞춰도 RTP = Σ P(갈림길 k개 통과) × 보상[k] ÷ 가격 (최대 RTP)
   // =====================================================================
   const HP = { on: false, phase: 'idle', t: 0, raf: 0, last: 0, stones: [], beats: {}, next: 4, end: 0, combo: 0, score: 0, forks: 0, catX: 0, catTX: 0, judge: null, parts: [], banner: null, res: null, bpm: 96, lastBeat: -1, fallT: null, ac: null, keyBound: false };
@@ -9365,20 +9365,19 @@ img, svg, video { max-width: 100%; }
       '<div class="hp-stage" id="hp-stage"><canvas id="hp-cv" aria-label="냥이 징검다리 화면"></canvas>' +
         '<div class="hp-result" id="hp-result" hidden></div>' +
       '</div>' +
-      '<div class="hp-keys"><button type="button" class="hp-key" data-hpk="-1" aria-label="왼쪽 밟기">◀ 왼쪽</button><button type="button" class="hp-key" data-hpk="1" aria-label="오른쪽 밟기">오른쪽 ▶</button></div><p class="hp-kbd">키보드 <kbd>←</kbd> <kbd>→</kbd> (또는 <kbd>A</kbd> <kbd>D</kbd>)로 밟고, <kbd>스페이스</kbd>로 시작해요</p>' +
+      '<div class="hp-keys"><button type="button" class="hp-key" data-hpk="-1" aria-label="왼쪽으로">◀ 왼쪽</button><button type="button" class="hp-key" data-hpk="1" aria-label="오른쪽으로">오른쪽 ▶</button></div><p class="hp-kbd">키보드 <kbd>←</kbd> <kbd>→</kbd> (또는 <kbd>A</kbd> <kbd>D</kbd>)로 좌우 이동, <kbd>스페이스</kbd>로 시작해요</p>' +
       '<button class="sl-btn hp-go" type="button" id="hp-go"></button>' +
-      '<details class="hp-table"><summary>보상표 (통과한 갈림길 수만큼)</summary><table class="ad-table"><thead><tr><th>결과</th><th class="r">확률*</th><th class="r">강냉이</th></tr></thead><tbody>' + rows + '</tbody></table><p>* 박자를 모두 맞췄을 때 기준. 갈림길은 좌우 반반이에요. 박자에 맞춰 화면(또는 ◀ ▶, 키보드 ← → 스페이스)을 눌러 돌을 밟아요.</p></details>' +
+      '<details class="hp-table"><summary>보상표 (통과한 갈림길 수만큼)</summary><table class="ad-table"><thead><tr><th>결과</th><th class="r">확률*</th><th class="r">강냉이</th></tr></thead><tbody>' + rows + '</tbody></table><p>* 길을 모두 맞게 따라갔을 때 기준. 갈림길은 좌우 반반이에요. 냥이는 자동으로 건너고, ← → (또는 화면 좌우·◀ ▶)로 돌이 있는 쪽으로 움직여요. 처음엔 느리다가 중간부터 빨라져요.</p></details>' +
       '</div></div></section>';
   }
-  // ----- 코스: 4박 카운트다운 → (돌 6~8개 + 갈림길) × N → 황금 코인 길
-  function hpTrack(m) {
+  function hpTrack(m) {   // 레인(-1·0·1) 징검다리. 한 박자에 한 칸까지만 바뀌어 항상 따라갈 수 있음
     const N = m.forks, st = []; let lane = 0, b = 4;
     for (let f = 0; f <= N; f++) {
-      const n = f === 0 ? 8 : 6 + Math.floor(Math.random() * 3);
-      for (let i = 0; i < n; i++) { if (i > 0 || f === 0) lane = Math.max(-1, Math.min(1, lane + [-1, 0, 0, 1][Math.floor(Math.random() * 4)])); st.push({ beat: b++, x: lane * .5, kind: 'step' }); }
-      if (f < N) { const good = Math.random() < .5 ? -1 : 1; [-1, 1].forEach(sd => st.push({ beat: b, x: sd * .62, kind: 'fork', side: sd, good: sd === good, fi: f })); b++; lane = good; }
+      const n = f === 0 ? 9 : 6 + Math.floor(Math.random() * 3);
+      for (let i = 0; i < n; i++) { if (!(f === 0 && i < 3)) lane = Math.max(-1, Math.min(1, lane + [-1, 0, 0, 1][Math.floor(Math.random() * 4)])); st.push({ beat: b++, lane, x: lane * .55, kind: 'step' }); }
+      if (f < N) { const good = Math.random() < .5 ? -1 : 1; [-1, 1].forEach(sd => st.push({ beat: b, lane: sd, x: sd * .55, kind: 'fork', side: sd, good: sd === good, fi: f })); b++; lane = good; }
     }
-    for (let i = 0; i < 7; i++) st.push({ beat: b++, x: 0, kind: 'goal' });
+    for (let i = 0; i < 7; i++) st.push({ beat: b++, lane: 0, x: 0, kind: 'goal' });
     return st;
   }
   // ----- 소리(직접 합성, 효과음 꺼져 있으면 무음)
@@ -9423,86 +9422,82 @@ img, svg, video { max-width: 100%; }
     ctx.restore();
   }
   function hpDraw(v) {
-    const { ctx, W, H } = v, m = hopMachine(), spb = 60 / HP.bpm, t = HP.t, sec = HP.phase === 'goal' || HP.goalOn ? 3 : (HP.forks % 3), th = HP_THEME[sec];
+    const { ctx, W, H } = v, m = hopMachine(), t = HP.t, bf = HP.bf, sec = HP.goalOn ? 3 : (HP.forks % 3), th = HP_THEME[sec];
     let g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, th[0]); g.addColorStop(1, th[1]); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-    // 반짝이 별(배경)
     ctx.fillStyle = 'rgba(255,255,255,.85)'; for (let k = 0; k < 12; k++) { const x = ((k * 97.3) % 1) * W + Math.sin(k * 3.1) * W * .45 + W * .5, y = ((k * 53 + t * (14 + k % 3 * 6)) % (H * 1.1)) - H * .05, s = (2 + (k % 3) * 2) * (.6 + .4 * Math.sin(t * 3 + k)); const xx = ((x % W) + W) % W; ctx.beginPath(); ctx.moveTo(xx, y - s * 2); ctx.lineTo(xx + s * .45, y - s * .45); ctx.lineTo(xx + s * 2, y); ctx.lineTo(xx + s * .45, y + s * .45); ctx.lineTo(xx, y + s * 2); ctx.lineTo(xx - s * .45, y + s * .45); ctx.lineTo(xx - s * 2, y); ctx.lineTo(xx - s * .45, y - s * .45); ctx.closePath(); ctx.fill(); }
-    // 물길(빛나는 강)
+    // 물길 + 3개 레인 안내
     const L = [], Rr = []; for (let dz = 8; dz >= -.85; dz -= .25) { L.push(hpProj(W, H, -1.25, dz)); Rr.push(hpProj(W, H, 1.25, dz)); }
     ctx.fillStyle = 'rgba(255,255,255,.28)'; ctx.beginPath(); L.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y)); for (let i = Rr.length - 1; i >= 0; i--) ctx.lineTo(Rr[i].x, Rr[i].y); ctx.closePath(); ctx.fill();
     ctx.strokeStyle = 'rgba(255,255,255,.8)'; ctx.lineWidth = 2; [L, Rr].forEach(E => { ctx.beginPath(); E.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y)); ctx.stroke(); });
-    const ph = (t / spb) % 1; ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.lineWidth = 1.2; for (let k = 0; k < 9; k++) { const dz = k - ph, a = hpProj(W, H, -1.2, dz), b = hpProj(W, H, 1.2, dz); ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+    ctx.strokeStyle = 'rgba(255,255,255,.22)'; ctx.setLineDash([6, 8]); [-.275, .275].forEach(x => { ctx.beginPath(); for (let dz = 8; dz >= -.85; dz -= .5) { const p = hpProj(W, H, x, dz); dz === 8 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y); } ctx.stroke(); }); ctx.setLineDash([]);
+    const ph = ((bf % 1) + 1) % 1; ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.lineWidth = 1.2; for (let k = 0; k < 9; k++) { const dz = k - ph, a = hpProj(W, H, -1.2, dz), b = hpProj(W, H, 1.2, dz); ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
     // 징검다리(먼 것부터)
-    HP.stones.filter(s => { const dz = (s.beat * spb - t) / spb; return dz < 8 && dz > -.9; }).sort((a, b) => b.beat - a.beat).forEach(s => hpStoneDraw(ctx, W, H, s, (s.beat * spb - t) / spb, th));
-    // 냥이
+    HP.stones.filter(s => { const dz = s.beat - bf; return dz < 8 && dz > -.9; }).sort((a, b) => b.beat - a.beat).forEach(s => hpStoneDraw(ctx, W, H, s, s.beat - bf, th));
+    // 냥이 발밑 레인 표시(3칸)
+    if (HP.on && HP.phase === 'run') [-1, 0, 1].forEach(l => { const P = hpProj(W, H, l * .55, 0); ctx.strokeStyle = l === HP.lane ? 'rgba(255,255,255,.9)' : 'rgba(255,255,255,.3)'; ctx.lineWidth = l === HP.lane ? 3 : 1.5; ctx.beginPath(); ctx.ellipse(P.x, P.y + 4, W * .085, W * .03, 0, 0, 7); ctx.stroke(); });
+    // 냥이(자동으로 박자마다 콩콩)
     const P = hpProj(W, H, HP.catX, 0), r = W * .07;
     let cy = P.y - r * .55, sq = 0;
-    if (HP.phase === 'run' || HP.phase === 'goal') { const p = ((t / spb) % 1 + 1) % 1; cy -= Math.sin(Math.PI * p) * H * .07; sq = p < .12 ? .14 * (1 - p / .12) : 0; }
+    if (HP.phase === 'run' || HP.phase === 'goal') { const p = ph; cy -= Math.sin(Math.PI * p) * H * .075; sq = p < .12 ? .14 * (1 - p / .12) : 0; }
     if (HP.phase === 'fall' && HP.fallT != null) { const a = Math.min(1, (t - HP.fallT) / .9); cy += a * r * 1.6; ctx.save(); ctx.globalAlpha = 1 - a * .8; hpCat(ctx, P.x, cy, r * (1 - a * .4), 0); ctx.restore(); }
-    else if (HP.phase !== 'idle' || true) hpCat(ctx, P.x, cy, r, sq);
-    // 파티클(물보라·음표·코인 반짝)
+    else hpCat(ctx, P.x, cy, r, sq);
     HP.parts.forEach(q => { const a = 1 - q.t / q.life; ctx.globalAlpha = Math.max(0, a); if (q.k === 'note') { ctx.fillStyle = '#FFFFFF'; ctx.font = '900 ' + Math.round(q.s) + 'px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('♪', q.x, q.y); } else if (q.k === 'ring') { ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 3 * a; ctx.beginPath(); ctx.ellipse(q.x, q.y, q.s * (1 + (1 - a) * 1.6), q.s * .4 * (1 + (1 - a) * 1.6), 0, 0, 7); ctx.stroke(); } else { ctx.fillStyle = q.c || '#E7F5FF'; ctx.beginPath(); ctx.arc(q.x, q.y, q.s * a + .5, 0, 7); ctx.fill(); } }); ctx.globalAlpha = 1;
-    // 위: 진행 바 + 갈림길 별 + 점수
-    if (m && HP.stones.length) { const x0 = W * .14, x1 = W * .86, by = 28, prog = Math.min(1, t / (HP.end * spb)); ctx.strokeStyle = 'rgba(255,255,255,.55)'; ctx.lineWidth = 4; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(x0, by); ctx.lineTo(x1, by); ctx.stroke(); ctx.strokeStyle = '#FF8A3D'; ctx.beginPath(); ctx.moveTo(x0, by); ctx.lineTo(x0 + (x1 - x0) * prog, by); ctx.stroke();
-      HP.stones.filter(s => s.kind === 'fork' && s.side === 1).forEach(s => { const x = x0 + (x1 - x0) * Math.min(1, s.beat / HP.end), on = s.fi < HP.forks; ctx.fillStyle = on ? '#FFD43B' : '#FFFFFF'; ctx.beginPath(); for (let q = 0; q < 8; q++) { const rr = q % 2 ? 3 : 8, aq = q * Math.PI / 4 - Math.PI / 2; ctx.lineTo(x + Math.cos(aq) * rr, by + Math.sin(aq) * rr); } ctx.closePath(); ctx.fill(); });
-      ctx.fillStyle = '#FFFFFF'; ctx.font = '900 22px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineWidth = 4; ctx.strokeStyle = 'rgba(0,0,0,.18)'; ctx.strokeText(String(HP.score), W / 2, 58); ctx.fillText(String(HP.score), W / 2, 58); }
-    // 판정 글자
-    if (HP.judge && t - HP.judge.t < .55) { const a = (t - HP.judge.t) / .55, sc = a < .15 ? .7 + a / .15 * .4 : 1.1 - (a - .15) * .2, fs = Math.min(40, W * .085); ctx.save(); ctx.globalAlpha = a > .7 ? (1 - a) / .3 : 1; ctx.translate(W / 2, H * .22); ctx.scale(sc, sc); ctx.font = 'italic 900 ' + Math.round(fs) + 'px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; const gg = ctx.createLinearGradient(-fs * 2, 0, fs * 2, 0); const cc = HP.judge.txt === 'PERFECT' ? ['#FF7AD9', '#B57BFF'] : HP.judge.txt === 'GREAT' ? ['#5CD6FF', '#4C6EF5'] : HP.judge.txt === 'GOOD' ? ['#8CE99A', '#2F9E44'] : ['#FF8787', '#C92A2A']; gg.addColorStop(0, cc[0]); gg.addColorStop(1, cc[1]); ctx.lineJoin = 'round'; ctx.lineWidth = fs * .16; ctx.strokeStyle = '#FFFFFF'; ctx.strokeText(HP.judge.txt, 0, 0); ctx.fillStyle = gg; ctx.fillText(HP.judge.txt, 0, 0); if (HP.combo > 1 && HP.judge.txt !== 'MISS') { ctx.font = '900 ' + Math.round(fs * .6) + 'px Arial'; ctx.fillStyle = '#FFFFFF'; ctx.fillText('X' + HP.combo, 0, fs * .9); } ctx.restore(); }
-    // 배너(갈림길 경고·통과·카운트다운)
+    // 위: 진행 바 + 갈림길 별 + 점수 + 속도
+    if (m && HP.stones.length && HP.end) { const x0 = W * .14, x1 = W * .86, by = 28, prog = Math.max(0, Math.min(1, bf / HP.end)); ctx.strokeStyle = 'rgba(255,255,255,.55)'; ctx.lineWidth = 4; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(x0, by); ctx.lineTo(x1, by); ctx.stroke(); ctx.strokeStyle = '#FF8A3D'; ctx.beginPath(); ctx.moveTo(x0, by); ctx.lineTo(x0 + (x1 - x0) * prog, by); ctx.stroke();
+      HP.stones.filter(s => s.kind === 'fork' && s.lane === 1).forEach(s => { const x = x0 + (x1 - x0) * Math.min(1, s.beat / HP.end), on = s.fi < HP.forks; ctx.fillStyle = on ? '#FFD43B' : '#FFFFFF'; ctx.beginPath(); for (let q = 0; q < 8; q++) { const rr = q % 2 ? 3 : 8, aq = q * Math.PI / 4 - Math.PI / 2; ctx.lineTo(x + Math.cos(aq) * rr, by + Math.sin(aq) * rr); } ctx.closePath(); ctx.fill(); });
+      ctx.fillStyle = '#FFFFFF'; ctx.font = '900 22px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineWidth = 4; ctx.strokeStyle = 'rgba(0,0,0,.18)'; ctx.strokeText(String(HP.score), W / 2, 58); ctx.fillText(String(HP.score), W / 2, 58);
+      if (HP.on) { const bpm = Math.round(hpBpm(Math.max(0, Math.floor(bf)))); ctx.font = '800 11px Arial'; ctx.textAlign = 'right'; ctx.fillStyle = 'rgba(255,255,255,.95)'; ctx.fillText('♪ ' + bpm + ' BPM', W - 12, 58); } }
+    if (HP.combo > 1 && HP.on && HP.phase === 'run') { ctx.save(); ctx.font = 'italic 900 ' + Math.round(Math.min(34, W * .075)) + 'px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round'; ctx.lineWidth = 6; ctx.strokeStyle = '#FFFFFF'; const pop = 1 + Math.max(0, .25 - (ph * .6)); ctx.translate(W / 2, H * .22); ctx.scale(pop, pop); ctx.strokeText('X' + HP.combo, 0, 0); const gg = ctx.createLinearGradient(-40, 0, 40, 0); gg.addColorStop(0, '#FF7AD9'); gg.addColorStop(1, '#B57BFF'); ctx.fillStyle = gg; ctx.fillText('X' + HP.combo, 0, 0); ctx.restore(); }
+    // 배너(갈림길 경고·통과·속도 UP·카운트다운)
     const nextFork = HP.stones.find(s => s.kind === 'fork' && s.beat >= HP.next);
-    if (HP.phase === 'run' && nextFork && nextFork.beat * spb - t < spb * 3.2 && nextFork.beat * spb - t > 0) { ctx.save(); const a = .6 + .4 * Math.sin(t * 14); ctx.globalAlpha = a; ctx.fillStyle = 'rgba(12,20,34,.55)'; ctx.beginPath(); ctx.roundRect(W / 2 - 92, H * .37 - 18, 184, 36, 18); ctx.fill(); ctx.fillStyle = '#FFE066'; ctx.font = '900 16px "Noto Sans KR", Arial, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('갈림길! ◀ 왼쪽 / 오른쪽 ▶', W / 2, H * .37); ctx.restore(); }
-    if (HP.banner && t - HP.banner.t < 1.3) { const a = (t - HP.banner.t) / 1.3, fs = Math.min(30, W * .065); ctx.save(); ctx.globalAlpha = a > .75 ? (1 - a) / .25 : 1; ctx.translate(W / 2, H * .42 - a * 16); ctx.font = '900 ' + Math.round(fs) + 'px "Noto Sans KR", Arial, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round'; ctx.lineWidth = fs * .22; ctx.strokeStyle = HP.banner.bad ? '#7A1D1D' : '#1C3D8F'; ctx.strokeText(HP.banner.txt, 0, 0); ctx.fillStyle = HP.banner.bad ? '#FFC9C9' : '#FFFFFF'; ctx.fillText(HP.banner.txt, 0, 0); if (HP.banner.sub) { ctx.font = '800 ' + Math.round(fs * .55) + 'px "Noto Sans KR", Arial, sans-serif'; ctx.lineWidth = fs * .14; ctx.strokeText(HP.banner.sub, 0, fs * .95); ctx.fillStyle = '#FFE066'; ctx.fillText(HP.banner.sub, 0, fs * .95); } ctx.restore(); }
-    if (HP.on && t < 4 * spb + .45) { const n = Math.floor(t / spb), now = t >= 4 * spb - .06, txt = now ? '지금!' : ['READY', '3', '2', '1'][n] || '', a = now ? Math.min(1, (t - 4 * spb + .06) / .5) : (t / spb) % 1, fs = Math.min(now ? 64 : 72, W * (n === 0 && !now ? .11 : .16)); ctx.save(); ctx.globalAlpha = 1 - a * .7; ctx.translate(W / 2, H * .4); ctx.scale(1.3 - a * .3, 1.3 - a * .3); ctx.font = 'italic 900 ' + Math.round(fs) + 'px "Noto Sans KR", Arial, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round'; ctx.lineWidth = fs * .14; ctx.strokeStyle = '#FFFFFF'; ctx.strokeText(txt, 0, 0); ctx.fillStyle = now ? '#2F9E44' : '#FF7AD9'; ctx.fillText(txt, 0, 0); ctx.restore();
-      if (!now) { ctx.save(); ctx.font = '800 13px "Noto Sans KR", Arial, sans-serif'; ctx.textAlign = 'center'; ctx.fillStyle = 'rgba(12,20,34,.6)'; const tx = '첫 돌이 발밑에 오는 「지금!」에 ← → 또는 화면을 눌러요'; const tw = ctx.measureText(tx).width + 24; ctx.beginPath(); ctx.roundRect(W / 2 - tw / 2, H * .4 + 46, tw, 26, 13); ctx.fill(); ctx.fillStyle = '#FFFFFF'; ctx.textBaseline = 'middle'; ctx.fillText(tx, W / 2, H * .4 + 59); ctx.restore(); }
-      if (HP.next === 4 && t < 4 * spb + .2) { const P0 = hpProj(W, H, 0, 0), k = Math.max(0, (4 * spb - t) / spb); if (k < 2.2) { ctx.save(); ctx.strokeStyle = k < .15 ? '#2F9E44' : '#FFFFFF'; ctx.lineWidth = 4; ctx.globalAlpha = .9; ctx.beginPath(); ctx.ellipse(P0.x, P0.y, W * .1 * (1 + k * 1.6), W * .04 * (1 + k * 1.6), 0, 0, 7); ctx.stroke(); ctx.lineWidth = 2; ctx.globalAlpha = .5; ctx.beginPath(); ctx.ellipse(P0.x, P0.y, W * .1, W * .04, 0, 0, 7); ctx.stroke(); ctx.restore(); } }   // 첫 돌 타이밍 링(줄어들어 맞닿을 때 누르기)
-    }
-    // 아래: 갈림길·지금 보상
+    if (HP.phase === 'run' && nextFork && nextFork.beat - bf < 3.2 && nextFork.beat - bf > 0) { ctx.save(); ctx.globalAlpha = .6 + .4 * Math.sin(t * 14); ctx.fillStyle = 'rgba(12,20,34,.55)'; ctx.beginPath(); ctx.roundRect(W / 2 - 100, H * .37 - 18, 200, 36, 18); ctx.fill(); ctx.fillStyle = '#FFE066'; ctx.font = '900 16px "Noto Sans KR", Arial, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('갈림길! ◀ 왼쪽 / 오른쪽 ▶', W / 2, H * .37); ctx.restore(); }
+    if (HP.banner && t - HP.banner.t < 1.3) { const a = (t - HP.banner.t) / 1.3, fs = Math.min(30, W * .065); ctx.save(); ctx.globalAlpha = a > .75 ? (1 - a) / .25 : 1; ctx.translate(W / 2, H * .44 - a * 16); ctx.font = '900 ' + Math.round(fs) + 'px "Noto Sans KR", Arial, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round'; ctx.lineWidth = fs * .22; ctx.strokeStyle = HP.banner.bad ? '#7A1D1D' : '#1C3D8F'; ctx.strokeText(HP.banner.txt, 0, 0); ctx.fillStyle = HP.banner.bad ? '#FFC9C9' : '#FFFFFF'; ctx.fillText(HP.banner.txt, 0, 0); if (HP.banner.sub) { ctx.font = '800 ' + Math.round(fs * .55) + 'px "Noto Sans KR", Arial, sans-serif'; ctx.lineWidth = fs * .14; ctx.strokeText(HP.banner.sub, 0, fs * .95); ctx.fillStyle = '#FFE066'; ctx.fillText(HP.banner.sub, 0, fs * .95); } ctx.restore(); }
+    if (HP.on && bf < 4.4) { const n = Math.floor(bf), txt = ['READY', '3', '2', '1', 'GO!'][n] || '', a = ph, fs = Math.min(72, W * (n === 0 ? .11 : .16)); ctx.save(); ctx.globalAlpha = 1 - a * .7; ctx.translate(W / 2, H * .4); ctx.scale(1.3 - a * .3, 1.3 - a * .3); ctx.font = 'italic 900 ' + Math.round(fs) + 'px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round'; ctx.lineWidth = fs * .14; ctx.strokeStyle = '#FFFFFF'; ctx.strokeText(txt, 0, 0); ctx.fillStyle = n === 4 ? '#2F9E44' : '#FF7AD9'; ctx.fillText(txt, 0, 0); ctx.restore();
+      if (n < 4) { ctx.save(); ctx.font = '800 13px "Noto Sans KR", Arial, sans-serif'; ctx.textAlign = 'center'; const tx = '냥이는 자동으로 건너요 · ← → 로 돌이 있는 쪽으로 움직여요'; const tw = ctx.measureText(tx).width + 24; ctx.fillStyle = 'rgba(12,20,34,.6)'; ctx.beginPath(); ctx.roundRect(W / 2 - tw / 2, H * .4 + 46, tw, 26, 13); ctx.fill(); ctx.fillStyle = '#FFFFFF'; ctx.textBaseline = 'middle'; ctx.fillText(tx, W / 2, H * .4 + 59); ctx.restore(); } }
     if (m && (HP.on || HP.res)) { const now = num(m.pay[HP.forks]), nx = HP.forks < m.forks ? num(m.pay[HP.forks + 1]) : null, txt = '갈림길 ' + HP.forks + '/' + m.forks + ' · 지금 보상 ' + fmt(now) + (nx != null ? ' → 다음 ' + fmt(nx) : ' (완주!)'); ctx.save(); ctx.font = '800 12.5px "Noto Sans KR", Arial, sans-serif'; const tw = ctx.measureText(txt).width + 26; ctx.fillStyle = 'rgba(12,20,34,.55)'; ctx.beginPath(); ctx.roundRect(W / 2 - tw / 2, H - 40, tw, 28, 14); ctx.fill(); ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(txt, W / 2, H - 26); ctx.restore(); }
   }
-  // ----- 진행
+  // ----- 템포: 처음엔 느리게(84) → 두 번째 갈림길부터 점점 빨라져 끝에선 140 BPM
+  function hpBpm(b) { const a = HP.rampAt || 9999, e = HP.end || 1; return b < a ? 84 : 84 + Math.min(1, (b - a) / Math.max(1, e - a)) * 56; }
+  function hpTimes() { HP.bt = [0]; for (let b = 0; b <= HP.end + 2; b++) HP.bt.push(HP.bt[b] + 60 / hpBpm(b)); }
+  function hpBeatF(t) { const B = HP.bt; if (!B || !B.length) return 0; let b = Math.min(B.length - 2, Math.max(0, HP.bi || 0)); while (b < B.length - 2 && B[b + 1] <= t) b++; while (b > 0 && B[b] > t) b--; HP.bi = b; return b + Math.min(1, (t - B[b]) / (B[b + 1] - B[b])); }
+  // ----- 진행: 냥이는 박자마다 다음 돌로 자동 점프. 착지하는 순간 냥이 레인에 돌이 있어야 함
   function hpStep(dt) {
-    const m = hopMachine(), spb = 60 / HP.bpm;
     if (HP.on || HP.phase === 'fall') HP.t += dt;
     const t = HP.t, v = hpView(); if (!v) return;
+    if (HP.bt) HP.bf = hpBeatF(t);
     if (HP.on && HP.phase !== 'fall') {
-      const bi = Math.floor(t / spb);
-      if (bi !== HP.lastBeat && bi >= 0) { HP.lastBeat = bi; hpNote(bi < 4 ? (bi === 3 ? 880 : 440) : 110, bi < 4 ? .12 : .09, bi < 4 ? 'square' : 'sine', bi < 4 ? .06 : .16, bi < 4 ? null : 55); }
-      const nb = HP.next, T = nb * spb, grp = HP.beats[nb];
-      if (grp && grp[0].kind === 'goal') { if (t >= T) { HP.goalOn = true; HP.phase = 'goal'; grp[0].done = true; HP.catTX = 0; HP.score += 500; hpNote(HP_SCALE[(nb) % 8] * 2, .18, 'triangle', .07); const P = hpProj(v.W, v.H, 0, 0); for (let k = 0; k < 6; k++) HP.parts.push({ k: 'dot', x: P.x + (Math.random() - .5) * 30, y: P.y - 20, vx: (Math.random() - .5) * 120, vy: -120 - Math.random() * 120, t: 0, life: .6, s: 4, c: '#FFE066' }); HP.next++; if (HP.next > HP.end) hpEnd(true); } }
-      else if (grp && t > T + .2) hpFall('miss');
+      const bi = Math.floor(HP.bf);
+      if (bi !== HP.lastBeat && bi >= 0) { HP.lastBeat = bi; hpNote(bi < 4 ? (bi === 3 ? 880 : 440) : 110, bi < 4 ? .12 : .09, bi < 4 ? 'square' : 'sine', bi < 4 ? .06 : .16, bi < 4 ? null : 55); if (bi === HP.rampAt) HP.banner = { txt: '속도 UP!', t: HP.t }; }
+      while (HP.on && HP.phase !== 'fall' && HP.next <= HP.end && HP.bf >= HP.next) hpLand(v, HP.next);
     }
-    HP.catX += (HP.catTX - HP.catX) * Math.min(1, dt * 14);
+    HP.catX += (HP.lane * .55 - HP.catX) * Math.min(1, dt * 16);
     HP.parts.forEach(q => { q.t += dt; q.x += (q.vx || 0) * dt; q.y += (q.vy || 0) * dt; if (q.k === 'dot') q.vy += 600 * dt; if (q.k === 'note') q.vy = -60; });
     HP.parts = HP.parts.filter(q => q.t < q.life);
     HP.stones.forEach(s => { if (s.sinkV) { s.sink = (s.sink || 0) + s.sinkV * dt; s.sinkV += 120 * dt; } });
     if (HP.phase === 'fall' && HP.fallT != null && t - HP.fallT > 1.4 && HP.on) hpEnd(false);
   }
-  function hpTap(side) {
-    if (!HP.on || HP.phase !== 'run') return;
-    const spb = 60 / HP.bpm, t = HP.t, nb = HP.next, grp = HP.beats[nb]; if (!grp || grp[0].kind === 'goal') return;
-    const dt = t - nb * spb; if (Math.abs(dt) > .2) return;   // 판정 구간 밖 입력은 무시
-    const v = hpView(); if (!v) return;
-    let st = grp[0];
-    if (grp[0].kind === 'fork') { if (!side) { HP.banner = { txt: '◀ ▶ 로 골라요!', t: HP.t }; return; } st = grp.find(s => s.side === side); }
-    const ad = Math.abs(dt), j = ad <= .07 ? 'PERFECT' : ad <= .13 ? 'GREAT' : 'GOOD';
-    grp.forEach(s => { s.done = true; }); HP.next++;
-    HP.catTX = st.x;
-    if (st.kind === 'fork' && !st.good) {   // 가짜 돌
-      st.crack = true; st.sinkV = 40; const ok = grp.find(s => s.good); if (ok) ok.reveal = 'good';
-      HP.judge = { txt: 'MISS', t: HP.t }; HP.banner = { txt: '앗, 가짜 돌!', t: HP.t, bad: true }; hpFall('wrong'); return;
-    }
-    HP.combo++; HP.score += { PERFECT: 300, GREAT: 200, GOOD: 100 }[j] * Math.min(8, 1 + Math.floor(HP.combo / 10));
-    HP.judge = { txt: j, t: HP.t };
-    hpNote(HP_SCALE[HP.combo % 8], .22, 'triangle', .09);
-    const P = hpProj(v.W, v.H, st.x, 0);
-    HP.parts.push({ k: 'ring', x: P.x, y: P.y, s: v.W * .09, t: 0, life: .5 });
-    if (j === 'PERFECT') for (let k = 0; k < 2; k++) HP.parts.push({ k: 'note', x: P.x + (k ? 1 : -1) * v.W * .1, y: P.y - v.W * .08, vx: (k ? 1 : -1) * 20, t: 0, life: .8, s: 18 });
+  function hpLand(v, b) {
+    const grp = HP.beats[b] || []; HP.next = b + 1;
+    if (grp.length && grp[0].kind === 'goal') { HP.goalOn = true; HP.phase = 'goal'; HP.lane = 0; grp[0].done = true; HP.score += 500; hpNote(HP_SCALE[b % 8] * 2, .18, 'triangle', .07); const P = hpProj(v.W, v.H, 0, 0); for (let k = 0; k < 6; k++) HP.parts.push({ k: 'dot', x: P.x + (Math.random() - .5) * 30, y: P.y - 20, vx: (Math.random() - .5) * 120, vy: -120 - Math.random() * 120, t: 0, life: .6, s: 4, c: '#FFE066' }); if (HP.next > HP.end) hpEnd(true); return; }
+    const st = grp.find(s => s.lane === HP.lane);
+    if (!st) { hpFall('miss'); return; }
+    st.done = true;
+    if (st.kind === 'fork' && !st.good) { st.crack = true; st.sinkV = 40; const ok = grp.find(s => s.good); if (ok) ok.reveal = 'good'; HP.banner = { txt: '앗, 가짜 돌!', t: HP.t, bad: true }; hpFall('wrong'); return; }
+    HP.combo++; HP.score += 100 * Math.min(8, 1 + Math.floor(HP.combo / 10));
+    hpNote(HP_SCALE[HP.combo % 8], .2, 'triangle', .08);
+    const P = hpProj(v.W, v.H, st.x, 0); HP.parts.push({ k: 'ring', x: P.x, y: P.y, s: v.W * .09, t: 0, life: .5 });
+    if (HP.combo % 10 === 0) for (let k = 0; k < 2; k++) HP.parts.push({ k: 'note', x: P.x + (k ? 1 : -1) * v.W * .1, y: P.y - v.W * .08, vx: (k ? 1 : -1) * 20, t: 0, life: .8, s: 18 });
     if (st.kind === 'fork') { st.reveal = 'good'; HP.forks++; const m = hopMachine(); HP.banner = { txt: '갈림길 통과! ' + HP.forks + '/' + m.forks, sub: '지금 보상 ' + fmt(num(m.pay[HP.forks])), t: HP.t }; [784, 988, 1175].forEach((f, i) => setTimeout(() => hpNote(f, .2, 'triangle', .08), i * 70)); }
+  }
+  function hpMove(dir) {   // ← → 한 칸씩
+    if (!HP.on || HP.phase !== 'run' || !dir) return;
+    const nl = Math.max(-1, Math.min(1, HP.lane + dir)); if (nl === HP.lane) return;
+    HP.lane = nl; hpNote(660 + nl * 110, .05, 'square', .03);
   }
   function hpFall(why) {
     if (HP.phase === 'fall') return;
     HP.phase = 'fall'; HP.fallT = HP.t; HP.combo = 0;
-    if (why === 'miss') { HP.judge = { txt: 'MISS', t: HP.t }; HP.banner = { txt: '풍덩! 박자를 놓쳤어요', t: HP.t, bad: true }; }
+    if (why === 'miss') HP.banner = { txt: '풍덩! 돌이 없는 쪽이에요', t: HP.t, bad: true };
     const v = hpView(); if (v) { const P = hpProj(v.W, v.H, HP.catX, 0); for (let k = 0; k < 26; k++) { const a = -Math.PI * Math.random(), sp = 80 + Math.random() * 220; HP.parts.push({ k: 'dot', x: P.x, y: P.y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 80, t: 0, life: .8 + Math.random() * .4, s: 3 + Math.random() * 4, c: k % 3 ? '#E7F5FF' : '#A5D8FF' }); } HP.parts.push({ k: 'ring', x: P.x, y: P.y + 8, s: v.W * .12, t: 0, life: .9 }); }
     hpNote(300, .5, 'sine', .14, 80); SFX.thud();
   }
@@ -9527,7 +9522,7 @@ img, svg, video { max-width: 100%; }
   function hpUI() {
     const m = hopMachine(), go = dyEl('hp-go'); if (!m || !go) return;
     go.disabled = HP.on;
-    go.innerHTML = HP.on ? '박자에 맞춰 ← → 또는 화면을 눌러요!' : (HP.res ? '다시 하기 ' : '시작하기 ') + '<span class="num">' + K + fmt(num(m.cost)) + ' · 갈림길 ' + m.forks + '개</span>';
+    go.innerHTML = HP.on ? '← → 로 돌이 있는 쪽으로!' : (HP.res ? '다시 하기 ' : '시작하기 ') + '<span class="num">' + K + fmt(num(m.cost)) + ' · 갈림길 ' + m.forks + '개</span>';
   }
   function hpStart() {
     const m = hopMachine(); if (!m || HP.on) return;
@@ -9535,7 +9530,8 @@ img, svg, video { max-width: 100%; }
     if (state.balance < c) { toast('', '강냉이가 부족해요. 체험용 강냉이를 충전해 보세요.', true); return; }
     state.balance -= c; renderHUD(true);
     HP.stones = hpTrack(m); HP.beats = {}; HP.stones.forEach(s => { (HP.beats[s.beat] = HP.beats[s.beat] || []).push(s); });
-    HP.end = Math.max(...HP.stones.map(s => s.beat)); HP.next = 4; HP.t = 0; HP.lastBeat = -1; HP.combo = 0; HP.score = 0; HP.forks = 0; HP.catX = HP.catTX = 0; HP.parts = []; HP.judge = null; HP.banner = null; HP.res = null; HP.fallT = null; HP.goalOn = false;
+    HP.end = Math.max(...HP.stones.map(s => s.beat)); const f2 = HP.stones.filter(s => s.kind === 'fork' && s.lane === 1)[1]; HP.rampAt = f2 ? f2.beat + 1 : Math.round(HP.end * .4); hpTimes();
+    HP.next = 4; HP.t = 0; HP.bf = 0; HP.bi = 0; HP.lastBeat = -1; HP.combo = 0; HP.score = 0; HP.forks = 0; HP.lane = 0; HP.catX = 0; HP.parts = []; HP.banner = null; HP.res = null; HP.fallT = null; HP.goalOn = false;
     HP.phase = 'run'; HP.on = true;
     const el = dyEl('hp-result'); if (el) el.hidden = true;
     hpAC(); hpUI();
@@ -9552,13 +9548,13 @@ img, svg, video { max-width: 100%; }
   }
   function hpInit() {
     const v = hpView(); if (!v) return;
-    if (!HP.on && !HP.stones.length) { const m = hopMachine(); if (m) { hpSync(m); HP.stones = hpTrack(m).slice(0, 14); HP.beats = {}; HP.end = 60; HP.t = 1.2; HP.phase = 'idle'; } }
+    if (!HP.on && !HP.stones.length) { const m = hopMachine(); if (m) { hpSync(m); HP.stones = hpTrack(m).slice(0, 14); HP.beats = {}; HP.end = 60; HP.bf = 1.6; HP.phase = 'idle'; } }
     hpUI(); hpLoop();
-    v.cv.onpointerdown = e => { const r = v.cv.getBoundingClientRect(); hpTap(e.clientX - r.left < r.width / 2 ? -1 : 1); e.preventDefault(); };
-    if (!HP.keyBound) { HP.keyBound = true; addEventListener('keydown', e => { if (state.tab !== 'hop' || e.target.closest && e.target.closest('input, textarea, select')) return; const k = e.key; if (!HP.on) { if (k === ' ' || k === 'Enter') { if (dyEl('hp-go')) { hpStart(); e.preventDefault(); } } return; } if (e.repeat) { e.preventDefault(); return; } let sd = null; if (k === 'ArrowLeft' || k === 'a' || k === 'A') sd = -1; else if (k === 'ArrowRight' || k === 'd' || k === 'D') sd = 1; else if (k === ' ' || k === 'ArrowUp' || k === 'Enter') sd = 0; if (sd === null) return; e.preventDefault(); hpTap(sd); const b = sd ? document.querySelector('[data-hpk="' + sd + '"]') : null; if (b) { b.classList.add('on'); setTimeout(() => b.classList.remove('on'), 120); } }); }
+    v.cv.onpointerdown = e => { const r = v.cv.getBoundingClientRect(); if (!HP.on) return; hpMove(e.clientX - r.left < r.width / 2 ? -1 : 1); e.preventDefault(); };
+    if (!HP.keyBound) { HP.keyBound = true; addEventListener('keydown', e => { if (state.tab !== 'hop' || e.target.closest && e.target.closest('input, textarea, select')) return; const k = e.key; if (!HP.on) { if (k === ' ' || k === 'Enter') { if (dyEl('hp-go')) { hpStart(); e.preventDefault(); } } return; } if (e.repeat) { e.preventDefault(); return; } let sd = 0; if (k === 'ArrowLeft' || k === 'a' || k === 'A') sd = -1; else if (k === 'ArrowRight' || k === 'd' || k === 'D') sd = 1; if (!sd) return; e.preventDefault(); hpMove(sd); const b = document.querySelector('[data-hpk="' + sd + '"]'); if (b) { b.classList.add('on'); setTimeout(() => b.classList.remove('on'), 120); } }); }
   }
   $('floor').addEventListener('click', e => { if (state.tab !== 'hop') return; if (e.target.closest('#hp-go')) hpStart(); });
-  $('floor').addEventListener('pointerdown', e => { if (state.tab !== 'hop') return; const b = e.target.closest('[data-hpk]'); if (b) { hpTap(Number(b.dataset.hpk)); e.preventDefault(); } });
+  $('floor').addEventListener('pointerdown', e => { if (state.tab !== 'hop') return; const b = e.target.closest('[data-hpk]'); if (b) { hpMove(Number(b.dataset.hpk)); e.preventDefault(); } });
   addEventListener('resize', () => { if (state.tab === 'hop' && !HP.on && dyEl('hp-cv')) hpInit(); });
 
   // =====================================================================
@@ -11041,7 +11037,7 @@ img, svg, video { max-width: 100%; }
     hpSync(m);
     const fld = (id, label, key, unit, min, step) => '<div class="field"><label for="' + id + '">' + label + '</label><div class="input-unit"><input class="input num" id="' + id + '" type="number" min="' + min + '" step="' + (step || 1) + '" data-hpf="' + key + '" value="' + num(m[key]) + '"><span>' + unit + '</span></div></div>';
     $('hp-fields').innerHTML = fld('hpa-cost', '한 판 가격', 'cost', '강냉이', 1) + fld('hpa-forks', '갈림길 수', 'forks', '개', 1) + fld('hpa-demand', '월 예상 강냉이 소진', 'demand', '강냉이', 0);
-    $('hp-t').innerHTML = '<thead><tr><th>결과</th><th class="r">확률(박자 완벽)</th><th class="w-num">보상 강냉이</th><th class="r">가격 대비</th><th class="r">RTP 기여</th></tr></thead><tbody>' +
+    $('hp-t').innerHTML = '<thead><tr><th>결과</th><th class="r">확률(길 모두 맞게)</th><th class="w-num">보상 강냉이</th><th class="r">가격 대비</th><th class="r">RTP 기여</th></tr></thead><tbody>' +
       m.pay.map((v, k) => '<tr><td>' + (k === m.forks ? '완주 (갈림길 ' + k + '개)' : '갈림길 ' + k + '개 통과') + '</td><td class="r num">' + slPctTxt(hpProb(m.forks, k)) + '</td><td><input class="input sm num" type="number" min="0" step="1" data-hpv="' + k + '" value="' + num(v) + '" aria-label="갈림길 ' + k + '개 보상"></td><td class="r num" data-hpc="x' + k + '"></td><td class="r num" data-hpc="r' + k + '"></td></tr>').join('') + '</tbody>';
     renderHopCalc();
   }
@@ -11051,7 +11047,7 @@ img, svg, video { max-width: 100%; }
     m.pay.forEach((v, k) => { set('x' + k, '×' + (Math.round(num(v) / c * 100) / 100)); set('r' + k, pct(hpProb(m.forks, k) * num(v) / c)); });
     const rtp = hpRtp(m), st = statusOf(rtp, target());
     $('hp-sum').textContent = 'RTP 최대 ' + pct(rtp);
-    $('hp-calc').innerHTML = '<span>갈림길 ' + m.forks + '개 · 반반 확률</span><span>최대 RTP(박자 모두 완벽) <b>' + pct(rtp) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>';
+    $('hp-calc').innerHTML = '<span>갈림길 ' + m.forks + '개 · 반반 확률</span><span>최대 RTP(길 모두 맞게) <b>' + pct(rtp) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>';
   }
   function hopAdminInput(el) {
     const m = hpDraft(); if (!m) return false;
@@ -11395,7 +11391,7 @@ img, svg, video { max-width: 100%; }
     { id: 'derby', name: '냥냥 더비', sub: '3D 경주 중계', ic: '#1C7ED6', fc: '#0B4AA8', badge: 'N', desc: '냥냥 레이스 친구들의 1600m 3D 레이스! 응원 선수의 1착에 걸어 보세요.' },
     { id: 'kart', name: '냥냥 카트', sub: '카트 서킷 레이스', ic: '#E8590C', fc: '#A63C06', badge: 'N', desc: '카트를 탄 냥냥 친구들의 서킷 레이스! 드리프트·부스트·시상식까지.' },
     { id: 'sling', name: '박 터뜨리기', sub: '냥이 새총', ic: '#2F9E44', fc: '#1B6E2D', badge: 'N', desc: '새총으로 냥이를 날려 박을 맞히면 팝콘이 펑!' },
-    { id: 'hop', name: '냥이 징검다리', sub: '리듬 징검다리', ic: '#7C8CF8', fc: '#4B4FB8', badge: 'N', desc: '박자에 맞춰 징검다리를 밟고 갈림길에서 진짜 돌을 골라요!' }
+    { id: 'hop', name: '냥이 징검다리', sub: '좌우로 징검다리', ic: '#7C8CF8', fc: '#4B4FB8', badge: 'N', desc: '자동으로 건너는 냥이를 좌우로 움직여 진짜 돌만 밟아요!' }
   ];
   const LG_DOCK = [
     { id: 'hall', name: '명예의 전당', ic: '#E67700' },
