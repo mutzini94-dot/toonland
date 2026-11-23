@@ -1485,6 +1485,30 @@ svg.lt-kico.lt-tic { width: 22px; height: 22px; margin: 0 8px 0 2px; }
 @media (max-width: 640px) { .sg-stage { height: 360px; } .sg-rv { font-size: 34px; } .sg-rv .kernel { width: 32px; height: 32px; } }
 .sg-hits { margin-left: auto; margin-right: 8px; padding: 5px 11px; border-radius: 999px; background: rgba(255,212,59,.95); color: #7A1D00; font-size: 13px; font-weight: 800; box-shadow: 0 2px 8px rgba(0,0,0,.15); display: inline-flex; align-items: center; gap: 3px; }
 .sg-hits b { font-size: 15px; } .sg-hits .kernel { width: 14px; height: 14px; }
+/* ===== 냥이 징검다리 ===== */
+.hp-panel { grid-column: 1 / -1; overflow-x: clip; }
+.hp-cab { position: relative; width: min(460px, 100%); margin: 0 auto; padding: 12px; border-radius: 22px; background: linear-gradient(180deg, #7C8CF8, #4B4FB8); box-shadow: 0 12px 30px rgba(75,79,184,.3), inset 0 0 0 3px rgba(255,255,255,.2); }
+.hp-stage { position: relative; height: 580px; border-radius: 16px; overflow: hidden; background: #9FF0D2; box-shadow: inset 0 0 0 2px rgba(0,0,0,.12); }
+.hp-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: manipulation; cursor: pointer; -webkit-user-select: none; user-select: none; }
+.hp-keys { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.hp-key { padding: 14px 0; border: 0; border-radius: 14px; background: rgba(255,255,255,.92); color: #4B4FB8; font: inherit; font-size: 16px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 0 rgba(0,0,0,.18); touch-action: manipulation; -webkit-user-select: none; user-select: none; }
+.hp-key:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(0,0,0,.18); }
+.hp-go { display: block; width: 100%; margin-top: 10px; }
+.hp-result { position: absolute; inset: 0; z-index: 4; display: grid; place-items: center; background: radial-gradient(60% 50% at 50% 45%, rgba(255,243,191,.5), rgba(12,20,34,.4)); pointer-events: none; }
+.hp-result.show .hp-rcard { animation: sg-pop .55s cubic-bezier(.2,1.4,.4,1) both; }
+.hp-rcard { display: grid; justify-items: center; gap: 2px; min-width: 220px; padding: 14px 24px 12px; border-radius: 20px; background: rgba(255,255,255,.95); box-shadow: 0 10px 26px rgba(11,59,102,.28); }
+.hp-rcard small { font-size: 12.5px; font-weight: 900; color: #495057; }
+.hp-rcard b { font-size: 18px; font-weight: 900; color: #4B4FB8; }
+.hp-rcard.hit { box-shadow: 0 0 0 3px #FCC419, 0 0 26px rgba(252,196,25,.75), 0 10px 26px rgba(11,59,102,.28); }
+.hp-rv { display: flex; align-items: center; gap: 8px; font-family: 'Arial Black', Arial, sans-serif; font-size: 42px; line-height: 1.05; color: #E8590C; }
+.hp-rv .kernel { width: 40px; height: 40px; }
+.hp-rcard.miss .hp-rv { color: #868E96; } .hp-rcard.miss .hp-rv .kernel { filter: grayscale(1); opacity: .6; }
+.hp-rcard > span { font-size: 12px; font-weight: 800; color: #868E96; }
+.hp-table { margin-top: 10px; padding: 8px 12px; border-radius: 14px; background: rgba(255,255,255,.92); font-size: 13px; }
+.hp-table summary { cursor: pointer; font-weight: 800; color: #4B4FB8; }
+.hp-table table { width: 100%; margin-top: 8px; }
+.hp-table p { margin: 6px 0 2px; color: #868E96; font-size: 12px; }
+@media (max-width: 640px) { .hp-stage { height: 500px; } .hp-rv { font-size: 34px; } .hp-rv .kernel { width: 32px; height: 32px; } }
 /* ===== 냥냥 레이스 ===== */
 .rc-panel { grid-column: 1 / -1; }
 .rc-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
@@ -3118,6 +3142,7 @@ img, svg, video { max-width: 100%; }
     <button type="button" role="tab" data-gtab="derby" aria-selected="false" style="--gtc:#1C7ED6"><span class="gt-dot"></span>냥냥 더비 <small class="gt-new">NEW</small></button>
     <button type="button" role="tab" data-gtab="kart" aria-selected="false" style="--gtc:#E8590C"><span class="gt-dot"></span>냥냥 카트 <small class="gt-new">NEW</small></button>
     <button type="button" role="tab" data-gtab="sling" aria-selected="false" style="--gtc:#2F9E44"><span class="gt-dot"></span>박 터뜨리기 <small class="gt-new">NEW</small></button>
+    <button type="button" role="tab" data-gtab="hop" aria-selected="false" style="--gtc:#7C8CF8"><span class="gt-dot"></span>냥이 징검다리 <small class="gt-new">NEW</small></button>
   </div>
   </div>
 
@@ -3158,7 +3183,7 @@ img, svg, video { max-width: 100%; }
   <p class="ad-invalid" id="ad-invalid" hidden></p>
 
   <div class="ad-layout">
-  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="archery"><span class="gnb-dot" data-addot="archery"></span><span class="gnb-text"><b>깡통 사격</b><small>캔별 상품 보상표</small></span></button><button type="button" class="gnb-item" data-adpage="slot"><span class="gnb-dot" data-addot="slot"></span><span class="gnb-text"><b>캐릭터 슬롯</b><small>캐릭터별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="gslot"><span class="gnb-dot" data-addot="gslot"></span><span class="gnb-text"><b>상품 슬롯</b><small>상품별 비중·준비 수량</small></span></button><button type="button" class="gnb-item" data-adpage="race"><span class="gnb-dot" data-addot="race"></span><span class="gnb-text"><b>냥냥 레이스</b><small>우승 비중·배당</small></span></button><button type="button" class="gnb-item" data-adpage="fish"><span class="gnb-dot" data-addot="fish"></span><span class="gnb-text"><b>냥 낚시터</b><small>입장권·물고기 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="wheel"><span class="gnb-dot" data-addot="wheel"></span><span class="gnb-text"><b>럭키 룰렛</b><small>그림별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="pirate"><span class="gnb-dot" data-addot="pirate"></span><span class="gnb-text"><b>해적 통 룰렛</b><small>구멍·해적·칼 수·RTP</small></span></button><button type="button" class="gnb-item" data-adpage="bomb"><span class="gnb-dot" data-addot="bomb"></span><span class="gnb-text"><b>폭탄 해체반</b><small>선 개수·시간·배수</small></span></button><button type="button" class="gnb-item" data-adpage="derby"><span class="gnb-dot" data-addot="derby"></span><span class="gnb-text"><b>냥냥 더비·카트</b><small>우승 비중·배당·RTP</small></span></button><button type="button" class="gnb-item" data-adpage="sling"><span class="gnb-dot" data-addot="sling"></span><span class="gnb-text"><b>박 터뜨리기</b><small>팝콘 보상표·RTP</small></span></button></div></nav>
+  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="archery"><span class="gnb-dot" data-addot="archery"></span><span class="gnb-text"><b>깡통 사격</b><small>캔별 상품 보상표</small></span></button><button type="button" class="gnb-item" data-adpage="slot"><span class="gnb-dot" data-addot="slot"></span><span class="gnb-text"><b>캐릭터 슬롯</b><small>캐릭터별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="gslot"><span class="gnb-dot" data-addot="gslot"></span><span class="gnb-text"><b>상품 슬롯</b><small>상품별 비중·준비 수량</small></span></button><button type="button" class="gnb-item" data-adpage="race"><span class="gnb-dot" data-addot="race"></span><span class="gnb-text"><b>냥냥 레이스</b><small>우승 비중·배당</small></span></button><button type="button" class="gnb-item" data-adpage="fish"><span class="gnb-dot" data-addot="fish"></span><span class="gnb-text"><b>냥 낚시터</b><small>입장권·물고기 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="wheel"><span class="gnb-dot" data-addot="wheel"></span><span class="gnb-text"><b>럭키 룰렛</b><small>그림별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="pirate"><span class="gnb-dot" data-addot="pirate"></span><span class="gnb-text"><b>해적 통 룰렛</b><small>구멍·해적·칼 수·RTP</small></span></button><button type="button" class="gnb-item" data-adpage="bomb"><span class="gnb-dot" data-addot="bomb"></span><span class="gnb-text"><b>폭탄 해체반</b><small>선 개수·시간·배수</small></span></button><button type="button" class="gnb-item" data-adpage="derby"><span class="gnb-dot" data-addot="derby"></span><span class="gnb-text"><b>냥냥 더비·카트</b><small>우승 비중·배당·RTP</small></span></button><button type="button" class="gnb-item" data-adpage="sling"><span class="gnb-dot" data-addot="sling"></span><span class="gnb-text"><b>박 터뜨리기</b><small>팝콘 보상표·RTP</small></span></button><button type="button" class="gnb-item" data-adpage="hop"><span class="gnb-dot" data-addot="hop"></span><span class="gnb-text"><b>냥이 징검다리</b><small>갈림길 보상·RTP</small></span></button></div></nav>
   <div class="ad-main">
   <div class="ad-page" data-page="overview">
 
@@ -3281,6 +3306,15 @@ img, svg, video { max-width: 100%; }
     <div class="fields" id="sg-fields"></div>
     <div class="table-wrap"><table class="ad-table" id="sg-t"></table></div>
     <div class="ed-foot"><div class="pa-calc" id="sg-calc"></div></div>
+  </div>
+  </div>
+  <div class="ad-page" data-page="hop" hidden>
+  <div class="panel ad-block" id="hp-admin">
+    <h2>냥이 징검다리 관리 <span class="tag" id="hp-sum"></span></h2>
+    <p class="hub-note">박자에 맞춰 징검다리를 밟는 건 <b>실력</b>, 갈림길에서 진짜 돌을 고르는 건 <b>반반 운</b>이에요. 보상은 통과한 갈림길 수로 정해져요. 손님이 박자를 <b>전부 완벽하게</b> 맞춰도 RTP는 <b>Σ P(갈림길 k개 통과) × 보상[k] ÷ 한 판 가격</b>을 넘지 않아요(박자를 놓치면 더 낮아짐).</p>
+    <div class="fields" id="hp-fields"></div>
+    <div class="table-wrap"><table class="ad-table" id="hp-t"></table></div>
+    <div class="ed-foot"><div class="pa-calc" id="hp-calc"></div></div>
   </div>
   </div>
   <div class="ad-page" data-page="archery" hidden>
@@ -3650,6 +3684,7 @@ img, svg, video { max-width: 100%; }
     { id: 'derby', name: '냥냥 더비', cost: 100, color: '#1C7ED6', tab: 'derby' },
     { id: 'kart', name: '냥냥 카트', cost: 100, color: '#E8590C', tab: 'kart' },
     { id: 'sling', name: '박 터뜨리기', cost: 50, color: '#2F9E44', tab: 'sling' },
+    { id: 'hop', name: '냥이 징검다리', cost: 100, color: '#7C8CF8', tab: 'hop' },
     { id: 'gold', name: '골드존', cost: 2000, color: 'var(--t-gold)' },
     { id: 'creator', name: '크리에이터존', cost: 3000, color: 'var(--t-creator)' },
     { id: 'legend', name: '레전드존', cost: 10000, color: 'var(--t-legend)' }
@@ -3733,6 +3768,9 @@ img, svg, video { max-width: 100%; }
       { id: 'sling', zone: 'sling', mode: 'sling', name: '박 터뜨리기', cost: 50, shots: 3, sv: 3, goldP: 15, demand: 500000, top: '',
         tiers: [{ name: '팝콘 한 줌', v: 6, p: 50, pg: 20 }, { name: '팝콘 한 봉', v: 11, p: 28, pg: 30 }, { name: '팝콘 한 통', v: 20, p: 15, pg: 30 }, { name: '황금 팝콘', v: 40, p: 5.5, pg: 15 }, { name: '대박 팝콘', v: 85, p: 1.5, pg: 5 }],
         prizes: [] },
+      // 냥이 징검다리: 박자에 맞춰 징검다리를 밟고, 갈림길(50:50)에서 진짜 돌을 고른다. 보상 = 통과한 갈림길 수(최대 RTP = Σ P(k) × 보상[k] ÷ 가격)
+      { id: 'hop', zone: 'hop', mode: 'hop', name: '냥이 징검다리', cost: 100, forks: 5, demand: 600000, top: '',
+        pay: [0, 35, 90, 200, 450, 1200], prizes: [] },
       // 팝콘 대포: 게이지 등급(퍼펙트·좋아요·보통)별 확률표로 거리 구간 결정. 배수 공통, 등급별 RTP 동일(B 방식)
       { id: 'cannon', zone: 'cannon', mode: 'cannon', cv: 2, name: '팝콘 대포', cost: 100, demand: 800000, mults: [0.2, 0.5, 1, 2, 4, 10],
         probs: { perfect: [0, 0, 90.2, 7, 2, 0.8], good: [0, 0, 96, 3.5, 0.5, 0], normal: [45, 30, 10, 10, 4, 1] }, top: '800m 이상 ×10 · 강냉이 1,000개',
@@ -3811,7 +3849,7 @@ img, svg, video { max-width: 100%; }
   const WALLET_KEY = 'tooneland-wallet-v1';
   const WALLET = (() => { try { const w = JSON.parse(localStorage.getItem(WALLET_KEY)); if (w && typeof w.bal === 'number' && Array.isArray(w.log)) return w; } catch (e) { /* 저장소 없음 */ } return { bal: 12340, log: [{ t: Date.now(), d: 0, after: 12340, why: '시작 잔액 (목업)' }] }; })();
   let ledgerWhy = '', walletT = 0;
-  const GAME_WHY = { puzzle: ['직소 퍼즐 카드 뽑기', '직소 퍼즐 보상'], runner: ['냥치 런 입장', '냥치 런 점수 받기'], cannon: ['팝콘 대포 발사', '팝콘 대포 착지 보상'], slot: ['캐릭터 슬롯 돌리기', '캐릭터 슬롯 당첨'], gslot: ['상품 슬롯 돌리기', '상품 슬롯 당첨'], race: ['냥냥 레이스 응원', '냥냥 레이스 적중'], fish: ['냥 낚시터 입장', '냥 낚시터 조과'], wheel: ['럭키 룰렛 돌리기', '럭키 룰렛 당첨'], scratch: ['럭키 스크래치 구매', '럭키 스크래치 당첨'], pirate: ['해적 통 룰렛 입장', '해적 통 룰렛 보물 획득'], bomb: ['폭탄 해체반 입장', '폭탄 해체반 해체 성공'], derby: ['냥냥 더비 베팅', '냥냥 더비 적중'], kart: ['냥냥 카트 베팅', '냥냥 카트 적중'], sling: ['박 터뜨리기 시작', '박 터뜨리기 팝콘 보상'], archery: ['깡통 사격 입장(탄 구매)', '깡통 사격 명중 상품'] };
+  const GAME_WHY = { puzzle: ['직소 퍼즐 카드 뽑기', '직소 퍼즐 보상'], runner: ['냥치 런 입장', '냥치 런 점수 받기'], cannon: ['팝콘 대포 발사', '팝콘 대포 착지 보상'], slot: ['캐릭터 슬롯 돌리기', '캐릭터 슬롯 당첨'], gslot: ['상품 슬롯 돌리기', '상품 슬롯 당첨'], race: ['냥냥 레이스 응원', '냥냥 레이스 적중'], fish: ['냥 낚시터 입장', '냥 낚시터 조과'], wheel: ['럭키 룰렛 돌리기', '럭키 룰렛 당첨'], scratch: ['럭키 스크래치 구매', '럭키 스크래치 당첨'], pirate: ['해적 통 룰렛 입장', '해적 통 룰렛 보물 획득'], bomb: ['폭탄 해체반 입장', '폭탄 해체반 해체 성공'], derby: ['냥냥 더비 베팅', '냥냥 더비 적중'], kart: ['냥냥 카트 베팅', '냥냥 카트 적중'], sling: ['박 터뜨리기 시작', '박 터뜨리기 팝콘 보상'], hop: ['냥이 징검다리 시작', '냥이 징검다리 보상'], archery: ['깡통 사격 입장(탄 구매)', '깡통 사격 명중 상품'] };
   function ledgerReason(d) {
     if (ledgerWhy) return ledgerWhy;
     if (typeof current !== 'undefined' && current) return current.name + (d < 0 ? ' 뽑기' : ' 당첨');
@@ -3907,6 +3945,7 @@ img, svg, video { max-width: 100%; }
 
   function renderZones() {
     const COPY = {
+      hop: ['리듬 타고 냥이 징검다리', '박자에 맞춰 다가오는 징검다리를 밟고 건너요. 갈림길에선 진짜 돌을 골라야 해요! 통과한 갈림길이 많을수록 보상 UP.'],
       sling: ['냥이 새총으로 박 터뜨리기', '새총을 당겨 냥이를 날려 매달린 박을 맞혀 보세요. 한 판에 무조건 3번! 맞힌 박마다 팝콘(강냉이)이 쏟아져요.'],
       kart: ['카트 서킷 냥냥 카트', '냥냥 레이스 친구들 5마리가 카트를 타고 서킷을 달려요. 응원할 선수를 골라 1착 또는 3착 안에 걸고, 드리프트·항공 중계·시상식까지 지켜보세요.'],
       derby: ['3D 중계로 즐기는 냥냥 더비', '냥냥 레이스 친구들 5마리가 1600m를 달려요. 응원할 선수를 골라 1착 또는 3착 안에 걸고, 레일 옆·정면 카메라로 중계를 지켜보세요.'],
@@ -3976,10 +4015,11 @@ img, svg, video { max-width: 100%; }
     if (state.tab === 'bomb') { $('floor').innerHTML = bombFloorHTML(); bdInit(); return; }
     if (state.tab === 'derby' || state.tab === 'kart') { $('floor').innerHTML = derbyFloorHTML(); requestAnimationFrame(() => dyInit()); return; }
     if (state.tab === 'sling') { $('floor').innerHTML = slingFloorHTML(); requestAnimationFrame(() => sgInit()); return; }
+    if (state.tab === 'hop') { $('floor').innerHTML = hopFloorHTML(); requestAnimationFrame(() => hpInit()); return; }
     const order = id => zones.findIndex(z => z.id === id);
     const list = state.tab !== 'gacha'
       ? machines.filter(m => m.mode === state.tab)
-      : machines.filter(m => !['board', 'puzzle', 'farm', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb', 'derby', 'sling', 'scratch'].includes(m.mode) && (state.zone === 'all' || m.zone === state.zone)).sort((a, b) => order(a.zone) - order(b.zone));
+      : machines.filter(m => !['board', 'puzzle', 'farm', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb', 'derby', 'sling', 'hop', 'scratch'].includes(m.mode) && (state.zone === 'all' || m.zone === state.zone)).sort((a, b) => order(a.zone) - order(b.zone));
     $('floor').innerHTML = list.map(m => m.mode === 'board' ? boardCardHTML(m) : machineHTML(m, 'button')).join('');
   }
   function renderHUD(bump) {
@@ -9297,6 +9337,223 @@ img, svg, video { max-width: 100%; }
   }
   $('floor').addEventListener('click', e => { if (state.tab !== 'sling') return; if (e.target.closest('#sg-go')) sgStart(); });
   addEventListener('resize', () => { if (state.tab === 'sling' && !SG.on && dyEl('sg-cv')) sgInit(); });
+  // =====================================================================
+  // 냥이 징검다리: 박자에 맞춰 다가오는 징검다리를 밟고 건너는 리듬 게임.
+  // 중간중간 좌/우 갈림길에서 진짜 돌을 골라야 하고(50:50), 타이밍을 놓치거나 가짜 돌을 밟으면 물에 빠진다.
+  // 보상 = 통과한 갈림길 수에 따른 표. 모든 박자를 완벽히 맞춰도 RTP = Σ P(갈림길 k개 통과) × 보상[k] ÷ 가격 (최대 RTP)
+  // =====================================================================
+  const HP = { on: false, phase: 'idle', t: 0, raf: 0, last: 0, stones: [], beats: {}, next: 4, end: 0, combo: 0, score: 0, forks: 0, catX: 0, catTX: 0, judge: null, parts: [], banner: null, res: null, bpm: 118, lastBeat: -1, fallT: null, ac: null, keyBound: false };
+  const hopMachine = () => machines.find(m => m.mode === 'hop');
+  const HP_PAY = [0, 35, 90, 200, 450, 1200, 2600, 5600, 12000];
+  function hpSync(m) {
+    const N = Math.min(8, Math.max(1, Math.round(num(m.forks) || 5))); m.forks = N;
+    if (!Array.isArray(m.pay)) m.pay = HP_PAY.slice(0, N + 1);
+    while (m.pay.length < N + 1) m.pay.push(Math.round(num(m.pay[m.pay.length - 1]) * 2.2) || 10);
+    if (m.pay.length > N + 1) m.pay.length = N + 1;
+  }
+  const hpProb = (N, k) => k < N ? Math.pow(.5, k + 1) : Math.pow(.5, N);   // 갈림길 k개 통과하고 끝날 확률(타이밍 완벽 가정)
+  const hpRtp = m => { hpSync(m); const c = num(m.cost); return c ? m.pay.reduce((a, v, k) => a + hpProb(m.forks, k) * num(v), 0) / c : 0; };
+  const hpGrade = (m, v) => { const x = v / Math.max(1, num(m.cost)); return x >= 5 ? 'S' : x >= 2 ? 'A' : x >= 1 ? 'B' : 'C'; };
+  function hopFloorHTML() {
+    const m = hopMachine(); if (!m) return '';
+    hpSync(m);
+    const rows = m.pay.map((v, k) => '<tr><td>' + (k === m.forks ? '완주 (갈림길 ' + k + '개)' : '갈림길 ' + k + '개 통과') + '</td><td class="num">' + slPctTxt(hpProb(m.forks, k)) + '</td><td class="num">' + K + fmt(num(v)) + '</td></tr>').join('');
+    return '<section class="hp-panel" aria-labelledby="hp-h"><div class="rc-wrap"><div class="hp-cab">' +
+      '<div class="hp-stage" id="hp-stage"><canvas id="hp-cv" aria-label="냥이 징검다리 화면"></canvas>' +
+        '<div class="hp-result" id="hp-result" hidden></div>' +
+      '</div>' +
+      '<div class="hp-keys"><button type="button" class="hp-key" data-hpk="-1" aria-label="왼쪽 밟기">◀ 왼쪽</button><button type="button" class="hp-key" data-hpk="1" aria-label="오른쪽 밟기">오른쪽 ▶</button></div>' +
+      '<button class="sl-btn hp-go" type="button" id="hp-go"></button>' +
+      '<details class="hp-table"><summary>보상표 (통과한 갈림길 수만큼)</summary><table class="ad-table"><thead><tr><th>결과</th><th class="r">확률*</th><th class="r">강냉이</th></tr></thead><tbody>' + rows + '</tbody></table><p>* 박자를 모두 맞췄을 때 기준. 갈림길은 좌우 반반이에요. 박자에 맞춰 화면(또는 ◀ ▶, 키보드 ← → 스페이스)을 눌러 돌을 밟아요.</p></details>' +
+      '</div></div></section>';
+  }
+  // ----- 코스: 4박 카운트다운 → (돌 6~8개 + 갈림길) × N → 황금 코인 길
+  function hpTrack(m) {
+    const N = m.forks, st = []; let lane = 0, b = 4;
+    for (let f = 0; f <= N; f++) {
+      const n = f === 0 ? 8 : 6 + Math.floor(Math.random() * 3);
+      for (let i = 0; i < n; i++) { if (i > 0 || f === 0) lane = Math.max(-1, Math.min(1, lane + [-1, 0, 0, 1][Math.floor(Math.random() * 4)])); st.push({ beat: b++, x: lane * .5, kind: 'step' }); }
+      if (f < N) { const good = Math.random() < .5 ? -1 : 1; [-1, 1].forEach(sd => st.push({ beat: b, x: sd * .62, kind: 'fork', side: sd, good: sd === good, fi: f })); b++; lane = good; }
+    }
+    for (let i = 0; i < 7; i++) st.push({ beat: b++, x: 0, kind: 'goal' });
+    return st;
+  }
+  // ----- 소리(직접 합성, 효과음 꺼져 있으면 무음)
+  function hpAC() { if (!SFX.isOn()) return null; if (!HP.ac) { try { HP.ac = new (window.AudioContext || window.webkitAudioContext)(); } catch (_) { return null; } } if (HP.ac.state === 'suspended') HP.ac.resume(); return HP.ac; }
+  function hpNote(f, d, type, vol, slide) { const ac = hpAC(); if (!ac) return; const o = ac.createOscillator(), g = ac.createGain(), t0 = ac.currentTime; o.type = type || 'triangle'; o.frequency.setValueAtTime(f, t0); if (slide) o.frequency.exponentialRampToValueAtTime(slide, t0 + d); g.gain.setValueAtTime(vol || .1, t0); g.gain.exponentialRampToValueAtTime(.0001, t0 + d); o.connect(g); g.connect(ac.destination); o.start(t0); o.stop(t0 + d + .02); }
+  const HP_SCALE = [523, 587, 659, 784, 880, 1047, 1175, 1319];
+  // ----- 화면
+  function hpView() {
+    const cv = dyEl('hp-cv'); if (!cv) return null;
+    const r = cv.getBoundingClientRect(), dpr = Math.min(1.5, window.devicePixelRatio || 1), W = Math.max(10, Math.round(r.width)), H = Math.max(10, Math.round(r.height));
+    if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
+    const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); return { cv, ctx, W, H };
+  }
+  const hpProj = (W, H, x, dz) => { const hy = H * .15, by = H * .78, s = 1 / (1 + Math.max(-.85, dz) * .42); return { x: W / 2 + x * W * .34 * s, y: hy + (by - hy) * s, s }; };
+  const HP_THEME = [['#9FF0D2', '#3FC4A4', '#F0735E', '#B8432F'], ['#FFC2E2', '#8FD3FF', '#F47BB4', '#B8437A'], ['#BFD7FF', '#B79CFF', '#7C8CF8', '#4B4FB8'], ['#FFE7A0', '#FFAE5C', '#F2994A', '#B8641C']];
+  function hpCat(ctx, x, y, r, sq) {   // 하얀 냥이(동그란 머리 + 귀)
+    ctx.save(); ctx.translate(x, y); ctx.scale(1 + sq, 1 - sq);
+    ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.beginPath(); ctx.arc(0, 0, r * 1.35, 0, 7); ctx.fill();
+    ctx.fillStyle = '#FFFFFF'; ctx.strokeStyle = 'rgba(80,90,120,.35)'; ctx.lineWidth = 1.5;
+    [-1, 1].forEach(k => { ctx.beginPath(); ctx.moveTo(k * r * .25, -r * .78); ctx.lineTo(k * r * .82, -r * 1.25); ctx.lineTo(k * r * .92, -r * .32); ctx.closePath(); ctx.fill(); ctx.stroke(); });
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#FFC9DE'; [-1, 1].forEach(k => { ctx.beginPath(); ctx.moveTo(k * r * .45, -r * .85); ctx.lineTo(k * r * .74, -r * 1.08); ctx.lineTo(k * r * .78, -r * .55); ctx.closePath(); ctx.fill(); ctx.beginPath(); ctx.ellipse(k * r * .5, r * .2, r * .16, r * .1, 0, 0, 7); ctx.fill(); });
+    ctx.fillStyle = '#3B3355'; [-1, 1].forEach(k => { ctx.beginPath(); ctx.ellipse(k * r * .3, -r * .05, r * .09, r * .13, 0, 0, 7); ctx.fill(); });
+    ctx.strokeStyle = '#3B3355'; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(-r * .1, r * .18); ctx.quadraticCurveTo(0, r * .26, r * .1, r * .18); ctx.stroke();
+    ctx.restore();
+  }
+  function hpStoneDraw(ctx, W, H, st, dz, th) {
+    const P = hpProj(W, H, st.x, dz); if (P.y < H * .14 || P.y > H + 80) return;
+    const w = W * .19 * P.s, d = w * .46, tk = w * .17, y = P.y + (st.sink || 0), a = dz > 6.5 ? Math.max(0, 1 - (dz - 6.5) / 1.2) : 1;
+    ctx.save(); ctx.globalAlpha = a * (st.sink ? Math.max(0, 1 - st.sink / 60) : 1);
+    if (st.kind === 'goal') {   // 황금 코인
+      const r = w * .32, cy = y - r * .3; ctx.fillStyle = '#C98A06'; ctx.beginPath(); ctx.ellipse(P.x, cy + r * .18, r, r * .95, 0, 0, 7); ctx.fill(); const g = ctx.createRadialGradient(P.x - r * .3, cy - r * .3, r * .1, P.x, cy, r); g.addColorStop(0, '#FFF3BF'); g.addColorStop(1, '#F2B705'); ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(P.x, cy, r, r * .95, 0, 0, 7); ctx.fill(); ctx.fillStyle = '#C98A06'; ctx.font = '900 ' + Math.round(r) + 'px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('♪', P.x, cy + 1); ctx.restore(); return;
+    }
+    ctx.fillStyle = 'rgba(0,40,60,.18)'; ctx.beginPath(); ctx.ellipse(P.x, y + d * .55 + tk, w * .55, d * .3, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = st.reveal === 'good' ? '#69DB7C' : th[3]; ctx.beginPath(); ctx.roundRect(P.x - w / 2, y - d / 2 + tk * .4, w, d + tk * .6, w * .12); ctx.fill();
+    const g = ctx.createLinearGradient(0, y - d / 2, 0, y + d / 2); g.addColorStop(0, '#FFFFFF'); g.addColorStop(.12, st.reveal === 'good' ? '#8CE99A' : th[2]); g.addColorStop(1, st.reveal === 'good' ? '#51CF66' : th[2]); ctx.fillStyle = g;
+    ctx.beginPath(); ctx.roundRect(P.x - w / 2, y - d / 2, w, d, w * .12); ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,.85)';
+    if (st.kind === 'fork' && !st.reveal) { ctx.font = '900 ' + Math.round(d * .7) + 'px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('?', P.x, y + 1); }
+    else { ctx.beginPath(); ctx.ellipse(P.x, y, w * .07, d * .14, 0, 0, 7); ctx.fill(); }
+    if (st.crack) { ctx.strokeStyle = '#3B3355'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(P.x - w * .3, y - d * .3); ctx.lineTo(P.x - w * .05, y); ctx.lineTo(P.x + w * .12, y - d * .2); ctx.lineTo(P.x + w * .32, y + d * .3); ctx.stroke(); }
+    ctx.restore();
+  }
+  function hpDraw(v) {
+    const { ctx, W, H } = v, m = hopMachine(), spb = 60 / HP.bpm, t = HP.t, sec = HP.phase === 'goal' || HP.goalOn ? 3 : (HP.forks % 3), th = HP_THEME[sec];
+    let g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, th[0]); g.addColorStop(1, th[1]); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    // 반짝이 별(배경)
+    ctx.fillStyle = 'rgba(255,255,255,.85)'; for (let k = 0; k < 12; k++) { const x = ((k * 97.3) % 1) * W + Math.sin(k * 3.1) * W * .45 + W * .5, y = ((k * 53 + t * (14 + k % 3 * 6)) % (H * 1.1)) - H * .05, s = (2 + (k % 3) * 2) * (.6 + .4 * Math.sin(t * 3 + k)); const xx = ((x % W) + W) % W; ctx.beginPath(); ctx.moveTo(xx, y - s * 2); ctx.lineTo(xx + s * .45, y - s * .45); ctx.lineTo(xx + s * 2, y); ctx.lineTo(xx + s * .45, y + s * .45); ctx.lineTo(xx, y + s * 2); ctx.lineTo(xx - s * .45, y + s * .45); ctx.lineTo(xx - s * 2, y); ctx.lineTo(xx - s * .45, y - s * .45); ctx.closePath(); ctx.fill(); }
+    // 물길(빛나는 강)
+    const L = [], Rr = []; for (let dz = 8; dz >= -.85; dz -= .25) { L.push(hpProj(W, H, -1.25, dz)); Rr.push(hpProj(W, H, 1.25, dz)); }
+    ctx.fillStyle = 'rgba(255,255,255,.28)'; ctx.beginPath(); L.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y)); for (let i = Rr.length - 1; i >= 0; i--) ctx.lineTo(Rr[i].x, Rr[i].y); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,.8)'; ctx.lineWidth = 2; [L, Rr].forEach(E => { ctx.beginPath(); E.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y)); ctx.stroke(); });
+    const ph = (t / spb) % 1; ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.lineWidth = 1.2; for (let k = 0; k < 9; k++) { const dz = k - ph, a = hpProj(W, H, -1.2, dz), b = hpProj(W, H, 1.2, dz); ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+    // 징검다리(먼 것부터)
+    HP.stones.filter(s => { const dz = (s.beat * spb - t) / spb; return dz < 8 && dz > -.9; }).sort((a, b) => b.beat - a.beat).forEach(s => hpStoneDraw(ctx, W, H, s, (s.beat * spb - t) / spb, th));
+    // 냥이
+    const P = hpProj(W, H, HP.catX, 0), r = W * .07;
+    let cy = P.y - r * .55, sq = 0;
+    if (HP.phase === 'run' || HP.phase === 'goal') { const p = ((t / spb) % 1 + 1) % 1; cy -= Math.sin(Math.PI * p) * H * .07; sq = p < .12 ? .14 * (1 - p / .12) : 0; }
+    if (HP.phase === 'fall' && HP.fallT != null) { const a = Math.min(1, (t - HP.fallT) / .9); cy += a * r * 1.6; ctx.save(); ctx.globalAlpha = 1 - a * .8; hpCat(ctx, P.x, cy, r * (1 - a * .4), 0); ctx.restore(); }
+    else if (HP.phase !== 'idle' || true) hpCat(ctx, P.x, cy, r, sq);
+    // 파티클(물보라·음표·코인 반짝)
+    HP.parts.forEach(q => { const a = 1 - q.t / q.life; ctx.globalAlpha = Math.max(0, a); if (q.k === 'note') { ctx.fillStyle = '#FFFFFF'; ctx.font = '900 ' + Math.round(q.s) + 'px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('♪', q.x, q.y); } else if (q.k === 'ring') { ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 3 * a; ctx.beginPath(); ctx.ellipse(q.x, q.y, q.s * (1 + (1 - a) * 1.6), q.s * .4 * (1 + (1 - a) * 1.6), 0, 0, 7); ctx.stroke(); } else { ctx.fillStyle = q.c || '#E7F5FF'; ctx.beginPath(); ctx.arc(q.x, q.y, q.s * a + .5, 0, 7); ctx.fill(); } }); ctx.globalAlpha = 1;
+    // 위: 진행 바 + 갈림길 별 + 점수
+    if (m && HP.stones.length) { const x0 = W * .14, x1 = W * .86, by = 28, prog = Math.min(1, t / (HP.end * spb)); ctx.strokeStyle = 'rgba(255,255,255,.55)'; ctx.lineWidth = 4; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(x0, by); ctx.lineTo(x1, by); ctx.stroke(); ctx.strokeStyle = '#FF8A3D'; ctx.beginPath(); ctx.moveTo(x0, by); ctx.lineTo(x0 + (x1 - x0) * prog, by); ctx.stroke();
+      HP.stones.filter(s => s.kind === 'fork' && s.side === 1).forEach(s => { const x = x0 + (x1 - x0) * Math.min(1, s.beat / HP.end), on = s.fi < HP.forks; ctx.fillStyle = on ? '#FFD43B' : '#FFFFFF'; ctx.beginPath(); for (let q = 0; q < 8; q++) { const rr = q % 2 ? 3 : 8, aq = q * Math.PI / 4 - Math.PI / 2; ctx.lineTo(x + Math.cos(aq) * rr, by + Math.sin(aq) * rr); } ctx.closePath(); ctx.fill(); });
+      ctx.fillStyle = '#FFFFFF'; ctx.font = '900 22px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineWidth = 4; ctx.strokeStyle = 'rgba(0,0,0,.18)'; ctx.strokeText(String(HP.score), W / 2, 58); ctx.fillText(String(HP.score), W / 2, 58); }
+    // 판정 글자
+    if (HP.judge && t - HP.judge.t < .55) { const a = (t - HP.judge.t) / .55, sc = a < .15 ? .7 + a / .15 * .4 : 1.1 - (a - .15) * .2, fs = Math.min(40, W * .085); ctx.save(); ctx.globalAlpha = a > .7 ? (1 - a) / .3 : 1; ctx.translate(W / 2, H * .22); ctx.scale(sc, sc); ctx.font = 'italic 900 ' + Math.round(fs) + 'px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; const gg = ctx.createLinearGradient(-fs * 2, 0, fs * 2, 0); const cc = HP.judge.txt === 'PERFECT' ? ['#FF7AD9', '#B57BFF'] : HP.judge.txt === 'GREAT' ? ['#5CD6FF', '#4C6EF5'] : HP.judge.txt === 'GOOD' ? ['#8CE99A', '#2F9E44'] : ['#FF8787', '#C92A2A']; gg.addColorStop(0, cc[0]); gg.addColorStop(1, cc[1]); ctx.lineJoin = 'round'; ctx.lineWidth = fs * .16; ctx.strokeStyle = '#FFFFFF'; ctx.strokeText(HP.judge.txt, 0, 0); ctx.fillStyle = gg; ctx.fillText(HP.judge.txt, 0, 0); if (HP.combo > 1 && HP.judge.txt !== 'MISS') { ctx.font = '900 ' + Math.round(fs * .6) + 'px Arial'; ctx.fillStyle = '#FFFFFF'; ctx.fillText('X' + HP.combo, 0, fs * .9); } ctx.restore(); }
+    // 배너(갈림길 경고·통과·카운트다운)
+    const nextFork = HP.stones.find(s => s.kind === 'fork' && s.beat >= HP.next);
+    if (HP.phase === 'run' && nextFork && nextFork.beat * spb - t < spb * 3.2 && nextFork.beat * spb - t > 0) { ctx.save(); const a = .6 + .4 * Math.sin(t * 14); ctx.globalAlpha = a; ctx.fillStyle = 'rgba(12,20,34,.55)'; ctx.beginPath(); ctx.roundRect(W / 2 - 92, H * .37 - 18, 184, 36, 18); ctx.fill(); ctx.fillStyle = '#FFE066'; ctx.font = '900 16px "Noto Sans KR", Arial, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('갈림길! ◀ 왼쪽 / 오른쪽 ▶', W / 2, H * .37); ctx.restore(); }
+    if (HP.banner && t - HP.banner.t < 1.3) { const a = (t - HP.banner.t) / 1.3, fs = Math.min(30, W * .065); ctx.save(); ctx.globalAlpha = a > .75 ? (1 - a) / .25 : 1; ctx.translate(W / 2, H * .42 - a * 16); ctx.font = '900 ' + Math.round(fs) + 'px "Noto Sans KR", Arial, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round'; ctx.lineWidth = fs * .22; ctx.strokeStyle = HP.banner.bad ? '#7A1D1D' : '#1C3D8F'; ctx.strokeText(HP.banner.txt, 0, 0); ctx.fillStyle = HP.banner.bad ? '#FFC9C9' : '#FFFFFF'; ctx.fillText(HP.banner.txt, 0, 0); if (HP.banner.sub) { ctx.font = '800 ' + Math.round(fs * .55) + 'px "Noto Sans KR", Arial, sans-serif'; ctx.lineWidth = fs * .14; ctx.strokeText(HP.banner.sub, 0, fs * .95); ctx.fillStyle = '#FFE066'; ctx.fillText(HP.banner.sub, 0, fs * .95); } ctx.restore(); }
+    if (HP.on && t < 4 * spb) { const n = Math.floor(t / spb), txt = ['3', '2', '1', 'GO!'][n] || '', a = (t / spb) % 1, fs = Math.min(72, W * .16); ctx.save(); ctx.globalAlpha = 1 - a * .7; ctx.translate(W / 2, H * .4); ctx.scale(1.3 - a * .3, 1.3 - a * .3); ctx.font = 'italic 900 ' + Math.round(fs) + 'px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round'; ctx.lineWidth = fs * .14; ctx.strokeStyle = '#FFFFFF'; ctx.strokeText(txt, 0, 0); ctx.fillStyle = '#FF7AD9'; ctx.fillText(txt, 0, 0); ctx.restore(); }
+    // 아래: 갈림길·지금 보상
+    if (m && (HP.on || HP.res)) { const now = num(m.pay[HP.forks]), nx = HP.forks < m.forks ? num(m.pay[HP.forks + 1]) : null, txt = '갈림길 ' + HP.forks + '/' + m.forks + ' · 지금 보상 ' + fmt(now) + (nx != null ? ' → 다음 ' + fmt(nx) : ' (완주!)'); ctx.save(); ctx.font = '800 12.5px "Noto Sans KR", Arial, sans-serif'; const tw = ctx.measureText(txt).width + 26; ctx.fillStyle = 'rgba(12,20,34,.55)'; ctx.beginPath(); ctx.roundRect(W / 2 - tw / 2, H - 40, tw, 28, 14); ctx.fill(); ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(txt, W / 2, H - 26); ctx.restore(); }
+  }
+  // ----- 진행
+  function hpStep(dt) {
+    const m = hopMachine(), spb = 60 / HP.bpm;
+    if (HP.on || HP.phase === 'fall') HP.t += dt;
+    const t = HP.t, v = hpView(); if (!v) return;
+    if (HP.on && HP.phase !== 'fall') {
+      const bi = Math.floor(t / spb);
+      if (bi !== HP.lastBeat && bi >= 0) { HP.lastBeat = bi; hpNote(bi < 4 ? (bi === 3 ? 880 : 440) : 110, bi < 4 ? .12 : .09, bi < 4 ? 'square' : 'sine', bi < 4 ? .06 : .16, bi < 4 ? null : 55); }
+      const nb = HP.next, T = nb * spb, grp = HP.beats[nb];
+      if (grp && grp[0].kind === 'goal') { if (t >= T) { HP.goalOn = true; HP.phase = 'goal'; grp[0].done = true; HP.catTX = 0; HP.score += 500; hpNote(HP_SCALE[(nb) % 8] * 2, .18, 'triangle', .07); const P = hpProj(v.W, v.H, 0, 0); for (let k = 0; k < 6; k++) HP.parts.push({ k: 'dot', x: P.x + (Math.random() - .5) * 30, y: P.y - 20, vx: (Math.random() - .5) * 120, vy: -120 - Math.random() * 120, t: 0, life: .6, s: 4, c: '#FFE066' }); HP.next++; if (HP.next > HP.end) hpEnd(true); } }
+      else if (grp && t > T + .2) hpFall('miss');
+    }
+    HP.catX += (HP.catTX - HP.catX) * Math.min(1, dt * 14);
+    HP.parts.forEach(q => { q.t += dt; q.x += (q.vx || 0) * dt; q.y += (q.vy || 0) * dt; if (q.k === 'dot') q.vy += 600 * dt; if (q.k === 'note') q.vy = -60; });
+    HP.parts = HP.parts.filter(q => q.t < q.life);
+    HP.stones.forEach(s => { if (s.sinkV) { s.sink = (s.sink || 0) + s.sinkV * dt; s.sinkV += 120 * dt; } });
+    if (HP.phase === 'fall' && HP.fallT != null && t - HP.fallT > 1.4 && HP.on) hpEnd(false);
+  }
+  function hpTap(side) {
+    if (!HP.on || HP.phase !== 'run') return;
+    const spb = 60 / HP.bpm, t = HP.t, nb = HP.next, grp = HP.beats[nb]; if (!grp || grp[0].kind === 'goal') return;
+    const dt = t - nb * spb; if (Math.abs(dt) > .2) return;   // 판정 구간 밖 입력은 무시
+    const v = hpView(); if (!v) return;
+    let st = grp[0];
+    if (grp[0].kind === 'fork') { if (!side) { HP.banner = { txt: '◀ ▶ 로 골라요!', t: HP.t }; return; } st = grp.find(s => s.side === side); }
+    const ad = Math.abs(dt), j = ad <= .07 ? 'PERFECT' : ad <= .13 ? 'GREAT' : 'GOOD';
+    grp.forEach(s => { s.done = true; }); HP.next++;
+    HP.catTX = st.x;
+    if (st.kind === 'fork' && !st.good) {   // 가짜 돌
+      st.crack = true; st.sinkV = 40; const ok = grp.find(s => s.good); if (ok) ok.reveal = 'good';
+      HP.judge = { txt: 'MISS', t: HP.t }; HP.banner = { txt: '앗, 가짜 돌!', t: HP.t, bad: true }; hpFall('wrong'); return;
+    }
+    HP.combo++; HP.score += { PERFECT: 300, GREAT: 200, GOOD: 100 }[j] * Math.min(8, 1 + Math.floor(HP.combo / 10));
+    HP.judge = { txt: j, t: HP.t };
+    hpNote(HP_SCALE[HP.combo % 8], .22, 'triangle', .09);
+    const P = hpProj(v.W, v.H, st.x, 0);
+    HP.parts.push({ k: 'ring', x: P.x, y: P.y, s: v.W * .09, t: 0, life: .5 });
+    if (j === 'PERFECT') for (let k = 0; k < 2; k++) HP.parts.push({ k: 'note', x: P.x + (k ? 1 : -1) * v.W * .1, y: P.y - v.W * .08, vx: (k ? 1 : -1) * 20, t: 0, life: .8, s: 18 });
+    if (st.kind === 'fork') { st.reveal = 'good'; HP.forks++; const m = hopMachine(); HP.banner = { txt: '갈림길 통과! ' + HP.forks + '/' + m.forks, sub: '지금 보상 ' + fmt(num(m.pay[HP.forks])), t: HP.t }; [784, 988, 1175].forEach((f, i) => setTimeout(() => hpNote(f, .2, 'triangle', .08), i * 70)); }
+  }
+  function hpFall(why) {
+    if (HP.phase === 'fall') return;
+    HP.phase = 'fall'; HP.fallT = HP.t; HP.combo = 0;
+    if (why === 'miss') { HP.judge = { txt: 'MISS', t: HP.t }; HP.banner = { txt: '풍덩! 박자를 놓쳤어요', t: HP.t, bad: true }; }
+    const v = hpView(); if (v) { const P = hpProj(v.W, v.H, HP.catX, 0); for (let k = 0; k < 26; k++) { const a = -Math.PI * Math.random(), sp = 80 + Math.random() * 220; HP.parts.push({ k: 'dot', x: P.x, y: P.y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 80, t: 0, life: .8 + Math.random() * .4, s: 3 + Math.random() * 4, c: k % 3 ? '#E7F5FF' : '#A5D8FF' }); } HP.parts.push({ k: 'ring', x: P.x, y: P.y + 8, s: v.W * .12, t: 0, life: .9 }); }
+    hpNote(300, .5, 'sine', .14, 80); SFX.thud();
+  }
+  function hpEnd(clear) {
+    const m = hopMachine(); if (!m || !HP.on) return;
+    HP.on = false; const got = num(m.pay[HP.forks]); HP.res = { clear, got, forks: HP.forks };
+    if (clear) HP.phase = 'done';
+    if (got) state.balance += got;
+    recordResult(got ? { g: hpGrade(m, got), name: m.name + ' ' + (clear ? '완주' : '갈림길 ' + HP.forks + '개') + ' · ' + fmt(got) + '개', kind: 'kernel', val: got } : { g: 'C', name: m.name + ' 풍덩', kind: 'kernel', val: 0 }, m);
+    if (got >= num(m.cost) * 3) { state.feed.unshift({ g: got >= num(m.cost) * 5 ? 'S' : 'A', item: '강냉이 ' + fmt(got) + '개', who: '나 · ' + m.name + ' ' + (clear ? '완주' : '갈림길 ' + HP.forks + '개') }); renderFeed(true); }
+    saveMe(); renderHUD(true);
+    const el = dyEl('hp-result');
+    if (el) {
+      el.innerHTML = '<div class="hp-rcard ' + (got ? 'hit' : 'miss') + '"><small>' + (clear ? '완주 성공!' : '풍덩! 물에 빠졌어요') + '</small><b>갈림길 ' + HP.forks + '/' + m.forks + ' 통과</b><div class="hp-rv">' + K + '<span class="num" id="hp-rn">' + (got ? '+0' : '0') + '</span></div><span>점수 ' + fmt(HP.score) + '</span></div>';
+      el.hidden = false; restart(el, 'show');
+      if (got) { const n = dyEl('hp-rn'), t0 = Date.now(); clearInterval(HP.cT); HP.cT = setInterval(() => { const k = Math.min(1, (Date.now() - t0) / 1000), e = 1 - Math.pow(1 - k, 3); if (n) n.textContent = '+' + fmt(Math.round(got * e)); if (k >= 1) clearInterval(HP.cT); }, 30); }
+    }
+    if (got) { SFX.land(clear ? 'top' : 'hi'); if (clear) SFX.fanfare(); const st = dyEl('hp-stage'); if (st) { const b = st.getBoundingClientRect(); floatFx(); burst(['#FFD43B', '#FFFFFF', '#FF7AD9', '#74C0FC'], clear ? 120 : 60, 10, b.left + b.width / 2, b.top + b.height * .4); } }
+    else SFX.lose();
+    hpUI();
+  }
+  function hpUI() {
+    const m = hopMachine(), go = dyEl('hp-go'); if (!m || !go) return;
+    go.disabled = HP.on;
+    go.innerHTML = HP.on ? '박자에 맞춰 화면을 눌러요!' : (HP.res ? '다시 하기 ' : '시작하기 ') + '<span class="num">' + K + fmt(num(m.cost)) + ' · 갈림길 ' + m.forks + '개</span>';
+  }
+  function hpStart() {
+    const m = hopMachine(); if (!m || HP.on) return;
+    hpSync(m); const c = num(m.cost);
+    if (state.balance < c) { toast('', '강냉이가 부족해요. 체험용 강냉이를 충전해 보세요.', true); return; }
+    state.balance -= c; renderHUD(true);
+    HP.stones = hpTrack(m); HP.beats = {}; HP.stones.forEach(s => { (HP.beats[s.beat] = HP.beats[s.beat] || []).push(s); });
+    HP.end = Math.max(...HP.stones.map(s => s.beat)); HP.next = 4; HP.t = 0; HP.lastBeat = -1; HP.combo = 0; HP.score = 0; HP.forks = 0; HP.catX = HP.catTX = 0; HP.parts = []; HP.judge = null; HP.banner = null; HP.res = null; HP.fallT = null; HP.goalOn = false;
+    HP.phase = 'run'; HP.on = true;
+    const el = dyEl('hp-result'); if (el) el.hidden = true;
+    hpAC(); hpUI();
+  }
+  function hpLoop() {
+    cancelAnimationFrame(HP.raf); HP.last = performance.now();
+    const tick = now => {
+      const v = hpView(); if (!v || state.tab !== 'hop') return;
+      const dt = Math.min(.05, Math.max(0, (now - HP.last) / 1000)); HP.last = now;
+      hpStep(dt); hpDraw(v);
+      HP.raf = requestAnimationFrame(tick);
+    };
+    HP.raf = requestAnimationFrame(tick);
+  }
+  function hpInit() {
+    const v = hpView(); if (!v) return;
+    if (!HP.on && !HP.stones.length) { const m = hopMachine(); if (m) { hpSync(m); HP.stones = hpTrack(m).slice(0, 14); HP.beats = {}; HP.end = 60; HP.t = 1.2; HP.phase = 'idle'; } }
+    hpUI(); hpLoop();
+    v.cv.onpointerdown = e => { const r = v.cv.getBoundingClientRect(); hpTap(e.clientX - r.left < r.width / 2 ? -1 : 1); e.preventDefault(); };
+    if (!HP.keyBound) { HP.keyBound = true; addEventListener('keydown', e => { if (state.tab !== 'hop' || !HP.on) return; const k = e.key; if (k === 'ArrowLeft' || k === 'a' || k === 'A') { hpTap(-1); e.preventDefault(); } else if (k === 'ArrowRight' || k === 'd' || k === 'D') { hpTap(1); e.preventDefault(); } else if (k === ' ' || k === 'ArrowUp' || k === 'Enter') { hpTap(0); e.preventDefault(); } }); }
+  }
+  $('floor').addEventListener('click', e => { if (state.tab !== 'hop') return; if (e.target.closest('#hp-go')) hpStart(); });
+  $('floor').addEventListener('pointerdown', e => { if (state.tab !== 'hop') return; const b = e.target.closest('[data-hpk]'); if (b) { hpTap(Number(b.dataset.hpk)); e.preventDefault(); } });
+  addEventListener('resize', () => { if (state.tab === 'hop' && !HP.on && dyEl('hp-cv')) hpInit(); });
 
   // =====================================================================
   // 깡통 사격: 서부 사격장 건물의 구멍 6개에서 캔이 2개씩 2초 동안 나왔다 들어간다(10초 동안 5번).
@@ -9752,7 +10009,7 @@ img, svg, video { max-width: 100%; }
   const goodsQty = (m, p) => m.mode === 'puzzle' || m.mode === 'gslot' || isProb(m) ? num(p.qty) : num(p.total);
   // RTP = 강냉이로 돌려준 양 ÷ 받은 강냉이 (강냉이 전용. 100% − RTP = 강냉이 소진)
   // 상품 예산 = 머신에 넣은 상품 수량 × 원가 합계 (직접 정하지 않고 수량으로 조절)
-  const NO_PRIZE_GAMES = ['runner', 'cannon', 'archery', 'slot', 'race', 'fish', 'wheel', 'pirate', 'bomb', 'derby', 'sling'];
+  const NO_PRIZE_GAMES = ['runner', 'cannon', 'archery', 'slot', 'race', 'fish', 'wheel', 'pirate', 'bomb', 'derby', 'sling', 'hop'];
   function econ(m, s) {
     if (m.mode === 'gslot') gsSync(m);
     const e = econCore(m, s);
@@ -9784,6 +10041,10 @@ img, svg, video { max-width: 100%; }
     }
     if (m.mode === 'fish') {
       const rev = num(m.cost) * s.kernelValue, rtp = fsMaxRtp(m);
+      return { rev, pay: rev * rtp, rtp, mRev, mPay: mRev * rtp, wsum: 100, runs: num(m.cost) ? num(m.demand) / num(m.cost) : 0 };
+    }
+    if (m.mode === 'hop') {
+      const rev = num(m.cost) * s.kernelValue, rtp = hpRtp(m);
       return { rev, pay: rev * rtp, rtp, mRev, mPay: mRev * rtp, wsum: 100, runs: num(m.cost) ? num(m.demand) / num(m.cost) : 0 };
     }
     if (m.mode === 'sling') {
@@ -9874,6 +10135,7 @@ img, svg, video { max-width: 100%; }
     if (m.mode === 'race') return '배당은 직접 정해요';
     if (m.mode === 'derby') return '배당은 목표 RTP로 자동 계산돼요';
     if (m.mode === 'sling') return '박이 터질 때 보상표 확률대로 지급돼요';
+    if (m.mode === 'hop') return '통과한 갈림길 수로 보상이 정해져요';
     if (m.mode === 'fish') return '배수·확률은 직접 정해요';
     if (m.mode === 'wheel') return '배수는 직접 정해요';
     if (m.mode === 'pirate') return '배수는 목표 RTP로 자동 계산돼요';
@@ -9911,7 +10173,7 @@ img, svg, video { max-width: 100%; }
       const e = econ(m, draft.settings);
       if (!num(m.cost)) errs.push(m.name + ': 입장료를 입력해 주세요.');
       if (isProb(m) && Math.abs(e.wsum - 100) > 0.01) errs.push(m.name + ': 확률 합계가 ' + fmt(+e.wsum.toFixed(2)) + '%예요. 100%로 맞춰 주세요.');
-      if (!isProb(m) && !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb', 'derby', 'sling'].includes(m.mode) && !e.N) errs.push(m.name + ': 캡슐 수량이 0개예요.');   // 냥치 런·팝콘 대포는 캡슐이 없는 게임
+      if (!isProb(m) && !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb', 'derby', 'sling', 'hop'].includes(m.mode) && !e.N) errs.push(m.name + ': 캡슐 수량이 0개예요.');   // 냥치 런·팝콘 대포는 캡슐이 없는 게임
       if (m.prizes.some(p => !String(p.name).trim())) errs.push(m.name + ': 이름이 비어 있는 상품이 있어요.');
     });
     draft.machines.filter(m => m.mode === 'archery').forEach(m => {
@@ -9939,6 +10201,11 @@ img, svg, video { max-width: 100%; }
       const I = gsItems(m);
       if (!I.length) errs.push('상품 슬롯: 직소 퍼즐에 상품이 없어요.');
       else if (!(I.reduce((a, x) => a + x.w, 0) > 0)) errs.push('상품 슬롯: 출현 비중 합이 0이에요.');
+    });
+    draft.machines.filter(m => m.mode === 'hop').forEach(m => {
+      hpSync(m);
+      if (!(num(m.cost) >= 1)) errs.push(m.name + ': 한 판 가격은 1 이상이어야 해요.');
+      if (!m.pay.every(v => num(v) >= 0)) errs.push(m.name + ': 보상은 0 이상이어야 해요.');
     });
     draft.machines.filter(m => m.mode === 'sling').forEach(m => {
       sgSync(m);
@@ -10011,21 +10278,21 @@ img, svg, video { max-width: 100%; }
       const e = econ(m, s), st = mSt(m, e);
       return '<tr style="--c:' + zoneOf(m.zone).color + '">' +
         '<td><span class="mname"><i></i>' + m.name + '</span></td>' +
-        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'archery' ? '깡통 사격' : m.mode === 'slot' ? '캐릭터 슬롯' : m.mode === 'gslot' ? '상품 슬롯' : m.mode === 'race' ? '냥냥 레이스' : m.mode === 'fish' ? '냥 낚시터' : m.mode === 'wheel' ? '럭키 룰렛' : m.mode === 'pirate' ? '해적 통 룰렛' : m.mode === 'bomb' ? '폭탄 해체반' : m.mode === 'derby' ? m.name : m.mode === 'sling' ? '박 터뜨리기' : m.mode === 'scratch' ? '스크래치 복권' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
+        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'archery' ? '깡통 사격' : m.mode === 'slot' ? '캐릭터 슬롯' : m.mode === 'gslot' ? '상품 슬롯' : m.mode === 'race' ? '냥냥 레이스' : m.mode === 'fish' ? '냥 낚시터' : m.mode === 'wheel' ? '럭키 룰렛' : m.mode === 'pirate' ? '해적 통 룰렛' : m.mode === 'bomb' ? '폭탄 해체반' : m.mode === 'derby' ? m.name : m.mode === 'sling' ? '박 터뜨리기' : m.mode === 'hop' ? '냥이 징검다리' : m.mode === 'scratch' ? '스크래치 복권' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
         '<td class="r">' + fmt(num(m.cost)) + '</td>' +
-        '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'cannon' || m.mode === 'archery' ? '약 ' + fmt(Math.round(e.runs)) + '발' : m.mode === 'runner' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'slot' || m.mode === 'gslot' || m.mode === 'wheel' ? '약 ' + fmt(Math.round(e.runs)) + '회' : m.mode === 'pirate' || m.mode === 'bomb' || m.mode === 'derby' || m.mode === 'sling' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'race' ? '약 ' + fmt(Math.round(e.runs)) + '판(최소 기준)' : m.mode === 'fish' ? '약 ' + fmt(Math.round(e.runs)) + '번' : m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
+        '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'cannon' || m.mode === 'archery' ? '약 ' + fmt(Math.round(e.runs)) + '발' : m.mode === 'runner' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'slot' || m.mode === 'gslot' || m.mode === 'wheel' ? '약 ' + fmt(Math.round(e.runs)) + '회' : m.mode === 'pirate' || m.mode === 'bomb' || m.mode === 'derby' || m.mode === 'sling' || m.mode === 'hop' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'race' ? '약 ' + fmt(Math.round(e.runs)) + '판(최소 기준)' : m.mode === 'fish' ? '약 ' + fmt(Math.round(e.runs)) + '번' : m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
         '<td class="r">' + (e.hasGoods ? won(e.goods) + '<span class="ed-left">상품 ' + fmt(e.goodsN) + '개</span>' : '<span class="qmeta">상품 없음</span>') + '</td>' +
         (e.hasGoods ? '<td>' + (e.hasKern ? '<b class="num">' + pct(e.rtp) + '</b> <span class="qmeta">강냉이 보상분 (참고)</span>' : '<span class="qmeta">강냉이 보상 없음</span>') + '</td>' :
         '<td><div class="rtpcell"><div class="rtpbar"><i style="width:' + Math.min(100, e.rtp / 1.5 * 100).toFixed(1) + '%;--st:var(--' + st.cls + ')"></i><b style="left:' + Math.min(100, T / 1.5 * 100).toFixed(1) + '%"></b></div><span>' + pct(e.rtp) + '</span></div></td>' ) +
         '<td><span class="status ' + st.cls + '">' + st.label + '</span></td>' +
-        '<td>' + (e.hasGoods || m.mode === 'runner' || m.mode === 'slot' || m.mode === 'race' || m.mode === 'fish' || m.mode === 'wheel' || m.mode === 'pirate' || m.mode === 'bomb' || m.mode === 'derby' || m.mode === 'sling' ? '' : '<button class="btn-xs" type="button" data-fit="' + m.id + '">목표로 맞추기</button>') + '</td></tr>';
+        '<td>' + (e.hasGoods || m.mode === 'runner' || m.mode === 'slot' || m.mode === 'race' || m.mode === 'fish' || m.mode === 'wheel' || m.mode === 'pirate' || m.mode === 'bomb' || m.mode === 'derby' || m.mode === 'sling' || m.mode === 'hop' ? '' : '<button class="btn-xs" type="button" data-fit="' + m.id + '">목표로 맞추기</button>') + '</td></tr>';
     }).join('');
     $('ad-compare').innerHTML = '<thead><tr><th>머신</th><th>방식</th><th class="r">입장료(강냉이)</th><th class="r">월 소진(강냉이)</th><th class="r">상품 예산 (수량 × 원가)</th><th>강냉이 RTP</th><th>상태</th><th></th></tr></thead><tbody>' + rows + '</tbody>';
   }
 
   function renderTabs() {
     const s = draft.settings;
-    $('ad-tabs').innerHTML = draft.machines.filter(m => !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb', 'derby', 'sling'].includes(m.mode)).map(m =>
+    $('ad-tabs').innerHTML = draft.machines.filter(m => !['runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb', 'derby', 'sling', 'hop'].includes(m.mode)).map(m =>
       '<button class="ad-tab" type="button" role="tab" data-tab="' + m.id + '" aria-selected="' + (m.id === sel) + '" style="--c:' + zoneOf(m.zone).color + '"><i></i>' + m.name + ' <small>' + (econ(m, s).hasGoods ? won(econ(m, s).goods) : pct(econ(m, s).rtp)) + '</small></button>').join('');
   }
 
@@ -10162,7 +10429,7 @@ img, svg, video { max-width: 100%; }
         c2.drawImage(img, (S - w) / 2, (S - h) / 2, w, h);
         const m = pzDraft(); if (!m || !m.prizes[i]) return;
         m.prizes[i].img = cv.toDataURL('image/jpeg', 0.72);
-        renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderStats();
+        renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderHopAdmin(); renderStats();
       };
       img.src = fr.result;
     };
@@ -10176,7 +10443,7 @@ img, svg, video { max-width: 100%; }
     }
     if (el.id === 'pa-auto') {
       m.autoW = el.checked; if (m.autoW) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderHopAdmin(); renderStats(); return true;
     }
     if (el.dataset.pi != null && el.dataset.k) {
       const p = m.prizes[Number(el.dataset.pi)], k = el.dataset.k;
@@ -10197,13 +10464,13 @@ img, svg, video { max-width: 100%; }
     if (e.target.id === 'pa-add') {
       m.prizes.push({ g: 'C', name: '새 상품', kind: 'product', val: 0, cost: 3000, w: 0, qty: 10, img: '', pid: 'p' + Date.now().toString(36) });
       if (m.autoW !== false) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderHopAdmin(); renderStats(); return true;
     }
     const del = e.target.closest('[data-padel]');
     if (del) {
       m.prizes.splice(Number(del.dataset.padel), 1);
       if (m.autoW !== false) autoWeights(m.prizes);
-      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderStats(); return true;
+      renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderHopAdmin(); renderStats(); return true;
     }
     return false;
   }
@@ -10238,7 +10505,7 @@ img, svg, video { max-width: 100%; }
     return false;
   }
   // ----- 관리자 좌측 메뉴: 기능별로 한 화면씩 -----
-  const AD_PAGES = ['overview', 'machines', 'puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb', 'derby', 'sling'];
+  const AD_PAGES = ['overview', 'machines', 'puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb', 'derby', 'sling', 'hop'];
   let adPage = (() => { try { const v = localStorage.getItem('tooneland-ad-page'); return AD_PAGES.includes(v) ? v : 'overview'; } catch (e) { return 'overview'; } })();
   function adGo(page, keepScroll) {
     if (!AD_PAGES.includes(page)) page = 'overview';
@@ -10254,7 +10521,7 @@ img, svg, video { max-width: 100%; }
     const s = draft.settings, T = target(), R = { ok: 1, warn: 2, bad: 3 };
     const worst = list => list.reduce((w, m) => { const c = mSt(m, econ(m, s)).cls; return (R[c] || 0) > (R[w] || 0) ? c : w; }, '');
     const by = mode => draft.machines.filter(m => mode(m));
-    const map = { overview: worst(draft.machines), machines: worst(by(m => !['puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb', 'derby', 'sling'].includes(m.mode))), archery: worst(by(m => m.mode === 'archery')), puzzle: worst(by(m => m.mode === 'puzzle')), runner: worst(by(m => m.mode === 'runner')), cannon: worst(by(m => m.mode === 'cannon')), slot: worst(by(m => m.mode === 'slot')), gslot: worst(by(m => m.mode === 'gslot')), race: worst(by(m => m.mode === 'race')), fish: worst(by(m => m.mode === 'fish')), wheel: worst(by(m => m.mode === 'wheel')), pirate: worst(by(m => m.mode === 'pirate')), bomb: worst(by(m => m.mode === 'bomb')), derby: worst(by(m => m.mode === 'derby')), sling: worst(by(m => m.mode === 'sling')) };
+    const map = { overview: worst(draft.machines), machines: worst(by(m => !['puzzle', 'runner', 'cannon', 'archery', 'slot', 'gslot', 'race', 'fish', 'wheel', 'pirate', 'bomb', 'derby', 'sling', 'hop'].includes(m.mode))), archery: worst(by(m => m.mode === 'archery')), puzzle: worst(by(m => m.mode === 'puzzle')), runner: worst(by(m => m.mode === 'runner')), cannon: worst(by(m => m.mode === 'cannon')), slot: worst(by(m => m.mode === 'slot')), gslot: worst(by(m => m.mode === 'gslot')), race: worst(by(m => m.mode === 'race')), fish: worst(by(m => m.mode === 'fish')), wheel: worst(by(m => m.mode === 'wheel')), pirate: worst(by(m => m.mode === 'pirate')), bomb: worst(by(m => m.mode === 'bomb')), derby: worst(by(m => m.mode === 'derby')), sling: worst(by(m => m.mode === 'sling')), hop: worst(by(m => m.mode === 'hop')) };
     document.querySelectorAll('#ad-gnb [data-addot]').forEach(d => { d.className = 'gnb-dot' + (map[d.dataset.addot] ? ' ' + map[d.dataset.addot] : ''); });
   }
   document.getElementById('ad-gnb').addEventListener('click', e => { const b = e.target.closest('[data-adpage]'); if (b) adGo(b.dataset.adpage); });
@@ -10339,7 +10606,7 @@ img, svg, video { max-width: 100%; }
     if (e.target.id !== 'ar-fit') return false;
     const m = arDraft(); if (!m) return true;
     const ok = arFitGrades(m, target());
-    renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderStats();
+    renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderHopAdmin(); renderStats();
     toast('', '깡통 사격: ' + (ok ? '캔별 확률을 목표 RTP ' + pct(target()) + '(' + arBullets(m) + '발 중 ' + arHits(m) + '발 명중 기준)에 맞췄어요' : '일부 캔은 확률만으로 맞출 수 없어요. 배수를 조정해 주세요'), true);
     return true;
   }
@@ -10427,7 +10694,7 @@ img, svg, video { max-width: 100%; }
     if (e.target.id !== 'cn-fit') return false;
     const m = cnDraft(); if (!m) return true;
     const ok = cnFitGrades(m, target());
-    renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderStats();
+    renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderHopAdmin(); renderStats();
     toast('', '팝콘 대포: ' + (ok ? '보통 확률을 조정해 전체 RTP를 ' + pct(target()) + '에 맞췄어요' : '보통 확률만으로 맞출 수 없어요. 퍼펙트·좋아요 확률이나 배수를 조정해 주세요'), true);
     return true;
   }
@@ -10688,7 +10955,7 @@ img, svg, video { max-width: 100%; }
     const m = bdDraft(); if (!m) return false;
     const d = el.dataset; if (d.bdf == null && d.bdm == null) return false;
     bdSync(m);
-    if (d.bdf) { m[d.bdf] = Math.max(0, Math.round(num(el.value))); if (d.bdf === 'wires' && num(m.wires) >= 4 && num(m.wires) <= 7) { bdSync(m); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderStats(); return true; } }
+    if (d.bdf) { m[d.bdf] = Math.max(0, Math.round(num(el.value))); if (d.bdf === 'wires' && num(m.wires) >= 4 && num(m.wires) <= 7) { bdSync(m); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderHopAdmin(); renderStats(); return true; } }
     if (d.bdm != null) m.mults[Number(d.bdm)] = Math.max(0, num(el.value));
     bdSync(m); renderBombCalc(); renderStats();
     return true;
@@ -10761,10 +11028,39 @@ img, svg, video { max-width: 100%; }
     return true;
   }
 
+  // ----- 냥이 징검다리 관리: 가격·갈림길 수 + 통과 수별 보상 → 최대 RTP
+  const hpDraft = () => draft.machines.find(m => m.mode === 'hop');
+  function renderHopAdmin() {
+    const m = hpDraft(); if (!m || !dyEl('hp-fields')) return;
+    hpSync(m);
+    const fld = (id, label, key, unit, min, step) => '<div class="field"><label for="' + id + '">' + label + '</label><div class="input-unit"><input class="input num" id="' + id + '" type="number" min="' + min + '" step="' + (step || 1) + '" data-hpf="' + key + '" value="' + num(m[key]) + '"><span>' + unit + '</span></div></div>';
+    $('hp-fields').innerHTML = fld('hpa-cost', '한 판 가격', 'cost', '강냉이', 1) + fld('hpa-forks', '갈림길 수', 'forks', '개', 1) + fld('hpa-demand', '월 예상 강냉이 소진', 'demand', '강냉이', 0);
+    $('hp-t').innerHTML = '<thead><tr><th>결과</th><th class="r">확률(박자 완벽)</th><th class="w-num">보상 강냉이</th><th class="r">가격 대비</th><th class="r">RTP 기여</th></tr></thead><tbody>' +
+      m.pay.map((v, k) => '<tr><td>' + (k === m.forks ? '완주 (갈림길 ' + k + '개)' : '갈림길 ' + k + '개 통과') + '</td><td class="r num">' + slPctTxt(hpProb(m.forks, k)) + '</td><td><input class="input sm num" type="number" min="0" step="1" data-hpv="' + k + '" value="' + num(v) + '" aria-label="갈림길 ' + k + '개 보상"></td><td class="r num" data-hpc="x' + k + '"></td><td class="r num" data-hpc="r' + k + '"></td></tr>').join('') + '</tbody>';
+    renderHopCalc();
+  }
+  function renderHopCalc() {
+    const m = hpDraft(); if (!m || !dyEl('hp-calc')) return;
+    const c = Math.max(1, num(m.cost)), set = (k, v) => { const el = document.querySelector('[data-hpc="' + k + '"]'); if (el) el.textContent = v; };
+    m.pay.forEach((v, k) => { set('x' + k, '×' + (Math.round(num(v) / c * 100) / 100)); set('r' + k, pct(hpProb(m.forks, k) * num(v) / c)); });
+    const rtp = hpRtp(m), st = statusOf(rtp, target());
+    $('hp-sum').textContent = 'RTP 최대 ' + pct(rtp);
+    $('hp-calc').innerHTML = '<span>갈림길 ' + m.forks + '개 · 반반 확률</span><span>최대 RTP(박자 모두 완벽) <b>' + pct(rtp) + '</b> <span class="status ' + st.cls + '">' + st.label + '</span></span>';
+  }
+  function hopAdminInput(el) {
+    const m = hpDraft(); if (!m) return false;
+    const d = el.dataset; if (d.hpf == null && d.hpv == null) return false;
+    hpSync(m);
+    if (d.hpf) { m[d.hpf] = Math.max(0, Math.round(num(el.value))); if (d.hpf === 'forks') { hpSync(m); renderHopAdmin(); renderStats(); return true; } }
+    if (d.hpv != null) m.pay[Number(d.hpv)] = Math.max(0, Math.round(num(el.value)));
+    renderHopCalc(); renderStats();
+    return true;
+  }
+
   function openAdmin() {
     // 편집 중인 내용이 없으면 최신 설정(게임에서 줄어든 남은 수량 포함)으로 다시 시작
     if (!draft || JSON.stringify(draft) === draftBase) { draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); }
-    renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderStats(); adGo(adPage, true);
+    renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderHopAdmin(); renderStats(); adGo(adPage, true);
   }
 
   // ----- 관리자 이벤트 -----
@@ -10784,6 +11080,7 @@ img, svg, video { max-width: 100%; }
     if (bombAdminInput(e.target)) return;
     if (derbyAdminInput(e.target)) return;
     if (slingAdminInput(e.target)) return;
+    if (hopAdminInput(e.target)) return;
     const el = e.target, s = draft.settings;
     if (el.id === 'ad-rtp' || el.id === 'ad-rtp-range') {
       s.targetRtp = num(el.value);
@@ -10834,17 +11131,17 @@ img, svg, video { max-width: 100%; }
         : { g: 'B', name: '새 상품', kind: 'product', val: 0, cost: 1000, total: 10, left: 10 });
       renderEditor(); renderStats();
     } else if (id === 'ad-fit-all') {
-      const km = draft.machines.filter(m => m.mode !== 'runner' && m.mode !== 'slot' && m.mode !== 'race' && m.mode !== 'fish' && m.mode !== 'wheel' && m.mode !== 'pirate' && m.mode !== 'bomb' && m.mode !== 'derby' && m.mode !== 'sling' && !isGoods(m) && econ(m, draft.settings).hasKern);
+      const km = draft.machines.filter(m => m.mode !== 'runner' && m.mode !== 'slot' && m.mode !== 'race' && m.mode !== 'fish' && m.mode !== 'wheel' && m.mode !== 'pirate' && m.mode !== 'bomb' && m.mode !== 'derby' && m.mode !== 'sling' && m.mode !== 'hop' && !isGoods(m) && econ(m, draft.settings).hasKern);
       km.forEach(m => fitMachine(m, draft.settings, target(), 'price'));
-      renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderStats();
+      renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderHopAdmin(); renderStats();
       toast('', '강냉이 머신 ' + km.length + '개를 목표 RTP ' + draft.settings.targetRtp + '%에 맞췄어요. 저장해야 게임에 반영돼요.', true);
     } else if (id === 'ad-revert') {
-      draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderStats();
+      draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderHopAdmin(); renderStats();
     } else if (id === 'ad-reset') {
       const btn = $('ad-reset');
       if (Date.now() - resetArmed < 4000) {
         draft = clone(DEFAULT_CONFIG); resetArmed = 0; btn.textContent = '기본값으로';
-        renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderStats();
+        renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderHopAdmin(); renderStats();
         toast('', '기본값을 불러왔어요. 저장해야 게임에 반영돼요.', true);
       } else {
         resetArmed = Date.now(); btn.textContent = '한 번 더 누르면 초기화';
@@ -10855,7 +11152,7 @@ img, svg, video { max-width: 100%; }
     } else if (id === 'ad-load-remote') {
       if (sync.remote) { draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft); }
       $('ad-remote').hidden = true;
-      renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderStats();
+      renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderHopAdmin(); renderStats();
     }
   });
 
@@ -10900,7 +11197,7 @@ img, svg, video { max-width: 100%; }
     if (!draft || JSON.stringify(draft) === draftBase) {
       draft = clone(config); gsSyncAll(draft); draftBase = JSON.stringify(draft);
       $('ad-remote').hidden = true;
-      if (!$('admin').hidden) { renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderStats(); }
+      if (!$('admin').hidden) { renderSettings(); renderEditor(); renderPuzzleAdmin(); renderRunnerAdmin(); renderCannonAdmin(); renderArcheryAdmin(); renderSlotAdmin(); renderGslotAdmin(); renderRaceAdmin(); renderFishAdmin(); renderWheelAdmin(); renderPirateAdmin(); renderBombAdmin(); renderDerbyAdmin(); renderSlingAdmin(); renderHopAdmin(); renderStats(); }
     } else if (!sync.saving) {
       $('ad-remote').hidden = false;
       if (!$('admin').hidden) renderStats();
@@ -11066,6 +11363,11 @@ img, svg, video { max-width: 100%; }
       '<path d="M20 30 Q44 6 60 34" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="3 4" fill="none"/>' +
       '<path d="M24 92 L24 66 L14 50 M24 66 L34 50" stroke="#7A4E25" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M14 50 Q22 58 34 50" stroke="#5C2E0E" stroke-width="2" fill="none"/>' +
       '<g transform="translate(22 46)"><circle r="8" fill="#FFFFFF" stroke="#5C4033" stroke-width="1.5"/><path d="M-6 -5 l2 -6 l4 4 z M6 -5 l-2 -6 l-4 4 z" fill="#FFFFFF" stroke="#5C4033" stroke-width="1.2"/><circle cx="-3" cy="-1" r="1" fill="#5C4033"/><circle cx="3" cy="-1" r="1" fill="#5C4033"/><path d="M6 2 q6 2 4 8" stroke="#4DABF7" stroke-width="3" fill="none"/></g></svg>',
+    hop: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lghp1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC2E2"/><stop offset="1" stop-color="#8FD3FF"/></linearGradient></defs><rect width="100" height="100" fill="url(#lghp1)"/>' +
+      '<path d="M40 18 L60 18 L92 100 L8 100 Z" fill="rgba(255,255,255,.35)" stroke="#FFFFFF" stroke-width="1.5"/>' +
+      [[50, 26, 10], [40, 42, 13], [58, 58, 16], [44, 78, 20]].map(([x, y, w]) => '<rect x="' + (x - w / 2) + '" y="' + y + '" width="' + w + '" height="' + (w * .45) + '" rx="2" fill="#F47BB4"/><rect x="' + (x - w / 2) + '" y="' + (y + w * .35) + '" width="' + w + '" height="' + (w * .2) + '" fill="#B8437A"/>').join('') +
+      '<g transform="translate(50 66)"><circle r="9" fill="#FFFFFF" stroke="#8E8AA8" stroke-width="1.2"/><path d="M-7 -5 l1 -7 l5 4 z M7 -5 l-1 -7 l-5 4 z" fill="#FFFFFF" stroke="#8E8AA8" stroke-width="1"/><circle cx="-3" cy="0" r="1.2" fill="#3B3355"/><circle cx="3" cy="0" r="1.2" fill="#3B3355"/></g>' +
+      '<text x="76" y="40" font-size="14" fill="#FFFFFF" font-weight="900">♪</text><text x="18" y="56" font-size="11" fill="#FFFFFF" font-weight="900">♪</text></svg>',
     hall: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgu5" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD43B"/><stop offset="1" stop-color="#E67700"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgu5)"/>' +
       '<path d="M34 24h32v14a16 16 0 0 1-32 0z" fill="#FFFFFF"/><path d="M34 29h-7a8 8 0 0 0 9 13M66 29h7a8 8 0 0 1-9 13" stroke="#FFFFFF" stroke-width="4" fill="none"/><rect x="46" y="53" width="8" height="11" fill="#FFFFFF"/><rect x="35" y="64" width="30" height="9" rx="2.5" fill="#FFFFFF"/>' +
       '<path d="M50 29l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.2 2.7 1-5.7-4.1-4 5.7-.8z" fill="#F59F00"/></svg>'
@@ -11086,7 +11388,8 @@ img, svg, video { max-width: 100%; }
     { id: 'bomb', name: '폭탄 해체반', sub: '해체 선 찾기', ic: '#E67700', fc: '#A85400', badge: 'N', desc: '선 5개 중 해체 선은 하나! 빨리 해체할수록 보상 UP.' },
     { id: 'derby', name: '냥냥 더비', sub: '3D 경주 중계', ic: '#1C7ED6', fc: '#0B4AA8', badge: 'N', desc: '냥냥 레이스 친구들의 1600m 3D 레이스! 응원 선수의 1착에 걸어 보세요.' },
     { id: 'kart', name: '냥냥 카트', sub: '카트 서킷 레이스', ic: '#E8590C', fc: '#A63C06', badge: 'N', desc: '카트를 탄 냥냥 친구들의 서킷 레이스! 드리프트·부스트·시상식까지.' },
-    { id: 'sling', name: '박 터뜨리기', sub: '냥이 새총', ic: '#2F9E44', fc: '#1B6E2D', badge: 'N', desc: '새총으로 냥이를 날려 박을 맞히면 팝콘이 펑!' }
+    { id: 'sling', name: '박 터뜨리기', sub: '냥이 새총', ic: '#2F9E44', fc: '#1B6E2D', badge: 'N', desc: '새총으로 냥이를 날려 박을 맞히면 팝콘이 펑!' },
+    { id: 'hop', name: '냥이 징검다리', sub: '리듬 징검다리', ic: '#7C8CF8', fc: '#4B4FB8', badge: 'N', desc: '박자에 맞춰 징검다리를 밟고 갈림길에서 진짜 돌을 골라요!' }
   ];
   const LG_DOCK = [
     { id: 'hall', name: '명예의 전당', ic: '#E67700' },
@@ -11144,6 +11447,7 @@ img, svg, video { max-width: 100%; }
     if (AR.active && location.hash !== '#archery') { history.replaceState(null, '', '#archery'); toast('', '사격이 끝난 뒤에 이동할 수 있어요.', true); return; }
     if (slEl('sl-modal') && !slEl('sl-modal').hidden) slCloseWin(false);
     if (['cast', 'wait', 'bite', 'reel', 'jump'].includes(FS.phase) && location.hash !== '#fish') { history.replaceState(null, '', '#fish'); toast('', '낚시가 끝난 뒤에 이동할 수 있어요.', true); return; }
+    if (HP.on && location.hash !== '#hop') { history.replaceState(null, '', '#hop'); toast('', '한 판이 끝난 뒤에 이동할 수 있어요.', true); return; }
     if (SG.on && location.hash !== '#sling') { history.replaceState(null, '', '#sling'); toast('', '한 판이 끝난 뒤에 이동할 수 있어요.', true); return; }
     if (DRB.on && location.hash !== '#' + (DRB.stage === 'kart' ? 'kart' : 'derby')) { history.replaceState(null, '', '#' + (DRB.stage === 'kart' ? 'kart' : 'derby')); toast('', '레이스가 끝난 뒤에 이동할 수 있어요.', true); return; }
     if ((BDF.on || BDF.busy) && location.hash !== '#bomb') { history.replaceState(null, '', '#bomb'); toast('', '해체 중에는 이동할 수 없어요. 판이 끝난 뒤 이동해 주세요.', true); return; }
@@ -11154,7 +11458,7 @@ img, svg, video { max-width: 100%; }
     if (SL.spinning && location.hash !== '#' + SL.tab) { history.replaceState(null, '', '#' + SL.tab); toast('', '릴이 멈춘 뒤에 이동할 수 있어요.', true); return; }
     if (CN.flying && location.hash !== '#cannon') { history.replaceState(null, '', '#cannon'); toast('', '팝콘이 착지한 뒤에 이동할 수 있어요.', true); return; }
     if (RN.active && location.hash !== '#runner') { history.replaceState(null, '', '#runner'); toast('', '냥치 런이 끝난 뒤에 이동할 수 있어요.', true); return; }
-    const tab = ({ '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#runner': 'runner', '#cannon': 'cannon', '#archery': 'archery', '#slot': 'slot', '#gslot': 'gslot', '#race': 'race', '#fish': 'fish', '#wheel': 'wheel', '#scratch': 'scratch', '#pirate': 'pirate', '#bomb': 'bomb', '#derby': 'derby', '#kart': 'kart', '#sling': 'sling' })[location.hash] || 'gacha';
+    const tab = ({ '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#runner': 'runner', '#cannon': 'cannon', '#archery': 'archery', '#slot': 'slot', '#gslot': 'gslot', '#race': 'race', '#fish': 'fish', '#wheel': 'wheel', '#scratch': 'scratch', '#pirate': 'pirate', '#bomb': 'bomb', '#derby': 'derby', '#kart': 'kart', '#sling': 'sling', '#hop': 'hop' })[location.hash] || 'gacha';
     if (!admin && !shop && !lounge && tab !== state.tab) {
       if (!$('modal').hidden) { if (busy) return; closeModal(); }
       state.tab = tab; renderZones(); renderFloor();
