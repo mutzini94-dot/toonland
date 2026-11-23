@@ -9029,10 +9029,11 @@ img, svg, video { max-width: 100%; }
     if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
     const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); return { cv, ctx, W, H };
   }
-  const sgGeo = (W, H) => { const u = Math.min(W, H * 1.35); return { gy: H * .84, sx: W * .17, sy: H * .52, cr: u * .055, pull: u * .2, g: H * 1.55, vmax: Math.sqrt(1.35 * W * H * 1.55) }; };
+  const sgGeo = (W, H) => { const u = Math.min(W, H * 1.35); return { gy: H * .84, sx: W * .17, sy: H * .52, sl: u * .055, cr: u * .055 * .3, pull: u * .2, g: H * 1.55, vmax: Math.sqrt(1.35 * W * H * 1.55) }; };
   function sgNewGourd(W, H) {
-    const u = Math.min(W, H * 1.35), ax = W * (.6 + Math.random() * .26), len = H * (.2 + Math.random() * .22);
-    return { ax, ay: H * .085, len, amp: .22 + Math.random() * .2, w: 1.7 + Math.random() * 1.1, ph: Math.random() * 6, r: u * .07, x: ax, y: H * .085 + len, popped: false };
+    const u = Math.min(W, H * 1.35), sAmp = W * (.05 + Math.random() * .05), ax0 = Math.min(W * (.6 + Math.random() * .22), W * .88 - sAmp), len0 = H * (.2 + Math.random() * .2);
+    return { ax0, ax: ax0, ay: H * .085, len0, len: len0, sAmp, sW: .7 + Math.random() * .8, sPh: Math.random() * 6, lAmp: len0 * .18, lW: 1.2 + Math.random() * .9, lPh: Math.random() * 6,
+      amp: .28 + Math.random() * .22, w: 1.8 + Math.random() * 1.2, ph: Math.random() * 6, r: u * .07 * .3, x: ax0, y: H * .085 + len0, popped: false };
   }
   function sgLoad() {   // 다음 냥이를 새총에 올린다
     const v = sgView(); if (!v) return; const G = sgGeo(v.W, v.H);
@@ -9072,15 +9073,16 @@ img, svg, video { max-width: 100%; }
     g = ctx.createLinearGradient(0, G.gy, 0, H); g.addColorStop(0, '#7CC25A'); g.addColorStop(1, '#4E9A38'); ctx.fillStyle = g; ctx.fillRect(0, G.gy, W, H - G.gy);
     ctx.fillStyle = 'rgba(255,255,255,.12)'; for (let x = 0; x < W; x += 36) ctx.fillRect(x, G.gy, 18, H - G.gy);
     // 박을 매단 나무 틀
-    const gd = SG.gourd; if (gd) { const lx = Math.max(gd.ax - W * .16, W * .42), rx = Math.min(gd.ax + W * .16, W - 6); ctx.fillStyle = '#8D6234'; ctx.fillRect(lx - 5, gd.ay - 6, 10, G.gy - gd.ay + 6); ctx.fillRect(rx - 5, gd.ay - 6, 10, G.gy - gd.ay + 6); ctx.fillStyle = '#A9743E'; ctx.fillRect(lx - 12, gd.ay - 10, rx - lx + 24, 12); ctx.fillStyle = 'rgba(0,0,0,.15)'; ctx.fillRect(lx - 12, gd.ay, rx - lx + 24, 3); }
+    const gd = SG.gourd; if (gd) { const hw = gd.sAmp + W * .07, lx = Math.max(gd.ax0 - hw, W * .4), rx = Math.min(gd.ax0 + hw, W - 6); ctx.fillStyle = '#8D6234'; ctx.fillRect(lx - 5, gd.ay - 6, 10, G.gy - gd.ay + 6); ctx.fillRect(rx - 5, gd.ay - 6, 10, G.gy - gd.ay + 6); ctx.fillStyle = '#A9743E'; ctx.fillRect(lx - 12, gd.ay - 10, rx - lx + 24, 12); ctx.fillStyle = 'rgba(0,0,0,.15)'; ctx.fillRect(lx - 12, gd.ay, rx - lx + 24, 3);
+      if (!gd.popped) { ctx.fillStyle = '#495057'; ctx.beginPath(); ctx.roundRect(gd.ax - 8, gd.ay - 13, 16, 9, 3); ctx.fill(); ctx.fillStyle = '#CED4DA'; ctx.beginPath(); ctx.arc(gd.ax, gd.ay - 1, 4, 0, 7); ctx.fill(); ctx.strokeStyle = '#495057'; ctx.lineWidth = 1.5; ctx.stroke(); } }
   }
   function sgSlingBack(ctx, G) {   // 새총 뒤쪽 기둥 + 뒷줄
     ctx.fillStyle = '#7A4E25'; ctx.strokeStyle = '#4A2E14'; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(G.sx - 6, G.gy); ctx.lineTo(G.sx - 4, G.sy + G.cr * 1.2); ctx.lineTo(G.sx + G.cr * .9, G.sy - G.cr * .3); ctx.lineTo(G.sx + G.cr * 1.25, G.sy - G.cr * .1); ctx.lineTo(G.sx + 6, G.sy + G.cr * 1.6); ctx.lineTo(G.sx + 7, G.gy); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(G.sx - 6, G.gy); ctx.lineTo(G.sx - 4, G.sy + G.sl * 1.2); ctx.lineTo(G.sx + G.sl * .9, G.sy - G.sl * .3); ctx.lineTo(G.sx + G.sl * 1.25, G.sy - G.sl * .1); ctx.lineTo(G.sx + 6, G.sy + G.sl * 1.6); ctx.lineTo(G.sx + 7, G.gy); ctx.closePath(); ctx.fill(); ctx.stroke();
   }
   function sgSlingFront(ctx, G) {
     ctx.fillStyle = '#9A6430'; ctx.strokeStyle = '#4A2E14'; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(G.sx - 4, G.sy + G.cr * 1.3); ctx.lineTo(G.sx - G.cr * 1.2, G.sy - G.cr * .2); ctx.lineTo(G.sx - G.cr * .85, G.sy - G.cr * .45); ctx.lineTo(G.sx + 1, G.sy + G.cr * .8); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(G.sx - 4, G.sy + G.sl * 1.3); ctx.lineTo(G.sx - G.sl * 1.2, G.sy - G.sl * .2); ctx.lineTo(G.sx - G.sl * .85, G.sy - G.sl * .45); ctx.lineTo(G.sx + 1, G.sy + G.sl * .8); ctx.closePath(); ctx.fill(); ctx.stroke();
   }
   function sgDraw(v, dt) {
     const { ctx, W, H } = v, G = sgGeo(W, H), t = SG.t;
@@ -9093,14 +9095,14 @@ img, svg, video { max-width: 100%; }
     sgSlingBack(ctx, G);
     // 고무줄 뒤쪽
     const hold = c && !c.fly && !c.done;
-    if (hold) { ctx.strokeStyle = '#5C2E0E'; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(G.sx + G.cr * 1.1, G.sy - G.cr * .2); ctx.lineTo(c.x - G.cr * .2, c.y); ctx.stroke(); }
+    if (hold) { ctx.strokeStyle = '#5C2E0E'; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(G.sx + G.sl * 1.1, G.sy - G.sl * .2); ctx.lineTo(c.x - G.cr * .4, c.y); ctx.stroke(); }
     // 비행 꼬리
     ctx.fillStyle = 'rgba(255,255,255,.75)'; SG.trail.forEach((p, i) => { ctx.beginPath(); ctx.arc(p[0], p[1], 2 + (i % 3 === 0 ? 1.5 : 0), 0, 7); ctx.fill(); });
     if (c && !(c.done && c.fade <= 0)) { ctx.globalAlpha = c.done ? Math.max(0, c.fade) : 1; sgDrawCat(ctx, c.x, c.y, G.cr, c.rot, c.squash || 0); ctx.globalAlpha = 1; }
-    if (hold) { ctx.strokeStyle = '#6E3812'; ctx.lineWidth = 4.5; ctx.beginPath(); ctx.moveTo(G.sx - G.cr * 1.05, G.sy - G.cr * .3); ctx.lineTo(c.x - G.cr * .3, c.y + 2); ctx.stroke(); }
+    if (hold) { ctx.strokeStyle = '#6E3812'; ctx.lineWidth = 4.5; ctx.beginPath(); ctx.moveTo(G.sx - G.sl * 1.05, G.sy - G.sl * .3); ctx.lineTo(c.x - G.cr * .5, c.y + 1); ctx.stroke(); }
     sgSlingFront(ctx, G);
     // 남은 냥이(새총 옆 대기)
-    for (let k = 0; k < Math.max(0, SG.left - (hold ? 1 : 0)); k++) sgDrawCat(ctx, G.sx - G.cr * (2.6 + k * 2.1), G.gy - G.cr * .95, G.cr * .85, 0, 0);
+    for (let k = 0; k < Math.max(0, SG.left - (hold ? 1 : 0)); k++) sgDrawCat(ctx, G.sx - G.sl * (1.6 + k * .9), G.gy - G.cr * .95, G.cr * .9, 0, 0);
     // 박 조각·팝콘
     SG.parts.forEach(p => { ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.a); ctx.fillStyle = '#E9F3D2'; ctx.strokeStyle = '#5E7F3E'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(0, 0, p.r, p.s, p.s + Math.PI); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.restore(); });
     SG.pops.forEach(p => sgPopcorn(ctx, p.x, p.y, p.s, p.a));
@@ -9111,7 +9113,7 @@ img, svg, video { max-width: 100%; }
   function sgStep(v, dt) {
     const { W, H } = v, G = sgGeo(W, H), gd = SG.gourd, c = SG.cat;
     SG.t += dt;
-    if (gd && !gd.popped) { const a = gd.amp * Math.sin(SG.t * gd.w + gd.ph); gd.x = gd.ax + Math.sin(a) * gd.len; gd.y = gd.ay + Math.cos(a) * gd.len; }
+    if (gd && !gd.popped) { gd.ax = gd.ax0 + gd.sAmp * Math.sin(SG.t * gd.sW + gd.sPh); gd.len = gd.len0 + gd.lAmp * Math.sin(SG.t * gd.lW + gd.lPh); const a = gd.amp * Math.sin(SG.t * gd.w + gd.ph); gd.x = gd.ax + Math.sin(a) * gd.len; gd.y = gd.ay + Math.cos(a) * gd.len; }
     if (c && c.fly) {
       const n = 4, h = dt / n;
       for (let k = 0; k < n && c.fly; k++) {
@@ -9129,10 +9131,10 @@ img, svg, video { max-width: 100%; }
   }
   function sgHit(v, G) {
     const m = slingMachine(), gd = SG.gourd, c = SG.cat; if (!m || !gd) return;
-    gd.popped = true; SG.boom = { x: gd.x, y: gd.y, r: gd.r, t: SG.t };
+    gd.popped = true; SG.boom = { x: gd.x, y: gd.y, r: Math.max(gd.r, 14), t: SG.t };
     [-1, 1].forEach(k => SG.parts.push({ x: gd.x + k * gd.r * .3, y: gd.y, vx: k * (120 + Math.random() * 80) + c.vx * .2, vy: -220 - Math.random() * 120, r: gd.r, a: 0, va: k * (4 + Math.random() * 3), s: k < 0 ? Math.PI / 2 : -Math.PI / 2 }));
     const tier = sgRoll(m), n = Math.min(120, 26 + Math.round(num(tier.v) / Math.max(1, num(m.cost)) * 14));
-    for (let i = 0; i < n; i++) { const a = Math.random() * Math.PI * 2, sp = 120 + Math.random() * 380; SG.pops.push({ x: gd.x, y: gd.y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 260, s: G.cr * (.22 + Math.random() * .16), a: Math.random() * 6, va: (Math.random() - .5) * 10 }); }
+    for (let i = 0; i < n; i++) { const a = Math.random() * Math.PI * 2, sp = 120 + Math.random() * 380; SG.pops.push({ x: gd.x, y: gd.y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 260, s: G.sl * (.2 + Math.random() * .14), a: Math.random() * 6, va: (Math.random() - .5) * 10 }); }
     c.vx *= .45; c.vy = Math.min(c.vy, -120); c.spin *= 1.6;
     SFX.thud(); SFX.whoosh();
     SG.res = { hit: true, tier, got: num(tier.v) };
@@ -9179,7 +9181,7 @@ img, svg, video { max-width: 100%; }
     SG.on = true; SG.res = null; SG.left = num(m.shots); SG.shots = 0; SG.parts = []; SG.pops = []; SG.boom = null;
     SG.gourd = sgNewGourd(v.W, v.H);
     const el = dyEl('sg-result'); if (el) el.hidden = true;
-    sgHint('냥이를 뒤로 당겼다 놓아 박을 맞혀요!');
+    sgHint('박이 레일을 따라 움직여요! 타이밍을 노려 냥이를 날려요');
     sgLoad(); SFX.go ? SFX.go() : SFX.whoosh();
   }
   function sgLoop() {
