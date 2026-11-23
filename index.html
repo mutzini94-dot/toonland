@@ -7913,7 +7913,7 @@ img, svg, video { max-width: 100%; }
     order.forEach((ri, k) => { rank[ri] = k; });
     const close = Math.random() < .35;   // 1·2착 접전(사진 판정)
     let acc = T1; const Ti = Array(N);
-    order.forEach((ri, k) => { if (k === 0) Ti[ri] = T1; else { acc += k === 1 ? (close ? .04 + Math.random() * .06 : .14 + Math.random() * .22) : .06 + Math.random() * .22; Ti[ri] = acc; } });
+    order.forEach((ri, k) => { if (k === 0) Ti[ri] = T1; else { acc += DRB.stage === 'kart' ? (k === 1 ? .05 + Math.random() * .1 : .06 + Math.random() * .14) : k === 1 ? (close ? .04 + Math.random() * .06 : .14 + Math.random() * .22) : .06 + Math.random() * .22; Ti[ri] = acc; } });
     const late = Math.floor(Math.random() * N);
     const run = R.map((r, i) => ({ i, style: r.style, T: Ti[i], d: i === late ? .5 : Math.random() * .15, z: 1.5 + i * 3.2, zt: 1.5 + i * 3.2, ph: Math.random() * 6, x: 0, skillAt: [.12, .45, .62, .78][r.style] + Math.random() * .06, skilled: false }));
     return { run, order, rank, close, late, t: 0, done: false, finish: -1, cam: null, log: [], photo: false, ended: false };
@@ -7922,7 +7922,13 @@ img, svg, video { max-width: 100%; }
   function dyX(r, t) { if (t <= r.d) return 0; const u = (t - r.d) / (r.T - r.d); if (u >= 1) return DY_L + (t - r.T) * DY_L / r.T * .55; return DY_L * Math.max(0, u + DY_K[r.style] * Math.sin(Math.PI * u)); }
   function dyStep(S, dt) {
     S.t += dt;
-    S.run.forEach(r => { const bx = dyX(r, S.t), nx = bx + (DRB.stage === 'kart' ? ktBoostOff(S, r, bx) : 0); r.v = (nx - r.x) / Math.max(dt, 1e-3); r.x = nx; r.ph += dt * (6 + Math.min(14, r.v * .6)); });
+    let bw = 0, mc = 0;
+    if (DRB.stage === 'kart') {
+      const g = S.t / S.run[S.order[0]].T, ss = v => { v = Math.max(0, Math.min(1, v)); return v * v * (3 - 2 * v); };
+      bw = .9 * ss((g - .5) / .25) * (1 - ss((g - .9) / .085));   // 50%부터 모이기 시작 → 75~90% 한 덩어리 → 98.5%에 완전히 풀림
+      mc = S.run.reduce((a, r) => a + dyX(r, S.t), 0) / S.run.length;
+    }
+    S.run.forEach(r => { const b0 = dyX(r, S.t), bx = bw ? b0 + bw * (mc - b0) + bw * DY_L * .0045 * Math.sin(S.t * 1.25 + r.i * 1.9) : b0, nx = bx + (DRB.stage === 'kart' ? ktBoostOff(S, r, b0) : 0); r.v = (nx - r.x) / Math.max(dt, 1e-3); r.x = nx; r.ph += dt * (6 + Math.min(14, r.v * .6)); });
     const live = S.run.slice().sort((a, b) => b.x - a.x);
     live.forEach((r, k) => { r.now = k + 1; r.zt = .8 + (k % 5) * 2.4 + (k >= 5 ? 1.2 : 0) + Math.sin(S.t * .6 + r.i) * .5; r.z += (r.zt - r.z) * Math.min(1, dt * 1.4); });
     return live;
@@ -8682,7 +8688,7 @@ img, svg, video { max-width: 100%; }
       if (DRB.stage === 'kart' && S.pod) ktPodium(view.ctx, view.W, view.H, S, R, dt);
       else if (DRB.stage === 'kart') {
         // 카트 서킷 카메라: 초반 후면 추격 → 중반 측면 → 마지막 정면
-        const kp = S.ended ? 'front' : live[0].x / DY_L < .3 ? 'rear' : live[0].x / DY_L < .5 ? 'side' : live[0].x / DY_L < .72 ? 'aerial' : 'front';
+        const kp = S.ended ? 'front' : live[0].x / DY_L < .2 ? 'rear' : live[0].x / DY_L < .36 ? 'side' : live[0].x / DY_L < .78 ? 'aerial' : 'front';
         if (S.kphase && S.kphase !== kp) { restart(st, 'dy-cut'); S.cam = null; }
         if (kp === 'aerial' && S.kphase !== 'aerial') { const tl = dyEl('dy-tele'); if (tl) { tl.textContent = '항공 중계'; restart(tl, 'show'); } }
         S.kphase = kp;
@@ -8736,9 +8742,10 @@ img, svg, video { max-width: 100%; }
     const marks = [[.02, () => dyComm('중계', '자, 스타트를 끊었습니다! ' + DY_N + '마리 일제히 출발!')], [.03, () => dyComm('해설', S.late != null ? (S.late + 1) + '번 ' + DY_DEF[S.late].name + ', 조금 늦은 출발이네요.' : '깔끔한 스타트예요.')],
       [.25, () => dyComm('중계', '선두는 ' + (live[0].i + 1) + '번 ' + DY_DEF[live[0].i].name + '! 2번째 ' + DY_DEF[live[1].i].name + '.')], [.5, () => dyComm('해설', '중간 지점, ' + DY_DEF[me.i].name + '은(는) 지금 ' + me.now + '위예요.')],
       [.72, () => dyComm('중계', '400m 표지 통과! 마지막 직선으로 들어옵니다!')], [.88, () => dyComm('중계', (live[0].i + 1) + '번 ' + DY_DEF[live[0].i].name + ' 버티나! ' + DY_DEF[live[1].i].name + ' 맹추격!')]];
+    if (DRB.stage === 'kart' && p >= .82 && !S.battle) { S.battle = true; const tl = dyEl('dy-tele'); if (tl) { tl.textContent = '대접전!!'; restart(tl, 'show'); } dyComm('해설', '다섯 대가 나란히! 마지막 직선에서 순위가 갈립니다!'); }
     S.mk = S.mk || 0;
     while (S.mk < marks.length && p >= marks[S.mk][0]) { marks[S.mk][1](); S.mk++; }
-    if (p >= .72 && !S.straight) { S.straight = true; const tl = dyEl('dy-tele'); if (tl) { tl.textContent = '마지막 직선!'; restart(tl, 'show'); } SFX.ready ? SFX.ready() : null; }
+    if (p >= (DRB.stage === 'kart' ? .78 : .72) && !S.straight) { S.straight = true; const tl = dyEl('dy-tele'); if (tl) { tl.textContent = '마지막 직선!'; restart(tl, 'show'); } SFX.ready ? SFX.ready() : null; }
   }
   function dyStart() {
     const m = derbyMachine(); if (!m || DRB.on) return;
