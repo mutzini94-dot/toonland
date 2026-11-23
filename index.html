@@ -1438,7 +1438,7 @@ svg.lt-kico.lt-tic { width: 22px; height: 22px; margin: 0 8px 0 2px; }
 @keyframes dy-fgot-in { from { transform: scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
 @keyframes dy-fgot-pulse { 40% { transform: scale(1.14); } 100% { transform: none; } }
 @media (max-width: 640px) { .dy-fgv { font-size: 36px; } .dy-fgv .kernel { width: 34px; height: 34px; } .dy-fgot { min-width: 180px; padding: 12px 18px 10px; } }
-/* ===== 냥냥 레이스 ===== */
+.dy-admsw { display: inline-flex; gap: 6px; margin: 2px 0 12px; padding: 4px; border-radius: 12px; background: #F1F3F5; }.dy-admsw button { border: 0; border-radius: 9px; padding: 7px 14px; background: transparent; font: inherit; font-weight: 800; color: #495057; cursor: pointer; }.dy-admsw button small { font-weight: 700; color: #868E96; margin-left: 2px; }.dy-admsw button[aria-pressed="true"] { background: #FFFFFF; color: #1C7ED6; box-shadow: 0 1px 4px rgba(0,0,0,.12); }/* ===== 냥냥 레이스 ===== */
 .rc-panel { grid-column: 1 / -1; }
 .rc-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
 .rc-stage { position: relative; width: 100%; max-width: 760px; padding: 64px 0 14px; overflow: hidden; border-radius: 18px; background: linear-gradient(180deg, #BDE7FF 0, #E7F7FF 70px, #7FCB5E 70px, #5FB548 100%); box-shadow: 0 6px 0 rgba(0,0,0,.08); }
@@ -3069,6 +3069,7 @@ img, svg, video { max-width: 100%; }
     <button type="button" role="tab" data-gtab="pirate" aria-selected="false" style="--gtc:#C92A2A"><span class="gt-dot"></span>해적 통 룰렛 <small class="gt-new">NEW</small></button>
     <button type="button" role="tab" data-gtab="bomb" aria-selected="false" style="--gtc:#E67700"><span class="gt-dot"></span>폭탄 해체반 <small class="gt-new">NEW</small></button>
     <button type="button" role="tab" data-gtab="derby" aria-selected="false" style="--gtc:#1C7ED6"><span class="gt-dot"></span>냥냥 더비 <small class="gt-new">NEW</small></button>
+    <button type="button" role="tab" data-gtab="kart" aria-selected="false" style="--gtc:#E8590C"><span class="gt-dot"></span>냥냥 카트 <small class="gt-new">NEW</small></button>
   </div>
   </div>
 
@@ -3109,7 +3110,7 @@ img, svg, video { max-width: 100%; }
   <p class="ad-invalid" id="ad-invalid" hidden></p>
 
   <div class="ad-layout">
-  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="archery"><span class="gnb-dot" data-addot="archery"></span><span class="gnb-text"><b>깡통 사격</b><small>캔별 상품 보상표</small></span></button><button type="button" class="gnb-item" data-adpage="slot"><span class="gnb-dot" data-addot="slot"></span><span class="gnb-text"><b>캐릭터 슬롯</b><small>캐릭터별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="gslot"><span class="gnb-dot" data-addot="gslot"></span><span class="gnb-text"><b>상품 슬롯</b><small>상품별 비중·준비 수량</small></span></button><button type="button" class="gnb-item" data-adpage="race"><span class="gnb-dot" data-addot="race"></span><span class="gnb-text"><b>냥냥 레이스</b><small>우승 비중·배당</small></span></button><button type="button" class="gnb-item" data-adpage="fish"><span class="gnb-dot" data-addot="fish"></span><span class="gnb-text"><b>냥 낚시터</b><small>입장권·물고기 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="wheel"><span class="gnb-dot" data-addot="wheel"></span><span class="gnb-text"><b>럭키 룰렛</b><small>그림별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="pirate"><span class="gnb-dot" data-addot="pirate"></span><span class="gnb-text"><b>해적 통 룰렛</b><small>구멍·해적·칼 수·RTP</small></span></button><button type="button" class="gnb-item" data-adpage="bomb"><span class="gnb-dot" data-addot="bomb"></span><span class="gnb-text"><b>폭탄 해체반</b><small>선 개수·시간·배수</small></span></button><button type="button" class="gnb-item" data-adpage="derby"><span class="gnb-dot" data-addot="derby"></span><span class="gnb-text"><b>냥냥 더비</b><small>우승 비중·배당·RTP</small></span></button></div></nav>
+  <nav class="ad-gnb" id="ad-gnb" aria-label="관리자 메뉴"><div class="gnb-group"><span class="gnb-title">운영</span><button type="button" class="gnb-item" data-adpage="overview"><span class="gnb-dot" data-addot="overview"></span><span class="gnb-text"><b>대시보드</b><small>예산·목표 RTP·머신별 RTP</small></span></button></div><div class="gnb-group"><span class="gnb-title">게임</span><button type="button" class="gnb-item" data-adpage="machines"><span class="gnb-dot" data-addot="machines"></span><span class="gnb-text"><b>가챠 머신</b><small>상품·확률 편집</small></span></button><button type="button" class="gnb-item" data-adpage="puzzle"><span class="gnb-dot" data-addot="puzzle"></span><span class="gnb-text"><b>직소 퍼즐</b><small>상품·카드 가격</small></span></button><button type="button" class="gnb-item" data-adpage="runner"><span class="gnb-dot" data-addot="runner"></span><span class="gnb-text"><b>냥치 런</b><small>문 단계 점수</small></span></button><button type="button" class="gnb-item" data-adpage="cannon"><span class="gnb-dot" data-addot="cannon"></span><span class="gnb-text"><b>팝콘 대포</b><small>등급별 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="archery"><span class="gnb-dot" data-addot="archery"></span><span class="gnb-text"><b>깡통 사격</b><small>캔별 상품 보상표</small></span></button><button type="button" class="gnb-item" data-adpage="slot"><span class="gnb-dot" data-addot="slot"></span><span class="gnb-text"><b>캐릭터 슬롯</b><small>캐릭터별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="gslot"><span class="gnb-dot" data-addot="gslot"></span><span class="gnb-text"><b>상품 슬롯</b><small>상품별 비중·준비 수량</small></span></button><button type="button" class="gnb-item" data-adpage="race"><span class="gnb-dot" data-addot="race"></span><span class="gnb-text"><b>냥냥 레이스</b><small>우승 비중·배당</small></span></button><button type="button" class="gnb-item" data-adpage="fish"><span class="gnb-dot" data-addot="fish"></span><span class="gnb-text"><b>냥 낚시터</b><small>입장권·물고기 확률표</small></span></button><button type="button" class="gnb-item" data-adpage="wheel"><span class="gnb-dot" data-addot="wheel"></span><span class="gnb-text"><b>럭키 룰렛</b><small>그림별 비중·배수</small></span></button><button type="button" class="gnb-item" data-adpage="pirate"><span class="gnb-dot" data-addot="pirate"></span><span class="gnb-text"><b>해적 통 룰렛</b><small>구멍·해적·칼 수·RTP</small></span></button><button type="button" class="gnb-item" data-adpage="bomb"><span class="gnb-dot" data-addot="bomb"></span><span class="gnb-text"><b>폭탄 해체반</b><small>선 개수·시간·배수</small></span></button><button type="button" class="gnb-item" data-adpage="derby"><span class="gnb-dot" data-addot="derby"></span><span class="gnb-text"><b>냥냥 더비·카트</b><small>우승 비중·배당·RTP</small></span></button></div></nav>
   <div class="ad-main">
   <div class="ad-page" data-page="overview">
 
@@ -3217,7 +3218,8 @@ img, svg, video { max-width: 100%; }
   </div>
   <div class="ad-page" data-page="derby" hidden>
   <div class="panel ad-block" id="dy-admin">
-    <h2>냥냥 더비 관리 <span class="tag" id="dy-sum"></span></h2>
+    <h2>냥냥 더비 · 냥냥 카트 관리 <span class="tag" id="dy-sum"></span></h2>
+    <div class="dy-admsw" role="group" aria-label="편집할 게임"><button type="button" data-dyadm="turf" aria-pressed="true">냥냥 더비 <small>경마장</small></button><button type="button" data-dyadm="kart" aria-pressed="false">냥냥 카트 <small>카트 서킷</small></button></div>
     <p class="hub-note">순위는 출발 순간 우승 비중대로 1착부터 차례로 뽑아요(1착 확률 = 비중 비율). 배당은 <b>목표 RTP ÷ 맞힐 확률</b>(0.1 단위 내림, 최소 ×1.0)로 자동 계산돼서, 손님이 어느 냥이·어느 베팅을 골라도 환원율이 목표 이하예요. 각질은 레이스 연출(초반·막판 속도)에만 쓰여요.</p>
     <div class="fields" id="dy-fields"></div>
     <div class="table-wrap"><table class="ad-table" id="dy-t"></table></div>
@@ -3589,6 +3591,7 @@ img, svg, video { max-width: 100%; }
     { id: 'pirate', name: '해적 통 룰렛', cost: 50, color: '#C92A2A', tab: 'pirate' },
     { id: 'bomb', name: '폭탄 해체반', cost: 50, color: '#E67700', tab: 'bomb' },
     { id: 'derby', name: '냥냥 더비', cost: 100, color: '#1C7ED6', tab: 'derby' },
+    { id: 'kart', name: '냥냥 카트', cost: 100, color: '#E8590C', tab: 'kart' },
     { id: 'gold', name: '골드존', cost: 2000, color: 'var(--t-gold)' },
     { id: 'creator', name: '크리에이터존', cost: 3000, color: 'var(--t-creator)' },
     { id: 'legend', name: '레전드존', cost: 10000, color: 'var(--t-legend)' }
@@ -3662,6 +3665,10 @@ img, svg, video { max-width: 100%; }
         prizes: [W('A', '1번째에 해체 ×2', 'kernel', 100, 0, 20), W('B', '2번째에 해체 ×1.6', 'kernel', 80, 0, 15), W('B', '3번째에 해체 ×1.3', 'kernel', 65, 0, 10), W('B', '4번째에 해체 ×1.1', 'kernel', 55, 0, 5)] },
       // 냥냥 더비: 냥냥 레이스 캐릭터 5마리 3D 중계 경주. 우승 비중으로 순위를 정하고, 배당 = 목표 RTP ÷ 맞힐 확률(자동). 최대 RTP로 관리
       { id: 'derby', zone: 'derby', mode: 'derby', name: '냥냥 더비', cost: 100, maxBet: 1000, demand: 800000, rtp: 85, top: '',
+        runners: [{ name: '주황 고양이', style: 1, w: 35 }, { name: '갈색 강아지', style: 0, w: 25 }, { name: '판다 고양이', style: 2, w: 20 }, { name: '개구리', style: 3, w: 12 }, { name: '초록 공룡', style: 3, w: 8 }],
+        prizes: [] },
+      // 냥냥 카트: 같은 냥이 5마리가 카트 서킷을 달린다(후면·드리프트·항공·정면 중계). 배당 = 목표 RTP ÷ 맞힐 확률
+      { id: 'kart', zone: 'kart', mode: 'derby', stage: 'kart', name: '냥냥 카트', cost: 100, maxBet: 1000, demand: 800000, rtp: 85, top: '',
         runners: [{ name: '주황 고양이', style: 1, w: 35 }, { name: '갈색 강아지', style: 0, w: 25 }, { name: '판다 고양이', style: 2, w: 20 }, { name: '개구리', style: 3, w: 12 }, { name: '초록 공룡', style: 3, w: 8 }],
         prizes: [] },
       // 팝콘 대포: 게이지 등급(퍼펙트·좋아요·보통)별 확률표로 거리 구간 결정. 배수 공통, 등급별 RTP 동일(B 방식)
@@ -3742,7 +3749,7 @@ img, svg, video { max-width: 100%; }
   const WALLET_KEY = 'tooneland-wallet-v1';
   const WALLET = (() => { try { const w = JSON.parse(localStorage.getItem(WALLET_KEY)); if (w && typeof w.bal === 'number' && Array.isArray(w.log)) return w; } catch (e) { /* 저장소 없음 */ } return { bal: 12340, log: [{ t: Date.now(), d: 0, after: 12340, why: '시작 잔액 (목업)' }] }; })();
   let ledgerWhy = '', walletT = 0;
-  const GAME_WHY = { puzzle: ['직소 퍼즐 카드 뽑기', '직소 퍼즐 보상'], runner: ['냥치 런 입장', '냥치 런 점수 받기'], cannon: ['팝콘 대포 발사', '팝콘 대포 착지 보상'], slot: ['캐릭터 슬롯 돌리기', '캐릭터 슬롯 당첨'], gslot: ['상품 슬롯 돌리기', '상품 슬롯 당첨'], race: ['냥냥 레이스 응원', '냥냥 레이스 적중'], fish: ['냥 낚시터 입장', '냥 낚시터 조과'], wheel: ['럭키 룰렛 돌리기', '럭키 룰렛 당첨'], scratch: ['럭키 스크래치 구매', '럭키 스크래치 당첨'], pirate: ['해적 통 룰렛 입장', '해적 통 룰렛 보물 획득'], bomb: ['폭탄 해체반 입장', '폭탄 해체반 해체 성공'], derby: ['냥냥 더비 베팅', '냥냥 더비 적중'], archery: ['깡통 사격 입장(탄 구매)', '깡통 사격 명중 상품'] };
+  const GAME_WHY = { puzzle: ['직소 퍼즐 카드 뽑기', '직소 퍼즐 보상'], runner: ['냥치 런 입장', '냥치 런 점수 받기'], cannon: ['팝콘 대포 발사', '팝콘 대포 착지 보상'], slot: ['캐릭터 슬롯 돌리기', '캐릭터 슬롯 당첨'], gslot: ['상품 슬롯 돌리기', '상품 슬롯 당첨'], race: ['냥냥 레이스 응원', '냥냥 레이스 적중'], fish: ['냥 낚시터 입장', '냥 낚시터 조과'], wheel: ['럭키 룰렛 돌리기', '럭키 룰렛 당첨'], scratch: ['럭키 스크래치 구매', '럭키 스크래치 당첨'], pirate: ['해적 통 룰렛 입장', '해적 통 룰렛 보물 획득'], bomb: ['폭탄 해체반 입장', '폭탄 해체반 해체 성공'], derby: ['냥냥 더비 베팅', '냥냥 더비 적중'], kart: ['냥냥 카트 베팅', '냥냥 카트 적중'], archery: ['깡통 사격 입장(탄 구매)', '깡통 사격 명중 상품'] };
   function ledgerReason(d) {
     if (ledgerWhy) return ledgerWhy;
     if (typeof current !== 'undefined' && current) return current.name + (d < 0 ? ' 뽑기' : ' 당첨');
@@ -3838,6 +3845,7 @@ img, svg, video { max-width: 100%; }
 
   function renderZones() {
     const COPY = {
+      kart: ['카트 서킷 냥냥 카트', '냥냥 레이스 친구들 5마리가 카트를 타고 서킷을 달려요. 응원할 선수를 골라 1착 또는 3착 안에 걸고, 드리프트·항공 중계·시상식까지 지켜보세요.'],
       derby: ['3D 중계로 즐기는 냥냥 더비', '냥냥 레이스 친구들 5마리가 1600m를 달려요. 응원할 선수를 골라 1착 또는 3착 안에 걸고, 레일 옆·정면 카메라로 중계를 지켜보세요.'],
       bomb: ['해체 선을 찾아 자르는 폭탄 해체반', '폭탄의 선 5개 중 해체 선은 단 하나! 폭발 선보다 먼저 해체 선을 자르면 성공이고, 빨리 해체할수록 보상이 커요.'],
       pirate: ['칼을 꽂아 버티는 해적 통 룰렛', '통 구멍에 칼을 하나씩 꽂아요. 해적이 튀어나오지 않고 칼 5개를 모두 버티면 보물(입장료 × 배수)을 받아요.'],
@@ -3903,7 +3911,7 @@ img, svg, video { max-width: 100%; }
     if (state.tab === 'scratch') { $('floor').innerHTML = scratchFloorHTML(); ltInit(); return; }
     if (state.tab === 'pirate') { $('floor').innerHTML = pirateFloorHTML(); brInit(); return; }
     if (state.tab === 'bomb') { $('floor').innerHTML = bombFloorHTML(); bdInit(); return; }
-    if (state.tab === 'derby') { $('floor').innerHTML = derbyFloorHTML(); requestAnimationFrame(() => dyInit()); return; }
+    if (state.tab === 'derby' || state.tab === 'kart') { $('floor').innerHTML = derbyFloorHTML(); requestAnimationFrame(() => dyInit()); return; }
     const order = id => zones.findIndex(z => z.id === id);
     const list = state.tab !== 'gacha'
       ? machines.filter(m => m.mode === state.tab)
@@ -7656,7 +7664,9 @@ img, svg, video { max-width: 100%; }
   const DY_SKILL = [['선두 사수', '바람 가르기'], ['냥발 질주', '코너 장인'], ['틈새 파고들기', '꼬리 부스트'], ['막판 스퍼트', '각성 추입']];
   const DY_L = 400;   // 경주 거리(월드 단위), 화면 표시는 ×4 = 1600m
   const DRB = { on: false, pick: 0, type: 'win', bet: 0, raf: 0, sim: null, last: null, stage: 'turf' };
-  const derbyMachine = () => machines.find(m => m.mode === 'derby');
+  // 경마장(냥냥 더비)·카트 서킷(냥냥 카트)은 별도 게임: 같은 엔진, 머신·설정·탭이 따로
+  const dyTabStage = () => state.tab === 'kart' ? 'kart' : 'turf';
+  const derbyMachine = () => machines.find(m => m.mode === 'derby' && (m.stage || 'turf') === dyTabStage());
   const dyEl = id => document.getElementById(id);
   function dyRunners(m) {
     return DY_DEF.map((d, i) => { const r = m && Array.isArray(m.runners) ? m.runners[i] || {} : {}; const nm = r.name == null || DY_OLD.includes(r.name) ? d.name : r.name; return { name: String(nm).slice(0, 8) || d.name, style: r.style == null ? d.style : Math.max(0, Math.min(3, Math.round(num(r.style)))), w: r.w == null ? d.w : Math.max(0, num(r.w)) }; });
@@ -7732,7 +7742,7 @@ img, svg, video { max-width: 100%; }
         const pc = document.createElement('canvas'); pc.width = DY_FW; pc.height = DY_FH; pc.getContext('2d').drawImage(im, 0, i * 2 * DY_FH, DY_FW, DY_FH, 0, 0, DY_FW, DY_FH); dyPoseURL[i] = pc.toDataURL();
       }
       dySpr = im;
-      if (state.tab === 'derby' && !DRB.on && dyEl('dy-cards')) { $('floor').innerHTML = derbyFloorHTML(); dyInit(); }
+      if ((state.tab === 'derby' || state.tab === 'kart') && !DRB.on && dyEl('dy-cards')) { $('floor').innerHTML = derbyFloorHTML(); dyInit(); }
     };
     im.src = DY_RCS;
   }
@@ -7962,6 +7972,7 @@ img, svg, video { max-width: 100%; }
     }
   }
   function derbyFloorHTML() {
+    if (DRB.stage !== dyTabStage()) { DRB.stage = dyTabStage(); DRB.last = null; }
     const m = derbyMachine(); if (!m) return '';
     dySync(m);
     const B = dyBoard(m), bets = dyBets(m); if (!bets.includes(DRB.bet)) DRB.bet = bets[0];
@@ -7970,7 +7981,7 @@ img, svg, video { max-width: 100%; }
     const rows = B.map(b => '<tr><td>' + (b.i + 1) + '번 ' + b.name + '</td><td class="num">' + slPctTxt(b.pw) + '</td><td class="num">' + dyMul(b.win) + '</td><td class="num">' + slPctTxt(b.p3) + '</td><td class="num">' + dyMul(b.show) + '</td></tr>').join('');
     return '<section class="dy-panel" aria-labelledby="dy-h"><div class="rc-wrap">' +
       '<div class="dy-cab" id="dy-cab">' +
-        '<div class="dy-stage" id="dy-stage"><canvas id="dy-cv" aria-label="냥냥 더비 중계 화면"></canvas>' +
+        '<div class="dy-stage" id="dy-stage"><canvas id="dy-cv" aria-label="' + m.name + ' 중계 화면"></canvas>' +
           '<div class="dy-top"><span>START</span><div class="dy-bar" id="dy-bar">' + B.map(b => '<i class="dy-dot" data-dyd="' + b.i + '" style="--cap:' + DY_CAP[b.i] + '">' + (b.i + 1) + '</i>').join('') + '</div><span>GOAL</span></div>' +
           '<div class="dy-skills" id="dy-skills" aria-live="polite"></div>' +
           '<div class="dy-tele" id="dy-tele"></div><div class="dy-review" id="dy-review" hidden></div><div class="dy-slow" aria-hidden="true">SLOW</div>' +
@@ -7978,7 +7989,6 @@ img, svg, video { max-width: 100%; }
           '<div class="dy-paddock" id="dy-paddock"><b>' + (DRB.stage === 'kart' ? '냥냥 카트 서킷' : '냥냥 더비') + '</b><span>' + (DRB.stage === 'kart' ? '해안 마을 서킷 · ' + DY_N + '대' : '1600m · 잔디 · ' + DY_N + '마리') + '</span><small>응원할 선수를 고르고 출발!</small></div>' +
           '<div class="dy-finish" id="dy-finish" hidden></div>' +
         '</div>' +
-        '<div class="dy-stagebar" role="group" aria-label="스테이지"><button type="button" data-dyg="turf" aria-pressed="' + (DRB.stage === 'turf') + '"><b>경마장</b><small>레일 옆 · 정면 중계</small></button><button type="button" data-dyg="kart" aria-pressed="' + (DRB.stage === 'kart') + '"><b>카트 서킷</b><small>추격 → 측면 → 정면 카메라</small></button></div>' +
         '<div class="dy-cards" id="dy-cards" role="group" aria-label="출전 냥이">' + cards + '</div>' +
         '<div class="dy-opts"><div class="dy-type" role="group" aria-label="베팅 종류"><button type="button" data-dyt="win" aria-pressed="' + (DRB.type === 'win') + '">1착 맞히기</button><button type="button" data-dyt="show" aria-pressed="' + (DRB.type === 'show') + '">3착 안</button></div>' +
           '<div class="dy-bets" role="group" aria-label="베팅 강냉이">' + bets.map(v => '<button type="button" data-dyb="' + v + '" aria-pressed="' + (DRB.bet === v) + '">' + K + fmt(v) + '</button>').join('') + '</div></div>' +
@@ -8819,8 +8829,8 @@ img, svg, video { max-width: 100%; }
     const P = DRB.placed, rk = S.rank[P.pick] + 1, hit = P.type === 'win' ? rk === 1 : rk <= 3, got = hit ? Math.floor(P.bet * P.odds) : 0;
     DRB.on = false; DRB.last = { rk, hit, got };
     if (got) state.balance += got;
-    recordResult(hit ? { g: P.odds >= 10 ? 'S' : P.odds >= 5 ? 'A' : P.odds >= 2 ? 'B' : 'C', name: '냥냥 더비 ' + DY_DEF[P.pick].name + ' ' + (P.type === 'win' ? '1착' : '3착 안') + ' ' + dyMul(P.odds) + ' · ' + fmt(got) + '개', kind: 'kernel', val: got } : { g: 'C', name: '냥냥 더비 ' + DY_DEF[P.pick].name + ' ' + rk + '착', kind: 'kernel', val: 0 }, m);
-    if (hit && P.odds >= 5) { state.feed.unshift({ g: P.odds >= 10 ? 'S' : 'A', item: '강냉이 ' + fmt(got) + '개', who: '나 · 냥냥 더비 ' + DY_DEF[P.pick].name + ' ' + (P.type === 'win' ? '1착' : '3착 안') }); renderFeed(true); }
+    recordResult(hit ? { g: P.odds >= 10 ? 'S' : P.odds >= 5 ? 'A' : P.odds >= 2 ? 'B' : 'C', name: m.name + ' ' + DY_DEF[P.pick].name + ' ' + (P.type === 'win' ? '1착' : '3착 안') + ' ' + dyMul(P.odds) + ' · ' + fmt(got) + '개', kind: 'kernel', val: got } : { g: 'C', name: m.name + ' ' + DY_DEF[P.pick].name + ' ' + rk + '착', kind: 'kernel', val: 0 }, m);
+    if (hit && P.odds >= 5) { state.feed.unshift({ g: P.odds >= 10 ? 'S' : 'A', item: '강냉이 ' + fmt(got) + '개', who: '나 · ' + m.name + ' ' + DY_DEF[P.pick].name + ' ' + (P.type === 'win' ? '1착' : '3착 안') }); renderFeed(true); }
     saveMe(); renderHUD(true);
     const w = S.order[0], fin = dyEl('dy-finish'), st = dyEl('dy-stage');
     const rv = dyEl('dy-review'); if (rv) rv.hidden = true; st.classList.remove('review', 'slowmo');
@@ -8858,14 +8868,14 @@ img, svg, video { max-width: 100%; }
     else dyLoop();
   }
   $('floor').addEventListener('click', e => {
-    if (state.tab !== 'derby' || DRB.on) return;
+    if ((state.tab !== 'derby' && state.tab !== 'kart') || DRB.on) return;
     const c = e.target.closest('[data-dyp]'); if (c) { DRB.pick = Number(c.dataset.dyp); SFX.toggle ? SFX.toggle() : null; dyUI(); return; }
     const g = e.target.closest('[data-dyg]'); if (g) { if (DRB.stage !== g.dataset.dyg) { DRB.stage = g.dataset.dyg; DRB.last = null; $('floor').innerHTML = derbyFloorHTML(); dyInit(); } return; }
     const t = e.target.closest('[data-dyt]'); if (t) { DRB.type = t.dataset.dyt; dyUI(); return; }
     const b = e.target.closest('[data-dyb]'); if (b) { DRB.bet = Number(b.dataset.dyb); dyUI(); return; }
     if (e.target.closest('#dy-go')) dyStart();
   });
-  addEventListener('resize', () => { if (state.tab === 'derby' && !DRB.on && dyEl('dy-cv')) dyInit(); });
+  addEventListener('resize', () => { if ((state.tab === 'derby' || state.tab === 'kart') && !DRB.on && dyEl('dy-cv')) dyInit(); });
 
   // =====================================================================
   // 깡통 사격: 서부 사격장 건물의 구멍 6개에서 캔이 2개씩 2초 동안 나왔다 들어간다(10초 동안 5번).
@@ -9505,10 +9515,10 @@ img, svg, video { max-width: 100%; }
       else if (!(I.reduce((a, x) => a + x.w, 0) > 0)) errs.push('상품 슬롯: 출현 비중 합이 0이에요.');
     });
     draft.machines.filter(m => m.mode === 'derby').forEach(m => {
-      if (!(num(m.cost) >= 1)) errs.push('냥냥 더비: 최소 베팅은 1 이상이어야 해요.');
-      if (!(num(m.maxBet) >= num(m.cost))) errs.push('냥냥 더비: 최대 베팅은 최소 베팅 이상이어야 해요.');
-      if (!(num(m.rtp) >= 50 && num(m.rtp) <= 99)) errs.push('냥냥 더비: 목표 RTP는 50~99%예요.');
-      if (!(dyRunners(m).every(r => r.w > 0))) errs.push('냥냥 더비: 모든 냥이의 우승 비중은 0보다 커야 해요.');
+      if (!(num(m.cost) >= 1)) errs.push(m.name + ': 최소 베팅은 1 이상이어야 해요.');
+      if (!(num(m.maxBet) >= num(m.cost))) errs.push(m.name + ': 최대 베팅은 최소 베팅 이상이어야 해요.');
+      if (!(num(m.rtp) >= 50 && num(m.rtp) <= 99)) errs.push(m.name + ': 목표 RTP는 50~99%예요.');
+      if (!(dyRunners(m).every(r => r.w > 0))) errs.push(m.name + ': 모든 냥이의 우승 비중은 0보다 커야 해요.');
     });
     draft.machines.filter(m => m.mode === 'race').forEach(m => {
       if (!(num(m.cost) >= 10)) errs.push('냥냥 레이스: 최소 응원 강냉이는 10 이상이어야 해요.');
@@ -9568,7 +9578,7 @@ img, svg, video { max-width: 100%; }
       const e = econ(m, s), st = mSt(m, e);
       return '<tr style="--c:' + zoneOf(m.zone).color + '">' +
         '<td><span class="mname"><i></i>' + m.name + '</span></td>' +
-        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'archery' ? '깡통 사격' : m.mode === 'slot' ? '캐릭터 슬롯' : m.mode === 'gslot' ? '상품 슬롯' : m.mode === 'race' ? '냥냥 레이스' : m.mode === 'fish' ? '냥 낚시터' : m.mode === 'wheel' ? '럭키 룰렛' : m.mode === 'pirate' ? '해적 통 룰렛' : m.mode === 'bomb' ? '폭탄 해체반' : m.mode === 'derby' ? '냥냥 더비' : m.mode === 'scratch' ? '스크래치 복권' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
+        '<td>' + (m.mode === 'prob' ? '확률형' : m.mode === 'board' ? '뽑기판' : m.mode === 'puzzle' ? '직소 퍼즐' : m.mode === 'runner' ? '냥치 런' : m.mode === 'cannon' ? '팝콘 대포' : m.mode === 'archery' ? '깡통 사격' : m.mode === 'slot' ? '캐릭터 슬롯' : m.mode === 'gslot' ? '상품 슬롯' : m.mode === 'race' ? '냥냥 레이스' : m.mode === 'fish' ? '냥 낚시터' : m.mode === 'wheel' ? '럭키 룰렛' : m.mode === 'pirate' ? '해적 통 룰렛' : m.mode === 'bomb' ? '폭탄 해체반' : m.mode === 'derby' ? m.name : m.mode === 'scratch' ? '스크래치 복권' : m.mode === 'farm' ? '팝콘 농장' : '한정 캡슐') + '</td>' +
         '<td class="r">' + fmt(num(m.cost)) + '</td>' +
         '<td class="r">' + fmt(num(m.demand)) + '<span class="ed-left">' + (m.mode === 'cannon' || m.mode === 'archery' ? '약 ' + fmt(Math.round(e.runs)) + '발' : m.mode === 'runner' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'slot' || m.mode === 'gslot' || m.mode === 'wheel' ? '약 ' + fmt(Math.round(e.runs)) + '회' : m.mode === 'pirate' || m.mode === 'bomb' || m.mode === 'derby' ? '약 ' + fmt(Math.round(e.runs)) + '판' : m.mode === 'race' ? '약 ' + fmt(Math.round(e.runs)) + '판(최소 기준)' : m.mode === 'fish' ? '약 ' + fmt(Math.round(e.runs)) + '번' : m.mode === 'puzzle' ? '약 ' + fmt(Math.round(e.runs)) + '장' : isProb(m) ? '약 ' + fmt(Math.round(e.runs)) + '회 플레이' : '약 ' + e.runs.toFixed(1) + '회차') + '</span></td>' +
         '<td class="r">' + (e.hasGoods ? won(e.goods) + '<span class="ed-left">상품 ' + fmt(e.goodsN) + '개</span>' : '<span class="qmeta">상품 없음</span>') + '</td>' +
@@ -10252,10 +10262,12 @@ img, svg, video { max-width: 100%; }
   }
 
   // ----- 냥냥 더비 관리: 베팅 범위·목표 RTP + 냥이별 이름·각질·우승 비중 → 배당 자동 -----
-  const dyDraft = () => draft.machines.find(m => m.mode === 'derby');
+  let DY_ADM = 'turf';
+  const dyDraft = () => draft.machines.find(m => m.mode === 'derby' && (m.stage || 'turf') === DY_ADM);
   function renderDerbyAdmin() {
     const m = dyDraft(); if (!m || !dyEl('dy-fields')) return;
     dySync(m);
+    document.querySelectorAll('[data-dyadm]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.dyadm === DY_ADM)));
     const fld = (id, label, key, unit, min, step) => '<div class="field"><label for="' + id + '">' + label + '</label><div class="input-unit"><input class="input num" id="' + id + '" type="number" min="' + min + '" step="' + (step || 1) + '" data-dyf="' + key + '" value="' + num(m[key]) + '"><span>' + unit + '</span></div></div>';
     $('dy-fields').innerHTML = fld('dya-cost', '최소 베팅', 'cost', '강냉이', 1) + fld('dya-max', '최대 베팅', 'maxBet', '강냉이', 1) + fld('dya-rtp', '목표 RTP', 'rtp', '%', 50, .5) + fld('dya-demand', '월 예상 강냉이 소진', 'demand', '강냉이', 0);
     $('dy-t').innerHTML = '<thead><tr><th>번호</th><th>이름</th><th>각질</th><th class="w-num">우승 비중</th><th class="r">1착 확률</th><th class="r">1착 배당</th><th class="r">3착 안 확률</th><th class="r">3착 배당</th></tr></thead><tbody>' +
@@ -10282,6 +10294,7 @@ img, svg, video { max-width: 100%; }
     renderDerbyCalc(); renderStats();
     return true;
   }
+  document.addEventListener('click', e => { const b = e.target.closest('[data-dyadm]'); if (b) { DY_ADM = b.dataset.dyadm; renderDerbyAdmin(); } });
 
   function openAdmin() {
     // 편집 중인 내용이 없으면 최신 설정(게임에서 줄어든 남은 수량 포함)으로 다시 시작
@@ -10577,6 +10590,10 @@ img, svg, video { max-width: 100%; }
       '<path d="M0 62 L100 52 M0 76 L100 64" stroke="#FFFFFF" stroke-width="2.4"/><path d="M0 50 Q30 40 60 46 T100 40" stroke="#2F8F3A" stroke-width="8" fill="none"/>' +
       [[28, '#BFE8FA', '#2E9BD6'], [52, '#FFC9DE', '#E64980'], [74, '#B8F2DC', '#12B886']].map(([x, f, c]) => '<ellipse cx="' + x + '" cy="74" rx="11" ry="6" fill="' + f + '" stroke="#2B2D31" stroke-width="1.6"/><circle cx="' + (x + 11) + '" cy="66" r="6" fill="' + f + '" stroke="#2B2D31" stroke-width="1.6"/><path d="M' + (x + 5) + ' 63 a6 6 0 0 1 12 0 z" fill="' + c + '"/>').join('') +
       '<path d="M84 20 V58" stroke="#FFFFFF" stroke-width="3"/><rect x="72" y="14" width="24" height="10" rx="2" fill="#E03131"/></svg>',
+    kart: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgkt1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5AB0F0"/><stop offset=".42" stop-color="#CFEAFF"/><stop offset=".42" stop-color="#7DB35A"/><stop offset="1" stop-color="#4E8F35"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgkt1)"/>' +
+      '<path d="M38 42 L62 42 L96 100 L4 100 Z" fill="#45494F"/><path d="M50 46 V56 M50 64 V76 M50 84 V100" stroke="#FCC419" stroke-width="3"/><path d="M38 42 L4 100" stroke="#E03131" stroke-width="5" stroke-dasharray="6 6"/><path d="M62 42 L96 100" stroke="#1C7ED6" stroke-width="5" stroke-dasharray="6 6"/>' +
+      '<g transform="translate(50 74)"><rect x="-17" y="-4" width="8" height="12" rx="2" fill="#1E1A1A"/><rect x="9" y="-4" width="8" height="12" rx="2" fill="#1E1A1A"/><path d="M-13 6 Q-14 -8 -8 -10 L8 -10 Q14 -8 13 6 Z" fill="#E8590C" stroke="#1E1A1A" stroke-width="1.6"/><rect x="-15" y="5" width="30" height="5" rx="2" fill="#25282C"/><circle cx="0" cy="-17" r="9" fill="#F08A4B" stroke="#1E1A1A" stroke-width="1.6"/><path d="M-8 -22 L-6 -30 L-1 -25 Z M8 -22 L6 -30 L1 -25 Z" fill="#F08A4B" stroke="#1E1A1A" stroke-width="1.4"/></g>' +
+      '<path d="M18 20 h14 M14 28 h18 M70 22 h14" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity=".8"/></svg>',
     hall: '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgu5" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD43B"/><stop offset="1" stop-color="#E67700"/></linearGradient></defs><rect width="100" height="100" fill="url(#lgu5)"/>' +
       '<path d="M34 24h32v14a16 16 0 0 1-32 0z" fill="#FFFFFF"/><path d="M34 29h-7a8 8 0 0 0 9 13M66 29h7a8 8 0 0 1-9 13" stroke="#FFFFFF" stroke-width="4" fill="none"/><rect x="46" y="53" width="8" height="11" fill="#FFFFFF"/><rect x="35" y="64" width="30" height="9" rx="2.5" fill="#FFFFFF"/>' +
       '<path d="M50 29l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.2 2.7 1-5.7-4.1-4 5.7-.8z" fill="#F59F00"/></svg>'
@@ -10595,7 +10612,8 @@ img, svg, video { max-width: 100%; }
     { id: 'scratch', name: '럭키 스크래치', sub: '한정 복권', ic: '#E8590C', fc: '#D9480F', badge: 'N', desc: '은박을 긁어 같은 그림 3개! 치킨 기프티콘이 2장 숨어 있어요.' },
     { id: 'pirate', name: '해적 통 룰렛', sub: '칼 꽂기 버티기', ic: '#C92A2A', fc: '#7A1010', badge: 'N', desc: '칼 5개를 모두 꽂고 버티면 보물 획득! 해적이 튀어나오면 끝.' },
     { id: 'bomb', name: '폭탄 해체반', sub: '해체 선 찾기', ic: '#E67700', fc: '#A85400', badge: 'N', desc: '선 5개 중 해체 선은 하나! 빨리 해체할수록 보상 UP.' },
-    { id: 'derby', name: '냥냥 더비', sub: '3D 경주 중계', ic: '#1C7ED6', fc: '#0B4AA8', badge: 'N', desc: '냥냥 레이스 친구들의 1600m 3D 레이스! 응원 선수의 1착에 걸어 보세요.' }
+    { id: 'derby', name: '냥냥 더비', sub: '3D 경주 중계', ic: '#1C7ED6', fc: '#0B4AA8', badge: 'N', desc: '냥냥 레이스 친구들의 1600m 3D 레이스! 응원 선수의 1착에 걸어 보세요.' },
+    { id: 'kart', name: '냥냥 카트', sub: '카트 서킷 레이스', ic: '#E8590C', fc: '#A63C06', badge: 'N', desc: '카트를 탄 냥냥 친구들의 서킷 레이스! 드리프트·부스트·시상식까지.' }
   ];
   const LG_DOCK = [
     { id: 'hall', name: '명예의 전당', ic: '#E67700' },
@@ -10653,7 +10671,7 @@ img, svg, video { max-width: 100%; }
     if (AR.active && location.hash !== '#archery') { history.replaceState(null, '', '#archery'); toast('', '사격이 끝난 뒤에 이동할 수 있어요.', true); return; }
     if (slEl('sl-modal') && !slEl('sl-modal').hidden) slCloseWin(false);
     if (['cast', 'wait', 'bite', 'reel', 'jump'].includes(FS.phase) && location.hash !== '#fish') { history.replaceState(null, '', '#fish'); toast('', '낚시가 끝난 뒤에 이동할 수 있어요.', true); return; }
-    if (DRB.on && location.hash !== '#derby') { history.replaceState(null, '', '#derby'); toast('', '레이스가 끝난 뒤에 이동할 수 있어요.', true); return; }
+    if (DRB.on && location.hash !== '#' + (DRB.stage === 'kart' ? 'kart' : 'derby')) { history.replaceState(null, '', '#' + (DRB.stage === 'kart' ? 'kart' : 'derby')); toast('', '레이스가 끝난 뒤에 이동할 수 있어요.', true); return; }
     if ((BDF.on || BDF.busy) && location.hash !== '#bomb') { history.replaceState(null, '', '#bomb'); toast('', '해체 중에는 이동할 수 없어요. 판이 끝난 뒤 이동해 주세요.', true); return; }
     if ((BRL.on || BRL.busy) && location.hash !== '#pirate') { history.replaceState(null, '', '#pirate'); toast('', '진행 중인 판이 끝난 뒤 이동할 수 있어요.', true); return; }
     if (LT.card && !LT.card.done && location.hash !== '#scratch') { history.replaceState(null, '', '#scratch'); toast('', '긁던 복권을 다 긁은 뒤에 이동할 수 있어요.', true); return; }
@@ -10662,7 +10680,7 @@ img, svg, video { max-width: 100%; }
     if (SL.spinning && location.hash !== '#' + SL.tab) { history.replaceState(null, '', '#' + SL.tab); toast('', '릴이 멈춘 뒤에 이동할 수 있어요.', true); return; }
     if (CN.flying && location.hash !== '#cannon') { history.replaceState(null, '', '#cannon'); toast('', '팝콘이 착지한 뒤에 이동할 수 있어요.', true); return; }
     if (RN.active && location.hash !== '#runner') { history.replaceState(null, '', '#runner'); toast('', '냥치 런이 끝난 뒤에 이동할 수 있어요.', true); return; }
-    const tab = ({ '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#runner': 'runner', '#cannon': 'cannon', '#archery': 'archery', '#slot': 'slot', '#gslot': 'gslot', '#race': 'race', '#fish': 'fish', '#wheel': 'wheel', '#scratch': 'scratch', '#pirate': 'pirate', '#bomb': 'bomb', '#derby': 'derby' })[location.hash] || 'gacha';
+    const tab = ({ '#puzzle': 'puzzle', '#pack': 'puzzle', '#bingo': 'puzzle', '#runner': 'runner', '#cannon': 'cannon', '#archery': 'archery', '#slot': 'slot', '#gslot': 'gslot', '#race': 'race', '#fish': 'fish', '#wheel': 'wheel', '#scratch': 'scratch', '#pirate': 'pirate', '#bomb': 'bomb', '#derby': 'derby', '#kart': 'kart' })[location.hash] || 'gacha';
     if (!admin && !shop && !lounge && tab !== state.tab) {
       if (!$('modal').hidden) { if (busy) return; closeModal(); }
       state.tab = tab; renderZones(); renderFloor();
