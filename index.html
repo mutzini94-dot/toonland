@@ -1426,6 +1426,18 @@ svg.lt-kico.lt-tic { width: 22px; height: 22px; margin: 0 8px 0 2px; }
 .dy-stage.dy-cut canvas { animation: dy-cut .35s ease-out; }
 @keyframes dy-cut { 0% { filter: brightness(2.2) blur(2px); } 100% { filter: none; } }
 #dy-stage.podium .dy-bottom, #dy-stage.podium #dy-skills { opacity: 0; transition: opacity .3s; }
+.dy-fgot { align-self: center; display: grid; justify-items: center; gap: 2px; min-width: 210px; padding: 14px 24px 12px; border-radius: 20px; background: rgba(255,255,255,.94); box-shadow: 0 10px 26px rgba(11,59,102,.28); animation: dy-fgot-in .55s cubic-bezier(.2,1.4,.4,1) both; }
+.dy-fgot small { font-size: 12.5px; font-weight: 900; color: #495057; letter-spacing: .02em; }
+.dy-fgv { display: flex; align-items: center; gap: 8px; font-family: 'Arial Black', Arial, sans-serif; font-size: 44px; line-height: 1.05; color: #E8590C; }
+.dy-fgv .kernel { width: 42px; height: 42px; flex: none; }
+.dy-fgv.done { animation: dy-fgot-pulse .5s ease-out; }
+.dy-fgot span { font-size: 12px; font-weight: 800; color: #868E96; }
+.dy-fgot.hit { box-shadow: 0 0 0 3px #FCC419, 0 0 26px rgba(252,196,25,.75), 0 10px 26px rgba(11,59,102,.28); }
+.dy-fgot.miss .dy-fgv { color: #868E96; }
+.dy-fgot.miss .dy-fgv .kernel { filter: grayscale(1); opacity: .6; }
+@keyframes dy-fgot-in { from { transform: scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes dy-fgot-pulse { 40% { transform: scale(1.14); } 100% { transform: none; } }
+@media (max-width: 640px) { .dy-fgv { font-size: 36px; } .dy-fgv .kernel { width: 34px; height: 34px; } .dy-fgot { min-width: 180px; padding: 12px 18px 10px; } }
 /* ===== 냥냥 레이스 ===== */
 .rc-panel { grid-column: 1 / -1; }
 .rc-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; }
@@ -8811,10 +8823,11 @@ img, svg, video { max-width: 100%; }
     const w = S.order[0], fin = dyEl('dy-finish'), st = dyEl('dy-stage');
     const rv = dyEl('dy-review'); if (rv) rv.hidden = true; st.classList.remove('review', 'slowmo');
     if (fin) {
-      fin.innerHTML = '<div class="dy-fpose">' + dyPose(w) + '</div><div class="dy-fhead"><small>' + (S.close ? '비디오 판독 결과 · ' + (S.margin || '코 차이') : '1착') + '</small><b>' + (w + 1) + '번 ' + DY_DEF[w].name + '!</b></div>' +
+      fin.innerHTML = '<div class="dy-fgot ' + (hit ? 'hit' : 'miss') + '"><small>획득한 강냉이</small><div class="dy-fgv">' + K + '<b class="num" id="dy-fgn">' + (hit ? '+0' : '0') + '</b></div><span>' + (hit ? fmt(P.bet) + '개 베팅 · ' + dyMul(P.odds) + ' 적중' : fmt(P.bet) + '개 베팅 · 이번엔 획득 없음') + '</span></div><div class="dy-fhead"><small>' + (S.close ? '비디오 판독 결과 · ' + (S.margin || '코 차이') : '1착') + '</small><b>' + (w + 1) + '번 ' + DY_DEF[w].name + '!</b></div>' +
         '<ol class="dy-podium">' + S.order.slice(0, 3).map((ri, k) => '<li class="' + (ri === P.pick ? 'me' : '') + '"><em>' + (k + 1) + '착</em>' + dyFace(ri) + '<span>' + (ri + 1) + '번 ' + DY_DEF[ri].name + '</span></li>').join('') + '</ol>' +
         '<div class="dy-fme ' + (hit ? 'hit' : 'miss') + '">' + (hit ? '적중! ' + DY_DEF[P.pick].name + ' ' + rk + '착 · ' + dyMul(P.odds) + ' → 강냉이 +' + fmt(got) : DY_DEF[P.pick].name + ' ' + rk + '착… 다음엔 꼭!') + '</div>';
       fin.hidden = false; restart(fin, 'show');
+      if (hit) { const el = dyEl('dy-fgn'), t0 = Date.now(), D = 1100; clearInterval(DRB.fgT); DRB.fgT = setInterval(() => { const k = Math.min(1, (Date.now() - t0) / D), e = 1 - Math.pow(1 - k, 3); if (el) el.textContent = '+' + fmt(Math.round(got * e)); if (k >= 1) { clearInterval(DRB.fgT); if (el) el.parentNode.classList.add('done'); } }, 30); }
     }
     const s = dyEl('dy-status'); if (s) s.innerHTML = hit ? '<b>적중!</b> ' + (P.pick + 1) + '번 ' + DY_DEF[P.pick].name + ' ' + rk + '착 → 강냉이 <b>+' + fmt(got) + '</b>' : (P.pick + 1) + '번 ' + DY_DEF[P.pick].name + '은(는) ' + rk + '착이었어요. 1착은 ' + (w + 1) + '번 ' + DY_DEF[w].name + '!';
     dyComm('중계', (w + 1) + '번 ' + DY_DEF[w].name + ', 1착으로 골인!');
