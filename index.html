@@ -7909,7 +7909,7 @@ img, svg, video { max-width: 100%; }
 
   // ----- 레이스 시뮬레이션: 정해진 순위대로 결승선을 통과하도록 각 냥이의 진행 곡선을 만든다
   function dyMakeSim(m, order) {
-    const R = dyRunners(m), N = DY_N, T1 = DRB.stage === 'kart' ? 15 : 21, rank = Array(N);   // 카트는 더 빠르게
+    const R = dyRunners(m), N = DY_N, T1 = DRB.stage === 'kart' ? 30 : 21, rank = Array(N);   // 카트 서킷은 30초(경마장 21초)
     order.forEach((ri, k) => { rank[ri] = k; });
     const close = Math.random() < .35;   // 1·2착 접전(사진 판정)
     let acc = T1; const Ti = Array(N);
@@ -7974,9 +7974,11 @@ img, svg, video { max-width: 100%; }
         '<div class="cn-table-wrap"><table class="cn-table sl-paytable"><thead><tr><th>냥이</th><th>1착 확률</th><th>1착 배당</th><th>3착 안 확률</th><th>3착 배당</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
       '</aside></div></section>';
   }
+  const dyMWc = new Map();
+  function dyMW(ctx, t) { const k = ctx.font + '|' + t; let v = dyMWc.get(k); if (v === undefined) { v = ctx.measureText(t).width; if (dyMWc.size > 400) dyMWc.clear(); dyMWc.set(k, v); } return v; }
   function dyResize() {
     const cv = dyEl('dy-cv'); if (!cv) return null;
-    const r = cv.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
+    const r = cv.getBoundingClientRect(), dpr = Math.min(1.5, window.devicePixelRatio || 1);
     const W = Math.max(10, Math.round(r.width)), H = Math.max(10, Math.round(r.height));
     if (cv.width !== W * dpr || cv.height !== H * dpr) { cv.width = W * dpr; cv.height = H * dpr; }
     const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); return { ctx, W, H };
@@ -8017,7 +8019,7 @@ img, svg, video { max-width: 100%; }
         const i = o.r.i, d = DY_DEF[i], me = i === DRB.pick, fs = Math.max(9, Math.min(15, o.h * .15));
         const label = (i + 1) + ' ' + ((R[i] && R[i].name) || d.name);
         ctx.save(); ctx.font = '800 ' + fs.toFixed(1) + 'px "Noto Sans KR", Arial, sans-serif';
-        const tw = ctx.measureText(label).width, w = tw + fs * 1.1, hh = fs * 1.5, x = o.tp[0] - w / 2, y = o.tp[1] - hh - fs * .5;
+        const tw = dyMW(ctx, label), w = tw + fs * 1.1, hh = fs * 1.5, x = o.tp[0] - w / 2, y = o.tp[1] - hh - fs * .5;
         ctx.globalAlpha = .94; ctx.fillStyle = d.deep; ctx.beginPath(); ctx.roundRect(x, y, w, hh, hh / 2); ctx.fill();
         ctx.beginPath(); ctx.moveTo(o.tp[0] - fs * .35, y + hh - .5); ctx.lineTo(o.tp[0] + fs * .35, y + hh - .5); ctx.lineTo(o.tp[0], y + hh + fs * .4); ctx.closePath(); ctx.fill();
         ctx.globalAlpha = 1;
@@ -8064,6 +8066,26 @@ img, svg, video { max-width: 100%; }
     ctx.fillStyle = 'rgba(255,255,255,.9)'; ctx.fillRect(-1, -13, 2, 9);
     ctx.fillStyle = '#25282C'; ctx.beginPath(); ctx.roundRect(-8.5, -16, 17, 2.6, 1); ctx.fill(); ctx.beginPath(); ctx.roundRect(-9, 10.5, 18, 3.2, 1.2); ctx.fill();
   }
+  let dyKbgC = null, dyAerC = null;
+  function ktAerialLayer() {   // 항공 시점 고정 배경(월드 1단위 = 1px)
+    const cv = document.createElement('canvas'); cv.width = 1720; cv.height = 1820; const ctx = cv.getContext('2d'), RW = KTP.RW;
+    ctx.fillStyle = '#7DB35A'; ctx.fillRect(0, 0, cv.width, cv.height); ctx.translate(220, 220); ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    ctx.fillStyle = 'rgba(255,255,255,.06)'; for (let x = -480; x < 1800; x += 160) ctx.fillRect(x, -400, 80, 2400);   // 잔디 깎은 줄무늬
+    ctx.save(); ctx.translate(5, 7); ctx.strokeStyle = 'rgba(0,0,0,.16)'; ctx.lineWidth = RW + 26; ctx.stroke(KTP.path); ctx.restore();
+    ctx.strokeStyle = '#D1CEC7'; ctx.lineWidth = RW + 24; ctx.stroke(KTP.path);
+    ctx.strokeStyle = '#F8F9FA'; ctx.lineWidth = RW + 12; ctx.stroke(KTP.path);
+    ctx.strokeStyle = '#E03131'; ctx.setLineDash([14, 14]); ctx.stroke(KTP.path); ctx.setLineDash([]);
+    ctx.strokeStyle = '#45494F'; ctx.lineWidth = RW; ctx.stroke(KTP.path);
+    ctx.strokeStyle = '#F1F3F5'; ctx.lineWidth = RW - 6; ctx.stroke(KTP.path);
+    ctx.strokeStyle = '#45494F'; ctx.lineWidth = RW - 10; ctx.stroke(KTP.path);
+    ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 2.6; ctx.setLineDash([16, 14]); ctx.stroke(KTP.path); ctx.setLineDash([]);
+    const s0 = KTP.at(0); ctx.save(); ctx.translate(s0.x, s0.y); ctx.rotate(s0.a); for (let r = 0; r < 2; r++) for (let q = 0; q < 7; q++) { ctx.fillStyle = (r + q) % 2 ? '#212529' : '#FFFFFF'; ctx.fillRect(-RW / 7 + r * RW / 7, -RW / 2 + q * RW / 7, RW / 7, RW / 7); } ctx.restore();
+    KTP.deco.forEach(o => {
+      if (o.t === 'house') { ctx.save(); ctx.translate(o.x, o.y); ctx.rotate(o.rot); const w = o.s * 2.4, h = o.s * 1.7, rf = ['#D9603B', '#C4502E', '#E07A3F', '#5C7EA3', '#D86B45'][o.v]; ctx.fillStyle = 'rgba(0,0,0,.2)'; ctx.fillRect(-w / 2 + 5, -h / 2 + 6, w, h); ctx.fillStyle = rf; ctx.fillRect(-w / 2, -h / 2, w, h / 2); ctx.fillStyle = ktShade(rf, -.22); ctx.fillRect(-w / 2, 0, w, h / 2); ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.fillRect(-w / 2, -1, w, 2); ctx.restore(); }
+      else { ctx.fillStyle = 'rgba(0,0,0,.18)'; ctx.beginPath(); ctx.arc(o.x + 6, o.y + 8, o.s, 0, 7); ctx.fill(); if (o.t === 'sakura') ktBlob(ctx, o.x, o.y, o.s, '#E58FB0', '#F6B3CB', '#FFD9E6'); else ktBlob(ctx, o.x, o.y, o.s, '#3F8F3A', '#5DB24E', '#8ED36F'); }
+    });
+    return cv;
+  }
   function dyKartAerial(ctx, W, H, S, R, dt) {
     const RW = KTP.RW, pos = r => { const q = KTP.at(Math.max(0, r.x) / DY_L), l = ktLat(r) / .68 * .62 * RW / 2; return { x: q.x - Math.sin(q.a) * l, y: q.y + Math.cos(q.a) * l, a: q.a }; };
     // 처음엔 서킷 전체를 보여 주고(트랙 모양), 천천히 다섯 대가 모두 들어오는 높이로 내려온다
@@ -8076,26 +8098,13 @@ img, svg, video { max-width: 100%; }
     const z = c.z, ox = W / 2 - c.x * z, oy = H * .39 - c.y * z, inView = (x, y, m) => { const sx = ox + x * z, sy = oy + y * z; return sx > -m && sx < W + m && sy > -m && sy < H + m; };
     ctx.fillStyle = '#7DB35A'; ctx.fillRect(0, 0, W, H);
     ctx.save(); ctx.translate(ox, oy); ctx.scale(z, z); ctx.lineJoin = 'round'; ctx.lineCap = 'round';
-    ctx.fillStyle = 'rgba(255,255,255,.06)'; for (let x = -480; x < 1800; x += 160) ctx.fillRect(x, -400, 80, 2400);   // 잔디 깎은 줄무늬
-    ctx.save(); ctx.translate(5, 7); ctx.strokeStyle = 'rgba(0,0,0,.16)'; ctx.lineWidth = RW + 26; ctx.stroke(KTP.path); ctx.restore();
-    ctx.strokeStyle = '#D1CEC7'; ctx.lineWidth = RW + 24; ctx.stroke(KTP.path);
-    ctx.strokeStyle = '#F8F9FA'; ctx.lineWidth = RW + 12; ctx.stroke(KTP.path);
-    ctx.strokeStyle = '#E03131'; ctx.setLineDash([14, 14]); ctx.stroke(KTP.path); ctx.setLineDash([]);
-    ctx.strokeStyle = '#45494F'; ctx.lineWidth = RW; ctx.stroke(KTP.path);
-    ctx.strokeStyle = '#F1F3F5'; ctx.lineWidth = RW - 6; ctx.stroke(KTP.path);
-    ctx.strokeStyle = '#45494F'; ctx.lineWidth = RW - 10; ctx.stroke(KTP.path);
-    ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 2.6; ctx.setLineDash([16, 14]); ctx.stroke(KTP.path); ctx.setLineDash([]);
-    const s0 = KTP.at(0); ctx.save(); ctx.translate(s0.x, s0.y); ctx.rotate(s0.a); for (let r = 0; r < 2; r++) for (let q = 0; q < 7; q++) { ctx.fillStyle = (r + q) % 2 ? '#212529' : '#FFFFFF'; ctx.fillRect(-RW / 7 + r * RW / 7, -RW / 2 + q * RW / 7, RW / 7, RW / 7); } ctx.restore();
+    if (!dyAerC) dyAerC = ktAerialLayer();
+    ctx.drawImage(dyAerC, -220, -220, 1720, 1820);
     const st = KTP.stand; ctx.save(); ctx.translate(st.x, st.y); ctx.rotate(st.a);   // 출발선 옆 관중석
     ctx.fillStyle = 'rgba(0,0,0,.2)'; ctx.fillRect(-86, -22, 180, 52); ctx.fillStyle = '#ADB5BD'; ctx.fillRect(-90, -26, 180, 50);
     for (let q = 0; q < 60; q++) { ctx.fillStyle = ['#FF6B6B', '#4DABF7', '#FFD43B', '#69DB7C', '#F783AC', '#FFFFFF'][q % 6]; ctx.beginPath(); ctx.arc(-84 + (q % 20) * 8.6, -18 + Math.floor(q / 20) * 11 + Math.sin(S.t * 8 + q) * 1.2, 3.2, 0, 7); ctx.fill(); }
     ctx.fillStyle = '#1C7ED6'; ctx.fillRect(-90, 14, 180, 10); ctx.fillStyle = '#FFFFFF'; ctx.font = '900 8px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('TOONELAND CIRCUIT', 0, 19.5); ctx.restore();
     KT_ITEMS.forEach(f => [-.55, 0, .55].forEach(l => { const q = KTP.at(f), lw = l / .68 * .62 * RW / 2; ktItemBox(ctx, q.x - Math.sin(q.a) * lw, q.y + Math.cos(q.a) * lw, 12); }));
-    KTP.deco.forEach(o => {
-      if (!inView(o.x, o.y, o.s * 3 * z + 10)) return;
-      if (o.t === 'house') { ctx.save(); ctx.translate(o.x, o.y); ctx.rotate(o.rot); const w = o.s * 2.4, h = o.s * 1.7, rf = ['#D9603B', '#C4502E', '#E07A3F', '#5C7EA3', '#D86B45'][o.v]; ctx.fillStyle = 'rgba(0,0,0,.2)'; ctx.fillRect(-w / 2 + 5, -h / 2 + 6, w, h); ctx.fillStyle = rf; ctx.fillRect(-w / 2, -h / 2, w, h / 2); ctx.fillStyle = ktShade(rf, -.22); ctx.fillRect(-w / 2, 0, w, h / 2); ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.fillRect(-w / 2, -1, w, 2); ctx.restore(); }
-      else { ctx.fillStyle = 'rgba(0,0,0,.18)'; ctx.beginPath(); ctx.arc(o.x + 6, o.y + 8, o.s, 0, 7); ctx.fill(); if (o.t === 'sakura') ktBlob(ctx, o.x, o.y, o.s, '#E58FB0', '#F6B3CB', '#FFD9E6'); else ktBlob(ctx, o.x, o.y, o.s, '#3F8F3A', '#5DB24E', '#8ED36F'); }
-    });
     K.forEach(({ r, p: q }) => { ctx.save(); ctx.translate(q.x, q.y); ctx.rotate(q.a + Math.PI / 2); ktKartTop(ctx, r.i, r.v > (DY_L / r.T) * 1.04, S.t + r.i); ctx.restore(); });
     ctx.restore();
     // 머리(정면 얼굴을 세워서) + 이름표 + 획득 팝: 화면 좌표
@@ -8103,7 +8112,7 @@ img, svg, video { max-width: 100%; }
       const sx = ox + q.x * z, sy = oy + q.y * z, ch = Math.max(24, 40 * z), cw = ch * DY_FW / DY_FH;
       if (dySpr) ctx.drawImage(dySpr, 0, r.i * 2 * DY_FH, DY_FW, DY_FH * .56, sx - cw / 2, sy - ch * .56 - 2, cw, ch * .56);
       const d = DY_DEF[r.i], label = (r.i + 1) + ' ' + ((R[r.i] && R[r.i].name) || d.name), fs = 10;
-      ctx.font = '800 ' + fs + 'px "Noto Sans KR", Arial, sans-serif'; const tw = ctx.measureText(label).width + fs, ty = sy - ch * .56 - 6;
+      ctx.font = '800 ' + fs + 'px "Noto Sans KR", Arial, sans-serif'; const tw = dyMW(ctx, label) + fs, ty = sy - ch * .56 - 6;
       ctx.fillStyle = d.deep; ctx.beginPath(); ctx.roundRect(sx - tw / 2, ty - fs * 1.4, tw, fs * 1.4, fs * .7); ctx.fill(); if (r.i === DRB.pick) { ctx.strokeStyle = '#FFD43B'; ctx.lineWidth = 2; ctx.stroke(); }
       ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(label, sx, ty - fs * .7);
       if (r.bt != null && S.t - r.bt < .7) ktPop(ctx, sx, sy - ch * .3, Math.max(22, ch), S.t - r.bt);
@@ -8205,7 +8214,7 @@ img, svg, video { max-width: 100%; }
       if (k === 0) y1 = y;
       if (dySpr) ctx.drawImage(dySpr, (a < 1 ? Math.floor(t * 12) % DY_NF[0] : 0) * DY_FW, ri * 2 * DY_FH, DY_FW, DY_FH, xs[k] - cw / 2, y - ch, cw, ch);
       const d = DY_DEF[ri], label = (ri + 1) + '번 ' + ((R[ri] && R[ri].name) || d.name), fs = Math.max(9, Math.min(13, bw * .11));
-      ctx.font = '800 ' + fs + 'px "Noto Sans KR", Arial, sans-serif'; const tw = Math.min(bw - 4, ctx.measureText(label).width + fs), ly = base + fs * 1.3;
+      ctx.font = '800 ' + fs + 'px "Noto Sans KR", Arial, sans-serif'; const tw = Math.min(bw - 4, dyMW(ctx, label) + fs), ly = base + fs * 1.3;
       ctx.fillStyle = d.deep; ctx.beginPath(); ctx.roundRect(xs[k] - tw / 2, ly - fs * .75, tw, fs * 1.5, fs * .75); ctx.fill(); if (ri === DRB.pick) { ctx.strokeStyle = '#FFD43B'; ctx.lineWidth = 2; ctx.stroke(); }
       ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(label, xs[k], ly, tw - 6);
     });
@@ -8221,25 +8230,25 @@ img, svg, video { max-width: 100%; }
     }
     const ba = Math.max(0, Math.min(1, t / .4)), w0 = S.order[0], txt = t > 2.4 ? '우승! ' + (w0 + 1) + '번 ' + ((R[w0] && R[w0].name) || DY_DEF[w0].name) : '시상식';
     ctx.save(); ctx.globalAlpha = ba; const fs = Math.max(14, Math.min(22, W * .055)); ctx.font = '900 ' + fs + 'px "Noto Sans KR", Arial, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    const tw = ctx.measureText(txt).width + 34, by = H * .1; ctx.fillStyle = '#C92A2A'; ctx.beginPath(); ctx.moveTo(W / 2 - tw / 2 - 12, by - fs * .9); ctx.lineTo(W / 2 + tw / 2 + 12, by - fs * .9); ctx.lineTo(W / 2 + tw / 2, by); ctx.lineTo(W / 2 + tw / 2 + 12, by + fs * .9); ctx.lineTo(W / 2 - tw / 2 - 12, by + fs * .9); ctx.lineTo(W / 2 - tw / 2, by); ctx.closePath(); ctx.fill();
+    const tw = dyMW(ctx, txt) + 34, by = H * .1; ctx.fillStyle = '#C92A2A'; ctx.beginPath(); ctx.moveTo(W / 2 - tw / 2 - 12, by - fs * .9); ctx.lineTo(W / 2 + tw / 2 + 12, by - fs * .9); ctx.lineTo(W / 2 + tw / 2, by); ctx.lineTo(W / 2 + tw / 2 + 12, by + fs * .9); ctx.lineTo(W / 2 - tw / 2 - 12, by + fs * .9); ctx.lineTo(W / 2 - tw / 2, by); ctx.closePath(); ctx.fill();
     ctx.fillStyle = '#FFF3BF'; ctx.fillText(txt, W / 2, by + 1); ctx.restore();
     if (t > 5.2 && !P.fin) { P.fin = true; dyFinish(); }
   }
   const KT = (() => {
     const segL = 200, roadW = 2000;
     // 커브 = 트랙 윤곽(KTP)의 방향 변화량. 출발 전·결승 후 구간은 한 바퀴를 넘어 이어짐
-    const NN = 356, A0 = 6, A1 = NN - 36, seg = [], dA = [];
+    const NN = 712, A0 = 6, A1 = NN - 36, seg = [], dA = [];
     for (let i = 0; i < NN; i++) { const u = (i - A0) / (A1 - A0), a = KTP.at(u).a, b = KTP.at(u + 1 / (A1 - A0)).a; dA.push(Math.atan2(Math.sin(b - a), Math.cos(b - a)) * 180 / Math.PI); }
-    const hill = i => 650 * Math.sin(i / NN * Math.PI * 5) * Math.min(1, i / 40);
-    for (let i = 0; i < NN; i++) { let sm = 0, w = 0; for (let k = -3; k <= 3; k++) { const v = dA[Math.max(0, Math.min(NN - 1, i + k))], ww = 4 - Math.abs(k); sm += v * ww; w += ww; } seg.push({ curve: Math.max(-4.2, Math.min(4.2, sm / w * .62)), ya: hill(i), yb: hill(i + 1), props: [] }); }
+    const hill = i => 650 * Math.sin(i / NN * Math.PI * 9) * Math.min(1, i / 40);
+    for (let i = 0; i < NN; i++) { let sm = 0, w = 0; for (let k = -3; k <= 3; k++) { const v = dA[Math.max(0, Math.min(NN - 1, i + k))], ww = 4 - Math.abs(k); sm += v * ww; w += ww; } seg.push({ curve: Math.max(-4.2, Math.min(4.2, sm / w * 1.1)), ya: hill(i), yb: hill(i + 1), props: [] }); }
     const N = seg.length, S0 = 6, F = N - 36;
     seg.forEach((s, i) => {
       if (i % 3 === 0 && i > 2) { s.props.push({ t: 'house', o: -2.1 - (i % 7) * .08, v: i % 5 }); s.props.push({ t: 'house', o: 2.1 + (i % 5) * .08, v: (i + 2) % 5 }); }
       if (i % 4 === 1) { const a = i % 8 === 1; s.props.push({ t: a ? 'sakura' : 'tree', o: -1.62 }); s.props.push({ t: a ? 'tree' : 'sakura', o: 1.62 }); }
       if (i % 6 === 3) s.props.push({ t: 'lamp', o: i % 12 === 3 ? -1.24 : 1.24 });
     });
-    [96, 232].forEach(i => seg[i].props.push({ t: 'bridge', o: 0 }));
-    [48, 112, 168].forEach(i => seg[i].props.push({ t: 'ring', o: 0 }));
+    [150, 330, 520].forEach(i => seg[i].props.push({ t: 'bridge', o: 0 }));
+    [70, 230, 420, 600].forEach(i => seg[i].props.push({ t: 'ring', o: 0 }));
     KT_ITEMS.forEach(f => { const i = Math.round(S0 + f * (F - S0)); [-.55, 0, .55].forEach(o => seg[i].props.push({ t: 'box', o })); });
     seg[S0].props.push({ t: 'start' }); seg[F].props.push({ t: 'arch' });
     return { segL, roadW, seg, N, S0, F };
@@ -8276,7 +8285,7 @@ img, svg, video { max-width: 100%; }
     ctx.fillStyle = 'rgba(255,255,255,.28)'; ctx.beginPath(); ctx.ellipse(-w * .16, -h * .5, w * .12, h * .05, -.2, 0, 7); ctx.fill();
     // 덕테일 스포일러 + 리어 라이트 바
     ctx.fillStyle = '#25282C'; ctx.beginPath(); ctx.roundRect(-w * .38, -h * .64, w * .76, h * .07, h * .03); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = '#FF4D4F'; ctx.shadowColor = '#FF4D4F'; ctx.shadowBlur = w * .06; ctx.beginPath(); ctx.roundRect(-w * .3, -h * .36, w * .6, h * .045, h * .02); ctx.fill(); ctx.shadowBlur = 0;
+    ctx.fillStyle = 'rgba(255,77,79,.3)'; ctx.beginPath(); ctx.roundRect(-w * .33, -h * .38, w * .66, h * .085, h * .04); ctx.fill(); ctx.fillStyle = '#FF4D4F'; ctx.beginPath(); ctx.roundRect(-w * .3, -h * .36, w * .6, h * .045, h * .02); ctx.fill();
     // 번호판 + 듀얼 머플러
     ctx.fillStyle = '#FFFFFF'; ctx.beginPath(); ctx.roundRect(-w * .09, -h * .3, w * .18, h * .1, w * .02); ctx.fill(); ctx.lineWidth = lw * .7; ctx.stroke();
     ctx.fillStyle = d.deep; ctx.font = '900 ' + Math.max(6, h * .085).toFixed(1) + 'px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(String(i + 1), 0, -h * .25);
@@ -8311,8 +8320,18 @@ img, svg, video { max-width: 100%; }
     else { ktBlob(ctx, sx, sy - h * .7, h * .27, ...C); ktBlob(ctx, sx + h * .12, sy - h * .52, h * .17, ...C); }
     if (pink && h > 30) { ctx.fillStyle = '#FFE3EC'; for (let k = 0; k < 5; k++) { const a = k * 2.4 + sx * .01; ctx.beginPath(); ctx.ellipse(sx + Math.cos(a) * h * .3, sy - h * .25 + Math.sin(a * 1.7) * h * .12, h * .012, h * .008, a, 0, 7); ctx.fill(); } }
   }
+  const KT_SPR = {};
+  function ktSprite(key, w, h, draw) { let c = KT_SPR[key]; if (!c) { c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d')); KT_SPR[key] = c; } return c; }
+  function ktTreeDraw(ctx, sx, sy, h, pink) {   // 나무 높이 h(px) 기준
+    if (h < 3) return; const H0 = 220, c = ktSprite(pink ? 'sakura' : 'tree', 230, 250, g => ktTree(g, 115, 240, H0, pink)), f = h / H0;
+    ctx.drawImage(c, sx - 115 * f, sy - 240 * f, 230 * f, 250 * f);
+  }
   function ktProp(ctx, p, sx, sy, sc, W) {
     const u = sc * W / 2;
+    if (p.t === 'house' && !p.raw) {
+      if (1200 * u < 2) return; const U = .3, c = ktSprite('house' + p.v, 400, 584, g => ktProp(g, { t: 'house', v: p.v, raw: 1 }, 200, 576, U, 2)), f = u / U;
+      ctx.drawImage(c, sx - 200 * f, sy - 576 * f, 400 * f, 584 * f); return;
+    }
     if (p.t === 'house') {
       const w = 1200 * u, h = (900 + (p.v % 3) * 260) * u, x = sx - w / 2; if (w < 2) return;
       const wall = ['#FFF1DC', '#F7E3C8', '#FFE8E0', '#EDE7D9', '#FFF6E0'][p.v], roof = ['#D9603B', '#C4502E', '#E07A3F', '#B54A3A', '#D86B45'][p.v];
@@ -8325,12 +8344,12 @@ img, svg, video { max-width: 100%; }
       }
       ctx.fillStyle = '#7A4E35'; ctx.fillRect(sx - w * .08, sy - h * .2, w * .16, h * .2);
     } else if (p.t === 'palm' || p.t === 'tree' || p.t === 'sakura') {
-      const h = (p.t === 'sakura' ? 1700 : 1500) * u; if (h < 3) return; ktTree(ctx, sx, sy, h, p.t === 'sakura');
+      ktTreeDraw(ctx, sx, sy, (p.t === 'sakura' ? 1700 : 1500) * u, p.t === 'sakura');
     } else if (p.t === 'lamp') {
       const h = 1400 * u; if (h < 3) return;
       ctx.strokeStyle = '#2F3B52'; ctx.lineWidth = Math.max(1, h * .03); ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(sx, sy - h); ctx.moveTo(sx - h * .18, sy - h * .9); ctx.quadraticCurveTo(sx - h * .1, sy - h * 1.02, sx, sy - h * .96); ctx.quadraticCurveTo(sx + h * .1, sy - h * 1.02, sx + h * .18, sy - h * .9); ctx.stroke();
       ctx.fillStyle = '#2F3B52'; ctx.fillRect(sx - h * .025, sy - h * .14, h * .05, h * .14);
-      [-1, 1].forEach(k => { ctx.fillStyle = '#2F3B52'; ctx.beginPath(); ctx.moveTo(sx + k * h * .18 - h * .05, sy - h * .9); ctx.lineTo(sx + k * h * .18 + h * .05, sy - h * .9); ctx.lineTo(sx + k * h * .18, sy - h * .95); ctx.fill(); ctx.fillStyle = '#FFF3BF'; ctx.shadowColor = '#FFE066'; ctx.shadowBlur = h * .06; ctx.beginPath(); ctx.ellipse(sx + k * h * .18, sy - h * .86, h * .035, h * .045, 0, 0, 7); ctx.fill(); ctx.shadowBlur = 0; });
+      [-1, 1].forEach(k => { ctx.fillStyle = '#2F3B52'; ctx.beginPath(); ctx.moveTo(sx + k * h * .18 - h * .05, sy - h * .9); ctx.lineTo(sx + k * h * .18 + h * .05, sy - h * .9); ctx.lineTo(sx + k * h * .18, sy - h * .95); ctx.fill(); ctx.fillStyle = 'rgba(255,224,102,.35)'; ctx.beginPath(); ctx.arc(sx + k * h * .18, sy - h * .86, h * .07, 0, 7); ctx.fill(); ctx.fillStyle = '#FFF3BF'; ctx.beginPath(); ctx.ellipse(sx + k * h * .18, sy - h * .86, h * .035, h * .045, 0, 0, 7); ctx.fill(); });
     } else if (p.t === 'bridge') {
       const L = sx - 3000 * u, R = sx + 3000 * u, tw = 520 * u, top = sy - 2350 * u, dT = sy - 1950 * u, dB = sy - 1500 * u; if (tw < 2) return;
       ctx.fillStyle = '#E3D5BC'; ctx.beginPath(); ctx.moveTo(L + tw, dT); ctx.lineTo(R - tw, dT); ctx.lineTo(R - tw, sy - 900 * u); ctx.quadraticCurveTo(sx, dB - 900 * u, L + tw, sy - 900 * u); ctx.closePath(); ctx.fill();   // 아치 상판
@@ -8374,13 +8393,15 @@ img, svg, video { max-width: 100%; }
     // 배경: 첨부 이미지(하늘·산·마을·아치·신호등·벚꽃)를 지평선에 맞춰 깔고, 커브에 따라 살짝 좌우로 흐름
     const hor = H * .345;
     let g;
-    if (dyOk('kbg')) { const im = dyImg.kbg, ar = im.naturalWidth / im.naturalHeight, dh = Math.max(hor / .52, W * 1.15 / ar), dw = dh * ar, sway = Math.sin(S.kbg * .9) * (dw - W) / 2; ctx.drawImage(im, (W - dw) / 2 + sway, hor - dh * .52, dw, dh); }
+    if (dyOk('kbg')) { const im = dyImg.kbg, ar = im.naturalWidth / im.naturalHeight, dh = Math.max(hor / .52, W * 1.15 / ar), dw = dh * ar, sway = Math.sin(S.kbg * .9) * (dw - W) / 2, key = Math.round(dw) + 'x' + Math.round(dh);
+      if (!dyKbgC || dyKbgC._k !== key) { dyKbgC = document.createElement('canvas'); dyKbgC._k = key; const dp = Math.min(1.5, window.devicePixelRatio || 1); dyKbgC.width = Math.round(dw * dp); dyKbgC.height = Math.round(dh * dp); dyKbgC.getContext('2d').drawImage(im, 0, 0, dyKbgC.width, dyKbgC.height); }
+      ctx.drawImage(dyKbgC, (W - dw) / 2 + sway, hor - dh * .52, dw, dh); }
     else { g = ctx.createLinearGradient(0, 0, 0, hor); g.addColorStop(0, '#3C98F0'); g.addColorStop(1, '#E4F4FF'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, hor + 2); }
     g = ctx.createLinearGradient(0, hor, 0, H); g.addColorStop(0, '#93C468'); g.addColorStop(1, '#6EA94C'); ctx.fillStyle = g; ctx.fillRect(0, hor, W, H - hor);
     // 도로(가까운 것부터 투영해 언덕에 가려지는 부분은 건너뜀)
     const pr = (wx, wy, wz) => { const sc = depth / wz; return { x: W / 2 + sc * wx * W / 2, y: cy0 - sc * wy * H / 2, w: sc * KT.roadW * W / 2, sc }; };
     let x = 0, dx = -curNow * ((camZ % KT.segL) / KT.segL), maxy = H;
-    const drawN = 150, vis = [];
+    const drawN = 115, vis = []; let acc = null;
     for (let n = 0; n < drawN; n++) {
       const idx = base + n, s = KT.seg[Math.min(KT.N - 1, idx)], z1 = idx * KT.segL - camZ, z2 = z1 + KT.segL;
       const y1 = idx < KT.N ? s.ya : KT.seg[KT.N - 1].yb, y2 = idx < KT.N ? s.yb : y1, c = idx < KT.N ? s.curve : 0;
@@ -8388,18 +8409,21 @@ img, svg, video { max-width: 100%; }
       if (z1 <= 20) continue;
       const p1 = pr(x1 - camX, y1 - camH, z1), p2 = pr(x2 - camX, y2 - camH, z2);
       vis.push({ idx, s, p1, p2, clip: maxy });
-      if (p2.y >= maxy || p2.y >= p1.y) continue;
+      if (p2.y >= maxy || p2.y >= p1.y) { acc = null; continue; }
+      const a1 = acc || p1, edge = s.props.some(q => q.t === 'start' || q.t === 'arch');
+      if (a1.y - p2.y < 1.5 && n < drawN - 1 && !edge) { acc = a1; continue; }
+      acc = null;
       const alt = idx % 2;
       const quad = (ax, ay, aw, bx, by, bw, col) => { ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(ax - aw, ay); ctx.lineTo(bx - bw, by); ctx.lineTo(bx + bw, by); ctx.lineTo(ax + aw, ay); ctx.closePath(); ctx.fill(); };
-      ctx.fillStyle = (idx >> 1) % 2 ? '#8CBD5F' : '#88B95B'; ctx.fillRect(0, p2.y, W, p1.y - p2.y + 1);   // 잔디
-      quad(p1.x, p1.y, p1.w * 1.4, p2.x, p2.y, p2.w * 1.4, alt ? '#C9C6BF' : '#D1CEC7');                    // 보도
-      quad(p1.x, p1.y, p1.w * 1.13, p2.x, p2.y, p2.w * 1.13, ['#E03131', '#F8F9FA', '#1C7ED6', '#F8F9FA'][idx % 4]);   // 연석(빨강·흰·파랑)
-      quad(p1.x, p1.y, p1.w, p2.x, p2.y, p2.w, alt ? '#474B52' : '#4B4F56');                                   // 아스팔트
-      quad(p1.x, p1.y, p1.w * .985, p2.x, p2.y, p2.w * .985, alt ? '#41454C' : '#45494F');
-      [-.93, .93].forEach(o => quad(p1.x + o * p1.w, p1.y, p1.w * .018, p2.x + o * p2.w, p2.y, p2.w * .018, '#F1F3F5'));          // 흰 가장자리선
-      [-.03, .03].forEach(o => quad(p1.x + o * p1.w, p1.y, p1.w * .012, p2.x + o * p2.w, p2.y, p2.w * .012, '#FCC419'));         // 노란 이중 중앙선
-      if (idx % 3) [-.48, .48].forEach(o => quad(p1.x + o * p1.w, p1.y, p1.w * .014, p2.x + o * p2.w, p2.y, p2.w * .014, 'rgba(241,243,245,.85)'));   // 흰 점선 차선
-      if (s.props.some(q => q.t === 'start' || q.t === 'arch')) { for (let k = 0; k < 8; k++) quad(p1.x - p1.w + (k + .5) * p1.w / 4, p1.y, p1.w / 8, p2.x - p2.w + (k + .5) * p2.w / 4, p2.y, p2.w / 8, (k + idx) % 2 ? '#212529' : '#FFFFFF'); }
+      ctx.fillStyle = (idx >> 1) % 2 ? '#8CBD5F' : '#88B95B'; ctx.fillRect(0, p2.y, W, a1.y - p2.y + 1);   // 잔디
+      quad(a1.x, a1.y, a1.w * 1.4, p2.x, p2.y, p2.w * 1.4, alt ? '#C9C6BF' : '#D1CEC7');                    // 보도
+      quad(a1.x, a1.y, a1.w * 1.13, p2.x, p2.y, p2.w * 1.13, ['#E03131', '#F8F9FA', '#1C7ED6', '#F8F9FA'][idx % 4]);   // 연석(빨강·흰·파랑)
+      quad(a1.x, a1.y, a1.w, p2.x, p2.y, p2.w, alt ? '#474B52' : '#4B4F56');                                   // 아스팔트
+      if (a1.w > 5) quad(a1.x, a1.y, a1.w * .985, p2.x, p2.y, p2.w * .985, alt ? '#41454C' : '#45494F');
+      if (a1.w > 5) [-.93, .93].forEach(o => quad(a1.x + o * a1.w, a1.y, a1.w * .018, p2.x + o * p2.w, p2.y, p2.w * .018, '#F1F3F5'));          // 흰 가장자리선
+      if (a1.w > 5) [-.03, .03].forEach(o => quad(a1.x + o * a1.w, a1.y, a1.w * .012, p2.x + o * p2.w, p2.y, p2.w * .012, '#FCC419'));         // 노란 이중 중앙선
+      if (idx % 3 && a1.w > 5) [-.48, .48].forEach(o => quad(a1.x + o * a1.w, a1.y, a1.w * .014, p2.x + o * p2.w, p2.y, p2.w * .014, 'rgba(241,243,245,.85)'));   // 흰 점선 차선
+      if (s.props.some(q => q.t === 'start' || q.t === 'arch')) { for (let k = 0; k < 8; k++) quad(a1.x - a1.w + (k + .5) * a1.w / 4, a1.y, a1.w / 8, p2.x - p2.w + (k + .5) * p2.w / 4, p2.y, p2.w / 8, (k + idx) % 2 ? '#212529' : '#FFFFFF'); }
       maxy = p2.y;
     }
     // 소품과 카트: 먼 것부터
@@ -8408,7 +8432,7 @@ img, svg, video { max-width: 100%; }
       const v = vis[k];
       ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, v.clip); ctx.clip();
       const wallSide = side => {   // 돌 난간(기둥 + 손잡이) 또는 커브 바깥쪽 노랑·검정 셰브론 벽
-        if (v.p1.w < 1.5) return;
+        if (v.p1.w < 4) return;
         const o = side * 1.36, xn = v.p1.x + o * v.p1.w, xf = v.p2.x + o * v.p2.w, hn = v.p1.w * .2, hf = v.p2.w * .2;
         const P = (f, gg) => [xn + (xf - xn) * f, v.p1.y + (v.p2.y - v.p1.y) * f - (hn + (hf - hn) * f) * gg];
         const shp = (pts, col) => { ctx.fillStyle = col; ctx.beginPath(); pts.forEach(([f, gg], k) => { const q = P(f, gg); k ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }); ctx.closePath(); ctx.fill(); };
@@ -8419,6 +8443,7 @@ img, svg, video { max-width: 100%; }
           shp([[0, 1.15], [1.02, 1.15], [1.02, 1.27], [0, 1.27]], '#343A40');
         } else {
           shp([[0, 0], [1.02, 0], [1.02, .3], [0, .3]], '#8F99A3');
+          if (v.p1.w < 22) { shp([[0, .3], [1.02, .3], [1.02, .86], [0, .86]], '#A7B0B9'); shp([[0, .86], [1.02, .86], [1.02, 1.12], [0, 1.12]], '#DDE2E7'); return; }
           shp([[0, .3], [1.02, .3], [1.02, .86], [0, .86]], 'rgba(70,80,92,.5)');
           [.17, .5, .83].forEach(f => shp([[f - .1, .3], [f + .1, .3], [f + .07, .86], [f - .07, .86]], '#C5CCD3'));
           shp([[0, .86], [1.02, .86], [1.02, 1.06], [0, 1.06]], '#E1E5EA'); shp([[0, 1.06], [1.02, 1.06], [1.02, 1.14], [0, 1.14]], '#A7B0BA');
@@ -8447,7 +8472,7 @@ img, svg, video { max-width: 100%; }
         if (o.r.bt != null && S.t - o.r.bt < .7) ktPop(ctx, kx, cy - kw * .55, kw, S.t - o.r.bt);
         if (kw > 24) {   // 이름표
           const label = (o.r.i + 1) + ' ' + ((R[o.r.i] && R[o.r.i].name) || DY_DEF[o.r.i].name), fs = Math.max(9, Math.min(14, kw * .13)), d = DY_DEF[o.r.i];
-          ctx.font = '800 ' + fs.toFixed(1) + 'px "Noto Sans KR", Arial, sans-serif'; const tw = ctx.measureText(label).width + fs, ty = cy - kw * 1.32;
+          ctx.font = '800 ' + fs.toFixed(1) + 'px "Noto Sans KR", Arial, sans-serif'; const tw = dyMW(ctx, label) + fs, ty = cy - kw * 1.32;
           ctx.fillStyle = d.deep; ctx.beginPath(); ctx.roundRect(kx - tw / 2, ty - fs * 1.4, tw, fs * 1.4, fs * .7); ctx.fill();
           if (isMe) { ctx.strokeStyle = '#FFD43B'; ctx.lineWidth = 2; ctx.stroke(); }
           ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(label, kx, ty - fs * .7);
@@ -8474,35 +8499,38 @@ img, svg, video { max-width: 100%; }
     else { ctx.fillStyle = '#7FB6EA'; ctx.fillRect(0, 0, W, hy); }
     const th = Math.max(8, H * .07); if (!dyOk('kbg') && dyOk('trees')) { const im = dyImg.trees, tw = im.naturalWidth * th / im.naturalHeight, off = ((-yaw / (Math.PI * 2)) * tw * 9) % tw; for (let x = off - tw; x < W; x += tw) ctx.drawImage(im, x, hy - th + 2, tw, th); }
     ctx.fillStyle = '#7DB35A'; ctx.fillRect(0, hy, W, H - hy);
-    const x0 = Math.floor((cam.pos[0] - 140) / 8) * 8, x1 = cam.pos[0] + 300;
+    const x0 = Math.floor((cam.pos[0] - 110) / 8) * 8, x1 = cam.pos[0] + 220;
     const poly = (pts, col) => { const P = pts.map(q => cam.p(...q)); if (P.some(v => !v)) return null; ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(P[0][0], P[0][1]); for (let k = 1; k < P.length; k++) ctx.lineTo(P[k][0], P[k][1]); ctx.closePath(); ctx.fill(); return P; };
-    const xs = []; for (let x = x0; x <= x1;) { const d = Math.abs(x - cam.pos[0]), w = d < 18 ? 1 : d < 40 ? 2 : 4; xs.push([x, w]); x += w; }
+    // 바닥: 한 색인 면(잔디·보도·아스팔트·차선)은 큰 덩어리로, 색이 바뀌는 연석·점선만 잘게 → 다각형 수 대폭 감소
     const byDist = (a, b) => Math.abs(b[0] - cam.pos[0]) - Math.abs(a[0] - cam.pos[0]);
+    const xs = []; for (let x = Math.floor(x0 / 2) * 2; x <= x1;) { const w = Math.abs(x - cam.pos[0]) < 20 ? 2 : 10; xs.push([x, w]); x += w; }
     xs.sort(byDist).forEach(([x, w]) => {
       const e = x + w + .05;
-      poly([[x, 0, -60], [e, 0, -60], [e, 0, -9], [x, 0, -9]], Math.floor(x / 8) % 2 ? '#78AE55' : '#7DB35A');            // 안쪽 잔디
-      const CB = ['#E03131', '#F8F9FA', '#1C7ED6', '#F8F9FA'][((Math.floor(x / 2) % 4) + 4) % 4];
-      poly([[x, 0, -9], [e, 0, -9], [e, 0, -1.4], [x, 0, -1.4]], Math.floor(x / 2) % 2 ? '#C9C6BF' : '#D1CEC7');          // 안쪽 보도
-      poly([[x, 0, -1.4], [e, 0, -1.4], [e, 0, 0], [x, 0, 0]], CB);                                                        // 연석(빨강·흰·파랑)
-      poly([[x, 0, 0], [e, 0, 0], [e, 0, DY_TW], [x, 0, DY_TW]], '#45494F');                                              // 진회색 아스팔트
+      poly([[x, 0, -60], [e, 0, -60], [e, 0, -9], [x, 0, -9]], '#7AB157');            // 안쪽 잔디
+      poly([[x, 0, -9], [e, 0, -9], [e, 0, -1.4], [x, 0, -1.4]], '#CDCAC3');          // 안쪽 보도
+      poly([[x, 0, 0], [e, 0, 0], [e, 0, DY_TW], [x, 0, DY_TW]], '#45494F');          // 아스팔트
       poly([[x, .01, .3], [e, .01, .3], [e, .01, .5], [x, .01, .5]], '#F1F3F5'); poly([[x, .01, DY_TW - .5], [e, .01, DY_TW - .5], [e, .01, DY_TW - .3], [x, .01, DY_TW - .3]], '#F1F3F5');
       [DY_TW / 2 - .3, DY_TW / 2 + .1].forEach(z => poly([[x, .01, z], [e, .01, z], [e, .01, z + .2], [x, .01, z + .2]], '#FCC419'));   // 노란 이중 중앙선
-      if (Math.floor(x / 5) % 2 === 0) [4, 12].forEach(z => poly([[x, .01, z - .12], [e, .01, z - .12], [e, .01, z + .12], [x, .01, z + .12]], '#F1F3F5'));   // 흰 점선 차선
-      poly([[x, 0, DY_TW], [e, 0, DY_TW], [e, 0, DY_TW + 1], [x, 0, DY_TW + 1]], CB);
-      poly([[x, 0, DY_TW + 1.4], [e, 0, DY_TW + 1.4], [e, 0, 34], [x, 0, 34]], Math.floor(x / 2) % 2 ? '#C9C6BF' : '#D1CEC7');   // 바깥 보도
+      poly([[x, 0, DY_TW + 1.4], [e, 0, DY_TW + 1.4], [e, 0, 34], [x, 0, 34]], '#CDCAC3');   // 바깥 보도
       poly([[x, 0, 34], [e, 0, 34], [e, 0, 140], [x, 0, 140]], '#7DB35A');
+      const cs = Math.abs(x - cam.pos[0]) < 70 ? 2 : 5;   // 먼 연석은 굵은 줄무늬
+      for (let q = x; q < x + w - .01; q += cs) {   // 연석(빨강·흰·파랑) · 흰 점선 5단위
+        const CB = ['#E03131', '#F8F9FA', '#1C7ED6', '#F8F9FA'][((Math.floor(q / cs) % 4) + 4) % 4], qe = q + cs + .05;
+        poly([[q, 0, -1.4], [qe, 0, -1.4], [qe, 0, 0], [q, 0, 0]], CB); poly([[q, 0, DY_TW], [qe, 0, DY_TW], [qe, 0, DY_TW + 1], [q, 0, DY_TW + 1]], CB);
+      }
+      for (let q = Math.ceil(x / 10) * 10; q < x + w; q += 10) [4, 12].forEach(z => poly([[q, .01, z - .12], [q + 5, .01, z - .12], [q + 5, .01, z + .12], [q, .01, z + .12]], '#F1F3F5'));
     });
-    // 안쪽 낮은 벽돌 담(위에 노랑·검정 띠) — 카메라 쪽이라 먼 것부터
+    // 안쪽 낮은 돌 난간 — 카메라 쪽이라 먼 것부터
     xs.slice().sort(byDist).forEach(([x, w]) => {
       const e = x + w + .05;
-      poly([[x, 0, -1.6], [e, 0, -1.6], [e, .16, -1.6], [x, .16, -1.6]], '#8F99A3');                     // 돌 난간 받침
+      poly([[x, 0, -1.6], [e, 0, -1.6], [e, .16, -1.6], [x, .16, -1.6]], '#8F99A3');
       poly([[x, .16, -1.6], [e, .16, -1.6], [e, .46, -1.6], [x, .46, -1.6]], 'rgba(70,80,92,.45)');
-      poly([[x, .46, -1.6], [e, .46, -1.6], [e, .56, -1.6], [x, .56, -1.6]], '#E1E5EA');                 // 손잡이
+      poly([[x, .46, -1.6], [e, .46, -1.6], [e, .56, -1.6], [x, .56, -1.6]], '#E1E5EA');
     });
     for (let x = Math.floor(x0 / .8) * .8; x < Math.min(x1, cam.pos[0] + 70); x += .8) if (x > cam.pos[0] - 70) poly([[x, .16, -1.61], [x + .26, .16, -1.61], [x + .26, .46, -1.61], [x, .46, -1.61]], '#C5CCD3');   // 난간 기둥
     if (DY_L > x0 && DY_L < x1) for (let k = 0; k < 8; k++) poly([[DY_L - .5, .015, k * 2], [DY_L + .5, .015, k * 2], [DY_L + .5, .015, k * 2 + 2], [DY_L - .5, .015, k * 2 + 2]], k % 2 ? '#212529' : '#FFFFFF');
     // 바깥 셰브론 방호벽(노랑·검정 화살표)
-    for (let x = Math.floor(x0 / 1.6) * 1.6; x < x1; x += 1.6) {
+    for (let x = Math.floor(Math.max(x0, cam.pos[0] - 45) / 1.6) * 1.6; x < Math.min(x1, cam.pos[0] + 150); x += 1.6) {
       const z = DY_TW + 1.2, a = poly([[x, 0, z], [x + 1.6, 0, z], [x + 1.6, 1.4, z], [x, 1.4, z]], '#FCC419'); if (!a) continue;
       poly([[x + .25, .15, z - .01], [x + .85, .7, z - .01], [x + .25, 1.25, z - .01], [x + .7, 1.25, z - .01], [x + 1.3, .7, z - .01], [x + .7, .15, z - .01]], '#212529');
     }
@@ -8517,11 +8545,11 @@ img, svg, video { max-width: 100%; }
         if (!poly([[p.x, 0, z], [p.x + w, 0, z], [p.x + w, h, z], [p.x, h, z]], wall)) return;
         poly([[p.x - .6, h, z - .2], [p.x + w + .6, h, z - .2], [p.x + w / 2, h + 4.2, z - .2]], roof);   // 박공 지붕
         poly([[p.x + w * .42, h + 1, z - .25], [p.x + w * .58, h + 1, z - .25], [p.x + w * .58, h + 2.4, z - .25], [p.x + w * .42, h + 2.4, z - .25]], '#FFFFFF');
-        [[1.2, 3.4], [4.2, 3.4], [7.2, 3.4]].forEach(([a, b]) => { poly([[p.x + a, b, z - .02], [p.x + a + 1.6, b, z - .02], [p.x + a + 1.6, b + 1.8, z - .02], [p.x + a, b + 1.8, z - .02]], '#74C0FC'); poly([[p.x + a - .15, b - .2, z - .03], [p.x + a + 1.75, b - .2, z - .03], [p.x + a + 1.75, b, z - .03], [p.x + a - .15, b, z - .03]], roof); });
+        if (Math.abs(p.x - cam.pos[0]) < 90) [[1.2, 3.4], [4.2, 3.4], [7.2, 3.4]].forEach(([a, b]) => { poly([[p.x + a, b, z - .02], [p.x + a + 1.6, b, z - .02], [p.x + a + 1.6, b + 1.8, z - .02], [p.x + a, b + 1.8, z - .02]], '#74C0FC'); poly([[p.x + a - .15, b - .2, z - .03], [p.x + a + 1.75, b - .2, z - .03], [p.x + a + 1.75, b, z - .03], [p.x + a - .15, b, z - .03]], roof); });
         poly([[p.x + 4.2, 0, z - .02], [p.x + 5.8, 0, z - .02], [p.x + 5.8, 2.6, z - .02], [p.x + 4.2, 2.6, z - .02]], '#8D6E63');
       } else if (p.t === 'tree') {
         const b = cam.p(p.x, 0, p.z), tp = cam.p(p.x, 6, p.z); if (!b || !tp) return; const h = b[1] - tp[1]; if (h < 3) return;
-        ktTree(ctx, b[0], b[1], h, p.pk);
+        ktTreeDraw(ctx, b[0], b[1], h, p.pk);
       } else {
         const b = cam.p(p.x, 0, p.z), tp = cam.p(p.x, 6.4, p.z); if (!b || !tp) return; const h = b[1] - tp[1]; if (h < 3) return;
         ktProp(ctx, { t: 'lamp' }, b[0], b[1], h / 1400, 2);
@@ -8583,7 +8611,7 @@ img, svg, video { max-width: 100%; }
       ctx.fillStyle = '#FFFFFF'; ctx.beginPath(); ctx.arc(0, -u * .2, u * .065, 0, 7); ctx.fill(); ctx.lineWidth = lw * .7; ctx.stroke(); ctx.lineWidth = lw;
       ctx.fillStyle = d.deep; ctx.font = '900 ' + (u * .085).toFixed(1) + 'px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(String(i + 1), 0, -u * .2 + .5);
       // 슬림 헤드라이트 + 프론트 윙
-      ctx.fillStyle = '#FFF3BF'; ctx.shadowColor = '#FFE066'; ctx.shadowBlur = u * .08; [-1, 1].forEach(k => { ctx.beginPath(); ctx.ellipse(k * Wk * .27, -u * .24, Wk * .06, u * .022, k * .2, 0, 7); ctx.fill(); }); ctx.shadowBlur = 0;
+      ctx.fillStyle = '#FFF3BF'; [-1, 1].forEach(k => { ctx.beginPath(); ctx.ellipse(k * Wk * .27, -u * .24, Wk * .06, u * .022, k * .2, 0, 7); ctx.fill(); }); ctx.shadowBlur = 0;
       ctx.fillStyle = '#25282C'; ctx.beginPath(); ctx.roundRect(-Wk * .5, -u * .07, Wk, u * .05, u * .02); ctx.fill();
       ctx.fillStyle = d.deep; [-1, 1].forEach(k => { ctx.beginPath(); ctx.roundRect(k > 0 ? Wk * .44 : -Wk * .5, -u * .13, Wk * .06, u * .11, u * .02); ctx.fill(); ctx.stroke(); });
     }
@@ -8671,7 +8699,7 @@ img, svg, video { max-width: 100%; }
   }
   function dyHud(S, live) {
     const bar = dyEl('dy-bar'); if (!bar) return;
-    S.run.forEach(r => { const d = bar.querySelector('[data-dyd="' + r.i + '"]'); if (d) { d.style.left = (Math.min(1, r.x / DY_L) * 100).toFixed(2) + '%'; d.classList.toggle('me', r.i === DRB.pick); d.style.zIndex = r.i === DRB.pick ? 20 : 10 - r.now; } });
+    S.run.forEach(r => { const d = (bar._d || (bar._d = {}))[r.i] || (bar._d[r.i] = bar.querySelector('[data-dyd="' + r.i + '"]')); if (d) { d.style.left = (Math.min(1, r.x / DY_L) * 100).toFixed(2) + '%'; d.classList.toggle('me', r.i === DRB.pick); d.style.zIndex = r.i === DRB.pick ? 20 : 10 - r.now; } });
     const me = S.run[DRB.pick], p = live[0].x / DY_L;
     // 내 응원 냥: 실시간 순위 + 상태
     let tag = '';
@@ -8680,7 +8708,8 @@ img, svg, video { max-width: 100%; }
     else if (me.now === 1) tag = '선두!';
     else if (p > .85 && me.now <= 3) tag = '스퍼트!';
     const box = dyEl('dy-me');
-    if (box) box.innerHTML = '<span class="dy-mf">' + dyFace(me.i) + '</span><span class="dy-mr"><b class="num">' + me.now + '</b>/' + DY_N + '</span>' + (tag ? '<i class="dy-tag">' + tag + '</i>' : '');
+    const meKey = me.i + '|' + me.now + '|' + tag;
+    if (box && box._k !== meKey) { box._k = meKey; box.innerHTML = '<span class="dy-mf">' + dyFace(me.i) + '</span><span class="dy-mr"><b class="num">' + me.now + '</b>/' + DY_N + '</span>' + (tag ? '<i class="dy-tag">' + tag + '</i>' : ''); }
     // 스킬 발동 + 중계
     S.run.forEach(r => { if (!r.skilled && r.x / DY_L > r.skillAt && S.t > 1) { r.skilled = true; dySkill(r); if (r.i === DRB.pick) SFX.star(2); } });
     const marks = [[.02, () => dyComm('중계', '자, 스타트를 끊었습니다! ' + DY_N + '마리 일제히 출발!')], [.03, () => dyComm('해설', S.late != null ? (S.late + 1) + '번 ' + DY_DEF[S.late].name + ', 조금 늦은 출발이네요.' : '깔끔한 스타트예요.')],
